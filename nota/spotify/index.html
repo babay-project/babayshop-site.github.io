@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Spotify Premium Nota Generator</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+
+        <style>
+            body {
+                font-family: "Montserrat", sans-serif;
+                background-color: #121212; /* Spotify Black Background */
+                color: white;
+            }
+
+            /* Spotify Gradient Accent for Background Glow */
+            .glow-bg {
+                position: absolute;
+                width: 300px;
+                height: 300px;
+                background: radial-gradient(
+                    circle,
+                    rgba(29, 185, 84, 0.15) 0%,
+                    rgba(0, 0, 0, 0) 70%
+                );
+                top: -100px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 0;
+                pointer-events: none;
+            }
+
+            /* Card Style */
+            .spotify-card {
+                background-color: #181818;
+                border-radius: 16px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+                border: 1px solid #282828;
+                position: relative;
+                z-index: 10;
+            }
+
+            /* Input Styles */
+            .spotify-input {
+                background-color: #333333;
+                border: 1px solid transparent;
+                color: white;
+                transition: all 0.2s ease;
+            }
+            .spotify-input:focus {
+                background-color: #2a2a2a;
+                border-color: #1db954; /* Spotify Green */
+                outline: none;
+                box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3);
+            }
+            .spotify-input::placeholder {
+                color: #b3b3b3;
+            }
+
+            /* Button Style */
+            .btn-spotify {
+                background-color: #1db954;
+                color: black;
+                font-weight: 700;
+                border-radius: 500px; /* Pill shape */
+                transition:
+                    transform 0.1s,
+                    background-color 0.2s;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            .btn-spotify:hover {
+                background-color: #1ed760; /* Lighter Green */
+                transform: scale(1.02);
+            }
+            .btn-spotify:active {
+                transform: scale(0.98);
+            }
+
+            /* Custom Scrollbar */
+            textarea::-webkit-scrollbar {
+                width: 8px;
+            }
+            textarea::-webkit-scrollbar-track {
+                background: #121212;
+            }
+            textarea::-webkit-scrollbar-thumb {
+                background: #535353;
+                border-radius: 4px;
+            }
+
+            .animate-fade-in {
+                animation: fadeIn 0.5s ease-out forwards;
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+    </head>
+    <body class="min-h-screen flex items-center justify-center p-4">
+        <div class="glow-bg"></div>
+
+        <div class="w-full max-w-lg spotify-card p-6 md:p-8 animate-fade-in">
+            <div class="text-center mb-8">
+                <div
+                    class="w-16 h-16 bg-[#1DB954] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg text-black text-3xl"
+                >
+                    <i class="fa-brands fa-spotify"></i>
+                </div>
+                <h1
+                    class="text-2xl md:text-3xl font-bold tracking-tight text-white"
+                >
+                    Spotify
+                    <span class="font-normal text-[#1DB954]">Premium</span>
+                </h1>
+                <p class="text-[#b3b3b3] text-sm mt-1">Generator Nota Akun</p>
+            </div>
+
+            <form id="notaForm" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label
+                            class="block text-white text-xs font-bold mb-2 ml-1 tracking-wider uppercase"
+                            >Email Akun</label
+                        >
+                        <input
+                            type="email"
+                            id="email"
+                            required
+                            placeholder="user@spotify.com"
+                            class="spotify-input w-full px-4 py-3 rounded-md text-sm"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-white text-xs font-bold mb-2 ml-1 tracking-wider uppercase"
+                            >Password</label
+                        >
+                        <input
+                            type="text"
+                            id="password"
+                            required
+                            placeholder="Password123"
+                            class="spotify-input w-full px-4 py-3 rounded-md text-sm"
+                        />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label
+                            class="block text-white text-xs font-bold mb-2 ml-1 tracking-wider uppercase"
+                            >Jenis Paket</label
+                        >
+                        <div class="relative">
+                            <select
+                                id="jenisPaket"
+                                required
+                                class="spotify-input w-full px-4 py-3 rounded-md cursor-pointer text-sm appearance-none"
+                            >
+                                <option value="" disabled selected>
+                                    -- Pilih --
+                                </option>
+                                <option value="Individual Plan">
+                                    Individual
+                                </option>
+                                <option value="Family Plan">Family</option>
+                                <option value="Student Plan">Student</option>
+                            </select>
+                            <div
+                                class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#1DB954]"
+                            >
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-white text-xs font-bold mb-2 ml-1 tracking-wider uppercase"
+                            >Durasi</label
+                        >
+                        <div class="relative">
+                            <select
+                                id="durasiSelect"
+                                required
+                                class="spotify-input w-full px-4 py-3 rounded-md cursor-pointer text-sm appearance-none"
+                            >
+                                <option value="" disabled selected>
+                                    -- Pilih --
+                                </option>
+                                <option value="1 Bulan">1 Bulan</option>
+                                <option value="2 Bulan">2 Bulan</option>
+                                <option value="3 Bulan">3 Bulan</option>
+                                <option value="custom">Custom Day</option>
+                            </select>
+                            <div
+                                class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#1DB954]"
+                            >
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="customDayContainer" class="hidden">
+                    <label
+                        class="block text-[#1DB954] text-xs font-bold mb-2 ml-1 tracking-wider uppercase"
+                        >Total Hari (Custom)</label
+                    >
+                    <div class="flex items-center">
+                        <input
+                            type="number"
+                            id="customDayInput"
+                            placeholder="Contoh: 45"
+                            class="spotify-input w-full px-4 py-3 rounded-l-md text-sm border-r-0"
+                        />
+                        <span
+                            class="bg-[#333] text-[#b3b3b3] px-4 py-3 rounded-r-md border border-l-0 border-transparent text-sm"
+                            >Hari</span
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <label
+                        class="block text-white text-xs font-bold mb-2 ml-1 tracking-wider uppercase"
+                        >Jenis Garansi</label
+                    >
+                    <div class="relative">
+                        <select
+                            id="garansi"
+                            required
+                            class="spotify-input w-full px-4 py-3 rounded-md cursor-pointer text-sm appearance-none"
+                        >
+                            <option value="" disabled selected>
+                                -- Pilih Tipe Garansi --
+                            </option>
+                            <option value="1x Ganti Baru">
+                                Garansi 1x Replacement
+                            </option>
+                            <option value="2x Ganti Baru">
+                                Garansi 2x Replacement
+                            </option>
+                            <option value="Full Garansi">
+                                Garansi Full (Selama Durasi)
+                            </option>
+                        </select>
+                        <div
+                            class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#1DB954]"
+                        >
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn-spotify w-full py-3.5 shadow-lg flex items-center justify-center gap-2 mt-6"
+                >
+                    Generate Nota <i class="fa-solid fa-bolt"></i>
+                </button>
+            </form>
+
+            <div
+                id="outputSection"
+                class="hidden mt-8 pt-6 border-t border-[#282828]"
+            >
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="font-bold text-white text-sm">Preview Nota</h3>
+                    <span
+                        class="text-[10px] font-bold text-black bg-[#1DB954] px-2 py-1 rounded-full uppercase tracking-wide"
+                        >Ready</span
+                    >
+                </div>
+
+                <textarea
+                    id="notaOutput"
+                    rows="16"
+                    readonly
+                    class="w-full bg-[#121212] border border-[#282828] rounded-md p-4 text-xs md:text-sm font-mono text-[#b3b3b3] focus:outline-none resize-none leading-relaxed"
+                ></textarea>
+
+                <div class="flex gap-3 mt-4">
+                    <button
+                        id="editBtn"
+                        class="flex-1 bg-[#282828] hover:bg-[#333] text-white font-bold py-3 rounded-full transition-colors text-xs uppercase tracking-wider"
+                    >
+                        Edit Teks
+                    </button>
+                    <button
+                        id="copyBtn"
+                        class="flex-1 bg-white hover:bg-gray-200 text-black font-bold py-3 rounded-full transition-colors shadow-lg flex justify-center items-center gap-2 text-xs uppercase tracking-wider"
+                    >
+                        <i class="fa-regular fa-copy"></i> Salin
+                    </button>
+                </div>
+                <p
+                    id="feedback"
+                    class="text-center text-[#1DB954] text-xs font-bold mt-3 hidden"
+                >
+                    <i class="fa-solid fa-check-circle"></i> Berhasil disalin!
+                </p>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const form = document.getElementById("notaForm");
+                const outputSection = document.getElementById("outputSection");
+                const notaOutput = document.getElementById("notaOutput");
+                const feedback = document.getElementById("feedback");
+
+                // Logic Custom Day
+                const durasiSelect = document.getElementById("durasiSelect");
+                const customDayContainer =
+                    document.getElementById("customDayContainer");
+                const customDayInput =
+                    document.getElementById("customDayInput");
+
+                durasiSelect.addEventListener("change", function () {
+                    if (this.value === "custom") {
+                        customDayContainer.classList.remove("hidden");
+                        customDayInput.setAttribute("required", "true");
+                    } else {
+                        customDayContainer.classList.add("hidden");
+                        customDayInput.removeAttribute("required");
+                        customDayInput.value = "";
+                    }
+                });
+
+                // Form Submit
+                form.addEventListener("submit", (e) => {
+                    e.preventDefault();
+
+                    // Ambil Data
+                    const email = document.getElementById("email").value;
+                    const password = document.getElementById("password").value;
+                    const jenisPaket =
+                        document.getElementById("jenisPaket").value; // Ambil Jenis Paket
+                    const garansi = document.getElementById("garansi").value;
+
+                    // Logic Durasi Akhir
+                    let durasiFinal = durasiSelect.value;
+                    if (durasiFinal === "custom") {
+                        durasiFinal = customDayInput.value + " Hari";
+                    }
+
+                    // Waktu Transaksi
+                    const now = new Date();
+                    const tgl = now.toLocaleString("id-ID", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                    });
+                    const jam = now
+                        .toLocaleString("id-ID", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                        })
+                        .replace(/\./g, ":");
+                    const waktu = `${tgl}, ${jam} WIB`;
+
+                    // Template Nota Spotify Style
+                    const template = `
+╭────〔 SPOTIFY PREMIUM 〕─
+┊・Paket   : ${jenisPaket}
+┊・Durasi  : ${durasiFinal}
+┊・Garansi : ${garansi}
+┊・Waktu   : ${waktu}
+╰┈┈┈┈┈┈┈┈
+DATA AKUN:
+▰ Email    : ${email}
+▰ Password : ${password}
+╰┈┈┈┈┈┈┈┈
+INSTRUKSI PENGGUNAAN:
+1. Login di aplikasi atau web Spotify.
+2. Cek status premium di menu Account.
+3. Dilarang mengubah email/region agar
+   garansi tetap berlaku.
+4. Jika ada kendala, screenshot profil
+   dan kirim ke admin.
+
+Terimakasih sudah order! 🎵
+`.trim();
+
+                    notaOutput.value = template;
+                    notaOutput.readOnly = true;
+                    outputSection.classList.remove("hidden");
+
+                    // Animasi Scroll
+                    outputSection.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                    });
+                });
+
+                // Logic Copy
+                document
+                    .getElementById("copyBtn")
+                    .addEventListener("click", () => {
+                        notaOutput.select();
+                        document.execCommand("copy");
+                        feedback.classList.remove("hidden");
+                        setTimeout(
+                            () => feedback.classList.add("hidden"),
+                            2000,
+                        );
+                    });
+
+                // Logic Edit
+                document
+                    .getElementById("editBtn")
+                    .addEventListener("click", () => {
+                        notaOutput.readOnly = false;
+                        notaOutput.focus();
+                        const btn = document.getElementById("editBtn");
+                        btn.textContent = "Editing Mode...";
+                        btn.classList.remove("bg-[#282828]", "text-white");
+                        btn.classList.add("bg-yellow-600", "text-white");
+
+                        setTimeout(() => {
+                            btn.textContent = "Edit Teks";
+                            btn.classList.add("bg-[#282828]", "text-white");
+                            btn.classList.remove("bg-yellow-600");
+                        }, 3000);
+                    });
+            });
+        </script>
+    </body>
+</html>

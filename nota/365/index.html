@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office 365 Nota</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Segoe UI (Microsoft Style) atau Fallback ke Sans-Serif -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2f1; /* Microsoft Light Gray Background */
+            color: #201f1e;
+        }
+
+        /* Microsoft Brand Colors */
+        .ms-blue { color: #0078d4; }
+        .bg-ms-blue { background-color: #0078d4; }
+        .hover-ms-blue:hover { background-color: #006cbe; }
+        .border-ms-blue { border-color: #0078d4; }
+
+        /* Card Shadow (Elevation) */
+        .ms-card {
+            background-color: white;
+            box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,0.132), 0 0.3px 0.9px 0 rgba(0,0,0,0.108);
+            border-radius: 4px; /* Sudut sedikit membulat khas modern Windows */
+        }
+
+        /* Input Styles (Underlined or Box) */
+        .ms-input {
+            border: 1px solid #8a8886;
+            border-radius: 2px;
+            transition: all 0.2s;
+        }
+        .ms-input:focus {
+            border-color: #0078d4;
+            outline: 2px solid transparent; /* Remove default outline */
+            box-shadow: inset 0 -2px 0 0 #0078d4; /* Bottom border effect */
+        }
+        .ms-input:hover {
+            border-color: #323130;
+        }
+
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+
+        /* Office Grid Background Pattern (Subtle) */
+        .office-bg {
+            background-image: radial-gradient(#e1dfdd 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="office-bg min-h-screen flex items-center justify-center p-4">
+
+    <!-- Kontainer Utama -->
+    <div class="w-full max-w-2xl ms-card p-8 md:p-12 fade-in relative overflow-hidden">
+
+        <!-- Header Strip Warna-Warni (Office Icons Vibe) -->
+        <div class="absolute top-0 left-0 w-full h-1.5 flex">
+            <div class="h-full w-1/4 bg-[#d83b01]"></div> <!-- Office Red -->
+            <div class="h-full w-1/4 bg-[#107c41]"></div> <!-- Excel Green -->
+            <div class="h-full w-1/4 bg-[#0078d4]"></div> <!-- Word/Outlook Blue -->
+            <div class="h-full w-1/4 bg-[#ffb900]"></div> <!-- Powerpoint Yellow -->
+        </div>
+
+        <!-- Header Content -->
+        <div class="flex items-center gap-4 mb-8 mt-2">
+            <!-- Icon Microsoft Simple -->
+            <svg class="w-12 h-12" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0H10.8696V10.8696H0V0Z" fill="#F25022"/>
+                <path d="M12.1304 0H23V10.8696H12.1304V0Z" fill="#7FBA00"/>
+                <path d="M0 12.1304H10.8696V23H0V12.1304Z" fill="#00A4EF"/>
+                <path d="M12.1304 12.1304H23V23H12.1304V12.1304Z" fill="#FFB900"/>
+            </svg>
+            <div>
+                <h1 class="text-3xl font-semibold text-gray-800">Office 365 Generator</h1>
+                <p class="text-gray-500 text-sm">Create Account Receipt</p>
+            </div>
+        </div>
+
+        <!-- Form Layout 2 Kolom -->
+        <form id="notaForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Kolom Kiri: Produk Info (Fixed) -->
+            <div class="md:col-span-2 bg-gray-50 p-4 border border-gray-200 rounded-sm">
+                <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2">Detail Paket</h3>
+                <div class="flex justify-between items-start mb-2">
+                    <span class="text-gray-600 mt-1">Produk:</span>
+                    <div class="text-right">
+                        <span class="font-medium text-[#0078d4] block">Office 365 A1</span>
+                        <span class="text-xs text-gray-500 block">(Mobile / Android / iOS / Chromebook)</span>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-gray-600">Plan:</span>
+                    <span class="font-medium">Permanent Lifetime (Garansi 1 Tahun)</span>
+                </div>
+                <!-- Tambahan Info Max Login di UI -->
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-gray-600">Max Login:</span>
+                    <span class="font-medium text-xs md:text-sm">2-4 Device (Saran: 1 Akun/Perangkat)</span>
+                </div>
+                <div class="flex justify-between items-center border-t border-gray-200 mt-2 pt-2">
+                    <span class="text-gray-600">Harga:</span>
+                    <span class="font-bold text-lg text-gray-800">Rp. 55.000</span>
+                </div>
+            </div>
+
+            <!-- Request Nama -->
+            <div class="md:col-span-2">
+                <label for="reqName" class="block mb-1.5 text-sm font-semibold text-gray-700">Request Nama (Untuk Akun)</label>
+                <input type="text" id="reqName" required placeholder="Contoh: agus.kreatif"
+                       class="ms-input w-full p-2.5 text-gray-800 bg-white placeholder-gray-400">
+                <p class="text-xs text-gray-400 mt-1">Nama ini akan digunakan sebagai identitas akun.</p>
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="email" class="block mb-1.5 text-sm font-semibold text-gray-700">Email Login</label>
+                <input type="email" id="email" required placeholder="user@domain.com"
+                       class="ms-input w-full p-2.5 text-gray-800 bg-white placeholder-gray-400">
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="password" class="block mb-1.5 text-sm font-semibold text-gray-700">Password</label>
+                <input type="text" id="password" required placeholder="Password..."
+                       class="ms-input w-full p-2.5 text-gray-800 bg-white placeholder-gray-400">
+            </div>
+
+            <!-- Tombol Generate -->
+            <div class="md:col-span-2 mt-4">
+                <button type="submit"
+                        class="w-full bg-ms-blue hover-ms-blue text-white font-semibold py-3 px-4 rounded-sm transition-colors shadow-md flex items-center justify-center gap-2">
+                    <span>Generate Receipt</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </div>
+        </form>
+
+        <!-- Hasil Nota -->
+        <div id="outputSection" class="mt-10 hidden border-t border-gray-200 pt-8 animate-[fadeIn_0.5s_ease-out]">
+            <div class="flex justify-between items-end mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">Hasil Nota</h2>
+                <span class="text-xs bg-[#e6f2fb] text-[#0078d4] px-2 py-1 rounded">Ready to Copy</span>
+            </div>
+
+            <textarea id="notaOutput" rows="16" readonly
+                      class="w-full bg-gray-50 border border-gray-300 text-gray-700 text-sm font-mono p-4 rounded-sm focus:ring-2 focus:ring-[#0078d4] outline-none"></textarea>
+
+            <div class="mt-4 flex gap-3">
+                <button id="editButton"
+                        class="flex-1 bg-white border border-gray-400 hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded-sm transition-colors">
+                    Edit Nota
+                </button>
+                <button id="copyButton"
+                        class="flex-1 bg-[#107c41] hover:bg-[#0f703b] text-white font-medium py-2 px-4 rounded-sm shadow-sm transition-colors flex justify-center items-center gap-2">
+                    <!-- Icon Copy -->
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                    Salin Nota
+                </button>
+            </div>
+            <p id="copyMessage" class="text-[#107c41] text-sm mt-2 text-center hidden font-medium">✨ Nota berhasil disalin!</p>
+        </div>
+    </div>
+
+    <!-- Footer Simple -->
+    <div class="fixed bottom-4 text-gray-400 text-xs text-center w-full pointer-events-none">
+        Microsoft 365 Style Generator • Babayshop.my.id
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('notaForm');
+            const outputSection = document.getElementById('outputSection');
+            const notaOutput = document.getElementById('notaOutput');
+            const copyBtn = document.getElementById('copyButton');
+            const editBtn = document.getElementById('editButton');
+            const copyMsg = document.getElementById('copyMessage');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Ambil Data
+                const reqName = document.getElementById('reqName').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                // Waktu
+                const now = new Date();
+                const tgl = now.toLocaleString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                const jam = now.toLocaleString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\./g, ':');
+                const waktu = `${tgl}, ${jam} WIB`;
+
+                // Template Nota
+                const template = `
+╭────〔 MICROSOFT 365 〕─
+┊・Product : Office 365 A1 (Mobile/Android/iOS/Chromebook)
+┊・Plan : Permanent Lifetime (Garansi 1 Tahun)
+┊・Price : Rp. 55.000
+┊・Waktu : ${waktu}
+╰┈┈┈┈┈┈┈┈
+ACCOUNT DETAILS:
+▰ Request Name : ${reqName}
+▰ Email : ${email}
+▰ Password : ${password}
+╰┈┈┈┈┈┈┈┈
+NOTES:
+• Max Login bisa di 2-4 perangkat berbeda.
+• Diusahakan 1 perangkat punya 1 akun agar lebih aman.
+
+Thank you for your purchase!
+Akses Login: Silahkan login via Aplikasi Microsoft 365 di perangkat masing-masing.
+`.trim();
+
+                notaOutput.value = template;
+                notaOutput.readOnly = true;
+                outputSection.classList.remove('hidden');
+
+                // Reset Tombol Edit
+                editBtn.textContent = "Edit Nota";
+                editBtn.classList.remove('bg-gray-200', 'text-gray-400');
+                editBtn.disabled = false;
+
+                // Scroll
+                outputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+
+            // Fungsi Salin
+            copyBtn.addEventListener('click', () => {
+                notaOutput.select();
+                document.execCommand('copy'); // Fallback aman
+
+                // Feedback Visual
+                copyMsg.classList.remove('hidden');
+                setTimeout(() => copyMsg.classList.add('hidden'), 3000);
+            });
+
+            // Fungsi Edit
+            editBtn.addEventListener('click', () => {
+                notaOutput.readOnly = false;
+                notaOutput.focus();
+
+                editBtn.textContent = "Editing Mode...";
+                editBtn.classList.add('bg-gray-200', 'text-gray-400');
+                editBtn.disabled = true;
+            });
+        });
+    </script>
+</body>
+</html>

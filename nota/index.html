@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard Nota - Babayshop</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+
+        <style>
+            /* === DEFAULT DARK MODE === */
+            body {
+                font-family: "Inter", sans-serif;
+                background-color: #0f172a; /* Slate 900 */
+                background-image:
+                    radial-gradient(
+                        at 0% 0%,
+                        hsla(253, 16%, 7%, 1) 0,
+                        transparent 50%
+                    ),
+                    radial-gradient(
+                        at 50% 0%,
+                        hsla(225, 39%, 30%, 1) 0,
+                        transparent 50%
+                    ),
+                    radial-gradient(
+                        at 100% 0%,
+                        hsla(339, 49%, 30%, 1) 0,
+                        transparent 50%
+                    );
+                background-attachment: fixed;
+                color: #ffffff;
+                transition:
+                    background-color 0.5s ease,
+                    color 0.3s ease;
+            }
+
+            /* Glassmorphism Card (Dark) */
+            .glass-card {
+                background: rgba(30, 41, 59, 0.7);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                transition: all 0.3s ease;
+            }
+
+            .glass-card:hover {
+                transform: translateY(-5px);
+                border-color: rgba(255, 255, 255, 0.3);
+                box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            }
+
+            /* === LIGHT MODE OVERRIDES === */
+            body.light-mode {
+                background-color: #f8fafc; /* Slate 50 */
+                background-image:
+                    radial-gradient(
+                        at 0% 0%,
+                        hsla(210, 100%, 96%, 1) 0,
+                        transparent 50%
+                    ),
+                    radial-gradient(
+                        at 50% 0%,
+                        hsla(210, 100%, 93%, 1) 0,
+                        transparent 50%
+                    ),
+                    radial-gradient(
+                        at 100% 0%,
+                        hsla(210, 100%, 90%, 1) 0,
+                        transparent 50%
+                    );
+                color: #1e293b; /* Slate 800 */
+            }
+
+            body.light-mode .glass-card {
+                background: rgba(255, 255, 255, 0.7);
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            }
+
+            body.light-mode .glass-card:hover {
+                border-color: rgba(0, 0, 0, 0.1);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Override Text Colors in Light Mode */
+            body.light-mode .text-white {
+                color: #1e293b !important;
+            } /* White -> Dark Slate */
+            body.light-mode .text-slate-400 {
+                color: #64748b !important;
+            } /* Light Gray -> Medium Gray */
+            body.light-mode .text-slate-300 {
+                color: #475569 !important;
+            }
+            body.light-mode .text-slate-500 {
+                color: #94a3b8 !important;
+            }
+
+            /* Override Backgrounds in Light Mode */
+            body.light-mode .bg-slate-800 {
+                background-color: #e2e8f0 !important;
+            } /* Dark -> Light Gray */
+            body.light-mode .bg-black {
+                background-color: #1e293b !important;
+            } /* Black -> Dark Slate */
+            body.light-mode .border-slate-700 {
+                border-color: #cbd5e1 !important;
+            }
+            body.light-mode .border-slate-600 {
+                border-color: #94a3b8 !important;
+            }
+
+            /* Gradients in Light Mode */
+            body.light-mode .from-blue-200 {
+                --tw-gradient-from: #2563eb !important;
+            } /* Blue 200 -> Blue 600 */
+            body.light-mode .to-purple-200 {
+                --tw-gradient-to: #9333ea !important;
+            } /* Purple 200 -> Purple 600 */
+
+            /* Custom Scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #0f172a;
+            }
+            body.light-mode ::-webkit-scrollbar-track {
+                background: #f1f5f9;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #334155;
+                border-radius: 4px;
+            }
+            body.light-mode ::-webkit-scrollbar-thumb {
+                background: #cbd5e1;
+            }
+        </style>
+    </head>
+    <body class="min-h-screen p-4 md:p-8">
+        <header
+            class="max-w-7xl mx-auto mb-10 flex flex-col md:flex-row justify-between items-center gap-4 animate-[fadeIn_0.5s_ease-out]"
+        >
+            <div class="flex items-center gap-4">
+                <div
+                    class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20"
+                >
+                    <i class="fa-solid fa-file-invoice text-xl text-white"></i>
+                </div>
+                <div>
+                    <h1
+                        class="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-purple-200 transition-colors"
+                    >
+                        Nota Generator
+                    </h1>
+                    <p class="text-slate-400 text-sm transition-colors">
+                        Babayshop Dashboard System
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button
+                    id="themeToggle"
+                    class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-yellow-400 hover:scale-110 transition-transform shadow-lg"
+                >
+                    <i class="fa-solid fa-sun text-lg"></i>
+                </button>
+
+                <div
+                    class="bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700 backdrop-blur-sm transition-colors"
+                >
+                    <span
+                        class="w-2 h-2 rounded-full bg-green-500 inline-block mr-2 animate-pulse"
+                    ></span>
+                    <span
+                        class="text-sm text-slate-300 font-mono transition-colors"
+                        >System Online</span
+                    >
+                </div>
+            </div>
+        </header>
+
+        <main
+            class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 pb-20"
+        >
+            <a
+                href="https://babayshop.my.id/galaxy/"
+                class="glass-card rounded-2xl p-6 group relative overflow-hidden"
+            >
+                <div
+                    class="absolute top-0 right-0 w-24 h-24 bg-purple-600/20 rounded-full blur-2xl group-hover:bg-purple-500/30 transition-all"
+                ></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div class="mb-4">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center border border-slate-700 mb-3 group-hover:border-purple-500/50 transition-colors"
+                        >
+                            <i
+                                class="fa-solid fa-rocket text-purple-400 text-xl"
+                            ></i>
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-white mb-1 transition-colors"
+                        >
+                            Galaxy All-in-One
+                        </h3>
+                        <p class="text-xs text-slate-400 transition-colors">
+                            Aplikasi Campuran & Tools
+                        </p>
+                    </div>
+                    <div
+                        class="mt-2 flex items-center text-sm font-semibold text-purple-400 group-hover:text-purple-300 transition-colors"
+                    >
+                        Buka Menu
+                        <i
+                            class="fa-solid fa-arrow-right ml-2 text-xs transition-transform group-hover:translate-x-1"
+                        ></i>
+                    </div>
+                </div>
+            </a>
+
+            <a
+                href="https://babayshop.my.id/nota/cc/"
+                class="glass-card rounded-2xl p-6 group relative overflow-hidden"
+            >
+                <div
+                    class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all"
+                ></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div class="mb-4">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-black flex items-center justify-center border border-slate-700 mb-3 group-hover:border-white/50 transition-colors"
+                        >
+                            <i
+                                class="fa-solid fa-scissors text-white text-xl"
+                            ></i>
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-white mb-1 transition-colors"
+                        >
+                            CapCut Pro
+                        </h3>
+                        <p class="text-xs text-slate-400 transition-colors">
+                            Nota Editing Video
+                        </p>
+                    </div>
+                    <div
+                        class="mt-2 flex items-center text-sm font-semibold text-white group-hover:text-gray-300 transition-colors"
+                    >
+                        Buat Nota
+                        <i
+                            class="fa-solid fa-arrow-right ml-2 text-xs transition-transform group-hover:translate-x-1"
+                        ></i>
+                    </div>
+                </div>
+            </a>
+
+            <a
+                href="https://babayshop.my.id/nota/netflix/"
+                class="glass-card rounded-2xl p-6 group relative overflow-hidden"
+            >
+                <div
+                    class="absolute top-0 right-0 w-24 h-24 bg-red-600/20 rounded-full blur-2xl group-hover:bg-red-600/30 transition-all"
+                ></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div class="mb-4">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-black flex items-center justify-center border border-slate-700 mb-3 group-hover:border-red-600/50 transition-colors"
+                        >
+                            <span class="text-red-600 font-black text-2xl"
+                                >N</span
+                            >
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-white mb-1 transition-colors"
+                        >
+                            Netflix
+                        </h3>
+                        <p class="text-xs text-slate-400 transition-colors">
+                            Nota Streaming Premium
+                        </p>
+                    </div>
+                    <div
+                        class="mt-2 flex items-center text-sm font-semibold text-red-500 group-hover:text-red-400 transition-colors"
+                    >
+                        Buat Nota
+                        <i
+                            class="fa-solid fa-arrow-right ml-2 text-xs transition-transform group-hover:translate-x-1"
+                        ></i>
+                    </div>
+                </div>
+            </a>
+
+            <a
+                href="https://babayshop.my.id/nota/365/"
+                class="glass-card rounded-2xl p-6 group relative overflow-hidden"
+            >
+                <div
+                    class="absolute top-0 right-0 w-24 h-24 bg-blue-600/20 rounded-full blur-2xl group-hover:bg-blue-600/30 transition-all"
+                ></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div class="mb-4">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center border border-slate-700 mb-3 group-hover:border-blue-500/50 transition-colors"
+                        >
+                            <i
+                                class="fa-brands fa-microsoft text-blue-500 text-2xl"
+                            ></i>
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-white mb-1 transition-colors"
+                        >
+                            Microsoft 365
+                        </h3>
+                        <p class="text-xs text-slate-400 transition-colors">
+                            Nota Lisensi Office
+                        </p>
+                    </div>
+                    <div
+                        class="mt-2 flex items-center text-sm font-semibold text-blue-400 group-hover:text-blue-300 transition-colors"
+                    >
+                        Buat Nota
+                        <i
+                            class="fa-solid fa-arrow-right ml-2 text-xs transition-transform group-hover:translate-x-1"
+                        ></i>
+                    </div>
+                </div>
+            </a>
+
+            <a
+                href="https://babayshop.my.id/nota/canva/"
+                class="glass-card rounded-2xl p-6 group relative overflow-hidden"
+            >
+                <div
+                    class="absolute top-0 right-0 w-24 h-24 bg-teal-500/20 rounded-full blur-2xl group-hover:bg-teal-400/30 transition-all"
+                ></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div class="mb-4">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-600 to-teal-400 flex items-center justify-center mb-3 shadow-lg"
+                        >
+                            <span class="text-white font-bold text-xl">C</span>
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-white mb-1 transition-colors"
+                        >
+                            Canva Edu
+                        </h3>
+                        <p class="text-xs text-slate-400 transition-colors">
+                            Nota Design Premium
+                        </p>
+                    </div>
+                    <div
+                        class="mt-2 flex items-center text-sm font-semibold text-teal-400 group-hover:text-teal-300 transition-colors"
+                    >
+                        Buat Nota
+                        <i
+                            class="fa-solid fa-arrow-right ml-2 text-xs transition-transform group-hover:translate-x-1"
+                        ></i>
+                    </div>
+                </div>
+            </a>
+
+            <a
+                href="https://babayshop.my.id/nota/spotify/"
+                class="glass-card rounded-2xl p-6 group relative overflow-hidden"
+            >
+                <div
+                    class="absolute top-0 right-0 w-24 h-24 bg-green-500/20 rounded-full blur-2xl group-hover:bg-green-500/30 transition-all"
+                ></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div class="mb-4">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-black flex items-center justify-center border border-slate-700 mb-3 group-hover:border-green-500/50 transition-colors"
+                        >
+                            <i
+                                class="fa-brands fa-spotify text-green-500 text-2xl"
+                            ></i>
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-white mb-1 transition-colors"
+                        >
+                            Spotify Premium
+                        </h3>
+                        <p class="text-xs text-slate-400 transition-colors">
+                            Nota Musik Streaming
+                        </p>
+                    </div>
+                    <div
+                        class="mt-2 flex items-center text-sm font-semibold text-green-500 group-hover:text-green-400 transition-colors"
+                    >
+                        Buat Nota
+                        <i
+                            class="fa-solid fa-arrow-right ml-2 text-xs transition-transform group-hover:translate-x-1"
+                        ></i>
+                    </div>
+                </div>
+            </a>
+
+            <a
+                href="#"
+                class="glass-card rounded-2xl p-6 group relative overflow-hidden border-dashed border-slate-600 hover:border-slate-400 transition-colors"
+            >
+                <div
+                    class="relative z-10 flex flex-col h-full justify-between opacity-50 group-hover:opacity-100 transition-opacity"
+                >
+                    <div class="mb-4">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center border border-slate-700 mb-3"
+                        >
+                            <i
+                                class="fa-solid fa-plus text-slate-400 text-xl"
+                            ></i>
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-slate-300 mb-1 transition-colors"
+                        >
+                            App Baru
+                        </h3>
+                        <p class="text-xs text-slate-500 transition-colors">
+                            Edit HTML untuk isi
+                        </p>
+                    </div>
+                    <div
+                        class="mt-2 flex items-center text-sm font-semibold text-slate-500"
+                    >
+                        Segera Hadir
+                    </div>
+                </div>
+            </a>
+
+            <a
+                href="#"
+                class="glass-card rounded-2xl p-6 group relative overflow-hidden border-dashed border-slate-600 hover:border-slate-400 transition-colors"
+            >
+                <div
+                    class="relative z-10 flex flex-col h-full justify-between opacity-50 group-hover:opacity-100 transition-opacity"
+                >
+                    <div class="mb-4">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center border border-slate-700 mb-3"
+                        >
+                            <i
+                                class="fa-solid fa-plus text-slate-400 text-xl"
+                            ></i>
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-slate-300 mb-1 transition-colors"
+                        >
+                            App Baru
+                        </h3>
+                        <p class="text-xs text-slate-500 transition-colors">
+                            Edit HTML untuk isi
+                        </p>
+                    </div>
+                    <div
+                        class="mt-2 flex items-center text-sm font-semibold text-slate-500"
+                    >
+                        Segera Hadir
+                    </div>
+                </div>
+            </a>
+        </main>
+
+        <footer
+            class="max-w-7xl mx-auto text-center text-slate-500 text-sm py-6 border-t border-slate-800"
+        >
+            <p>&copy; 2025 Babayshop System. All rights reserved.</p>
+        </footer>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const toggleBtn = document.getElementById("themeToggle");
+                const icon = toggleBtn.querySelector("i");
+                const body = document.body;
+
+                // Fungsi Set Mode
+                function setLightMode() {
+                    body.classList.add("light-mode");
+                    icon.classList.remove("fa-sun");
+                    icon.classList.add("fa-moon"); // Ubah ikon jadi bulan
+                    toggleBtn.classList.replace("bg-slate-800", "bg-white");
+                    toggleBtn.classList.replace(
+                        "text-yellow-400",
+                        "text-slate-800",
+                    );
+                }
+
+                function setDarkMode() {
+                    body.classList.remove("light-mode");
+                    icon.classList.remove("fa-moon");
+                    icon.classList.add("fa-sun"); // Ubah ikon jadi matahari
+                    toggleBtn.classList.replace("bg-white", "bg-slate-800");
+                    toggleBtn.classList.replace(
+                        "text-slate-800",
+                        "text-yellow-400",
+                    );
+                }
+
+                // Logic Waktu Otomatis (6 Pagi - 6 Sore)
+                function checkTime() {
+                    const now = new Date();
+                    const hours = now.getHours();
+
+                    // Jam 6 (06:00) sampai sebelum Jam 18 (18:00) adalah Siang
+                    if (hours >= 6 && hours < 18) {
+                        setLightMode();
+                    } else {
+                        setDarkMode();
+                    }
+                }
+
+                // Jalankan cek waktu saat loading
+                checkTime();
+
+                // Toggle Manual
+                toggleBtn.addEventListener("click", () => {
+                    if (body.classList.contains("light-mode")) {
+                        setDarkMode();
+                    } else {
+                        setLightMode();
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

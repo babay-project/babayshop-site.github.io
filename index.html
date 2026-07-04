@@ -1,1 +1,168 @@
-DALAM PERBAIKAN
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Babayshop Price List</title>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+            rel="stylesheet"
+        />
+
+        <style>
+            body {
+                font-family: "Inter", sans-serif;
+                overflow: hidden;
+            }
+
+            .bg-main {
+                background-image:
+                    linear-gradient(
+                        rgba(0, 0, 0, 0.8),
+                        rgba(0, 0, 0, 0.8)
+                    ),
+                    url("https://assets.nflxext.com/ffe/siteui/vlv3/e94073b0-a056-402f-9015-16cb1e7e45c2/web/ID-en-20251110-TRIFECTA-perspective_29287120-1497-47a9-8b0a-49e7ded22f31_large.jpg");
+
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            /* CARD GLASS GELAP */
+            .glass {
+                background: rgba(15, 15, 15, 0.6);
+                backdrop-filter: blur(18px);
+                -webkit-backdrop-filter: blur(18px);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            }
+
+            /* BUTTON GLASS */
+            .glass-btn {
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                transition: all 0.3s ease;
+            }
+
+            .glass-btn:hover {
+                transform: translateY(-3px);
+                background: rgba(255, 255, 255, 0.12);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            }
+
+            /* LOADING SCREEN */
+            .loading-screen {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.92);
+                backdrop-filter: blur(12px);
+                display: none;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                z-index: 999;
+            }
+
+            .loader-bar {
+                animation: loading 1.5s linear forwards;
+            }
+
+            @keyframes loading {
+                from {
+                    width: 0%;
+                }
+                to {
+                    width: 100%;
+                }
+            }
+
+            .fade-in {
+                animation: fade 0.8s ease forwards;
+            }
+
+            @keyframes fade {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+    </head>
+
+    <body
+        class="bg-main min-h-screen flex items-center justify-center text-white p-6"
+    >
+        <!-- MAIN -->
+        <div
+            class="glass rounded-3xl p-8 max-w-md w-full text-center fade-in"
+        >
+            <img
+                src="https://blogger.googleusercontent.com/img/a/AVvXsEgbA0u3mLq7uC5mh6uoCyyTlQF4RbLZVcqodzRQFGs9za-yvi51Ok3ik1xRVBx8TQbV-21b22EdhY5rgxom9NVduxVEWvrYvdnk3THfDmm_q8aeXVSEYxrEwdCbWBgoKZUdT9YTi5dDQ5-_oJHM4jg6njfNcUVricWlOLBC4bnVw7TG1TTwAxqi4lWuuCk_"
+                class="w-24 h-24 mx-auto mb-6"
+            />
+
+            <h1 class="text-4xl font-black mb-3">BABAYSHOP.ID</h1>
+
+            <p class="text-gray-400 mb-8">
+                Pilih layanan :
+            </p>
+
+            <div class="flex flex-col gap-4">
+                <!-- PREMIUM -->
+                <button
+                    onclick="openWithLoading('https://padlet.com/babayshopid/home')"
+                    class="glass-btn rounded-2xl py-4 px-5 text-lg font-semibold"
+                >
+                    📱 Price List Aplikasi Premium
+                </button>
+
+                <!-- SOSMED -->
+                <button
+                    onclick="openWithLoading('https://padlet.com/babayshopid/sosmed')"
+                    class="glass-btn rounded-2xl py-4 px-5 text-lg font-semibold"
+                >
+                    🚀 Price List Booster Sosmed
+                </button>
+
+            </div>
+        </div>
+
+        <!-- LOADING -->
+        <div id="loadingScreen" class="loading-screen">
+            <img
+                src="https://blogger.googleusercontent.com/img/a/AVvXsEgbA0u3mLq7uC5mh6uoCyyTlQF4RbLZVcqodzRQFGs9za-yvi51Ok3ik1xRVBx8TQbV-21b22EdhY5rgxom9NVduxVEWvrYvdnk3THfDmm_q8aeXVSEYxrEwdCbWBgoKZUdT9YTi5dDQ5-_oJHM4jg6njfNcUVricWlOLBC4bnVw7TG1TTwAxqi4lWuuCk_"
+                class="w-24 h-24 mb-6 animate-pulse"
+            />
+
+            <h1 class="text-3xl font-black mb-4">Loading...</h1>
+
+            <div
+                class="w-64 h-1.5 bg-white/10 rounded-full overflow-hidden"
+            >
+                <div class="loader-bar h-full bg-red-600 rounded-full"></div>
+            </div>
+        </div>
+
+        <script>
+            function openWithLoading(url) {
+                const loading = document.getElementById("loadingScreen");
+
+                loading.style.display = "flex";
+
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 1500);
+            }
+        </script>
+    </body>
+</html>
