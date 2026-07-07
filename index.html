@@ -32,7 +32,6 @@
                 background-repeat: no-repeat;
             }
 
-            /* CARD GLASS GELAP */
             .glass {
                 background: rgba(15, 15, 15, 0.6);
                 backdrop-filter: blur(18px);
@@ -41,7 +40,6 @@
                 box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
             }
 
-            /* BUTTON GLASS */
             .glass-btn {
                 background: rgba(255, 255, 255, 0.06);
                 border: 1px solid rgba(255, 255, 255, 0.08);
@@ -56,7 +54,6 @@
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             }
 
-            /* LOADING SCREEN */
             .loading-screen {
                 position: fixed;
                 inset: 0;
@@ -103,9 +100,7 @@
         class="bg-main min-h-screen flex items-center justify-center text-white p-6"
     >
         <!-- MAIN -->
-        <div
-            class="glass rounded-3xl p-8 max-w-md w-full text-center fade-in"
-        >
+        <div class="glass rounded-3xl p-8 max-w-md w-full text-center fade-in">
             <img
                 src="https://blogger.googleusercontent.com/img/a/AVvXsEgbA0u3mLq7uC5mh6uoCyyTlQF4RbLZVcqodzRQFGs9za-yvi51Ok3ik1xRVBx8TQbV-21b22EdhY5rgxom9NVduxVEWvrYvdnk3THfDmm_q8aeXVSEYxrEwdCbWBgoKZUdT9YTi5dDQ5-_oJHM4jg6njfNcUVricWlOLBC4bnVw7TG1TTwAxqi4lWuuCk_"
                 class="w-24 h-24 mx-auto mb-6"
@@ -134,6 +129,21 @@
                     🚀 Price List Booster Sosmed
                 </button>
 
+                <!-- CHATGPT PLUS / EDU -->
+                <button
+                    onclick="openWithLoading('https://babay.web.id/gpt')"
+                    class="glass-btn rounded-2xl py-4 px-5 text-lg font-semibold"
+                >
+                    🤖 ChatGPT Plus / EDU
+                </button>
+
+                <!-- GOOGLE AI PRO -->
+                <button
+                    onclick="openWithLoading('https://babay.web.id/google')"
+                    class="glass-btn rounded-2xl py-4 px-5 text-lg font-semibold"
+                >
+                    ✨ Google AI Pro 12B / 18B
+                </button>
             </div>
         </div>
 
@@ -146,9 +156,7 @@
 
             <h1 class="text-3xl font-black mb-4">Loading...</h1>
 
-            <div
-                class="w-64 h-1.5 bg-white/10 rounded-full overflow-hidden"
-            >
+            <div class="w-64 h-1.5 bg-white/10 rounded-full overflow-hidden">
                 <div class="loader-bar h-full bg-red-600 rounded-full"></div>
             </div>
         </div>
@@ -164,5 +172,7 @@
                 }, 1500);
             }
         </script>
+
+        <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
     </body>
 </html>
