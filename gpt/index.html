@@ -272,6 +272,8 @@
     .pkg.disabled { opacity: .72; border-color: rgba(148,163,184,.22); }
     .pkg.disabled:hover { transform: none; box-shadow: none; background: var(--card); }
     .badge-disabled { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.26); color: #fecaca; font-size: 10.5px; font-weight: 700; margin-left: 5px; letter-spacing: .03em; }
+    .stock.soldout { color: #fecaca; }
+    .stock.soldout .stock-dot { background: var(--red); box-shadow: 0 0 12px var(--red); }
     
     section { position: relative; z-index: 10; padding: 76px 0; }
     .section-head { margin-bottom: 42px; }
@@ -592,7 +594,7 @@
   <div class="bg-orbs" aria-hidden="true"><div class="orb one"></div><div class="orb two"></div><div class="orb three"></div></div>
   <div class="bg-grid" aria-hidden="true"></div>
 
-  <div class="topbar"><div class="wrap">A1 Email Sendiri • A2 Channel Eropa • B UPI India • C VCC VISA • Edu / Reseller • <strong>pilih paket, baca ketentuan, membeli = memahami</strong></div></div>
+  <div class="topbar"><div class="wrap">A1 SOLD OUT • A2 SOLD OUT • B UPI India • C VCC VISA • Edu / Reseller • <strong>pilih paket, baca ketentuan, membeli = memahami</strong></div></div>
 
   <header class="nav" id="nav">
     <div class="wrap nav-inner">
@@ -624,7 +626,7 @@
         <div>
           <span class="label"><span class="label-dot"></span>Ready & PO</span>
           <h1 class="hero-title">ChatGPT<br><span class="gradient-text">Plus / Edu</span></h1>
-          <p class="hero-lead">Pilih paket ChatGPT sesuai kebutuhan: A1 pakai email sendiri, A2 channel Eropa, B UPI India, C VCC VISA, Education Private PO, atau Paket Reseller untuk info method/channel dari maker & supplier.</p>
+          <p class="hero-lead">Pilih paket ChatGPT sesuai kebutuhan. Saat ini A1 dan A2 SOLD OUT, tersedia B UPI India, C VCC VISA, Education Private PO, atau Paket Reseller untuk info method/channel dari maker & supplier.</p>
           <div class="hero-actions">
             <a class="btn btn-primary btn-lg btn-pill" href="#katalog">Pilih Paket</a>
             <a class="btn btn-amber btn-lg btn-pill" href="#katalog">CHECKOUT!</a>
@@ -635,7 +637,7 @@
           <div class="window-bar"><span class="dot" style="background:#ef4444"></span><span class="dot" style="background:#f59e0b"></span><span class="dot" style="background:#22c55e"></span><span class="win-title">BabayShop · ChatGPT Dashboard</span><span class="live">● Ready</span></div>
           <div class="mock-chat">
             <div class="bubble user"><b>Customer</b><p>Mau ChatGPT yang private, ada Codex, dan garansi jelas.</p></div>
-            <div class="bubble ai"><b>BabayShop</b><p>Pilih A1 pakai email sendiri, A2 channel Eropa, B UPI India, C VCC VISA, Edu Private PO, atau Paket Reseller untuk info channel/method GPT.</p></div>
+            <div class="bubble ai"><b>BabayShop</b><p>Saat ini A1 dan A2 SOLD OUT. Pilih B UPI India, C VCC VISA, Edu Private PO, atau Paket Reseller untuk info channel/method GPT.</p></div>
           </div>
         </aside>
       </div>
@@ -666,11 +668,11 @@
         </div>
 
         <div class="packages">
-          <article class="pkg featured reveal" data-cat="plus" id="a1">
+          <article class="pkg featured reveal disabled" data-cat="plus" id="a1" aria-disabled="true">
             <div class="pkg-head"><div class="pkg-code">A1</div><div><h3>GPT Plus Pakai Email Sendiri</h3><span class="pkg-role">Email Pembeli Sendiri</span></div></div>
             <div class="pkg-body">
-              <div class="price"><strong>Rp42.000</strong><span> / paket</span><span class="badge-mini">Email Sendiri</span></div>
-              <p class="tagline">A1: GPT Plus pakai email sendiri, garansi 1 x 24 jam (1 hari). Syarat, ketentuan, dan cara klaim bisa dicek di halaman khusus.</p>
+              <div class="price"><strong>Rp42.000</strong><span> / paket</span><span class="badge-disabled">SOLD OUT</span></div>
+              <p class="tagline">A1: SOLD OUT sementara. GPT Plus pakai email sendiri, garansi 1 x 24 jam (1 hari). Syarat, ketentuan, dan cara klaim bisa dicek di halaman khusus.</p>
               <ul class="features">
                 <li><span class="chk">✓</span><span>Pakai email pembeli sendiri.</span></li>
                 <li><span class="chk">✓</span><span>Harga Rp42.000.</span></li>
@@ -678,16 +680,16 @@
                 <li><span class="chk">✓</span><span>Durasi 1 bulan: 25–28 days.</span></li>
                 <li><span class="warn">!</span><span>Syarat & cara klaim wajib dibaca sebelum order.</span></li>
               </ul>
-              <div class="stock"><span class="stock-dot"></span>Ready</div>
-              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_SELF_A1" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://babay.web.id/gpt-self" target="_blank" rel="noopener">Syarat & Cara Klaim</a></div>
+              <div class="stock soldout"><span class="stock-dot"></span>SOLD OUT</div>
+              <div class="pkg-actions"><button class="btn btn-disabled btn-block" data-id="PLUS_SELF_A1" type="button" disabled aria-disabled="true">SOLD OUT</button><a class="btn btn-ghost btn-block" href="https://babay.web.id/gpt-self" target="_blank" rel="noopener">Syarat & Cara Klaim</a></div>
             </div>
           </article>
 
-          <article class="pkg reveal" data-cat="plus" id="a2">
+          <article class="pkg reveal disabled" data-cat="plus" id="a2" aria-disabled="true">
             <div class="pkg-head"><div class="pkg-code">A2</div><div><h3>AI Chat GPT Plus 1 Month Private</h3><span class="pkg-role">Channel Eropa (SEPA Debit/BLIK)</span></div></div>
             <div class="pkg-body">
-              <div class="price"><strong>Rp49.000</strong><span> / paket</span><span class="badge-mini">Eropa</span></div>
-              <p class="tagline">A2: Channel Eropa (SEPA Debit/BLIK), garansi 1 x 24 jam (1 hari), akses email Microsoft (Hotmail/Outlook), dapat akun email Microsoft dan akun GPT.</p>
+              <div class="price"><strong>Rp49.000</strong><span> / paket</span><span class="badge-disabled">SOLD OUT</span></div>
+              <p class="tagline">A2: SOLD OUT sementara. Channel Eropa (SEPA Debit/BLIK), garansi 1 x 24 jam (1 hari), akses email Microsoft (Hotmail/Outlook), dapat akun email Microsoft dan akun GPT.</p>
               <ul class="features">
                 <li><span class="chk">✓</span><span>Akses email Microsoft (Hotmail/Outlook).</span></li>
                 <li><span class="chk">✓</span><span>Dapat 2 akun sekaligus: akun email Microsoft dan akun GPT.</span></li>
@@ -697,15 +699,15 @@
                 <li><span class="chk">✓</span><span>Durasi 1 bulan: 25–28 days.</span></li>
                 <li><span class="warn">!</span><span>Syarat & cara klaim wajib dibaca sebelum order.</span></li>
               </ul>
-              <div class="stock"><span class="stock-dot"></span>Ready</div>
-              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_EUROPE_A2" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://babayshop.id/gpt/redeem-acc" target="_blank" rel="noopener">Syarat & Cara Klaim</a></div>
+              <div class="stock soldout"><span class="stock-dot"></span>SOLD OUT</div>
+              <div class="pkg-actions"><button class="btn btn-disabled btn-block" data-id="PLUS_EUROPE_A2" type="button" disabled aria-disabled="true">SOLD OUT</button><a class="btn btn-ghost btn-block" href="https://babayshop.id/gpt/redeem-acc" target="_blank" rel="noopener">Syarat & Cara Klaim</a></div>
             </div>
           </article>
 
           <article class="pkg reveal" data-cat="plus" id="b">
             <div class="pkg-head"><div class="pkg-code">B</div><div><h3>AI Chat GPT Plus 1 Month Private</h3><span class="pkg-role">Channel India (UPI)</span></div></div>
             <div class="pkg-body">
-              <div class="price"><strong>Rp47.000</strong><span> / paket</span><span class="badge-mini">UPI</span></div>
+              <div class="price"><strong>Rp48.000</strong><span> / paket</span><span class="badge-mini">UPI</span></div>
               <p class="tagline">B: Channel India (UPI), garansi 1 x 24 jam (1 hari), email Gmail/iCloud tanpa akses email, hanya akun GPT.</p>
               <ul class="features">
                 <li><span class="chk">✓</span><span>Hanya akun GPT.</span></li>
@@ -723,7 +725,7 @@
           <article class="pkg reveal" data-cat="plus" id="c">
             <div class="pkg-head"><div class="pkg-code">C</div><div><h3>AI Chat GPT Plus 1 Month Private</h3><span class="pkg-role">VCC VISA</span></div></div>
             <div class="pkg-body">
-              <div class="price"><strong>Rp83.000</strong><span> / paket</span><span class="badge-mini">Strong</span></div>
+              <div class="price"><strong>Rp85.000</strong><span> / paket</span><span class="badge-mini">Strong</span></div>
               <p class="tagline">C: VCC VISA, garansi 7 hari, private, akun private, dan Codex. Region mengikuti stok yang tersedia.</p>
               <ul class="features">
                 <li><span class="chk">✓</span><span>Private, akun private.</span></li>
@@ -821,8 +823,8 @@
               <li><strong>Durasi 1 bulan:</strong> dihitung 25–28 days.</li>
               <li><strong>GPT Edu:</strong> membeli = paham. Silakan research dulu untuk GPT Edu karena Babay hanya menjual serial key.</li>
               <li><strong>Benefit dan akses:</strong> mengikuti metode, stok, limit akun, channel, region, dan kebijakan OpenAI.</li>
-              <li><strong>Paket A1 Email Sendiri:</strong> harga Rp42.000, garansi 1 x 24 jam, syarat dan cara klaim wajib dicek di <a href="https://babay.web.id/gpt-self" target="_blank" rel="noopener">halaman A1</a>.</li>
-              <li><strong>Paket A2 Channel Eropa:</strong> SEPA Debit/BLIK, garansi 1 x 24 jam, syarat dan cara klaim wajib dicek di <a href="https://babayshop.id/gpt/redeem-acc" target="_blank" rel="noopener">halaman A2</a>.</li>
+              <li><strong>Paket A1 Email Sendiri:</strong> saat ini <strong>SOLD OUT</strong>. Harga Rp42.000, garansi 1 x 24 jam, syarat dan cara klaim wajib dicek di <a href="https://babay.web.id/gpt-self" target="_blank" rel="noopener">halaman A1</a>.</li>
+              <li><strong>Paket A2 Channel Eropa:</strong> saat ini <strong>SOLD OUT</strong>. SEPA Debit/BLIK, garansi 1 x 24 jam, syarat dan cara klaim wajib dicek di <a href="https://babayshop.id/gpt/redeem-acc" target="_blank" rel="noopener">halaman A2</a>.</li>
               <li><strong>Paket B UPI India:</strong> email Gmail/iCloud tanpa akses email, hanya akun GPT.</li>
               <li><strong>Paket C VCC VISA:</strong> region mengikuti stok yang tersedia, bisa Irlandia atau negara lain.</li>
               <li><strong>Link resmi:</strong> <a href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Plus</a>, dan <a href="https://chatgpt.com/id-ID/plans/k12-teachers/" target="_blank" rel="noopener">Edu K.12</a>.</li>
@@ -834,10 +836,10 @@
             <table>
               <thead><tr><th>Paket</th><th>Harga</th><th>Garansi</th><th>Catatan</th></tr></thead>
               <tbody>
-                <tr><td>A1 GPT Plus Pakai Email Sendiri</td><td>Rp42.000</td><td>1 x 24 jam (1 hari)</td><td>Pakai email sendiri. Syarat & cara klaim: babay.web.id/gpt-self.</td></tr>
-                <tr><td>A2 Plus Private Channel Eropa</td><td>Rp49.000</td><td>1 x 24 jam (1 hari)</td><td>SEPA Debit/BLIK, akses email Microsoft (Hotmail/Outlook), dapat akun email Microsoft + akun GPT, bebas ganti password.</td></tr>
-                <tr><td>B Plus Private Channel India / UPI</td><td>Rp47.000</td><td>1 x 24 jam (1 hari)</td><td>Email Gmail/iCloud tanpa akses email, hanya akun GPT.</td></tr>
-                <tr><td>C Plus Private VCC VISA</td><td>Rp83.000</td><td>7 hari</td><td>Private, akun private, Codex. Region mengikuti stok, bisa Irlandia atau negara lain.</td></tr>
+                <tr><td>A1 GPT Plus Pakai Email Sendiri</td><td>Rp42.000</td><td>SOLD OUT</td><td>Sedang sold out. Pakai email sendiri. Syarat & cara klaim: babay.web.id/gpt-self.</td></tr>
+                <tr><td>A2 Plus Private Channel Eropa</td><td>Rp49.000</td><td>SOLD OUT</td><td>Sedang sold out. SEPA Debit/BLIK, akses email Microsoft (Hotmail/Outlook), dapat akun email Microsoft + akun GPT, bebas ganti password.</td></tr>
+                <tr><td>B Plus Private Channel India / UPI</td><td>Rp48.000</td><td>1 x 24 jam (1 hari)</td><td>Email Gmail/iCloud tanpa akses email, hanya akun GPT.</td></tr>
+                <tr><td>C Plus Private VCC VISA</td><td>Rp85.000</td><td>7 hari</td><td>Private, akun private, Codex. Region mengikuti stok, bisa Irlandia atau negara lain.</td></tr>
                 <tr><td>D Education Private PO</td><td>Rp200.000</td><td>DISABLED</td><td>Checkout sedang dinonaktifkan, tidak bisa checkout.</td></tr>
                 <tr><td>E Paket Reseller</td><td>Rp125.000</td><td>Info channel</td><td>Method info/channel GPT Plus, EDU, dan lainnya dari maker & supplier.</td></tr>
               </tbody>
@@ -901,8 +903,8 @@
         <div class="notice reveal" id="ketentuan-a1-a2" style="margin-top:18px">
           <h3>Khusus Paket A1 & A2</h3>
           <ul>
-            <li><strong>A1 Email Sendiri:</strong> harga Rp42.000, garansi 1 x 24 jam. Syarat, ketentuan, dan cara klaim bisa dicek di <a href="https://babay.web.id/gpt-self" target="_blank" rel="noopener">https://babay.web.id/gpt-self</a>.</li>
-            <li><strong>A2 Channel Eropa:</strong> SEPA Debit/BLIK, garansi 1 x 24 jam. Syarat, ketentuan, dan cara klaim bisa dicek di <a href="https://babayshop.id/gpt/redeem-acc" target="_blank" rel="noopener">https://babayshop.id/gpt/redeem-acc</a>.</li>
+            <li><strong>A1 Email Sendiri:</strong> saat ini <strong>SOLD OUT</strong>. Harga Rp42.000, garansi 1 x 24 jam. Syarat, ketentuan, dan cara klaim bisa dicek di <a href="https://babay.web.id/gpt-self" target="_blank" rel="noopener">https://babay.web.id/gpt-self</a>.</li>
+            <li><strong>A2 Channel Eropa:</strong> saat ini <strong>SOLD OUT</strong>. SEPA Debit/BLIK, garansi 1 x 24 jam. Syarat, ketentuan, dan cara klaim bisa dicek di <a href="https://babayshop.id/gpt/redeem-acc" target="_blank" rel="noopener">https://babayshop.id/gpt/redeem-acc</a>.</li>
             <li><strong>B UPI India:</strong> menggunakan email Gmail/iCloud tanpa akses email, hanya akun GPT.</li>
             <li><strong>C VCC VISA:</strong> region tidak dikunci ke satu negara karena mengikuti stok, bisa Irlandia atau negara lain.</li>
             <li><strong>Durasi:</strong> 1 bulan dihitung 25–28 days.</li>
@@ -936,10 +938,10 @@
           <h2 class="section-title">Pertanyaan yang sering ditanyakan</h2>
         </div>
         <div class="faq reveal">
-          <details open><summary>Bedanya A1 Email Sendiri, A2 Eropa, B UPI India, dan C VCC VISA apa?</summary><div class="faq-content">Fungsi Plus utamanya sama, tetapi tipe layanan dan channelnya berbeda. A1 memakai email sendiri dan bergaransi 1 x 24 jam, A2 memakai channel Eropa SEPA Debit/BLIK dan bergaransi 1 x 24 jam, B memakai UPI India dengan email Gmail/iCloud tanpa akses email dan hanya akun GPT, sedangkan C memakai VCC VISA dengan region mengikuti stok dan bergaransi 7 hari.</div></details>
+          <details open><summary>Bedanya A1 Email Sendiri, A2 Eropa, B UPI India, dan C VCC VISA apa?</summary><div class="faq-content">Fungsi Plus utamanya sama, tetapi tipe layanan dan channelnya berbeda. Saat ini A1 dan A2 SOLD OUT. A1 memakai email sendiri dan bergaransi 1 x 24 jam, A2 memakai channel Eropa SEPA Debit/BLIK dan bergaransi 1 x 24 jam, B memakai UPI India dengan email Gmail/iCloud tanpa akses email dan hanya akun GPT, sedangkan C memakai VCC VISA dengan region mengikuti stok dan bergaransi 7 hari.</div></details>
           <details><summary>GPT Education pakai email sendiri?</summary><div class="faq-content">Iya, paket Education Private PO memakai email sendiri, plan Enterprise, dan garansi sampai join tim. Namun saat ini labelnya DISABLED dan tidak bisa checkout. Durasi mengikuti event Edu K.12 habis.</div></details>
           <details><summary>Apa maksud Babay hanya jual serial key untuk Edu?</summary><div class="faq-content">Artinya pembeli wajib paham dulu mekanisme paket Edu sebelum membeli. Babay menyediakan serial key sesuai stok, bukan menjamin hal di luar ketentuan yang sudah ditulis.</div></details>
-          <details><summary>Apa itu Paket A1 GPT Plus Email Sendiri?</summary><div class="faq-content">A1 adalah GPT Plus 1 bulan menggunakan email pembeli sendiri, harga Rp42.000, garansi 1 x 24 jam, dan syarat/cara klaim bisa dibaca di https://babay.web.id/gpt-self.</div></details>
+          <details><summary>Apa itu Paket A1 GPT Plus Email Sendiri?</summary><div class="faq-content">A1 adalah GPT Plus 1 bulan menggunakan email pembeli sendiri, harga Rp42.000, garansi 1 x 24 jam, dan syarat/cara klaim bisa dibaca di https://babay.web.id/gpt-self. Saat ini A1 SOLD OUT.</div></details>
           <details><summary>Apa itu Paket Reseller?</summary><div class="faq-content">Paket Reseller adalah paket info method/channel GPT Plus, EDU, dan lainnya langsung dari maker & supplier. Harga Rp125.000, cocok untuk yang ingin mulai jadi reseller GPT dan mencari channel dengan modal lebih murah.</div></details>
           <details><summary>Kapan garansi bisa hangus?</summary><div class="faq-content">Garansi bisa hangus jika akun digunakan berlebihan, spam, dipakai banyak perangkat, dibagikan ke orang lain, memakai cookies/token, API/tools pihak ketiga, proxy/router terlarang, atau mengubah profile, password, billing, maupun plan akun.</div></details>
           <details><summary>Kalau Codex minta verifikasi nomor HP bagaimana?</summary><div class="faq-content">Gunakan nomor HP / WhatsApp sendiri. Permintaan verifikasi Codex mengikuti sistem dan kebijakan OpenAI, jadi berada di luar kuasa BabayShop.</div></details>
@@ -952,7 +954,7 @@
       <div class="wrap">
         <div class="cta-box reveal">
           <h2>Siap order paket ChatGPT?</h2>
-          <p>Pilih A1 Email Sendiri, A2 Channel Eropa, B UPI India, C VCC VISA, Edu PO, atau Paket Reseller. Bayar sesuai nominal, lalu konfirmasi ke WhatsApp Admin Babay.</p>
+          <p>Saat ini A1 dan A2 SOLD OUT. Pilih B UPI India, C VCC VISA, Edu PO, atau Paket Reseller. Bayar sesuai nominal, lalu konfirmasi ke WhatsApp Admin Babay.</p>
           <div class="cta-actions">
             <a class="btn btn-primary btn-lg btn-pill" href="#katalog">Lihat Katalog</a>
             <a class="btn btn-amber btn-lg btn-pill" href="#katalog">CHECKOUT!</a>
@@ -982,7 +984,7 @@
     </div>
   </footer>
 
-  <a class="wa-floating" href="https://wa.me/6281523984574?text=Halo%20Admin%20Babay%2C%20saya%20mau%20bertanya%20seputar%20ChatGPT%20dan%20berniat%20mau%20membeli%20paket.%20Pilihan%20paket%3A%20A1%20Pakai%20Email%20Sendiri%20%2F%20A2%20Channel%20Eropa%20%2F%20B%20UPI%20India%20%2F%20C%20VCC%20VISA%20%2F%20D%20GPT%20Edu%20%2F%20E%20Paket%20Reseller.%20Saya%20tertarik%20paket%3A%20" target="_blank" rel="noopener" aria-label="Tanya Admin Babay via WhatsApp">
+  <a class="wa-floating" href="https://wa.me/6281523984574?text=Halo%20Admin%20Babay%2C%20saya%20mau%20bertanya%20seputar%20ChatGPT%20dan%20berniat%20mau%20membeli%20paket.%20Pilihan%20paket%3A%20A1%20SOLD%20OUT%20%2F%20A2%20SOLD%20OUT%20%2F%20B%20UPI%20India%20%2F%20C%20VCC%20VISA%20%2F%20D%20GPT%20Edu%20%2F%20E%20Paket%20Reseller.%20Saya%20tertarik%20paket%3A%20" target="_blank" rel="noopener" aria-label="Tanya Admin Babay via WhatsApp">
     <span>Tanya Admin</span>
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/960px-WhatsApp.svg.png" alt="WhatsApp">
   </a>
@@ -1097,28 +1099,30 @@
           name: 'GPT Plus Pakai Email Sendiri',
           method: 'Email Pembeli Sendiri',
           price: 42000,
-          warranty: 'Garansi 1 x 24 jam (1 hari)',
+          warranty: 'SOLD OUT',
           duration: '1 Bulan (25–28 Days)',
-          desc: 'A1: GPT Plus pakai email sendiri, harga Rp42.000, garansi 1 x 24 jam. Syarat dan cara klaim: https://babay.web.id/gpt-self.',
+          desc: 'SOLD OUT: A1 GPT Plus pakai email sendiri sedang tidak tersedia. Syarat dan cara klaim: https://babay.web.id/gpt-self.',
           emailRequired: false,
-          note: 'Pakai email sendiri. Syarat & cara klaim: https://babay.web.id/gpt-self.'
+          disabled: true,
+          note: 'SOLD OUT. Pakai email sendiri. Syarat & cara klaim: https://babay.web.id/gpt-self.'
         },
         PLUS_EUROPE_A2: {
           code: 'A2',
           name: 'AI Chat GPT Plus 1 Month Private',
           method: 'Channel Eropa (SEPA Debit/BLIK)',
           price: 49000,
-          warranty: 'Garansi 1 x 24 jam (1 hari)',
+          warranty: 'SOLD OUT',
           duration: '1 Bulan (25–28 Days)',
-          desc: 'A2: Channel Eropa (SEPA Debit/BLIK), garansi 1 x 24 jam, akses email Microsoft (Hotmail/Outlook), dapat akun email Microsoft dan akun GPT, bebas ganti password. Cara klaim: https://babayshop.id/gpt/redeem-acc.',
+          desc: 'SOLD OUT: A2 Channel Eropa (SEPA Debit/BLIK) sedang tidak tersedia. Cara klaim: https://babayshop.id/gpt/redeem-acc.',
           emailRequired: false,
-          note: 'Akses email Microsoft (Hotmail/Outlook). Dapat akun email Microsoft dan akun GPT. Bebas ganti password. Cara klaim: https://babayshop.id/gpt/redeem-acc.'
+          disabled: true,
+          note: 'SOLD OUT. Akses email Microsoft (Hotmail/Outlook). Dapat akun email Microsoft dan akun GPT. Bebas ganti password. Cara klaim: https://babayshop.id/gpt/redeem-acc.'
         },
         PLUS_UPI_B: {
           code: 'B',
           name: 'AI Chat GPT Plus 1 Month Private',
           method: 'Channel India (UPI)',
-          price: 47000,
+          price: 48000,
           warranty: 'Garansi 1 x 24 jam (1 hari)',
           duration: '1 Bulan (25–28 Days)',
           desc: 'B: Channel India (UPI), email Gmail/iCloud tanpa akses email, hanya akun GPT, garansi 1 x 24 jam, Private, Codex.',
@@ -1129,7 +1133,7 @@
           code: 'C',
           name: 'AI Chat GPT Plus 1 Month Private',
           method: 'VCC VISA',
-          price: 83000,
+          price: 85000,
           warranty: 'Garansi 7 hari',
           duration: '1 Bulan (25–28 Days)',
           desc: 'C: VCC VISA, garansi 7 hari, Private, Akun Private, Codex. Region mengikuti stok, bisa Irlandia atau negara lain.',
