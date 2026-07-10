@@ -273,8 +273,18 @@
     .btn-amber { background: linear-gradient(135deg, #d97706, #fbbf24); color: #111827; }
     .btn-disabled { background: rgba(239,68,68,.14); border: 1px solid rgba(239,68,68,.32); color: #fecaca; cursor: not-allowed; box-shadow: none; }
     .btn-disabled:hover { transform: none; box-shadow: none; }
+    /* STATUS PAKET: warna otomatis mengikuti ready / preorder / soldout */
+    .stock.ready { color: #bbf7d0; }
+    .stock.ready .stock-dot { background: var(--green); box-shadow: 0 0 12px var(--green); }
+    .stock.preorder { color: #fde68a; }
+    .stock.preorder .stock-dot { background: var(--amber); box-shadow: 0 0 12px var(--amber); }
     .stock.soldout { color: #fecaca; }
     .stock.soldout .stock-dot { background: var(--red); box-shadow: 0 0 12px var(--red); }
+    .pkg.is-soldout { opacity: .76; }
+    .table-status { display: inline-flex; align-items: center; justify-content: center; min-width: 82px; padding: 5px 9px; border-radius: 999px; font-size: 10.5px; font-weight: 700; white-space: nowrap; }
+    .table-status.ready { color: #bbf7d0; background: rgba(34,197,94,.10); border: 1px solid rgba(34,197,94,.24); }
+    .table-status.preorder { color: #fde68a; background: rgba(251,191,36,.10); border: 1px solid rgba(251,191,36,.24); }
+    .table-status.soldout { color: #fecaca; background: rgba(239,68,68,.10); border: 1px solid rgba(239,68,68,.24); }
     
     section { position: relative; z-index: 10; padding: 76px 0; }
     .section-head { margin-bottom: 42px; }
@@ -659,7 +669,7 @@
         </div>
 
         <div class="packages">
-          <article class="pkg featured reveal" data-cat="plus">
+          <article class="pkg featured reveal" data-cat="plus" data-product="PLUS_UPI">
             <div class="pkg-head"><div class="pkg-code">A</div><div><h3>AI Chat GPT Plus 1 Month Private</h3><span class="pkg-role">Channel India (UPI)</span></div></div>
             <div class="pkg-body">
               <div class="price"><strong>Rp47.000</strong><span> / paket</span><span class="badge-mini">Private</span></div>
@@ -671,12 +681,12 @@
                 <li><span class="chk">✓</span><span>Durasi 1 bulan: 25–28 days.</span></li>
                 <li><span class="warn">!</span><span>Detail fitur Plus cek link resmi di bawah.</span></li>
               </ul>
-              <div class="stock soldout"><span class="stock-dot"></span>Sold Out (menunggu update method terbaru)</div>
-              <div class="pkg-actions"><button class="btn btn-disabled btn-block" type="button" disabled>SOLD OUT</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
+              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
+              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_UPI" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
             </div>
           </article>
 
-          <article class="pkg reveal" data-cat="plus">
+          <article class="pkg reveal" data-cat="plus" data-product="PLUS_EUROPE_B1">
             <div class="pkg-head"><div class="pkg-code">B1</div><div><h3>AI Chat GPT Plus 1 Month Private</h3><span class="pkg-role">Channel Eropa (SEPA)</span></div></div>
             <div class="pkg-body">
               <div class="price"><strong>Rp49.000</strong><span> / paket</span><span class="badge-mini">Middle</span></div>
@@ -688,12 +698,12 @@
                 <li><span class="chk">✓</span><span>Durasi 1 bulan: 25–28 days.</span></li>
                 <li><span class="warn">!</span><span>Fungsi Plus 100% sama persis.</span></li>
               </ul>
-              <div class="stock soldout"><span class="stock-dot"></span>Sold Out (menunggu update method terbaru)</div>
-              <div class="pkg-actions"><button class="btn btn-disabled btn-block" type="button" disabled>SOLD OUT</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
+              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
+              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_EUROPE_B1" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
             </div>
           </article>
 
-          <article class="pkg reveal" data-cat="plus" id="b2">
+          <article class="pkg reveal" data-cat="plus" id="b2" data-product="PLUS_SELF_SERVICE_B2">
             <div class="pkg-head"><div class="pkg-code">B2</div><div><h3>GPT Plus Pakai Email Pembeli</h3><span class="pkg-role">Payment Polandia / Belanda</span></div></div>
             <div class="pkg-body">
               <div class="price"><strong>Rp45.000</strong><span> / paket</span><span class="badge-mini">Email Pembeli</span></div>
@@ -705,12 +715,12 @@
                 <li><span class="chk">✓</span><span>Durasi 1 bulan: 25–28 days.</span></li>
                 <li><span class="warn">!</span><span>Proses mengikuti stok, region, dan ketentuan channel.</span></li>
               </ul>
-              <div class="stock soldout"><span class="stock-dot"></span>Sold Out (menunggu update method terbaru)</div>
-              <div class="pkg-actions"><button class="btn btn-disabled btn-block" type="button" disabled>SOLD OUT</button><a class="btn btn-ghost btn-block" href="#ketentuan-b2">Baca Ketentuan B2</a></div>
+              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
+              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_SELF_SERVICE_B2" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="#ketentuan-b2">Baca Ketentuan B2</a></div>
             </div>
           </article>
 
-          <article class="pkg reveal" data-cat="plus">
+          <article class="pkg reveal" data-cat="plus" data-product="PLUS_VCC_C1">
             <div class="pkg-head"><div class="pkg-code">C1</div><div><h3>AI Chat GPT Plus 1 Month Private</h3><span class="pkg-role">Channel Payment VCC VISA / Mastercard</span></div></div>
             <div class="pkg-body">
               <div class="price"><strong>Rp76.000</strong><span> / paket</span><span class="badge-mini">3 Hari</span></div>
@@ -722,12 +732,12 @@
                 <li><span class="chk">✓</span><span>Verif OTP Manual sendiri.</span></li>
                 <li><span class="chk">✓</span><span>Durasi 1 bulan: 25–28 days.</span></li>
                   </ul>
-              <div class="stock"><span class="stock-dot"></span>Pre Order</div>
+              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
               <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C1" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
             </div>
           </article>
 
-          <article class="pkg reveal" data-cat="plus">
+          <article class="pkg reveal" data-cat="plus" data-product="PLUS_VCC_C2">
             <div class="pkg-head"><div class="pkg-code">C2</div><div><h3>AI Chat GPT Plus 1 Month Private</h3><span class="pkg-role">Channel Payment VCC VISA / Mastercard</span></div></div>
             <div class="pkg-body">
               <div class="price"><strong>Rp85.000</strong><span> / paket</span><span class="badge-mini">6 Hari</span></div>
@@ -739,11 +749,11 @@
                 <li><span class="chk">✓</span><span>Verif OTP Manual sendiri.</span></li>
                 <li><span class="chk">✓</span><span>Durasi 1 bulan: 25–28 days.</span></li>
                  </ul>
-              <div class="stock"><span class="stock-dot"></span>Pre Order</div>
+              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
               <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C2" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
             </div>
           </article>
-<article class="pkg reveal" data-cat="reseller" id="reseller">
+<article class="pkg reveal" data-cat="reseller" id="reseller" data-product="RESELLER">
             <div class="pkg-head"><div class="pkg-code">E</div><div><h3>PAKET RESELLER</h3><span class="pkg-role">Method Info / Channel GPT</span></div></div>
             <div class="pkg-body">
               <div class="price"><strong>Rp125.000</strong><span> / paket</span><span class="badge-mini">Reseller</span></div>
@@ -755,7 +765,7 @@
                 <li><span class="warn">!</span><span>Informasi mengikuti update maker & supplier.</span></li>
                 <li><span class="warn">!</span><span>Wajib paham risiko, stok, dan ketentuan channel.</span></li>
               </ul>
-              <div class="stock"><span class="stock-dot"></span>Info Ready</div>
+              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
               <div class="pkg-actions">
                 <button class="btn btn-primary btn-block btn-buy" data-id="RESELLER" type="button">CHECKOUT!</button></div>
             </div>
@@ -767,7 +777,7 @@
             <h3>PAKET RESELLER: Method Info / Channel GPT</h3>
             <p>Paket info method/channel GPT Plus dan layanan lainnya langsung dari maker & supplier. Cocok untuk yang mau jadi seller GPT dengan harga channel lebih murah. Harga paket: Rp125.000.</p>
           </div>
-          <button class="btn btn-amber btn-pill btn-buy" data-id="RESELLER" type="button">CHECKOUT!</button>
+          <button class="btn btn-amber btn-pill btn-buy" data-id="RESELLER" data-product-cta="RESELLER" type="button">CHECKOUT!</button>
         </div>
       </div>
     </section>
@@ -810,14 +820,14 @@
           </div>
           <div class="table-wrap reveal">
             <table>
-              <thead><tr><th>Paket</th><th>Harga</th><th>Garansi</th><th>Catatan</th></tr></thead>
+              <thead><tr><th>Paket</th><th>Harga</th><th>Garansi</th><th>Status</th><th>Catatan</th></tr></thead>
               <tbody>
-                <tr><td>Plus Private (Channel India / UPI)</td><td>Rp47.000</td><td>1 x 24 jam (1 hari)</td><td>Sold Out (menunggu update method terbaru).</td></tr>
-                <tr><td>B1 Plus Private (Channel Eropa / SEPA)</td><td>Rp49.000</td><td>1 x 48 jam (2 hari)</td><td>Sold Out (menunggu update method terbaru).</td></tr>
-                <tr><td>B2 GPT Plus Pakai Email Pembeli</td><td>Rp45.000</td><td>1 x 48 jam (2 hari)</td><td>Sold Out (menunggu update method terbaru).</td></tr>
-                <tr><td>C1 Plus Private (VCC VISA / Mastercard)</td><td>Rp76.000</td><td>Full sampai 3 hari</td><td>Private, Support Codex, Verif OTP Manual.</td></tr>
-                <tr><td>C2 Plus Private (VCC VISA / Mastercard)</td><td>Rp85.000</td><td>Full sampai 6 hari</td><td>Private, Support Codex, Verif OTP Manual.</td></tr>
-<tr><td>Paket Reseller</td><td>Rp125.000</td><td>Info channel</td><td>Method info/channel GPT Plus dan layanan lainnya dari maker & supplier.</td></tr>
+                <tr data-product="PLUS_UPI"><td>Plus Private (Channel India / UPI)</td><td>Rp47.000</td><td>1 x 24 jam (1 hari)</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, akun private, dan Support Codex.</td></tr>
+                <tr data-product="PLUS_EUROPE_B1"><td>B1 Plus Private (Channel Eropa / SEPA)</td><td>Rp49.000</td><td>1 x 48 jam (2 hari)</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, akun private, dan Support Codex.</td></tr>
+                <tr data-product="PLUS_SELF_SERVICE_B2"><td>B2 GPT Plus Pakai Email Pembeli</td><td>Rp45.000</td><td>1 x 48 jam (2 hari)</td><td><span class="table-status" data-table-status>Status</span></td><td>Email pembeli, payment Polandia / Belanda.</td></tr>
+                <tr data-product="PLUS_VCC_C1"><td>C1 Plus Private (VCC VISA / Mastercard)</td><td>Rp76.000</td><td>Full sampai 3 hari</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, Support Codex, Verif OTP Manual.</td></tr>
+                <tr data-product="PLUS_VCC_C2"><td>C2 Plus Private (VCC VISA / Mastercard)</td><td>Rp85.000</td><td>Full sampai 6 hari</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, Support Codex, Verif OTP Manual.</td></tr>
+                <tr data-product="RESELLER"><td>Paket Reseller</td><td>Rp125.000</td><td>Info channel</td><td><span class="table-status" data-table-status>Status</span></td><td>Method info/channel GPT Plus dan layanan lainnya dari maker & supplier.</td></tr>
               </tbody>
             </table>
           </div>
@@ -1061,6 +1071,29 @@
         });
       }
 
+      /* ==========================================================
+         UBAH STATUS SEMUA PAKET CUKUP DI BAGIAN INI
+
+         Pilihan status:
+         ready    = stok tersedia, tombol checkout aktif
+         preorder = pre order, tombol checkout aktif
+         soldout  = stok habis, tombol checkout otomatis nonaktif
+         ========================================================== */
+      const PACKAGE_STATUS = {
+        PLUS_UPI: 'soldout',
+        PLUS_EUROPE_B1: 'soldout',
+        PLUS_SELF_SERVICE_B2: 'soldout',
+        PLUS_VCC_C1: 'ready',
+        PLUS_VCC_C2: 'preorder',
+        RESELLER: 'ready'
+      };
+
+      const STATUS_META = {
+        ready: { label: 'Ready', button: 'CHECKOUT!', className: 'ready' },
+        preorder: { label: 'Pre Order', button: 'CHECKOUT!', className: 'preorder' },
+        soldout: { label: 'Sold Out', button: 'SOLD OUT', className: 'soldout' }
+      };
+
       /* ================================
          EDIT HARGA & DETAIL PAKET DI SINI
          ================================ */
@@ -1074,8 +1107,7 @@
           duration: '1 Bulan (25–28 Days)',
           desc: 'Garansi 1 x 24 jam (1 hari), Private, Akun Private, Codex.',
           emailRequired: false,
-          soldOut: true,
-          note: 'Sold Out (menunggu update method terbaru). Channel India (UPI).'
+          note: 'Channel India (UPI). Private, akun private, dan Support Codex.'
         },
         PLUS_EUROPE_B1: {
           code: 'B1',
@@ -1086,8 +1118,7 @@
           duration: '1 Bulan (25–28 Days)',
           desc: 'B1: Garansi 1 x 48 jam (2 hari), Private, Akun Private, Codex.',
           emailRequired: false,
-          soldOut: true,
-          note: 'Sold Out (menunggu update method terbaru). Channel Eropa (SEPA).'
+          note: 'Channel Eropa (SEPA). Private, akun private, dan Support Codex.'
         },
         PLUS_SELF_SERVICE_B2: {
           code: 'B2',
@@ -1099,8 +1130,7 @@
           desc: 'B2: GPT Plus pakai email pembeli, garansi 1 x 48 jam (2 hari), method payment Polandia / Belanda.',
           emailRequired: false,
           maxQty: 5,
-          soldOut: true,
-          note: 'Sold Out (menunggu update method terbaru). Pakai email pembeli. Method payment Polandia / Belanda. Garansi 1 x 48 jam (2 hari).'
+          note: 'Pakai email pembeli. Method payment Polandia / Belanda. Garansi 1 x 48 jam (2 hari).'
         },
         PLUS_VCC_C1: {
           code: 'C1',
@@ -1155,6 +1185,59 @@
       const $ = (sel, root = document) => root.querySelector(sel);
       const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
       const rupiah = n => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n || 0);
+
+      function getPackageStatus(productId) {
+        const value = String(PACKAGE_STATUS[productId] || 'soldout').toLowerCase();
+        return STATUS_META[value] ? value : 'soldout';
+      }
+
+      function setCheckoutButtonState(button, status) {
+        if (!button) return;
+        const meta = STATUS_META[status];
+        const soldOut = status === 'soldout';
+
+        button.disabled = soldOut;
+        button.textContent = meta.button;
+        button.setAttribute('aria-disabled', String(soldOut));
+        button.classList.toggle('btn-disabled', soldOut);
+
+        if (button.closest('.pkg')) {
+          button.classList.toggle('btn-primary', !soldOut);
+        }
+      }
+
+      function applyPackageStatuses() {
+        $$('[data-product]').forEach(element => {
+          const productId = element.dataset.product;
+          const status = getPackageStatus(productId);
+          const meta = STATUS_META[status];
+
+          if (element.matches('.pkg')) {
+            const stock = $('[data-stock]', element);
+            const stockLabel = $('[data-stock-label]', element);
+            const buyButton = $(`.btn-buy[data-id="${productId}"]`, element);
+
+            element.classList.toggle('is-soldout', status === 'soldout');
+            if (stock) stock.className = `stock ${meta.className}`;
+            if (stockLabel) stockLabel.textContent = meta.label;
+            setCheckoutButtonState(buyButton, status);
+          }
+
+          if (element.matches('tr')) {
+            const tableStatus = $('[data-table-status]', element);
+            if (tableStatus) {
+              tableStatus.className = `table-status ${meta.className}`;
+              tableStatus.textContent = meta.label;
+            }
+          }
+        });
+
+        $$('[data-product-cta]').forEach(button => {
+          setCheckoutButtonState(button, getPackageStatus(button.dataset.productCta));
+        });
+      }
+
+      applyPackageStatuses();
 
       const nav = $('#nav');
       const scrollBar = $('#scrollBar');
@@ -1280,12 +1363,14 @@
       }
 
       function openModal(productId) {
-        currentProduct = PRODUCTS[productId];
-        if (!currentProduct || currentProduct.soldOut) return;
-        
+        const product = PRODUCTS[productId];
+        const status = getPackageStatus(productId);
+        if (!product || status === 'soldout') return;
+
+        currentProduct = { ...product, id: productId, status };
         qty = 1;
         modalProduct.textContent = `${currentProduct.code}. ${currentProduct.name} · ${currentProduct.method}`;
-        packageDesc.textContent = `${currentProduct.desc} Baca ketentuan sebelum lanjut checkout.`;
+        packageDesc.textContent = `Status: ${STATUS_META[currentProduct.status].label}. ${currentProduct.desc} Baca ketentuan sebelum lanjut checkout.`;
         summaryName.textContent = currentProduct.name;
         
         agree.checked = true;
@@ -1397,6 +1482,7 @@
           `Paket: ${currentProduct.name}\n` +
           `Kode Paket: ${currentProduct.code}\n` +
           `Method/Channel: ${currentProduct.method}\n` +
+          `Status: ${STATUS_META[currentProduct.status].label}\n` +
           `Harga Satuan: ${rupiah(currentProduct.price)}\n` +
           `Jumlah: ${qty}x\n` +
           `Diskon: -${rupiah(currentDiscAmt)} (${currentDiscPct}%)\n` +
@@ -1421,9 +1507,5 @@
   
   
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
