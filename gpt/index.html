@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -954,7 +955,7 @@
                 <input type="text" class="qty-input" id="qtyInput" value="1" readonly>
                 <button type="button" class="qty-btn" id="qtyPlus">+</button>
               </div>
-              <span class="hint">Beli 2 diskon 5%, beli 3 (10%), beli 4 (15%), maksimal beli 5 (20%).</span>
+              <span class="hint">Diskon 1,5% per item mulai pembelian 2 paket: beli 2 diskon 3%, beli 3 diskon 4,5%, beli 4 diskon 6%, dan maksimal beli 5 diskon 7,5%.</span>
             </div>
             <label class="check-row"><input id="agree" type="checkbox" checked required><span>Saya sudah membaca detail paket, cara login, aturan penggunaan, garansi, risiko/ketentuan, dan paham bahwa membeli = memahami.</span></label>
             <div class="summary">
@@ -1223,7 +1224,7 @@
         summaryQty.textContent = qty + 'x';
         
         let base = currentProduct.price * qty;
-        currentDiscPct = (qty - 1) * 5; 
+        currentDiscPct = qty >= 2 ? Math.min(qty * 1.5, 7.5) : 0;
         currentDiscAmt = Math.floor(base * (currentDiscPct / 100));
         currentFinalBase = base - currentDiscAmt;
 
@@ -1386,6 +1387,7 @@
   
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
