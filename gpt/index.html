@@ -1037,7 +1037,7 @@
               <p id="manualPayCode" style="margin-top:10px;color:#fef3c7"></p>
             </div>
             <div class="pay-switch">
-              <button class="pay-toggle" id="payToggle" type="button"><span id="payCurrent">Metode aktif: QRIS</span><span>⌄</span></button>
+              <button class="pay-toggle" id="payToggle" type="button"><span id="payCurrent">Pilih Pembayaran: QRIS</span><span>⌄</span></button>
               <div class="pay-list" id="payList"></div>
             </div>
             <div class="pay-details">
@@ -1509,7 +1509,7 @@
       function setPayment(key) {
         selectedPay = PAYMENT_ACCOUNTS[key] ? key : 'QRIS';
         const data = PAYMENT_ACCOUNTS[selectedPay];
-        payCurrent.textContent = `Metode aktif: ${data.label}`;
+        payCurrent.textContent = `Pilih Pembayaran: ${data.label}`;
         $$('.pay-option', payList).forEach(btn => btn.classList.toggle('active', btn.textContent === data.label));
         if (selectedPay === 'QRIS') {
           qrBox.style.display = 'block';
