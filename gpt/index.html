@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -474,7 +475,11 @@
     .number-box strong { font-family: var(--font-mono); word-break: break-all; }
     .copy-btn { border: 0; border-radius: 11px; padding: 9px 12px; background: rgba(34,211,238,.12); color: #a5f3fc; font-weight: 600; cursor: pointer; }
     .pay-switch { width: 100%; display: grid; gap: 8px; margin-bottom: 14px; }
-    .pay-toggle { border: 1px solid rgba(99,102,241,.30); border-radius: 14px; background: rgba(99,102,241,.08); color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; cursor: pointer; font-weight: 600; }
+    .pay-toggle { border: 1px solid rgba(99,102,241,.42); border-radius: 14px; background: linear-gradient(135deg, rgba(99,102,241,.16), rgba(34,211,238,.10)); color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; cursor: pointer; font-weight: 700; box-shadow: 0 10px 28px rgba(99,102,241,.16); transform-origin: center; animation: paymentZoom 1.65s ease-in-out infinite; }
+    .pay-toggle:hover, .pay-toggle:focus-visible { border-color: rgba(34,211,238,.62); outline: none; }
+    .pay-toggle[aria-expanded="true"] { animation-play-state: paused; transform: scale(1.02); }
+    @keyframes paymentZoom { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.035); } }
+    @media (prefers-reduced-motion: reduce) { .pay-toggle { animation: none; } }
     .pay-list { display: none; gap: 6px; border: 1px solid var(--border); border-radius: 14px; padding: 8px; background: rgba(255,255,255,.025); }
     .pay-list.active { display: grid; }
     .pay-option { border: 1px solid transparent; border-radius: 10px; background: rgba(255,255,255,.025); color: var(--muted); padding: 10px 12px; text-align: left; cursor: pointer; font-weight: 600; }
@@ -759,14 +764,14 @@
           </article>
 
           <article class="pkg reveal" data-cat="plus" data-product="PLUS_VCC_C2">
-            <div class="pkg-head"><div class="pkg-code">C2</div><div><h3>AI Chat GPT Plus 1 Month Private</h3><span class="pkg-role">Channel Payment VCC VISA / Mastercard</span></div></div>
+            <div class="pkg-head"><div class="pkg-code">C2</div><div><h3>AI Chat GPT Plus 1 Month Private</h3><span class="pkg-role">All Payment Apple Pay (Visa / Mastercard / dll.)</span></div></div>
             <div class="pkg-body">
-              <div class="price"><strong>Rp85.000</strong><span> / paket</span><span class="badge-mini">Pre Order • Maks. 48 Jam</span></div>
-              <p class="tagline">C2: Open Pre Order dengan estimasi proses maksimal 48 jam, Full Garansi sampai 7 hari, private, akun private, dan Support Codex.</p>
+              <div class="price"><strong>Rp85.000</strong><span> / paket</span><span class="badge-mini">Open Pre Order • Maks. 1 x 48 Jam</span></div>
+              <p class="tagline">C2: All Payment via Apple Pay (Visa / Mastercard / dll.), Full Garansi sampai 7 hari, private, akun private, dan Support Codex.</p>
               <ul class="features">
                 <li><span class="chk">✓</span><span>Private, akun private.</span></li>
-                <li><span class="chk">✓</span><span>Via Apple Pay.</span></li>
-                <li><span class="chk">✓</span><span>Open Pre Order, proses maksimal 48 jam.</span></li>
+                <li><span class="chk">✓</span><span>All Payment via Apple Pay (Visa / Mastercard / dll.).</span></li>
+                <li><span class="chk">✓</span><span data-c2-process>Jika Open Pre Order: maksimal menunggu 1 x 48 jam. Jika Ready: langsung diberikan setelah pembayaran dikonfirmasi.</span></li>
                 <li><span class="chk">✓</span><span>Full Garansi sampai 7 hari.</span></li>
                 <li><span class="chk">✓</span><span>Support Codex.</span></li>
                 <li><span class="chk">✓</span><span>Verif OTP Manual sendiri.</span></li>
@@ -850,7 +855,7 @@
                 <tr data-product="PLUS_EUROPE_B1"><td>B1 Plus Private (Channel Eropa / SEPA)</td><td>Rp49.000</td><td>1 x 48 jam (2 hari)</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, akun private, dan Support Codex.</td></tr>
                 <tr data-product="PLUS_SELF_SERVICE_B2"><td>B2 GPT Plus Pakai Email Pembeli</td><td>Rp45.000</td><td>1 x 48 jam (2 hari)</td><td><span class="table-status" data-table-status>Status</span></td><td>Email pembeli, payment Polandia / Belanda.</td></tr>
                 <tr data-product="PLUS_VCC_C1"><td>C1 Plus Private (VCC VISA / Mastercard)</td><td>Rp76.000</td><td>Full sampai 3 hari</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, Support Codex, Verif OTP Manual.</td></tr>
-                <tr data-product="PLUS_VCC_C2"><td>C2 Plus Private (VCC VISA / Mastercard)</td><td>Rp85.000</td><td>Full sampai 7 hari</td><td><span class="table-status" data-table-status>Status</span></td><td>Open Pre Order, proses maksimal 48 jam, Private, Support Codex, Verif OTP Manual.</td></tr>
+                <tr data-product="PLUS_VCC_C2"><td>C2 Plus Private (All Payment Apple Pay)</td><td>Rp85.000</td><td>Full sampai 7 hari</td><td><span class="table-status" data-table-status>Status</span></td><td>Visa / Mastercard / dll. via Apple Pay. Open Pre Order maksimal 1 x 48 jam; jika Ready langsung diberikan.</td></tr>
                 <tr data-product="RESELLER"><td>Paket Reseller</td><td>Rp125.000</td><td>Info channel</td><td><span class="table-status" data-table-status>Status</span></td><td>Method info/channel GPT Plus dan layanan lainnya dari maker & supplier.</td></tr>
               </tbody>
             </table>
@@ -901,7 +906,7 @@
             <ul class="term-list">
               <li>Paket akun ChatGPT Plus dapat menggunakan Gmail / iCloud sesuai stok dan proses admin.</li>
               <li>Metode pembayaran menggunakan payment method yang sah berdasarkan region akun dan dijamin aman dari sisi proses paket.</li>
-              <li>Durasi garansi mengikuti deskripsi paket yang dipilih: Paket A India 1 x 24 jam (1 hari), B1 Eropa dan B2 Email Pembeli 1 x 48 jam (2 hari), C1 VCC VISA / Mastercard Full Garansi sampai 3 hari, serta C2 VCC VISA / Mastercard Full Garansi sampai 6 hari.</li>
+              <li>Durasi garansi mengikuti deskripsi paket yang dipilih: Paket A India 1 x 24 jam (1 hari), B1 Eropa dan B2 Email Pembeli 1 x 48 jam (2 hari), C1 VCC VISA / Mastercard Full Garansi sampai 3 hari, serta C2 All Payment via Apple Pay (Visa / Mastercard / dll.) Full Garansi sampai 7 hari.</li>
               <li>Garansi mengarah ke kendala paket, seperti paket hilang, plan kembali ke Free, atau masalah paket yang bukan disebabkan kesalahan pengguna selama masih berada dalam masa garansi.</li>
               <li class="warn-item">Kami tidak bertanggung jawab dan tidak meng-handle akun yang bermasalah di luar atau setelah melewati masa garansi paket.</li>
               <li class="warn-item">Produk ini merupakan offer GPT trial komersial yang dibayar resmi menggunakan metode pembayaran luar Indonesia. Stabilitas akun tetap mengikuti sistem dan kebijakan OpenAI.</li>
@@ -950,7 +955,7 @@
           <h2 class="section-title">Pertanyaan yang sering ditanyakan</h2>
         </div>
         <div class="faq reveal">
-          <details open><summary>Bedanya Plus Channel India, B1 Eropa, B2 Email Pembeli, C1, dan C2 apa?</summary><div class="faq-content">Fungsi Plus utamanya sama, tetapi tipe layanan, metode pembayaran, harga, dan masa garansinya berbeda. India UPI bergaransi 1 x 24 jam (1 hari), B1 Eropa SEPA dan B2 Email Pembeli bergaransi 1 x 48 jam (2 hari), C1 VCC VISA / Mastercard Full Garansi sampai 3 hari, sedangkan C2 VCC VISA / Mastercard Full Garansi sampai 6 hari.</div></details>
+          <details open><summary>Bedanya Plus Channel India, B1 Eropa, B2 Email Pembeli, C1, dan C2 apa?</summary><div class="faq-content">Fungsi Plus utamanya sama, tetapi tipe layanan, metode pembayaran, harga, dan masa garansinya berbeda. India UPI bergaransi 1 x 24 jam (1 hari), B1 Eropa SEPA dan B2 Email Pembeli bergaransi 1 x 48 jam (2 hari), C1 VCC VISA / Mastercard Full Garansi sampai 3 hari, sedangkan C2 menggunakan All Payment via Apple Pay (Visa / Mastercard / dll.) dengan Full Garansi sampai 7 hari. Saat Open Pre Order waktu tunggu maksimal 1 x 48 jam; saat Ready akun langsung diberikan setelah pembayaran dikonfirmasi.</div></details>
 <details><summary>Apa itu Paket B2 GPT Plus Email Pembeli?</summary><div class="faq-content">B2 adalah GPT Plus 1 bulan menggunakan email pembeli sendiri, harga Rp45.000, garansi 1 x 48 jam (2 hari), dan method payment Polandia / Belanda.</div></details>
           <details><summary>Apa itu Paket Reseller?</summary><div class="faq-content">Paket Reseller adalah paket info method/channel GPT Plus dan layanan lainnya langsung dari maker & supplier. Harga Rp125.000, cocok untuk yang ingin mulai jadi reseller GPT dan mencari channel dengan modal lebih murah.</div></details>
           <details><summary>Kapan garansi bisa hangus?</summary><div class="faq-content">Garansi bisa hangus jika akun digunakan berlebihan, spam, dipakai banyak perangkat, dibagikan ke orang lain, memakai cookies/token, API/tools pihak ketiga, proxy/router terlarang, atau mengubah profile, password, billing, maupun plan akun.</div></details>
@@ -1028,7 +1033,7 @@
 
         <div class="checkout-step" id="stepPay">
           <div class="pay-box">
-            <div class="timer">Selesaikan dalam <strong id="timer">05:00</strong></div>
+            <div class="timer">Selesaikan dalam <strong id="timer">10:00</strong></div>
             <div class="qr" id="qrBox"><img src="https://i.ibb.co.com/7wHbVP8/QRIS-BABAY.jpg" alt="QRIS BabayShop"></div>
             <div class="pay-card" id="manualPayCard">
               <h3 id="manualPayName">SeaBank</h3>
@@ -1037,7 +1042,7 @@
               <p id="manualPayCode" style="margin-top:10px;color:#fef3c7"></p>
             </div>
             <div class="pay-switch">
-              <button class="pay-toggle" id="payToggle" type="button"><span id="payCurrent">Pilih Pembayaran: QRIS</span><span>⌄</span></button>
+              <button class="pay-toggle" id="payToggle" type="button" aria-expanded="false"><span id="payCurrent">Opsi Pembayaran (Klik untuk Mengganti) • QRIS</span><span>⌄</span></button>
               <div class="pay-list" id="payList"></div>
             </div>
             <div class="pay-details">
@@ -1109,13 +1114,13 @@
         PLUS_EUROPE_B1: 'soldout',
         PLUS_SELF_SERVICE_B2: 'soldout',
         PLUS_VCC_C1: 'soldout',
-        PLUS_VCC_C2: 'soldout',
+        PLUS_VCC_C2: 'preorder',
         RESELLER: 'soldout'
       };
 
       const STATUS_META = {
         ready: { label: 'Ready', button: 'CHECKOUT!', className: 'ready' },
-        preorder: { label: 'Pre Order', button: 'CHECKOUT!', className: 'preorder' },
+        preorder: { label: 'Open Pre Order', button: 'CHECKOUT!', className: 'preorder' },
         soldout: { label: 'Sold Out', button: 'SOLD OUT', className: 'soldout' }
       };
 
@@ -1182,13 +1187,13 @@
         PLUS_VCC_C2: {
           code: 'C2',
           name: 'AI Chat GPT Plus 1 Month Private',
-          method: 'Channel Payment VCC VISA / Mastercard',
+          method: 'All Payment via Apple Pay (Visa / Mastercard / dll.)',
           price: 85000,
           warranty: 'Full Garansi sampai 7 hari',
           duration: '1 Bulan (25–28 Days)',
-          desc: 'C2: Open Pre Order, proses maksimal 48 jam, Full Garansi sampai 7 hari, Private, Akun Private, Support Codex, dan Verif OTP Manual.',
+          desc: 'C2: All Payment via Apple Pay (Visa / Mastercard / dll.), Full Garansi sampai 7 hari, Private, Akun Private, Support Codex, dan Verif OTP Manual.',
           emailRequired: false,
-          note: 'Open Pre Order dengan estimasi proses maksimal 48 jam. Channel Payment VCC VISA / Mastercard. Kendala di luar atau setelah masa garansi tidak admin handle.'
+          note: 'Jika status Open Pre Order, maksimal menunggu 1 x 48 jam. Jika status Ready, akun langsung diberikan setelah pembayaran dikonfirmasi. Kendala di luar atau setelah masa garansi tidak admin handle.'
         },
         RESELLER: {
           code: 'E',
@@ -1208,15 +1213,50 @@
          ================================ */
       const PAYMENT_ACCOUNTS = {
         QRIS: { label: 'QRIS', type: 'QRIS', owner: 'BAYU RIZKY SAMPURNA', number: 'Scan QRIS BabayShop', code: '', copyable: false },
-        GoPay: { label: 'GoPay', type: 'E-Wallet', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
         DANA: { label: 'DANA', type: 'E-Wallet', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
+        'Bank Jago': { label: 'Bank Jago', type: 'Transfer Bank', owner: 'BAYU RIZKY SAMPURNA', number: '100645331871', code: 'Kode Bank: 542', copyable: true },
+        GoPay: { label: 'GoPay', type: 'E-Wallet', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
         ShopeePay: { label: 'ShopeePay', type: 'E-Wallet', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
         LinkAja: { label: 'LinkAja', type: 'E-Wallet', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
-        Mandiri: { label: 'Bank Mandiri', type: 'Transfer Bank', owner: 'BAYU RIZKY SAMPURNA', number: '1120020438110', code: 'Kode Bank: 008', copyable: true },
-        BSI: { label: 'BSI / Bank Syariah Indonesia', type: 'Transfer Bank', owner: 'BAYU RIZKY SAMPURNA', number: '7183942225', code: 'Kode Bank: 451', copyable: true },
-        'Bank Jago': { label: 'Bank Jago', type: 'Transfer Bank', owner: 'BAYU RIZKY SAMPURNA', number: '100645331871', code: 'Kode Bank: 542', copyable: true },
         SeaBank: { label: 'SeaBank', type: 'Transfer Bank', owner: 'BAYU RIZKY SAMPURNA', number: '901375940437', code: 'Kode Bank: 535', copyable: true }
       };
+
+      const QRIS_TIMEZONE = 'Asia/Jakarta';
+      const QRIS_OPEN_MINUTE = 6 * 60;
+      const QRIS_CLOSE_MINUTE = 23 * 60;
+
+      function getJakartaMinuteOfDay() {
+        const parts = new Intl.DateTimeFormat('en-GB', {
+          timeZone: QRIS_TIMEZONE,
+          hour: '2-digit',
+          minute: '2-digit',
+          hourCycle: 'h23'
+        }).formatToParts(new Date());
+        const hour = Number(parts.find(part => part.type === 'hour')?.value || 0);
+        const minute = Number(parts.find(part => part.type === 'minute')?.value || 0);
+        return (hour * 60) + minute;
+      }
+
+      function isQrisAvailable() {
+        const minuteOfDay = getJakartaMinuteOfDay();
+        return minuteOfDay >= QRIS_OPEN_MINUTE && minuteOfDay < QRIS_CLOSE_MINUTE;
+      }
+
+      function getAvailablePaymentKeys() {
+        const priority = isQrisAvailable() ? ['QRIS', 'DANA', 'Bank Jago'] : ['DANA', 'Bank Jago'];
+        const remaining = Object.keys(PAYMENT_ACCOUNTS).filter(key => !priority.includes(key) && (key !== 'QRIS' || isQrisAvailable()));
+        return [...priority, ...remaining].filter(key => PAYMENT_ACCOUNTS[key]);
+      }
+
+      function getDefaultPaymentKey() {
+        return isQrisAvailable() ? 'QRIS' : 'DANA';
+      }
+
+      function getFulfillmentText(status) {
+        if (status === 'preorder') return 'Maksimal menunggu 1 x 48 jam';
+        if (status === 'ready') return 'Langsung diberikan setelah pembayaran dikonfirmasi';
+        return 'Belum tersedia';
+      }
 
       const $ = (sel, root = document) => root.querySelector(sel);
       const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -1256,6 +1296,15 @@
             element.classList.toggle('is-soldout', status === 'soldout');
             if (stock) stock.className = `stock ${meta.className}`;
             if (stockLabel) stockLabel.textContent = meta.label;
+            if (productId === 'PLUS_VCC_C2') {
+              $$('[data-c2-process]', element).forEach(item => {
+                item.textContent = status === 'preorder'
+                  ? 'Open Pre Order: maksimal menunggu 1 x 48 jam.'
+                  : status === 'ready'
+                    ? 'Ready: langsung diberikan setelah pembayaran dikonfirmasi.'
+                    : 'Produk sedang Sold Out.';
+              });
+            }
             setCheckoutButtonState(buyButton, status);
           }
 
@@ -1433,14 +1482,14 @@
         currentProduct = { ...product, id: productId, status };
         qty = 1;
         modalProduct.textContent = `${currentProduct.code}. ${currentProduct.name} · ${currentProduct.method}`;
-        packageDesc.textContent = `Status: ${STATUS_META[currentProduct.status].label}. ${currentProduct.desc} Baca ketentuan sebelum lanjut checkout.`;
+        packageDesc.textContent = `Status: ${STATUS_META[currentProduct.status].label}. ${currentProduct.desc} Estimasi proses: ${getFulfillmentText(currentProduct.status)}. Baca ketentuan sebelum lanjut checkout.`;
         summaryName.textContent = currentProduct.name;
         
         agree.checked = true;
         $$('.field').forEach(f => f.classList.remove('invalid'));
         
         updateSummary();
-        setPayment('QRIS');
+        refreshPaymentAvailability(true);
         showStep(stepInput);
         checkoutModal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -1477,7 +1526,8 @@
         uniqueCode.textContent = `+${rupiah(unique)}`;
         totalPrice.textContent = rupiah(total);
         
-        startTimer(5 * 60);
+        refreshPaymentAvailability(true);
+        startTimer(10 * 60);
         showStep(stepPay);
       });
 
@@ -1495,22 +1545,35 @@
         countdown = setInterval(render, 1000);
       }
 
-      Object.keys(PAYMENT_ACCOUNTS).forEach((key) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'pay-option' + (key === 'QRIS' ? ' active' : '');
-        btn.textContent = PAYMENT_ACCOUNTS[key].label;
-        btn.addEventListener('click', () => { setPayment(key); payList.classList.remove('active'); });
-        payList.appendChild(btn);
+      function renderPaymentOptions() {
+        payList.innerHTML = '';
+        getAvailablePaymentKeys().forEach((key) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'pay-option' + (key === selectedPay ? ' active' : '');
+          btn.dataset.paymentKey = key;
+          btn.textContent = PAYMENT_ACCOUNTS[key].label;
+          btn.addEventListener('click', () => {
+            setPayment(key);
+            payList.classList.remove('active');
+            payToggle.setAttribute('aria-expanded', 'false');
+          });
+          payList.appendChild(btn);
+        });
+      }
+
+      payToggle.addEventListener('click', () => {
+        const open = payList.classList.toggle('active');
+        payToggle.setAttribute('aria-expanded', String(open));
       });
 
-      payToggle.addEventListener('click', () => payList.classList.toggle('active'));
-
       function setPayment(key) {
-        selectedPay = PAYMENT_ACCOUNTS[key] ? key : 'QRIS';
+        const availableKeys = getAvailablePaymentKeys();
+        const fallbackKey = getDefaultPaymentKey();
+        selectedPay = availableKeys.includes(key) ? key : fallbackKey;
         const data = PAYMENT_ACCOUNTS[selectedPay];
-        payCurrent.textContent = `Pilih Pembayaran: ${data.label}`;
-        $$('.pay-option', payList).forEach(btn => btn.classList.toggle('active', btn.textContent === data.label));
+        payCurrent.textContent = `Opsi Pembayaran (Klik untuk Mengganti) • ${data.label}`;
+        $$('.pay-option', payList).forEach(btn => btn.classList.toggle('active', btn.dataset.paymentKey === selectedPay));
         if (selectedPay === 'QRIS') {
           qrBox.style.display = 'block';
           manualPayCard.classList.remove('active');
@@ -1524,6 +1587,20 @@
         manualPayNumber.textContent = data.number;
         manualPayCode.textContent = data.code || 'Gunakan nomor tujuan di atas.';
       }
+
+      let lastQrisAvailability = null;
+      function refreshPaymentAvailability(force = false) {
+        const qrisAvailable = isQrisAvailable();
+        if (!force && qrisAvailable === lastQrisAvailability) return;
+        lastQrisAvailability = qrisAvailable;
+        const availableKeys = getAvailablePaymentKeys();
+        if (!availableKeys.includes(selectedPay)) selectedPay = getDefaultPaymentKey();
+        renderPaymentOptions();
+        setPayment(selectedPay);
+      }
+
+      refreshPaymentAvailability(true);
+      setInterval(() => refreshPaymentAvailability(false), 60 * 1000);
 
       copyPay.addEventListener('click', async () => {
         const data = PAYMENT_ACCOUNTS[selectedPay];
@@ -1546,6 +1623,7 @@
           `Kode Paket: ${currentProduct.code}\n` +
           `Method/Channel: ${currentProduct.method}\n` +
           `Status: ${STATUS_META[currentProduct.status].label}\n` +
+          `Estimasi Proses: ${getFulfillmentText(currentProduct.status)}\n` +
           `Harga Satuan: ${rupiah(currentProduct.price)}\n` +
           `Jumlah: ${qty}x\n` +
           `Diskon: -${rupiah(currentDiscAmt)} (${currentDiscPct}%)\n` +
@@ -1570,6 +1648,7 @@
   
   
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
