@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -350,6 +351,10 @@
     .filters { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
     .filter-chip { border: 1px solid var(--border); background: rgba(255,255,255,.035); color: var(--muted); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 13px; cursor: pointer; }
     .filter-chip:hover, .filter-chip.active { background: var(--indigo); border-color: var(--indigo); color: #fff; }
+    .filter-chip.soldout-control { border-color: rgba(239,68,68,.28); color: #fecaca; }
+    .filter-chip.soldout-control:hover, .filter-chip.soldout-control.active { background: rgba(239,68,68,.16); border-color: rgba(239,68,68,.48); color: #fff; }
+    .old-price { display: inline-block; margin-right: 8px; color: #fca5a5 !important; font-size: 15px !important; font-weight: 600; text-decoration: line-through; text-decoration-thickness: 1.5px; }
+    .catalog-hidden { display: none !important; }
     
     .packages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
     .pkg { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); display: flex; flex-direction: column; overflow: hidden; transition: transform .25s, border-color .25s, background .25s, box-shadow .25s; }
@@ -662,6 +667,7 @@
             <button class="filter-chip active" data-filter="all" type="button">Semua</button>
             <button class="filter-chip" data-filter="plus" type="button">Plus Private</button>
             <button class="filter-chip" data-filter="reseller" type="button">Paket Reseller</button>
+            <button class="filter-chip soldout-control" id="soldOutToggle" type="button" aria-pressed="false">Tampilkan Produk Sold Out</button>
           </div>
         </div>
 
@@ -680,6 +686,23 @@
               </ul>
               <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
               <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_UPI" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
+            </div>
+          </article>
+
+          <article class="pkg reveal" data-cat="plus" data-product="PLUS_BRAZIL_PIX_BZ">
+            <div class="pkg-head"><div class="pkg-code">BZ</div><div><h3>Chat GPT Plus 1 Month Private</h3><span class="pkg-role">Channel Brazil (PIX)</span></div></div>
+            <div class="pkg-body">
+              <div class="price"><span class="old-price">Rp59.000</span><strong>Rp39.000</strong><span> / paket</span><span class="badge-mini">Promo</span></div>
+              <p class="tagline">BZ: Channel Brazil (PIX), akun private, garansi login 1 jam, dan include verifikasi nomor untuk Codex.</p>
+              <ul class="features">
+                <li><span class="chk">✓</span><span>Private, akun private.</span></li>
+                <li><span class="chk">✓</span><span>Garansi 1 jam untuk kendala login.</span></li>
+                <li><span class="chk">✓</span><span>Include verifikasi nomor untuk Codex.</span></li>
+                <li><span class="chk">✓</span><span>Durasi maksimal 1 bulan.</span></li>
+                <li><span class="warn">!</span><span>Tidak menjamin full durasi.</span></li>
+              </ul>
+              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
+              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_BRAZIL_PIX_BZ" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
             </div>
           </article>
 
@@ -737,12 +760,13 @@
           <article class="pkg reveal" data-cat="plus" data-product="PLUS_VCC_C2">
             <div class="pkg-head"><div class="pkg-code">C2</div><div><h3>AI Chat GPT Plus 1 Month Private</h3><span class="pkg-role">Channel Payment VCC VISA / Mastercard</span></div></div>
             <div class="pkg-body">
-              <div class="price"><strong>Rp85.000</strong><span> / paket</span><span class="badge-mini">6 Hari</span></div>
-              <p class="tagline">C2: Channel Payment VCC VISA / Mastercard, Full Garansi sampai 6 hari, private, akun private, dan Support Codex.</p>
+              <div class="price"><strong>Rp85.000</strong><span> / paket</span><span class="badge-mini">Pre Order • Maks. 48 Jam</span></div>
+              <p class="tagline">C2: Open Pre Order dengan estimasi proses maksimal 48 jam, Full Garansi sampai 7 hari, private, akun private, dan Support Codex.</p>
               <ul class="features">
                 <li><span class="chk">✓</span><span>Private, akun private.</span></li>
                 <li><span class="chk">✓</span><span>Via Apple Pay.</span></li>
-                <li><span class="chk">✓</span><span>Full Garansi sampai 6 hari.</span></li>
+                <li><span class="chk">✓</span><span>Open Pre Order, proses maksimal 48 jam.</span></li>
+                <li><span class="chk">✓</span><span>Full Garansi sampai 7 hari.</span></li>
                 <li><span class="chk">✓</span><span>Support Codex.</span></li>
                 <li><span class="chk">✓</span><span>Verif OTP Manual sendiri.</span></li>
                 <li><span class="chk">✓</span><span>Durasi 1 bulan: 25–28 days.</span></li>
@@ -821,10 +845,11 @@
               <thead><tr><th>Paket</th><th>Harga</th><th>Garansi</th><th>Status</th><th>Catatan</th></tr></thead>
               <tbody>
                 <tr data-product="PLUS_UPI"><td>Plus Private (Channel India / UPI)</td><td>Rp47.000</td><td>1 x 24 jam (1 hari)</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, akun private, dan Support Codex.</td></tr>
+                <tr data-product="PLUS_BRAZIL_PIX_BZ"><td>BZ Plus Private (Channel Brazil / PIX)</td><td><s>Rp59.000</s> Rp39.000</td><td>1 jam (login)</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, include verifikasi nomor untuk Codex, maksimal 1 bulan tanpa jaminan full durasi.</td></tr>
                 <tr data-product="PLUS_EUROPE_B1"><td>B1 Plus Private (Channel Eropa / SEPA)</td><td>Rp49.000</td><td>1 x 48 jam (2 hari)</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, akun private, dan Support Codex.</td></tr>
                 <tr data-product="PLUS_SELF_SERVICE_B2"><td>B2 GPT Plus Pakai Email Pembeli</td><td>Rp45.000</td><td>1 x 48 jam (2 hari)</td><td><span class="table-status" data-table-status>Status</span></td><td>Email pembeli, payment Polandia / Belanda.</td></tr>
                 <tr data-product="PLUS_VCC_C1"><td>C1 Plus Private (VCC VISA / Mastercard)</td><td>Rp76.000</td><td>Full sampai 3 hari</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, Support Codex, Verif OTP Manual.</td></tr>
-                <tr data-product="PLUS_VCC_C2"><td>C2 Plus Private (VCC VISA / Mastercard)</td><td>Rp85.000</td><td>Full sampai 6 hari</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, Support Codex, Verif OTP Manual.</td></tr>
+                <tr data-product="PLUS_VCC_C2"><td>C2 Plus Private (VCC VISA / Mastercard)</td><td>Rp85.000</td><td>Full sampai 7 hari</td><td><span class="table-status" data-table-status>Status</span></td><td>Open Pre Order, proses maksimal 48 jam, Private, Support Codex, Verif OTP Manual.</td></tr>
                 <tr data-product="RESELLER"><td>Paket Reseller</td><td>Rp125.000</td><td>Info channel</td><td><span class="table-status" data-table-status>Status</span></td><td>Method info/channel GPT Plus dan layanan lainnya dari maker & supplier.</td></tr>
               </tbody>
             </table>
@@ -1079,10 +1104,11 @@
          ========================================================== */
       const PACKAGE_STATUS = {
         PLUS_UPI: 'soldout',
+        PLUS_BRAZIL_PIX_BZ: 'ready',
         PLUS_EUROPE_B1: 'soldout',
         PLUS_SELF_SERVICE_B2: 'soldout',
         PLUS_VCC_C1: 'soldout',
-        PLUS_VCC_C2: 'soldout',
+        PLUS_VCC_C2: 'preorder',
         RESELLER: 'soldout'
       };
 
@@ -1106,6 +1132,17 @@
           desc: 'Garansi 1 x 24 jam (1 hari), Private, Akun Private, Codex.',
           emailRequired: false,
           note: 'Channel India (UPI). Private, akun private, dan Support Codex.'
+        },
+        PLUS_BRAZIL_PIX_BZ: {
+          code: 'BZ',
+          name: 'Chat GPT Plus 1 Month Private',
+          method: 'Channel Brazil (PIX)',
+          price: 39000,
+          warranty: 'Garansi 1 Jam (Login)',
+          duration: 'Maksimal 1 Bulan (Tidak Ada Jaminan Full Durasi)',
+          desc: 'BZ: Private, akun private, Garansi 1 Jam untuk login, include verifikasi nomor untuk Codex, dan durasi maksimal 1 bulan tanpa jaminan full durasi.',
+          emailRequired: false,
+          note: 'Channel Brazil (PIX). Include verifikasi nomor untuk Codex. Durasi maksimal 1 bulan dan tidak ada jaminan full durasi.'
         },
         PLUS_EUROPE_B1: {
           code: 'B1',
@@ -1146,11 +1183,11 @@
           name: 'AI Chat GPT Plus 1 Month Private',
           method: 'Channel Payment VCC VISA / Mastercard',
           price: 85000,
-          warranty: 'Full Garansi sampai 6 hari',
+          warranty: 'Full Garansi sampai 7 hari',
           duration: '1 Bulan (25–28 Days)',
-          desc: 'C2: Full Garansi sampai 6 hari, Private, Akun Private, Support Codex, dan Verif OTP Manual.',
+          desc: 'C2: Open Pre Order, proses maksimal 48 jam, Full Garansi sampai 7 hari, Private, Akun Private, Support Codex, dan Verif OTP Manual.',
           emailRequired: false,
-          note: 'Channel Payment VCC VISA / Mastercard. Kendala di luar atau setelah masa garansi tidak admin handle.'
+          note: 'Open Pre Order dengan estimasi proses maksimal 48 jam. Channel Payment VCC VISA / Mastercard. Kendala di luar atau setelah masa garansi tidak admin handle.'
         },
         RESELLER: {
           code: 'E',
@@ -1266,18 +1303,45 @@
       }, { threshold: .12 });
       reveals.forEach(el => revealObs.observe(el));
 
-      const filterChips = $$('.filter-chip');
+      const filterChips = $$('.filter-chip[data-filter]');
+      const soldOutToggle = $('#soldOutToggle');
       const packages = $$('.pkg');
+      const productRows = $$('tr[data-product]');
+      let activePackageFilter = 'all';
+      let showSoldOut = false;
+
+      function updateCatalogVisibility() {
+        packages.forEach(pkg => {
+          const matchesCategory = activePackageFilter === 'all' || pkg.dataset.cat === activePackageFilter;
+          const isSoldOut = getPackageStatus(pkg.dataset.product) === 'soldout';
+          pkg.classList.toggle('catalog-hidden', !matchesCategory || (!showSoldOut && isSoldOut));
+        });
+
+        productRows.forEach(row => {
+          const isSoldOut = getPackageStatus(row.dataset.product) === 'soldout';
+          row.classList.toggle('catalog-hidden', !showSoldOut && isSoldOut);
+        });
+
+        soldOutToggle.classList.toggle('active', showSoldOut);
+        soldOutToggle.setAttribute('aria-pressed', String(showSoldOut));
+        soldOutToggle.textContent = showSoldOut ? 'Sembunyikan Produk Sold Out' : 'Tampilkan Produk Sold Out';
+      }
+
       filterChips.forEach(chip => {
         chip.addEventListener('click', () => {
           filterChips.forEach(c => c.classList.remove('active'));
           chip.classList.add('active');
-          const f = chip.dataset.filter;
-          packages.forEach(pkg => {
-            pkg.style.display = (f === 'all' || pkg.dataset.cat === f) ? 'flex' : 'none';
-          });
+          activePackageFilter = chip.dataset.filter;
+          updateCatalogVisibility();
         });
       });
+
+      soldOutToggle.addEventListener('click', () => {
+        showSoldOut = !showSoldOut;
+        updateCatalogVisibility();
+      });
+
+      updateCatalogVisibility();
 
       const checkoutModal = $('#checkoutModal');
       const modalClose = $('#modalClose');
@@ -1505,5 +1569,6 @@
   
   
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
