@@ -489,6 +489,21 @@
     .pay-row:last-child { border-bottom: 0; }
     .pay-row strong { color: #fff; text-align: right; }
     .total { color: #fca5a5 !important; font-size: 17px; }
+    .pay-row-total { align-items: center; }
+    .total-copy-wrap { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+    .total-selectable {
+      user-select: all;
+      -webkit-user-select: all;
+      cursor: text;
+      padding: 7px 9px;
+      border-radius: 10px;
+      background: rgba(239,68,68,.08);
+      border: 1px solid rgba(239,68,68,.18);
+      font-family: var(--font-mono);
+      outline: none;
+    }
+    .total-selectable:focus { border-color: rgba(34,211,238,.55); box-shadow: 0 0 0 3px rgba(34,211,238,.08); }
+    .total-copy-btn { padding: 8px 11px; white-space: nowrap; }
     .pay-warning { color: #fca5a5; font-size: 12px; font-weight: 600; line-height: 1.45; text-align: center; margin-bottom: 15px; }
     
     .success { text-align: center; padding: 8px 0; }
@@ -1054,7 +1069,7 @@
               <div class="pay-row"><span>Diskon</span><strong id="payDisc">Rp0</strong></div>
               <div class="pay-row"><span>Total (Setelah Diskon)</span><strong id="finalBasePrice">Rp0</strong></div>
               <div class="pay-row"><span>Kode Unik</span><strong id="uniqueCode">+Rp0</strong></div>
-              <div class="pay-row"><span>Total Transfer</span><strong class="total" id="totalPrice">Rp0</strong></div>
+              <div class="pay-row pay-row-total"><span>Total Transfer</span><div class="total-copy-wrap"><strong class="total total-selectable" id="totalPrice" tabindex="0" title="Nominal dapat diblok atau diklik untuk disalin">Rp0</strong><button class="copy-btn total-copy-btn" id="copyTotal" type="button">Salin Nominal</button></div></div>
             </div>
             <p class="pay-warning">Transfer sesuai nominal sampai 3 digit terakhir agar verifikasi lebih mudah. Setelah bayar, klik tombol konfirmasi dan lampirkan bukti transfer.</p>
             <button class="btn btn-wa btn-block btn-lg" id="confirmWa" type="button">Konfirmasi Pembayaran via WhatsApp</button>
@@ -1423,6 +1438,7 @@
       const finalBasePrice = $('#finalBasePrice');
       const uniqueCode = $('#uniqueCode');
       const totalPrice = $('#totalPrice');
+      const copyTotal = $('#copyTotal');
       
       const qrBox = $('#qrBox');
       const manualPayCard = $('#manualPayCard');
@@ -1607,15 +1623,45 @@
       refreshPaymentAvailability(true);
       setInterval(() => refreshPaymentAvailability(false), 60 * 1000);
 
+      async function copyText(value) {
+        try {
+          await navigator.clipboard.writeText(value);
+        } catch (_) {
+          const input = document.createElement('input');
+          input.value = value;
+          input.setAttribute('readonly', '');
+          input.style.position = 'fixed';
+          input.style.opacity = '0';
+          document.body.appendChild(input);
+          input.select();
+          input.setSelectionRange(0, value.length);
+          document.execCommand('copy');
+          input.remove();
+        }
+      }
+
       copyPay.addEventListener('click', async () => {
         const data = PAYMENT_ACCOUNTS[selectedPay];
         if (!data || !data.copyable) return;
-        try { await navigator.clipboard.writeText(data.number); }
-        catch (_) {
-          const input = document.createElement('input'); input.value = data.number; document.body.appendChild(input); input.select(); document.execCommand('copy'); input.remove();
-        }
+        await copyText(data.number);
         copyPay.textContent = 'Tercopy';
         setTimeout(() => copyPay.textContent = 'Copy', 1200);
+      });
+
+      async function copyTotalTransfer() {
+        if (!total || total <= 0) return;
+        await copyText(String(total));
+        copyTotal.textContent = 'Tersalin ✓';
+        setTimeout(() => copyTotal.textContent = 'Salin Nominal', 1400);
+      }
+
+      copyTotal.addEventListener('click', copyTotalTransfer);
+      totalPrice.addEventListener('click', copyTotalTransfer);
+      totalPrice.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          copyTotalTransfer();
+        }
       });
 
       confirmWa.addEventListener('click', () => {
