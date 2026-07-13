@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GPT Plus Redeem Note Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+--card:rgba(255,255,255,.06);
+--border:rgba(255,255,255,.15);
+--accent:#7c4dff;
+--text:#eee;
+}
+*{box-sizing:border-box;font-family:Inter,sans-serif}
+body{margin:0;background:var(--bg);min-height:100vh;color:var(--text);display:flex;justify-content:center;padding:20px}
+.container{max-width:560px;width:100%}
+.card{background:var(--card);backdrop-filter:blur(15px);border:1px solid var(--border);border-radius:18px;padding:24px;box-shadow:0 8px 30px rgba(0,0,0,.35)}
+h1{text-align:center;margin-top:0}
+.group{margin-bottom:16px}
+label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;margin-bottom:6px;color:#bbb}
+input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:rgba(0,0,0,.25);color:#fff}
+textarea{height:560px;resize:vertical;font-family:Consolas,monospace}
+button{width:100%;padding:13px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-weight:700;cursor:pointer}
+.actions{display:flex;gap:10px;margin-top:10px}
+.actions button{flex:1}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="card">
+<h1>🎁 GPT Plus Redeem Note</h1>
+
+<div class="group">
+<label>Tanggal Pembelian</label>
+<input type="date" id="tgl">
+</div>
+
+<div class="group">
+<label>Kode Redeem</label>
+<input id="kode" placeholder="EUR-XFZ1507A8D">
+</div>
+
+<div class="group">
+<label>Channel Region Akun</label>
+<select id="region">
+<option>Brazil</option>
+<option>India</option>
+<option>Eropa</option>
+<option>Indonesia</option>
+</select>
+</div>
+
+<div class="group">
+<label>Garansi</label>
+<input value="Garansi 1 Jam Redeem" readonly>
+</div>
+
+<button onclick="generate()">Generate Nota</button>
+</div>
+
+<div class="card hidden" id="hasilCard" style="margin-top:18px">
+<label>Nota</label>
+<textarea id="hasil" readonly></textarea>
+<div class="actions">
+<button onclick="copyText()">Salin</button>
+<button onclick="editNota()" id="editBtn">Edit</button>
+</div>
+</div>
+</div>
+
+<script>
+document.getElementById("tgl").valueAsDate=new Date();
+let edit=false;
+
+function formatDate(v){
+if(!v)return "-";
+return new Date(v).toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
+}
+
+function generate(){
+const tgl=formatDate(document.getElementById("tgl").value);
+const kode=document.getElementById("kode").value||"...";
+const region=document.getElementById("region").value;
+
+const txt=`PESANAN GPT PLUS REDEEM BERHASIL
+━━━━━━━━━━━━━━━━━━
+
+Tanggal Pembelian : ${tgl}
+Kode Redeem       : ${kode}
+Channel Region    : ${region}
+Garansi           : Garansi 1 Jam Redeem
+
+━━━━━━━━━━━━━━━━━━
+
+📌 CARA KLAIM
+
+Ikuti panduan klaim berikut:
+https://babayshop.id/gpt/redeem-acc
+
+━━━━━━━━━━━━━━━━━━
+
+⚠️ INFORMASI PENTING
+
+• Segera amankan akun email Microsoft dan akun ChatGPT karena keduanya 100% menjadi milik Anda.
+
+• Codex sudah terverifikasi dan siap digunakan.
+
+━━━━━━━━━━━━━━━━━━
+
+📜 SYARAT & KETENTUAN
+
+• Garansi hanya berlaku 1 jam untuk proses redeem.
+
+• Setelah redeem berhasil, transaksi dianggap selesai.
+
+• Akun ChatGPT ini bersifat komersial/private.
+
+• Tidak ada jaminan permanen. Sewaktu-waktu akun dapat terkena take down, suspend ataupun banned oleh pihak OpenAI.
+
+• Hal tersebut berada di luar tanggung jawab kami.
+
+• Membeli = memahami dan menyetujui seluruh ketentuan.
+
+• Jika ingin lebih aman tanpa kendala, silakan berlangganan resmi melalui OpenAI.
+
+━━━━━━━━━━━━━━━━━━
+
+Terima kasih telah berbelanja di BabayShop ❤️`;
+
+document.getElementById("hasil").value=txt;
+document.getElementById("hasilCard").classList.remove("hidden");
+}
+
+function copyText(){
+const t=document.getElementById("hasil");
+t.select();
+document.execCommand("copy");
+}
+
+function editNota(){
+edit=!edit;
+const t=document.getElementById("hasil");
+const b=document.getElementById("editBtn");
+if(edit){t.removeAttribute("readonly");b.innerText="Selesai";}
+else{t.setAttribute("readonly","readonly");b.innerText="Edit";}
+}
+</script>
+</body>
+</html>
