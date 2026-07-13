@@ -1046,7 +1046,8 @@
               <div class="pay-list" id="payList"></div>
             </div>
             <div class="pay-details">
-              <div class="pay-row"><span>Merchant</span><strong>BAYU RIZKY SAMPURNA</strong></div>
+              <div class="pay-row"><span>Metode Pembayaran</span><strong id="payMethodUsed">QRIS</strong></div>
+              <div class="pay-row"><span>Tujuan Pembayaran</span><strong id="payDestination">Scan QRIS BabayShop</strong></div>
               <div class="pay-row"><span>ID Transaksi</span><strong id="txId">TX-000000</strong></div>
               <div class="pay-row"><span>Jumlah Pesanan</span><strong id="payQty">1x</strong></div>
               <div class="pay-row"><span>Total (Normal)</span><strong id="basePrice">Rp0</strong></div>
@@ -1434,6 +1435,8 @@
       const payToggle = $('#payToggle');
       const payList = $('#payList');
       const payCurrent = $('#payCurrent');
+      const payMethodUsed = $('#payMethodUsed');
+      const payDestination = $('#payDestination');
       const confirmWa = $('#confirmWa');
       const waFallback = $('#waFallback');
 
@@ -1573,6 +1576,8 @@
         selectedPay = availableKeys.includes(key) ? key : fallbackKey;
         const data = PAYMENT_ACCOUNTS[selectedPay];
         payCurrent.textContent = `Opsi Pembayaran (Klik untuk Mengganti) • ${data.label}`;
+        payMethodUsed.textContent = data.label;
+        payDestination.textContent = data.number;
         $$('.pay-option', payList).forEach(btn => btn.classList.toggle('active', btn.dataset.paymentKey === selectedPay));
         if (selectedPay === 'QRIS') {
           qrBox.style.display = 'block';
