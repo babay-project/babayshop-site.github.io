@@ -1,366 +1,679 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="id" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Payment ke Babay</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Pembayaran Online | BabayShop</title>
+  <meta name="theme-color" content="#0b0b0d" />
+  <meta name="description" content="Halaman pembayaran resmi BabayShop melalui QRIS, dompet digital, dan transfer bank." />
   <style>
-  :root{
-    --bg-primary:#0f172a;
-    --bg-secondary:#1e293b;
-    --bg-card:#1e293b;
-    --text-primary:#f1f5f9;
-    --text-secondary:#94a3b8;
-    --accent:#6366f1;
-    --accent-hover:#4f46e5;
-    --border:#334155;
-    --success:#10b981;
-    --shadow:rgba(0,0,0,0.5);
-  }
-  [data-theme="light"]{
-    --bg-primary:#f8fafc;
-    --bg-secondary:#ffffff;
-    --bg-card:#ffffff;
-    --text-primary:#0f172a;
-    --text-secondary:#64748b;
-    --accent:#6366f1;
-    --accent-hover:#4f46e5;
-    --border:#e2e8f0;
-    --success:#10b981;
-    --shadow:rgba(15,23,42,0.08);
-  }
+    :root {
+      color-scheme: dark;
+      --bg: #0b0b0d;
+      --nav: #111113;
+      --surface: #151517;
+      --surface-2: #1b1b1e;
+      --surface-hover: #202024;
+      --text: #f5f5f7;
+      --muted: #a1a1a6;
+      --dim: #737378;
+      --border: #2c2c2e;
+      --border-strong: #3a3a3c;
+      --accent: #0a84ff;
+      --accent-hover: #2997ff;
+      --success: #30d158;
+      --warning: #ffd60a;
+      --danger: #ff453a;
+      --shadow: 0 18px 45px rgba(0, 0, 0, .32);
+      --font-apple: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    }
 
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    font-family:Poppins,system-ui,sans-serif;
-    background:var(--bg-primary);
-    color:var(--text-primary);
-    min-height:100vh;
-    padding-bottom:100px;
-    transition:background 0.3s ease;
-  }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+    body {
+      min-height: 100vh;
+      padding-bottom: 48px;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-apple);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    button, a { font: inherit; }
+    img { display: block; max-width: 100%; }
 
-  .container{max-width:900px;margin:0 auto;padding:20px}
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(17, 17, 19, .94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .nav-inner {
+      width: min(920px, calc(100% - 32px));
+      height: 64px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -.025em;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 15px;
+    }
+    .brand-text span { color: var(--accent); }
+    .nav-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border: 1px solid #25442d;
+      border-radius: 999px;
+      background: #132819;
+      color: #8ff0a4;
+      font-size: 11px;
+      font-weight: 650;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+    }
 
-  /* Header */
-  .header{
-    text-align:center;
-    padding:40px 20px 16px;
-    position:relative;
-    overflow:hidden;
-  }
-  .header::before{
-    content:'';
-    position:absolute;
-    top:0;left:50%;transform:translateX(-50%);
-    width:400px;height:400px;
-    background:radial-gradient(circle, var(--accent) 0%, transparent 70%);
-    opacity:0.1;animation:pulse 4s ease-in-out infinite;
-  }
-  @keyframes pulse{0%,100%{transform:translateX(-50%) scale(1);opacity:0.1}50%{transform:translateX(-50%) scale(1.2);opacity:0.15}}
-  .header h1{font-size:32px;font-weight:800;margin:12px 0 6px;background:linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-  .header p{color:var(--text-secondary);font-size:15px}
+    .container {
+      width: min(900px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+    .header {
+      padding: 64px 12px 26px;
+      text-align: center;
+    }
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 16px;
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 650;
+      letter-spacing: .05em;
+    }
+    .header h1 {
+      margin-bottom: 14px;
+      color: var(--text);
+      font-size: clamp(38px, 7vw, 62px);
+      font-weight: 760;
+      line-height: 1;
+      letter-spacing: -.055em;
+    }
+    .header p {
+      max-width: 570px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .merchant-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 18px;
+      padding: 10px 13px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .merchant-chip strong { color: var(--text); font-weight: 650; }
+    .merchant-icon {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
 
-  /* Tabs (Pisah per metode) */
-  .pay-tabs{
-    position:sticky;top:0;z-index:50;
-    background:var(--bg-primary);
-    padding:12px 0 4px;margin-top:12px;border-bottom:1px solid var(--border);
-    backdrop-filter:blur(6px);
-  }
-  .tab-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-  .tab-btn{
-    appearance:none;border:none;cursor:pointer;
-    padding:10px 14px;border-radius:12px;font-weight:700;font-size:14px;
-    background:var(--bg-secondary);color:var(--text-primary);
-    border:2px solid var(--border);box-shadow:0 2px 8px var(--shadow);
-    transition:all .2s ease
-  }
-  .tab-btn:hover{transform:translateY(-1px);border-color:var(--accent)}
-  .tab-btn.active{background:linear-gradient(135deg, var(--accent), #8b5cf6);color:#fff;border-color:transparent}
+    .pay-tabs {
+      position: sticky;
+      top: 64px;
+      z-index: 80;
+      margin: 10px 0 18px;
+      padding: 7px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: rgba(21, 21, 23, .95);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .tab-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .tab-btn {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 10px 11px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 650;
+      transition: background .18s ease, color .18s ease, border-color .18s ease;
+    }
+    .tab-btn:hover {
+      border-color: var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+    }
+    .tab-btn.active {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
 
-  /* Cards */
-  .section{display:none}
-  .section.active{display:block}
+    .section { display: none; }
+    .section.active, .section.always-visible { display: block; }
 
-  .card{background:var(--bg-card);border:1px solid var(--border);border-radius:24px;padding:24px;margin:16px 0;box-shadow:0 8px 32px var(--shadow);backdrop-filter:blur(10px)}
-  .card-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-  .card-icon{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff}
-  .card h2{font-size:22px;font-weight:700}
-  .card-subtitle{color:var(--text-secondary);font-size:14px;margin-bottom:20px}
+    .card {
+      margin: 14px 0;
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 19px;
+    }
+    .card h2 {
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -.025em;
+    }
+    .card-subtitle {
+      margin-bottom: 17px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
 
-  /* QRIS */
-  .qris-container{text-align:center}
-  .qris-img{width:100%;max-width:360px;border-radius:20px;border:2px solid var(--border);margin:20px auto;display:block;box-shadow:0 8px 32px var(--shadow);transition:transform .3s}
-  .qris-img:hover{transform:scale(1.02)}
-  .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:12px;background:var(--accent);color:#fff;font-size:13px;font-weight:600;margin-bottom:16px}
+    .qris-container { text-align: center; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 4px;
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 650;
+    }
+    .qris-owner {
+      margin-top: 13px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 650;
+    }
+    .qris-owner span {
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .qris-img {
+      width: 100%;
+      max-width: 350px;
+      margin: 16px auto 6px;
+      padding: 7px;
+      border: 1px solid var(--border-strong);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 16px 38px rgba(0, 0, 0, .3);
+    }
 
-  /* Payment Items */
-  .payment-grid{display:grid;gap:12px}
-  .payment-item{display:flex;align-items:center;gap:16px;padding:16px;border:2px solid var(--border);border-radius:20px;background:var(--bg-secondary);transition:all .3s;cursor:pointer;position:relative;overflow:hidden}
-  .payment-item::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg, transparent, rgba(99,102,241,0.1), transparent);transition:left .5s}
-  .payment-item:hover::before{left:100%}
-  .payment-item:hover{border-color:var(--accent);transform:translateX(4px);box-shadow:0 4px 16px var(--shadow)}
-  .payment-logo{width:48px;height:48px;object-fit:contain;border-radius:12px;background:#fff;padding:4px;flex-shrink:0}
-  .payment-info{flex:1;min-width:0}
-  .payment-name{font-weight:700;font-size:16px;margin-bottom:2px}
-  .payment-code{color:var(--text-secondary);font-size:12px;margin-bottom:4px}
-  .payment-number{font-size:18px;font-weight:600;letter-spacing:.5px;color:var(--accent)}
-  .copy-btn{padding:10px 20px;border-radius:12px;border:2px solid var(--accent);background:var(--accent);color:#fff;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;flex-shrink:0}
-  .copy-btn:hover{background:var(--accent-hover);transform:scale(1.05)}
-  .copy-btn.copied{background:var(--success);border-color:var(--success)}
+    .payment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+    }
+    .payment-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface-2);
+      cursor: pointer;
+      transition: background .18s ease, border-color .18s ease;
+    }
+    .payment-item:hover {
+      border-color: var(--border-strong);
+      background: var(--surface-hover);
+    }
+    .payment-logo {
+      width: 45px;
+      height: 45px;
+      flex-shrink: 0;
+      object-fit: contain;
+      padding: 5px;
+      border: 1px solid #dedede;
+      border-radius: 12px;
+      background: #fff;
+    }
+    .payment-info { min-width: 0; }
+    .payment-name {
+      margin-bottom: 2px;
+      color: var(--text);
+      font-size: 13.5px;
+      font-weight: 650;
+    }
+    .payment-code {
+      margin-bottom: 3px;
+      color: var(--dim);
+      font-size: 10.5px;
+    }
+    .payment-number {
+      color: #64b5ff;
+      font-size: 14.5px;
+      font-weight: 650;
+      letter-spacing: .15px;
+      overflow-wrap: anywhere;
+    }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      flex-shrink: 0;
+      padding: 8px 10px;
+      border: 1px solid #245c8e;
+      border-radius: 10px;
+      background: #102b43;
+      color: #82c5ff;
+      cursor: pointer;
+      font-size: 10.5px;
+      font-weight: 650;
+      transition: background .18s ease, color .18s ease, border-color .18s ease;
+    }
+    .copy-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+    .copy-btn.copied {
+      border-color: #236a34;
+      background: #14351d;
+      color: #8ff0a4;
+    }
 
-  /* Primary Button */
-  .btn-primary{width:100%;padding:16px;border-radius:16px;border:none;background:linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);color:#fff;font-weight:700;font-size:16px;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;box-shadow:0 4px 16px rgba(99,102,241,0.3)}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,0.4)}
+    .btn-primary {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 13px 17px;
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 650;
+      transition: background .18s ease, border-color .18s ease;
+    }
+    .btn-primary:hover {
+      border-color: var(--accent-hover);
+      background: var(--accent-hover);
+    }
 
-  /* Theme Toggle */
-  .theme-toggle{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:var(--accent);border:none;color:#fff;font-size:24px;cursor:pointer;box-shadow:0 8px 24px rgba(99,102,241,0.4);transition:all .3s;z-index:1000;display:flex;align-items:center;justify-content:center}
-  .theme-toggle:hover{transform:rotate(180deg) scale(1.1)}
+    #section-help .card { background: #12161b; }
 
-  /* Toast */
-  .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--bg-card);color:var(--text-primary);padding:16px 24px;border-radius:16px;border:2px solid var(--accent);font-weight:600;box-shadow:0 8px 32px var(--shadow);z-index:999;opacity:0;transition:all .3s;display:flex;align-items:center;gap:12px;backdrop-filter:blur(10px)}
-  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: calc(100% - 28px);
+      padding: 12px 16px;
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      background: #1c1c1e;
+      color: var(--text);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .38);
+      font-size: 12px;
+      font-weight: 650;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(80px);
+      transition: opacity .22s ease, transform .22s ease;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .footer {
+      padding: 22px 12px 8px;
+      color: var(--dim);
+      text-align: center;
+      font-size: 11.5px;
+      line-height: 1.65;
+    }
+    .footer strong { color: var(--muted); }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 1px, 1px);
+      white-space: nowrap;
+      border: 0;
+    }
 
-  /* Screen reader only */
-  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,1px,1px);white-space:nowrap;border:0}
+    @media (max-width: 760px) {
+      .nav-inner { width: min(100% - 24px, 920px); height: 60px; }
+      .brand { font-size: 17px; }
+      .brand-mark { width: 32px; height: 32px; }
+      .nav-status { padding: 6px 8px; font-size: 9.8px; }
+      .container { width: min(100% - 22px, 900px); }
+      .header { padding: 42px 6px 20px; }
+      .header h1 { font-size: clamp(36px, 12vw, 48px); }
+      .header p { font-size: 12.5px; }
+      .merchant-chip { font-size: 10.8px; }
+      .pay-tabs { top: 60px; margin: 7px 0 13px; }
+      .tab-btn { padding: 9px 5px; font-size: 10.3px; }
+      .card { margin: 10px 0; padding: 17px; border-radius: 18px; }
+      .card-header { margin-bottom: 14px; padding-bottom: 13px; }
+      .card-icon { width: 38px; height: 38px; border-radius: 11px; font-size: 17px; }
+      .card h2 { font-size: 18px; }
+      .qris-img { max-width: 310px; border-radius: 15px; }
+      .payment-grid { grid-template-columns: 1fr; gap: 8px; }
+      .payment-item { padding: 12px; border-radius: 14px; gap: 10px; }
+      .payment-logo { width: 41px; height: 41px; border-radius: 10px; }
+      .payment-number { font-size: 13.5px; }
+      .copy-btn { padding: 8px 9px; font-size: 9.8px; }
+      .btn-primary { padding: 12px 14px; font-size: 12px; }
+      .toast { bottom: 18px; white-space: normal; text-align: center; }
+    }
 
-  @media (max-width:768px){.header h1{font-size:28px}.card{padding:20px}.payment-item{padding:14px}.payment-logo{width:42px;height:42px}.payment-number{font-size:16px}.copy-btn{padding:8px 16px;font-size:13px}}
+    @media (max-width: 380px) {
+      .nav-status { display: none; }
+      .tab-btn { font-size: 9.4px; }
+      .payment-item { grid-template-columns: auto minmax(0, 1fr); }
+      .copy-btn { grid-column: 1 / -1; width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="#qris" aria-label="BabayShop pembayaran">
+        <span class="brand-mark">B</span>
+        <span class="brand-text">Babay<span>Shop</span></span>
+      </a>
+      <span class="nav-status"><span class="status-dot"></span>Pembayaran Resmi</span>
+    </div>
+  </header>
+
+  <main class="container">
     <div class="header">
-      <h1>Pembayaran Online</h1>
-      <p>Semua Atas Nama <strong>BAYU RIZKY SAMPURNA</strong></p>
+      <span class="hero-label">PAYMENT CENTER</span>
+      <h1>Pembayaran<br />Online</h1>
+      <p>Pilih metode pembayaran yang paling nyaman dan salin nomor tujuan dalam satu klik.</p>
+      <div class="merchant-chip">
+        <span class="merchant-icon">✓</span>
+        <span>Semua rekening atas nama <strong>BAYU RIZKY SAMPURNA</strong></span>
+      </div>
     </div>
 
-    <!-- Tabs: Pisah per metode -->
     <nav class="pay-tabs" aria-label="Pilih metode pembayaran">
       <div class="tab-row">
-        <button class="tab-btn active" data-tab="qris">QRIS</button>
-        <button class="tab-btn" data-tab="ewallet">Dompet Digital</button>
-        <button class="tab-btn" data-tab="bank">Transfer Bank</button>
+        <button class="tab-btn active" data-tab="qris" type="button">QRIS</button>
+        <button class="tab-btn" data-tab="ewallet" type="button">Dompet Digital</button>
+        <button class="tab-btn" data-tab="bank" type="button">Transfer Bank</button>
       </div>
     </nav>
 
-    <!-- SECTION: QRIS -->
     <section class="section active" id="section-qris" data-section="qris">
       <div class="card">
-        <div class="card-header"><div class="card-icon">📱</div><h2>QRIS</h2></div>
+        <div class="card-header">
+          <div class="card-icon">QR</div>
+          <h2>QRIS</h2>
+        </div>
         <div class="qris-container">
-          <span class="badge">✨ Scan untuk bayar lebih cepat</span>
-          <img class="qris-img" src="https://blogger.googleusercontent.com/img/a/AVvXsEicxgapeHgByovmscN00Pj6eEKg4NQ-FqU-AJwOCL1IKzrs4wrET4cdvSxe4k5CEKzr7-Vs6XM_OmDOvt7yAr7Nf9SQOyy4BCxMGrtRtgKicZOrKkfxhlYOwFiEPIIeVkBb2BvmEcL3pFnxHJ5HSJ33b9-aUdf82Q9RkFyqF1rFeUfzlNTLoQ3qXZfOkB1b" alt="QRIS">
-          <a class="btn-primary" href="https://undangannya.web.id/wp-content/uploads/2025/09/qris-babay.png" download="QRIS-Babay.png">💾 Simpan QRIS</a>
+          <span class="badge">Scan QRIS untuk membayar</span>
+          <div class="qris-owner">QRIS BayToBeWithNia</div>
+          <img
+            class="qris-img"
+            src="https://i.ibb.co.com/MkrGrDns/QRIS-BABAY-2.jpg"
+            alt="QRIS BayToBeWithNia"
+          />
         </div>
       </div>
     </section>
 
-    <!-- SECTION: Dompet Digital -->
     <section class="section" id="section-ewallet" data-section="ewallet">
       <div class="card">
-        <div class="card-header"><div class="card-icon">💳</div><h2>Dompet Digital</h2></div>
-        <p class="card-subtitle">Tap nomor atau tombol Copy untuk menyalin</p>
+        <div class="card-header"><div class="card-icon">EW</div><h2>Dompet Digital</h2></div>
+        <p class="card-subtitle">Tekan nomor atau tombol Copy untuk menyalin.</p>
         <div class="payment-grid">
           <div class="payment-item" data-copy="088215993544">
-            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEgq3HaU8T7ZEEmljJuxypoDObOdQYkxB38dVJa1y89eUqFwHXe7kYE_y9xz5gv85e44cuMs0hLmUBXPRdf0VvYHlqZjgtYjCHmNFQjKc_5dZ3k67UOH2CmQAvtVOhDjgze941ZTwyehsrRDleoxR0Q-5fh-NtPMN0rVF77ObjtItBkc2rbEXboOgqD2nBcH" alt="GoPay">
+            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEgq3HaU8T7ZEEmljJuxypoDObOdQYkxB38dVJa1y89eUqFwHXe7kYE_y9xz5gv85e44cuMs0hLmUBXPRdf0VvYHlqZjgtYjCHmNFQjKc_5dZ3k67UOH2CmQAvtVOhDjgze941ZTwyehsrRDleoxR0Q-5fh-NtPMN0rVF77ObjtItBkc2rbEXboOgqD2nBcH" alt="GoPay" />
             <div class="payment-info"><div class="payment-name">GoPay</div><div class="payment-number">0882 1599 3544</div></div>
-            <button class="copy-btn">📋 Copy</button>
+            <button class="copy-btn" type="button">Copy</button>
           </div>
           <div class="payment-item" data-copy="088215993544">
-            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEjXur82-Ithr--hcBvVeoVrnkXOOlMCyFMKGbK7vgciysVhk1v01In0Ss0l6u3B5mfSbcHi0kj8LyGqJKRwE_BgfPQFPq9xg_vIe9wUVsWSeIQZi6xaseE0GAnwl2n3nmJmbAcq2Ovr92JzZ663bH4ugSiF7FZ8BpKh09yRC-SJVAedJSSTmTB-EMZLMeWs" alt="DANA">
+            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEjXur82-Ithr--hcBvVeoVrnkXOOlMCyFMKGbK7vgciysVhk1v01In0Ss0l6u3B5mfSbcHi0kj8LyGqJKRwE_BgfPQFPq9xg_vIe9wUVsWSeIQZi6xaseE0GAnwl2n3nmJmbAcq2Ovr92JzZ663bH4ugSiF7FZ8BpKh09yRC-SJVAedJSSTmTB-EMZLMeWs" alt="DANA" />
             <div class="payment-info"><div class="payment-name">DANA</div><div class="payment-number">0882 1599 3544</div></div>
-            <button class="copy-btn">📋 Copy</button>
+            <button class="copy-btn" type="button">Copy</button>
           </div>
           <div class="payment-item" data-copy="088215993544">
-            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEgW7BuN7el3v1EBYrI4hZ6NOiMZ-PA4quG8Yf6Hg3fde69_r-XWtiikm-596QLg58iu0YnNcCWFzj4N0FF2lTd_G2ptYP9gHYrrZHndbmuKFctv54LQc-OaXlNP-by8vndGL-Vy9RZE2Yodw33u9lCdYzmMlDHvwRx4NltZBxasQT_yC5K9FbTkg5HwnJbi" alt="ShopeePay">
+            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEgW7BuN7el3v1EBYrI4hZ6NOiMZ-PA4quG8Yf6Hg3fde69_r-XWtiikm-596QLg58iu0YnNcCWFzj4N0FF2lTd_G2ptYP9gHYrrZHndbmuKFctv54LQc-OaXlNP-by8vndGL-Vy9RZE2Yodw33u9lCdYzmMlDHvwRx4NltZBxasQT_yC5K9FbTkg5HwnJbi" alt="ShopeePay" />
             <div class="payment-info"><div class="payment-name">ShopeePay</div><div class="payment-number">0882 1599 3544</div></div>
-            <button class="copy-btn">📋 Copy</button>
+            <button class="copy-btn" type="button">Copy</button>
           </div>
           <div class="payment-item" data-copy="088215993544">
-            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEi6_Dj1-t2itD5VXaskuXhDquciUjmUlBS_gO67JMRen5mZaT9YSiF7MKzB1LdfMlEDP1M50YcDpTPCuDMx64woMcTeG7PFw6czwoN4OPIB9do06uf0LkRDlVWPLa03shIrTWwZ-xG735lDTvu9pb6aGOX3jSdb_XNrNVMceTZafxwLTFCiNn8IJefrDI0L" alt="LinkAja">
+            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEi6_Dj1-t2itD5VXaskuXhDquciUjmUlBS_gO67JMRen5mZaT9YSiF7MKzB1LdfMlEDP1M50YcDpTPCuDMx64woMcTeG7PFw6czwoN4OPIB9do06uf0LkRDlVWPLa03shIrTWwZ-xG735lDTvu9pb6aGOX3jSdb_XNrNVMceTZafxwLTFCiNn8IJefrDI0L" alt="LinkAja" />
             <div class="payment-info"><div class="payment-name">LinkAja</div><div class="payment-number">0882 1599 3544</div></div>
-            <button class="copy-btn">📋 Copy</button>
+            <button class="copy-btn" type="button">Copy</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION: Transfer Bank -->
     <section class="section" id="section-bank" data-section="bank">
       <div class="card">
-        <div class="card-header"><div class="card-icon">🏦</div><h2>Transfer Bank</h2></div>
-        <p class="card-subtitle">Kode bank sudah disertakan dalam nomor rekening</p>
+        <div class="card-header"><div class="card-icon">BK</div><h2>Transfer Bank</h2></div>
+        <p class="card-subtitle">Gunakan salah satu rekening bank aktif berikut.</p>
         <div class="payment-grid">
-          <div class="payment-item" data-copy="1120020438110">
-            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEhldiIB0ykR6z7FI9lxbGT4kobb1ApbzCAWklOkrlY4uI0rK9UsvRL-fZQ8xvROmkbIa2zD6qV-bcMHOViNdiGt3A19TxkT55kGeRO7d7CwQWbNoc9TQ13Pl94K1um4l4lNY6Anb3UjigA5cfc5jvxeNjTsbLJpcLqfa5joxm0yCwGm-dbNC4psglSF9A4x" alt="Mandiri">
-            <div class="payment-info"><div class="payment-name">Bank Mandiri</div><div class="payment-code">Kode Bank: 008</div><div class="payment-number">1120 0204 38110</div></div>
-            <button class="copy-btn">📋 Copy</button>
-          </div>
-          <div class="payment-item" data-copy="7183942225">
-            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEj_0wpGKUp840NfNfe7h64cGMF3KqV0Fo7mWugJ4FdkHh_wP4amM2jaIRjrtCdSdOMB07up9xHM8BtF9jPtOoyampL6GG9kyuUD5o9GbyeXfC-Wdfca1xOC_cFfAU_tTQreFnjq11oSZdzKlRp-IhkKPg7F6gcbiLMadF3fQNEmicFNIocLSuR_SwXsi_q6" alt="BSI">
-            <div class="payment-info"><div class="payment-name">BSI</div><div class="payment-code">Kode Bank: 451</div><div class="payment-number">7183 942 225</div></div>
-            <button class="copy-btn">📋 Copy</button>
-          </div>
           <div class="payment-item" data-copy="100645331871">
-            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEicp5KjFo3ZeLilov-1mOt_bH5x-Wbb5Xslnu4BeGJFNC66xaJU6GzXP6V101Q7Jm4sLII7iJ-6towfvzPTenVDHKM3pSRUg-f3PbkDSSNnux45W1wVmNQiqntiBX8ifEuXNUuHquRa8z9lmM0t4ua8bL6_30bVOt5614DGMtNhseV3_X1pRe-7icK1lBWX" alt="Bank Jago">
+            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEicp5KjFo3ZeLilov-1mOt_bH5x-Wbb5Xslnu4BeGJFNC66xaJU6GzXP6V101Q7Jm4sLII7iJ-6towfvzPTenVDHKM3pSRUg-f3PbkDSSNnux45W1wVmNQiqntiBX8ifEuXNUuHquRa8z9lmM0t4ua8bL6_30bVOt5614DGMtNhseV3_X1pRe-7icK1lBWX" alt="Bank Jago" />
             <div class="payment-info"><div class="payment-name">Bank Jago</div><div class="payment-code">Kode Bank: 542</div><div class="payment-number">1006 4533 1871</div></div>
-            <button class="copy-btn">📋 Copy</button>
+            <button class="copy-btn" type="button">Copy</button>
           </div>
           <div class="payment-item" data-copy="901375940437">
-            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEi18PxWNHMFpvNCr707T_va5y6AkUoOnJkGJy7jXB3CwowK5DcSvDLANFHk9CEy8mthpHUtDVeRQkZXjNLTksJUPrfyoEdoK94WgLNaNmtTJ4Kq46BUxBJXCQACinJSgyRz0lc_1-XUt_EGr-O--Uwh86_h3XiV-axvrWON0HTeQoRtYVGSOI9tyzC8CxRO" alt="SeaBank">
+            <img class="payment-logo" src="https://blogger.googleusercontent.com/img/a/AVvXsEi18PxWNHMFpvNCr707T_va5y6AkUoOnJkGJy7jXB3CwowK5DcSvDLANFHk9CEy8mthpHUtDVeRQkZXjNLTksJUPrfyoEdoK94WgLNaNmtTJ4Kq46BUxBJXCQACinJSgyRz0lc_1-XUt_EGr-O--Uwh86_h3XiV-axvrWON0HTeQoRtYVGSOI9tyzC8CxRO" alt="SeaBank" />
             <div class="payment-info"><div class="payment-name">SeaBank</div><div class="payment-code">Kode Bank: 535</div><div class="payment-number">9013 7594 0437</div></div>
-            <button class="copy-btn">📋 Copy</button>
+            <button class="copy-btn" type="button">Copy</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION: Bantuan -->
-    <section class="section" id="section-help" data-section="help" style="display:block">
+    <section class="section always-visible" id="section-help" data-section="help">
       <div class="card">
-        <div class="card-header"><div class="card-icon">💬</div><h2>Butuh Bantuan?</h2></div>
+        <div class="card-header"><div class="card-icon">WA</div><h2>Butuh Bantuan?</h2></div>
         <a class="btn-primary" href="https://wa.me/6288215993544" target="_blank" rel="noopener">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.1 4.9A9.96 9.96 0 0 0 12.06 2C6.58 2 2.11 6.47 2.11 11.95c0 1.76.46 3.48 1.33 5.01L2 22l5.2-1.35a9.86 9.86 0 0 0 4.86 1.26h.01c5.48 0 9.95-4.47 9.95-9.95 0-2.65-1.03-5.14-2.92-7.07ZM12.07 20.2h-.01a8.27 8.27 0 0 1-4.21-1.15l-.3-.18-3.09.8.83-3.01-.2-.31a8.27 8.27 0 1 1 7 3.85Zm4.74-6.23c-.26-.13-1.55-.76-1.79-.85-.24-.09-.41-.13-.58.13-.17.26-.67.85-.82 1.02-.15.17-.3.2-.56.07-.26-.13-1.09-.4-2.07-1.27-.76-.68-1.27-1.52-1.42-1.78-.15-.26-.02-.4.11-.53.12-.12.26-.31.39-.46.13-.15.17-.26.26-.43.09-.17.05-.32-.02-.46-.07-.13-.58-1.39-.8-1.9-.21-.51-.43-.44-.58-.45l-.5-.01c-.17 0-.46.07-.7.32-.24.26-.92.9-.92 2.18 0 1.28.94 2.51 1.07 2.68.13.17 1.86 2.84 4.5 3.97.63.27 1.12.43 1.51.55.63.2 1.2.17 1.65.1.5-.08 1.55-.63 1.77-1.25.22-.62.22-1.15.15-1.26-.07-.11-.24-.18-.49-.3Z"/></svg>
-          Chat Admin Babay (WhatsApp)
+          Chat Admin Babay melalui WhatsApp
         </a>
       </div>
     </section>
-  </div>
+  </main>
 
-  <!-- Theme Toggle Button -->
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+  <footer class="footer">
+    <strong>BabayShop Payment Center</strong><br />
+    Konfirmasi pembayaran hanya melalui kontak resmi BabayShop.
+  </footer>
 
-  <!-- Toast Notification -->
-  <div class="toast" id="toast">✅ <span id="toastText">Tersalin!</span></div>
-  <!-- Live region untuk aksesibilitas -->
+  <div class="toast" id="toast">✓ <span id="toastText">Tersalin!</span></div>
   <div id="ariaLive" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
   <script>
-  // Theme Toggle
-  (function(){
-    const html = document.documentElement;
-    const btn = document.getElementById('themeToggle');
-    const saved = localStorage.getItem('theme') || 'light';
-    function setTheme(theme){
-      html.setAttribute('data-theme', theme);
-      btn.textContent = theme === 'light' ? '🌙' : '☀️';
-      localStorage.setItem('theme', theme);
-    }
-    setTheme(saved);
-    btn.addEventListener('click', ()=>{
-      const current = html.getAttribute('data-theme');
-      setTheme(current === 'light' ? 'dark' : 'light');
-    });
-  })();
+    (function () {
+      const tabs = document.querySelectorAll('.tab-btn');
+      const sections = document.querySelectorAll('.section:not(.always-visible)');
 
-  // Tabs logic (Pisah per metode)
-  (function(){
-    const tabs = document.querySelectorAll('.tab-btn');
-    const sections = document.querySelectorAll('.section');
-
-    function activate(name){
-      tabs.forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
-      sections.forEach(s=>{
-        s.classList.toggle('active', s.dataset.section===name);
-      });
-      // Update URL hash untuk deep-linking
-      if(history.pushState){ history.replaceState(null, '', '#' + name); }
-      // Fokus ke tombol copy pertama untuk aksesibilitas (kecuali QRIS)
-      if(name!=='qris'){
-        const firstBtn = document.querySelector(`#section-${name} .copy-btn`);
-        if(firstBtn) firstBtn.focus();
+      function activate(name) {
+        tabs.forEach((tab) => tab.classList.toggle('active', tab.dataset.tab === name));
+        sections.forEach((section) => section.classList.toggle('active', section.dataset.section === name));
+        if (history.replaceState) history.replaceState(null, '', '#' + name);
       }
-    }
 
-    tabs.forEach(t=>t.addEventListener('click',()=>activate(t.dataset.tab)));
+      tabs.forEach((tab) => tab.addEventListener('click', () => activate(tab.dataset.tab)));
 
-    // Init dari hash jika ada
-    const hash = (location.hash||'').replace('#','');
-    if(hash && ['qris','ewallet','bank'].includes(hash)) activate(hash);
-  })();
+      const hash = (location.hash || '').replace('#', '');
+      if (['qris', 'ewallet', 'bank'].includes(hash)) activate(hash);
+    })();
 
-  // Copy functionality (global, dengan fallback & alert)
-  (function(){
-    const toast = document.getElementById('toast');
-    const toastText = document.getElementById('toastText');
-    const live = document.getElementById('ariaLive');
+    (function () {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toastText');
+      const live = document.getElementById('ariaLive');
+      let toastTimer;
 
-    function showToast(msg){
-      toastText.textContent = msg;
-      if(live) live.textContent = msg; // bantu screen reader
-      toast.classList.add('show');
-      setTimeout(()=>toast.classList.remove('show'), 2200);
-    }
+      function showToast(message) {
+        toastText.textContent = message;
+        if (live) live.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 1900);
+      }
 
-    async function writeClipboard(text){
-      try {
-        // Coba Clipboard API (HTTPS)
-        if (navigator.permissions && navigator.permissions.query) {
-          try { await navigator.permissions.query({ name: 'clipboard-write' }); } catch(e){}
-        }
-        await navigator.clipboard.writeText(text);
-        return true;
-      } catch(e){
-        // Fallback: execCommand via textarea (untuk old/iOS/HTTP)
+      async function writeClipboard(text) {
         try {
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          ta.setAttribute('readonly','');
-          ta.style.position = 'fixed';
-          ta.style.top = '-9999px';
-          document.body.appendChild(ta);
-          ta.select();
-          ta.setSelectionRange(0, ta.value.length);
-          const ok = document.execCommand('copy');
-          document.body.removeChild(ta);
-          if (!ok) throw new Error('execCommand failed');
+          await navigator.clipboard.writeText(text);
           return true;
-        } catch(e2){
-          return false;
+        } catch (error) {
+          try {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'fixed';
+            textarea.style.top = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            textarea.setSelectionRange(0, textarea.value.length);
+            const copied = document.execCommand('copy');
+            document.body.removeChild(textarea);
+            return copied;
+          } catch (fallbackError) {
+            return false;
+          }
         }
       }
-    }
 
-    async function copyText(text, btn){
-      const ok = await writeClipboard(text);
-      if(ok){
+      async function copyText(text, button) {
+        const copied = await writeClipboard(text);
+        if (!copied) {
+          window.prompt('Salin nomor secara manual:', text);
+          return;
+        }
+
         showToast('Tersalin: ' + text);
         if (navigator.vibrate) navigator.vibrate(10);
-        if(btn){
-          const original = btn.innerHTML;
-          btn.innerHTML = '✓ Tersalin';
-          btn.classList.add('copied');
-          setTimeout(()=>{
-            btn.innerHTML = original;
-            btn.classList.remove('copied');
-          }, 1600);
-        }
-        // Alert sistem sesuai request
-        alert('Nomor berhasil disalin.');
-      } else {
-        // Last resort: prompt manual
-        window.prompt('Salin nomor secara manual (Ctrl/Cmd+C, lalu Enter):', text);
-      }
-    }
 
-    // Delegasi klik
-    document.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.copy-btn');
-      if(btn){
-        e.preventDefault();
-        const item = btn.closest('.payment-item');
-        if(!item) return;
-        copyText(item.getAttribute('data-copy'), btn);
-        return;
+        if (button) {
+          const originalText = button.textContent;
+          button.textContent = 'Tersalin';
+          button.classList.add('copied');
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.classList.remove('copied');
+          }, 1400);
+        }
       }
-      const item = e.target.closest('.payment-item');
-      if(item && !e.target.closest('.copy-btn')){
-        copyText(item.getAttribute('data-copy'), item.querySelector('.copy-btn'));
-      }
-    });
-  })();
+
+      document.addEventListener('click', (event) => {
+        const copyButton = event.target.closest('.copy-btn');
+        if (copyButton) {
+          event.preventDefault();
+          const item = copyButton.closest('.payment-item');
+          if (item) copyText(item.dataset.copy, copyButton);
+          return;
+        }
+
+        const item = event.target.closest('.payment-item');
+        if (item) copyText(item.dataset.copy, item.querySelector('.copy-btn'));
+      });
+    })();
   </script>
 </body>
 </html>
