@@ -1,23 +1,23 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canva Edu Nota Generator</title>
-    <!-- Tailwind CSS -->
+    <title>Canva Education Nota Generator</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Poppins (Ceria & Modern) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #7F5AF0 0%, #2CB67D 100%); /* Canva-ish Vibe */
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #7f5af0 0%, #2cb67d 100%);
         }
 
-        /* Background Pattern yang Ceria */
         .pattern-bg {
             background-image:
                 radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 20%),
@@ -25,56 +25,50 @@
             background-size: 100% 100%;
         }
 
-        /* Glass Card */
         .glass-panel {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
+            border: 4px solid rgba(255, 255, 255, 0.5);
             border-radius: 24px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-            border: 4px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* Input Styles */
         .canva-input {
+            border: 2px solid #e2e8f0;
             transition: all 0.3s ease;
-            border: 2px solid #E2E8F0;
         }
+
         .canva-input:focus {
-            border-color: #8B5CF6; /* Purple */
+            border-color: #8b5cf6;
             box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
             outline: none;
         }
 
-        /* Button Gradient */
         .btn-gradient {
-            background: linear-gradient(90deg, #7F5AF0 0%, #8A2BE2 100%);
+            background: linear-gradient(90deg, #7f5af0 0%, #8a2be2 100%);
             transition: transform 0.2s, box-shadow 0.2s;
         }
+
         .btn-gradient:hover {
-            transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(127, 90, 240, 0.3);
+            transform: translateY(-2px);
         }
 
-        /* Animasi */
         @keyframes popIn {
             0% { opacity: 0; transform: scale(0.9); }
             100% { opacity: 1; transform: scale(1); }
         }
+
         .animate-pop {
             animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4 pattern-bg">
-
-    <!-- Container Utama -->
-    <div class="w-full max-w-xl glass-panel p-6 md:p-8 animate-pop relative overflow-hidden">
-
-        <!-- Header Dekorasi -->
+    <main class="w-full max-w-2xl glass-panel p-6 md:p-8 animate-pop relative overflow-hidden my-6">
         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-teal-400 via-purple-500 to-yellow-400"></div>
 
-        <!-- Judul -->
-        <div class="text-center mb-8 mt-2">
+        <header class="text-center mb-8 mt-2">
             <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-teal-400 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg text-white text-3xl font-bold">
                 C
             </div>
@@ -82,21 +76,39 @@
                 Canva <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Education</span>
             </h1>
             <p class="text-gray-500 text-sm font-medium">Generator Nota Undangan Tim</p>
-        </div>
+        </header>
 
-        <!-- Form -->
         <form id="notaForm" class="space-y-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    <label for="durasi" class="block text-gray-700 text-sm font-bold mb-2 ml-1">Paket Durasi</label>
+                    <div class="relative">
+                        <select id="durasi" required class="canva-input w-full px-4 py-3 rounded-xl bg-gray-50 appearance-none text-gray-700 font-medium cursor-pointer">
+                            <option value="" disabled selected>-- Pilih Durasi --</option>
+                            <option value="1 Bulan">1 Bulan</option>
+                            <option value="6 Bulan">6 Bulan</option>
+                            <option value="1 Tahun">1 Tahun</option>
+                            <option value="Lifetime">Lifetime</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-500">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- Pilihan Durasi -->
+                <div>
+                    <label for="garansi" class="block text-gray-700 text-sm font-bold mb-2 ml-1">Masa Garansi</label>
+                    <input type="text" id="garansi" required placeholder="Contoh: 3 Bulan"
+                           class="canva-input w-full px-4 py-3 rounded-xl bg-gray-50 text-gray-700 placeholder-gray-400">
+                </div>
+            </div>
+
             <div>
-                <label class="block text-gray-700 text-sm font-bold mb-2 ml-1">Pilih Paket Durasi</label>
+                <label for="metodeInvite" class="block text-gray-700 text-sm font-bold mb-2 ml-1">Sistem Undangan</label>
                 <div class="relative">
-                    <select id="durasi" required class="canva-input w-full px-4 py-3 rounded-xl bg-gray-50 appearance-none text-gray-700 font-medium cursor-pointer">
-                        <option value="" disabled selected>-- Pilih Durasi & Garansi --</option>
-                        <option value="1 Bulan (Garansi Full)">1 Bulan (Garansi Full)</option>
-                        <option value="6 Bulan (Garansi 2 Bulan)">6 Bulan (Garansi 2 Bulan)</option>
-                        <option value="1 Tahun (Garansi 3 Bulan)">1 Tahun (Garansi 3 Bulan)</option>
-                        <option value="Lifetime (Garansi 5 Bulan)">Lifetime (Garansi 5 Bulan)</option>
+                    <select id="metodeInvite" required class="canva-input w-full px-4 py-3 rounded-xl bg-gray-50 appearance-none text-gray-700 font-medium cursor-pointer">
+                        <option value="link">Link Invite</option>
+                        <option value="admin">Invite Langsung dari Admin</option>
                     </select>
                     <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-500">
                         <i class="fa-solid fa-chevron-down text-xs"></i>
@@ -104,123 +116,159 @@
                 </div>
             </div>
 
-            <!-- Email Aktif -->
             <div>
-                <label class="block text-gray-700 text-sm font-bold mb-2 ml-1">Email Aktif (Target Invite)</label>
-                <input type="email" id="email" required placeholder="nama@email.com"
+                <label for="email" class="block text-gray-700 text-sm font-bold mb-2 ml-1">Email Aktif (Target Invite)</label>
+                <input type="email" id="email" required placeholder="nama@email.com" autocomplete="email"
                        class="canva-input w-full px-4 py-3 rounded-xl bg-gray-50 text-gray-700 placeholder-gray-400">
             </div>
 
-            <!-- Link Invite -->
-            <div>
-                <label class="block text-gray-700 text-sm font-bold mb-2 ml-1">
-                    Link Invite <span class="text-purple-500 font-normal text-xs">(Opsional)</span>
-                </label>
-                <input type="text" id="linkInvite" placeholder="https://www.canva.com/brand/join/..."
+            <div id="linkInviteField">
+                <label for="linkInvite" class="block text-gray-700 text-sm font-bold mb-2 ml-1">Link Invite</label>
+                <input type="url" id="linkInvite" required placeholder="https://www.canva.com/brand/join/..."
                        class="canva-input w-full px-4 py-3 rounded-xl bg-gray-50 text-gray-700 placeholder-gray-400">
-                <p class="text-xs text-gray-400 mt-1 ml-1">*Kosongkan jika invite dikirim manual via email</p>
+                <p class="text-xs text-gray-400 mt-1 ml-1">Masukkan tautan undangan Canva yang akan diberikan kepada pembeli.</p>
             </div>
 
-            <!-- Tombol Submit -->
+            <div id="adminInviteInfo" class="hidden rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
+                <i class="fa-solid fa-circle-info mr-1"></i>
+                Admin akan mengirim undangan langsung ke email aktif pembeli.
+            </div>
+
+            <aside class="rounded-xl border border-amber-200 bg-amber-50 p-4">
+                <div class="flex gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-500 mt-1"></i>
+                    <div>
+                        <h2 class="font-bold text-amber-900 text-sm">Peringatan Penting</h2>
+                        <p class="text-xs leading-relaxed text-amber-800 mt-1">
+                            Pembeli wajib membackup seluruh project/desain Canva. Jangan hanya menyimpan project di tim Canva ini karena kami tidak menjamin tim akan bertahan selamanya.
+                        </p>
+                    </div>
+                </div>
+            </aside>
+
             <button type="submit"
                     class="btn-gradient w-full text-white font-bold py-3.5 rounded-xl shadow-lg flex items-center justify-center gap-2 mt-4">
                 <i class="fa-solid fa-wand-magic-sparkles"></i> Buat Nota Cantik
             </button>
-
         </form>
 
-        <!-- Hasil Output -->
-        <div id="outputSection" class="hidden mt-8 pt-6 border-t-2 border-dashed border-gray-200">
+        <section id="outputSection" class="hidden mt-8 pt-6 border-t-2 border-dashed border-gray-200">
             <div class="flex justify-between items-center mb-3">
-                <h3 class="font-bold text-gray-700">Preview Nota</h3>
-                <span class="text-xs font-bold text-teal-600 bg-teal-100 px-2 py-1 rounded-md">Ready!</span>
+                <h2 class="font-bold text-gray-700">Preview Nota</h2>
+                <span class="text-xs font-bold text-teal-600 bg-teal-100 px-2 py-1 rounded-md">Siap!</span>
             </div>
 
-            <textarea id="notaOutput" rows="18" readonly
-                      class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs md:text-sm font-mono text-slate-700 focus:outline-none resize-none"></textarea>
+            <textarea id="notaOutput" rows="28" readonly
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs md:text-sm font-mono leading-relaxed text-slate-700 focus:outline-none resize-y"></textarea>
 
-            <!-- Action Buttons -->
             <div class="flex gap-3 mt-4">
-                <button id="editBtn" class="flex-1 bg-white border-2 border-gray-200 hover:bg-gray-50 text-gray-600 font-bold py-2.5 rounded-xl transition-colors">
+                <button type="button" id="editBtn" class="flex-1 bg-white border-2 border-gray-200 hover:bg-gray-50 text-gray-600 font-bold py-2.5 rounded-xl transition-colors">
                     Edit
                 </button>
-                <button id="copyBtn" class="flex-1 bg-teal-500 hover:bg-teal-600 text-white font-bold py-2.5 rounded-xl transition-colors shadow-md shadow-teal-200 flex justify-center items-center gap-2">
+                <button type="button" id="copyBtn" class="flex-1 bg-teal-500 hover:bg-teal-600 text-white font-bold py-2.5 rounded-xl transition-colors shadow-md shadow-teal-200 flex justify-center items-center gap-2">
                     <i class="fa-regular fa-copy"></i> Salin
                 </button>
             </div>
-            <p id="feedback" class="text-center text-teal-600 text-sm font-bold mt-2 hidden">Berhasil disalin! ✨</p>
-        </div>
-
-    </div>
+            <p id="feedback" role="status" class="text-center text-teal-600 text-sm font-bold mt-2 hidden">Berhasil disalin! ✓</p>
+        </section>
+    </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('notaForm');
-            const outputSection = document.getElementById('outputSection');
-            const notaOutput = document.getElementById('notaOutput');
-            const copyBtn = document.getElementById('copyButton'); // Variable name fix
-            const feedback = document.getElementById('feedback');
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("notaForm");
+            const metodeInvite = document.getElementById("metodeInvite");
+            const linkInviteField = document.getElementById("linkInviteField");
+            const linkInviteInput = document.getElementById("linkInvite");
+            const adminInviteInfo = document.getElementById("adminInviteInfo");
+            const outputSection = document.getElementById("outputSection");
+            const notaOutput = document.getElementById("notaOutput");
+            const editBtn = document.getElementById("editBtn");
+            const copyBtn = document.getElementById("copyBtn");
+            const feedback = document.getElementById("feedback");
 
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
+            const updateInviteFields = () => {
+                const isLinkInvite = metodeInvite.value === "link";
+                linkInviteField.classList.toggle("hidden", !isLinkInvite);
+                adminInviteInfo.classList.toggle("hidden", isLinkInvite);
+                linkInviteInput.required = isLinkInvite;
 
-                // Ambil Data
-                const durasi = document.getElementById('durasi').value;
-                const email = document.getElementById('email').value;
-                let linkInvite = document.getElementById('linkInvite').value;
+                if (!isLinkInvite) {
+                    linkInviteInput.value = "";
+                }
+            };
 
-                // Handle Link Invite Kosong
-                const displayLink = linkInvite ? linkInvite : "(Cek Inbox Email Anda)";
+            metodeInvite.addEventListener("change", updateInviteFields);
+            updateInviteFields();
 
-                // Waktu Transaksi
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                const durasi = document.getElementById("durasi").value;
+                const garansi = document.getElementById("garansi").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const isLinkInvite = metodeInvite.value === "link";
+                const labelGaransi = /^garansi\s/i.test(garansi) ? garansi : `Garansi ${garansi}`;
+                const detailUndangan = isLinkInvite
+                    ? `▰ Link Invite : ${linkInviteInput.value.trim()}`
+                    : "▰ Status Invite : Akan dikirim langsung oleh Admin ke email di atas";
+
                 const now = new Date();
-                const tgl = now.toLocaleString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-                const jam = now.toLocaleString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(/\./g, ':');
-                const waktu = `${tgl}, ${jam} WIB`;
-
-                // Template Nota
-                const template = `
-╭────〔 CANVA PRO EDUCATION 〕─
-┊・Paket : ${durasi}
-┊・Type : Invite Team (Legal)
-┊・Waktu : ${waktu}
+                const tanggal = now.toLocaleDateString("id-ID", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                });
+                const template = `╭────〔 CANVA PRO EDUCATION 〕─
+┊・Paket : ${durasi} (${labelGaransi})
+┊・Type : Invite Team
+┊・Waktu : ${tanggal}
 ╰┈┈┈┈┈┈┈┈
 DATA AKUN:
 ▰ Email Aktif : ${email}
-▰ Link Invite : ${displayLink}
+${detailUndangan}
 ╰┈┈┈┈┈┈┈┈
+
 INSTRUKSI & GARANSI:
-1. Silahkan cek email atau klik link invite di atas.
-2. Terima undangan untuk join Canva Team/Class Pro.
-3. Fitur lengkap cek disini: https://babayshop.my.id/canva/
+1. ${isLinkInvite ? "Klik link invite di atas." : "Tunggu undangan dari Admin di email Anda."}
+2. Terima undangan untuk bergabung ke Canva Team/Class Pro.
+3. Informasi fitur lengkap: https://babayshop.my.id/canva/
+
+PERINGATAN PENTING:
+⚠ WAJIB membackup seluruh project/desain Canva. Jangan hanya menyimpan project di tim Canva ini karena kami tidak menjamin tim akan bertahan selamanya.
+
+⚠ Hal yang harus diperhatikan pada durasi paket adalah masa garansinya. Akun Admin Team menggunakan paket lifetime, tetapi tidak menutup kemungkinan tim ditutup atau dinonaktifkan karena kebijakan resmi Canva.
+
+⚠ Jika tim ditutup atau dinonaktifkan, seluruh member dapat kembali menjadi pengguna Free atau dikeluarkan dari tim.
 
 S&K GARANSI:
-• Jika dalam masa garansi akun tidak bisa akses Class Pro lagi (kick/disband), kami akan invite kembali ke Class Pro yang baru.
-• Jika lewat dari masa garansi, pembeli wajib order ulang.
-`.trim();
+• Jika kendala terjadi saat masa garansi masih aktif, kami akan mengundang kembali ke tim baru sesuai ketentuan garansi.
+• Jika masa garansi sudah habis, pembeli wajib melakukan order kembali.`;
 
                 notaOutput.value = template;
                 notaOutput.readOnly = true;
-                outputSection.classList.remove('hidden');
-
-                // Animasi Scroll
-                outputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                editBtn.textContent = "Edit";
+                editBtn.classList.remove("bg-yellow-50", "border-yellow-200", "text-yellow-700");
+                outputSection.classList.remove("hidden");
+                outputSection.scrollIntoView({ behavior: "smooth", block: "start" });
             });
 
-            // Logic Copy
-            document.getElementById('copyBtn').addEventListener('click', () => {
-                notaOutput.select();
-                document.execCommand('copy');
-                feedback.classList.remove('hidden');
-                setTimeout(() => feedback.classList.add('hidden'), 2000);
+            copyBtn.addEventListener("click", async () => {
+                try {
+                    await navigator.clipboard.writeText(notaOutput.value);
+                } catch (error) {
+                    notaOutput.select();
+                    document.execCommand("copy");
+                }
+
+                feedback.classList.remove("hidden");
+                window.setTimeout(() => feedback.classList.add("hidden"), 2000);
             });
 
-            // Logic Edit
-            document.getElementById('editBtn').addEventListener('click', () => {
+            editBtn.addEventListener("click", () => {
                 notaOutput.readOnly = false;
                 notaOutput.focus();
-                document.getElementById('editBtn').textContent = "Editing Mode";
-                document.getElementById('editBtn').classList.add('bg-yellow-50', 'border-yellow-200', 'text-yellow-700');
+                editBtn.textContent = "Mode Edit Aktif";
+                editBtn.classList.add("bg-yellow-50", "border-yellow-200", "text-yellow-700");
             });
         });
     </script>
