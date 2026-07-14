@@ -202,6 +202,76 @@
       from { opacity: 0; transform: translateY(18px) scale(.97); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
+
+    /* POP-UP JAM ISTIRAHAT ADMIN (22.00–05.00 WIB) */
+    body.rest-lock { overflow: hidden; }
+    #adminRestPopup {
+      position: fixed;
+      inset: 0;
+      z-index: 999998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(2,4,10,.86);
+      backdrop-filter: blur(14px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .25s ease, visibility .25s ease;
+    }
+    #adminRestPopup.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .admin-rest-box {
+      width: min(470px, 100%);
+      padding: 24px;
+      border-radius: 22px;
+      background: #0d101b;
+      border: 1px solid rgba(251,191,36,.32);
+      box-shadow: 0 30px 85px rgba(0,0,0,.68);
+      transform: translateY(16px) scale(.98);
+      transition: transform .25s ease;
+    }
+    #adminRestPopup.active .admin-rest-box { transform: translateY(0) scale(1); }
+    .admin-rest-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border-radius: 15px;
+      background: rgba(251,191,36,.12);
+      border: 1px solid rgba(251,191,36,.26);
+      font-size: 23px;
+    }
+    .admin-rest-box h2 {
+      font-family: var(--font-title);
+      font-size: 23px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      color: #fef3c7;
+    }
+    .admin-rest-box p {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+    .admin-rest-time {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 13px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: #fde68a;
+      background: rgba(251,191,36,.09);
+      border: 1px solid rgba(251,191,36,.22);
+      font-size: 12px;
+      font-weight: 700;
+    }
     
     :root {
       --bg: #07080f; --bg2: #0b0e18;
@@ -604,13 +674,16 @@
     </div>
   </div>
 
-  
-  
-  
-  
-  
-  
-  
+  <div id="adminRestPopup" role="dialog" aria-modal="true" aria-labelledby="adminRestTitle">
+    <div class="admin-rest-box">
+      <div class="admin-rest-icon" aria-hidden="true">☾</div>
+      <span class="admin-rest-time">Jam istirahat admin • 22.00–05.00 WIB</span>
+      <h2 id="adminRestTitle">Admin sedang slow response / offline</h2>
+      <p>Anda tetap dapat melanjutkan checkout. Orderan & pesan yang masuk pada jam istirahat akan dibalas pada subuh/pagi hari/saat admin kembali online. Admin mengusahakan akan memproses dengan cepat.</p>
+      <button class="btn btn-primary btn-block" id="continueAfterRest" type="button">Lanjut</button>
+    </div>
+  </div>
+
   <div id="scrollBar" aria-hidden="true"></div>
   <div class="bg-orbs" aria-hidden="true"><div class="orb one"></div><div class="orb two"></div><div class="orb three"></div></div>
   <div class="bg-grid" aria-hidden="true"></div>
@@ -1053,7 +1126,7 @@
                 <input type="text" class="qty-input" id="qtyInput" value="1" readonly>
                 <button type="button" class="qty-btn" id="qtyPlus">+</button>
               </div>
-              <span class="hint">Diskon 1,5% per item mulai pembelian 2 paket: beli 2 diskon 3%, beli 3 diskon 4,5%, beli 4 diskon 6%, dan maksimal beli 5 diskon 7,5%.</span>
+              <span class="hint">Maksimal 10 akun dalam satu checkout. Diskon bertambah 0,7% per akun mulai pembelian 2 akun: 2 akun diskon 1,4%, 5 akun diskon 3,5%, dan 10 akun diskon maksimal 7%.</span>
             </div>
             <label class="check-row"><input id="agree" type="checkbox" checked required><span>Saya sudah membaca detail paket dan memahami bahwa kendala di luar atau setelah masa garansi tidak menjadi tanggung jawab BabayShop serta tidak akan di-handle.</span></label>
             <div class="summary">
@@ -1114,11 +1187,50 @@
       const WA_NUMBER = '6281523984574';
       const GLOBAL_URL = 'https://babay.web.id/chatgpt-global';
       const countryPopup = document.getElementById('countryPopup');
+      const adminRestPopup = document.getElementById('adminRestPopup');
+      const continueAfterRest = document.getElementById('continueAfterRest');
+      const ADMIN_TIMEZONE = 'Asia/Jakarta';
+      const ADMIN_REST_START_HOUR = 22;
+      const ADMIN_REST_END_HOUR = 5;
+      let pendingRegionAction = null;
+
+      function getJakartaHour() {
+        const parts = new Intl.DateTimeFormat('en-GB', {
+          timeZone: ADMIN_TIMEZONE,
+          hour: '2-digit',
+          hourCycle: 'h23'
+        }).formatToParts(new Date());
+        return Number(parts.find(part => part.type === 'hour')?.value || 0);
+      }
+
+      function isAdminRestTime() {
+        const hour = getJakartaHour();
+        return hour >= ADMIN_REST_START_HOUR || hour < ADMIN_REST_END_HOUR;
+      }
 
       function closeCountryPopup() {
         if (!countryPopup) return;
         countryPopup.classList.add('is-hidden');
         document.body.classList.remove('region-lock');
+      }
+
+      function showAdminRestPopup(nextAction) {
+        pendingRegionAction = typeof nextAction === 'function' ? nextAction : null;
+        if (!adminRestPopup) {
+          pendingRegionAction?.();
+          pendingRegionAction = null;
+          return;
+        }
+        adminRestPopup.classList.add('active');
+        document.body.classList.add('rest-lock');
+      }
+
+      function continueRegionAction() {
+        adminRestPopup?.classList.remove('active');
+        document.body.classList.remove('rest-lock');
+        const action = pendingRegionAction;
+        pendingRegionAction = null;
+        action?.();
       }
 
       document.body.classList.add('region-lock');
@@ -1127,14 +1239,24 @@
         countryPopup.querySelectorAll('[data-region]').forEach(btn => {
           btn.addEventListener('click', () => {
             const region = btn.dataset.region;
-            if (region === 'global') {
-              window.location.href = GLOBAL_URL;
-              return;
-            }
+            const nextAction = () => {
+              if (region === 'global') {
+                window.location.href = GLOBAL_URL;
+                return;
+              }
+            };
+
             closeCountryPopup();
+            if (isAdminRestTime()) {
+              showAdminRestPopup(nextAction);
+            } else {
+              nextAction();
+            }
           });
         });
       }
+
+      continueAfterRest?.addEventListener('click', continueRegionAction);
 
       /* ==========================================================
          UBAH STATUS SEMUA PAKET CUKUP DI BAGIAN INI
@@ -1218,7 +1340,7 @@
           duration: '1 Bulan (25–28 Days)',
           desc: 'B2: GPT Plus pakai email pembeli, garansi 1 x 48 jam (2 hari), method payment Polandia / Belanda.',
           emailRequired: false,
-          maxQty: 5,
+          maxQty: 10,
           note: 'Pakai email pembeli. Method payment Polandia / Belanda. Garansi 1 x 48 jam (2 hari).'
         },
         PLUS_VCC_C1: {
@@ -1508,7 +1630,7 @@
         summaryQty.textContent = qty + 'x';
         
         let base = currentProduct.price * qty;
-        currentDiscPct = qty >= 2 ? Math.min(qty * 1.5, 7.5) : 0;
+        currentDiscPct = qty >= 2 ? Math.min(Number((qty * 0.7).toFixed(1)), 7) : 0;
         currentDiscAmt = Math.floor(base * (currentDiscPct / 100));
         currentFinalBase = base - currentDiscAmt;
 
@@ -1520,7 +1642,7 @@
         if (qty > 1) { qty--; updateSummary(); }
       });
       qtyPlus.addEventListener('click', () => {
-        const maxQty = currentProduct && currentProduct.maxQty ? currentProduct.maxQty : 5;
+        const maxQty = currentProduct && currentProduct.maxQty ? currentProduct.maxQty : 10;
         if (qty < maxQty) { qty++; updateSummary(); }
       });
 
