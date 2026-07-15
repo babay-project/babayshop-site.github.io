@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -203,7 +205,7 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* POP-UP JAM ISTIRAHAT ADMIN (22.00–05.00 WIB) */
+    /* POP-UP JAM ISTIRAHAT ADMIN (23.00–05.00 WIB) */
     body.rest-lock { overflow: hidden; }
     #adminRestPopup {
       position: fixed;
@@ -293,6 +295,7 @@
     strong, b { font-weight: 600; }
     button, input, textarea { font: inherit; }
     img { max-width: 100%; display: block; }
+    [hidden] { display: none !important; }
     .wrap { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
     
     .bg-grid, .bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
@@ -498,8 +501,13 @@
     .modal { width: min(520px, 100%); max-height: calc(100vh - 40px); overflow: hidden; display: flex; flex-direction: column; background: #0d101b; border: 1px solid var(--border2); border-radius: 24px; box-shadow: 0 34px 90px rgba(0,0,0,.68); transform: translateY(18px); transition: transform .25s; }
     .modal-overlay.active .modal { transform: translateY(0); }
     .modal-head { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .modal-head-main { min-width: 0; display: flex; align-items: center; gap: 12px; }
+    .modal-title-wrap { min-width: 0; }
     .modal-head h2 { font-family: var(--font-title); font-size: 18px; }
     .modal-sub { display: block; color: #a5f3fc; font-size: 12.5px; font-weight: 600; margin-top: 2px; }
+    .modal-back { flex: 0 0 auto; border: 1px solid var(--border); border-radius: 11px; background: rgba(255,255,255,.045); color: #e2e8f0; padding: 8px 10px; cursor: pointer; font-size: 12px; font-weight: 700; transition: background .2s, border-color .2s, transform .2s; }
+    .modal-back:hover, .modal-back:focus-visible { background: rgba(34,211,238,.09); border-color: rgba(34,211,238,.38); outline: none; }
+    .modal-back:active { transform: scale(.97); }
     .modal-close { background: transparent; color: var(--muted); border: 0; cursor: pointer; font-size: 26px; line-height: 1; }
     .modal-body { padding: 24px; overflow-y: auto; }
     .checkout-step { display: none; }
@@ -546,11 +554,16 @@
     .pay-toggle:hover, .pay-toggle:focus-visible { border-color: rgba(34,211,238,.62); outline: none; }
     .pay-toggle[aria-expanded="true"] { animation-play-state: paused; transform: scale(1.02); }
     @keyframes paymentZoom { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.035); } }
-    @media (prefers-reduced-motion: reduce) { .pay-toggle { animation: none; } }
+    @media (prefers-reduced-motion: reduce) { .pay-toggle, .recommended-fire { animation: none !important; } }
     .pay-list { display: none; gap: 6px; border: 1px solid var(--border); border-radius: 14px; padding: 8px; background: rgba(255,255,255,.025); }
     .pay-list.active { display: grid; }
-    .pay-option { border: 1px solid transparent; border-radius: 10px; background: rgba(255,255,255,.025); color: var(--muted); padding: 10px 12px; text-align: left; cursor: pointer; font-weight: 600; }
+    .pay-option { border: 1px solid transparent; border-radius: 10px; background: rgba(255,255,255,.025); color: var(--muted); padding: 10px 12px; text-align: left; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .pay-option.active, .pay-option:hover { background: rgba(34,211,238,.08); color: #fff; border-color: rgba(34,211,238,.18); }
+    .pay-option.is-recommended { border-color: rgba(251,191,36,.18); }
+    .pay-recommended { display: inline-flex; align-items: center; gap: 4px; flex: 0 0 auto; padding: 4px 7px; border-radius: 999px; color: #fde68a; background: rgba(251,191,36,.10); border: 1px solid rgba(251,191,36,.22); font-size: 9.5px; font-weight: 800; letter-spacing: .02em; }
+    .recommended-fire { display: inline-block; transform-origin: 50% 85%; animation: recommendedFire 1.05s ease-in-out infinite; }
+    @keyframes recommendedFire { 0%, 100% { transform: translateY(0) rotate(-4deg) scale(1); filter: drop-shadow(0 0 0 rgba(251,146,60,0)); } 50% { transform: translateY(-2px) rotate(5deg) scale(1.18); filter: drop-shadow(0 0 6px rgba(251,146,60,.72)); } }
+    .pay-toggle.needs-selection { border-color: rgba(251,191,36,.58); background: linear-gradient(135deg, rgba(251,191,36,.15), rgba(99,102,241,.13)); }
     .pay-details { width: 100%; background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 16px; padding: 15px; margin-bottom: 14px; }
     .pay-row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.04); color: var(--muted); font-size: 12.5px; }
     .pay-row:last-child { border-bottom: 0; }
@@ -572,6 +585,16 @@
     .total-selectable:focus { border-color: rgba(34,211,238,.55); box-shadow: 0 0 0 3px rgba(34,211,238,.08); }
     .total-copy-btn { padding: 8px 11px; white-space: nowrap; }
     .pay-warning { color: #fca5a5; font-size: 12px; font-weight: 600; line-height: 1.45; text-align: center; margin-bottom: 15px; }
+    .confirm-actions { width: 100%; display: grid; gap: 9px; }
+    .btn-fb { background: linear-gradient(135deg, #1877f2, #0f5fc7); box-shadow: 0 10px 30px rgba(24,119,242,.20); }
+    .btn-copy-message { border-color: rgba(34,211,238,.28); color: #cffafe; }
+    .btn:disabled { opacity: .48; cursor: not-allowed; box-shadow: none; }
+    .btn:disabled:hover { transform: none; }
+    .fb-confirm-note { margin-top: 10px; color: var(--muted); font-size: 11.5px; line-height: 1.5; text-align: center; }
+    .fb-confirm-note a, .fb-post-link { color: #93c5fd; text-decoration: underline; text-underline-offset: 3px; }
+    .fb-post-link { display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 700; }
+    .fb-flow-actions { width: 100%; display: grid; gap: 9px; margin-bottom: 12px; }
+    .fb-comment-instruction { margin: 0 !important; padding: 11px 12px; border-radius: 12px; color: #fde68a !important; background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.20); font-size: 12px !important; }
     
     .success { text-align: center; padding: 8px 0; }
     .success-badge { display: inline-flex; margin-bottom: 18px; padding: 10px 14px; border-radius: 999px; background: rgba(34,211,238,.08); border: 1px solid rgba(34,211,238,.20); color: #a5f3fc; font-weight: 600; }
@@ -677,7 +700,7 @@
   <div id="adminRestPopup" role="dialog" aria-modal="true" aria-labelledby="adminRestTitle">
     <div class="admin-rest-box">
       <div class="admin-rest-icon" aria-hidden="true">☾</div>
-      <span class="admin-rest-time">Jam istirahat admin • 22.00–05.00 WIB</span>
+      <span class="admin-rest-time">Jam istirahat admin • 23.00–05.00 WIB</span>
       <h2 id="adminRestTitle">Admin sedang slow response / offline</h2>
       <p>Anda tetap dapat melanjutkan checkout. Orderan & pesan yang masuk pada jam istirahat akan dibalas pada subuh/pagi hari/saat admin kembali online. Admin mengusahakan akan memproses dengan cepat.</p>
       <button class="btn btn-primary btn-block" id="continueAfterRest" type="button">Lanjut</button>
@@ -1051,7 +1074,7 @@
           <div class="step reveal"><div class="step-num">1</div><h3>Pilih Paket</h3><p>Tentukan Plus Private, B2 GPT Plus pakai Email Pembeli, atau Paket Reseller sesuai kebutuhan.</p></div>
           <div class="step reveal"><div class="step-num">2</div><h3>Checkout Cepat</h3><p>Checkout otomatis tanpa meminta nama, nomor WhatsApp, email, ataupun password.</p></div>
           <div class="step reveal"><div class="step-num">3</div><h3>Bayar</h3><p>Pilih QRIS, e-wallet, atau transfer bank. Transfer sesuai total tagihan sampai 3 digit kode unik terakhir.</p></div>
-          <div class="step reveal"><div class="step-num">4</div><h3>Konfirmasi</h3><p>Pesan otomatis akan diarahkan ke WhatsApp Admin Babay. Lampirkan bukti transfer dan pesanan siap diproses.</p></div>
+          <div class="step reveal"><div class="step-num">4</div><h3>Konfirmasi</h3><p>Konfirmasi melalui WhatsApp (rekomendasi) atau Facebook, lalu lampirkan bukti transfer agar pesanan segera diproses.</p></div>
         </div>
 
       </div>
@@ -1113,7 +1136,10 @@
   <div class="modal-overlay" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
       <div class="modal-head">
-        <div><h2 id="modalTitle">Checkout Paket</h2><span class="modal-sub" id="modalProduct">Nama Paket</span></div>
+        <div class="modal-head-main">
+          <button class="modal-back" id="modalBack" type="button" aria-label="Kembali ke langkah sebelumnya" hidden>← Kembali</button>
+          <div class="modal-title-wrap"><h2 id="modalTitle">Checkout Paket</h2><span class="modal-sub" id="modalProduct">Nama Paket</span></div>
+        </div>
         <button class="modal-close" id="modalClose" type="button" aria-label="Tutup">×</button>
       </div>
       <div class="modal-body">
@@ -1143,7 +1169,7 @@
         <div class="checkout-step" id="stepPay">
           <div class="pay-box">
             <div class="timer">Selesaikan dalam <strong id="timer">10:00</strong></div>
-            <div class="qr" id="qrBox"><img src="https://i.ibb.co.com/7wHbVP8/QRIS-BABAY.jpg" alt="QRIS BabayShop"></div>
+            <div class="qr" id="qrBox" hidden><img src="https://i.ibb.co.com/7wHbVP8/QRIS-BABAY.jpg" alt="QRIS BabayShop"></div>
             <div class="pay-card" id="manualPayCard">
               <h3 id="manualPayName">SeaBank</h3>
               <p>Atas nama: <strong id="manualPayOwner">BAYU RIZKY SAMPURNA</strong></p>
@@ -1151,12 +1177,12 @@
               <p id="manualPayCode" style="margin-top:10px;color:#fef3c7"></p>
             </div>
             <div class="pay-switch">
-              <button class="pay-toggle" id="payToggle" type="button" aria-expanded="false"><span id="payCurrent">Opsi Pembayaran (Klik untuk Mengganti) • QRIS</span><span>⌄</span></button>
+              <button class="pay-toggle needs-selection" id="payToggle" type="button" aria-expanded="false"><span id="payCurrent">Pilih metode pembayaran</span><span>⌄</span></button>
               <div class="pay-list" id="payList"></div>
             </div>
             <div class="pay-details">
-              <div class="pay-row"><span>Metode Pembayaran</span><strong id="payMethodUsed">QRIS</strong></div>
-              <div class="pay-row"><span>Tujuan Pembayaran</span><strong id="payDestination">Scan QRIS BabayShop</strong></div>
+              <div class="pay-row"><span>Metode Pembayaran</span><strong id="payMethodUsed">Belum dipilih</strong></div>
+              <div class="pay-row"><span>Tujuan Pembayaran</span><strong id="payDestination">-</strong></div>
               <div class="pay-row"><span>ID Transaksi</span><strong id="txId">TX-000000</strong></div>
               <div class="pay-row"><span>Jumlah Pesanan</span><strong id="payQty">1x</strong></div>
               <div class="pay-row"><span>Total (Normal)</span><strong id="basePrice">Rp0</strong></div>
@@ -1166,16 +1192,26 @@
               <div class="pay-row pay-row-total"><span>Total Transfer</span><div class="total-copy-wrap"><strong class="total total-selectable" id="totalPrice" tabindex="0" title="Nominal dapat diblok atau diklik untuk disalin">Rp0</strong><button class="copy-btn total-copy-btn" id="copyTotal" type="button">Salin Nominal</button></div></div>
             </div>
             <p class="pay-warning">Transfer sesuai nominal sampai 3 digit terakhir agar verifikasi lebih mudah. Setelah bayar, klik tombol konfirmasi dan lampirkan bukti transfer.</p>
-            <button class="btn btn-wa btn-block btn-lg" id="confirmWa" type="button">Konfirmasi Pembayaran via WhatsApp</button>
+            <div class="confirm-actions">
+              <button class="btn btn-wa btn-block btn-lg" id="confirmWa" type="button" disabled>🔥 Konfirmasi via WhatsApp (Rekomendasi)</button>
+              <button class="btn btn-fb btn-block btn-lg" id="confirmFb" type="button" disabled>Lanjut Konfirmasi via Facebook</button>
+            </div>
+            <p class="fb-confirm-note">Pilihan Facebook akan menampilkan panduan konfirmasi terlebih dahulu dan tidak membuka tautan secara otomatis.</p>
           </div>
         </div>
 
         <div class="checkout-step" id="stepSuccess">
           <div class="success">
-            <span class="success-badge">Mengalihkan ke WhatsApp Admin</span>
-            <h3>Menunggu konfirmasi manual</h3>
-            <p>Pesan detail pesanan sudah disiapkan. Kirim pesan tersebut ke WhatsApp Admin Babay dan lampirkan screenshot bukti pembayaran.</p>
-            <a class="btn btn-wa btn-block" id="waFallback" href="#" target="_blank" rel="noopener">Kirim Ulang ke WhatsApp</a>
+            <span class="success-badge" id="successBadge">Membuka kanal konfirmasi</span>
+            <h3 id="successTitle">Menunggu konfirmasi manual</h3>
+            <p id="successText">Kirim detail pesanan dan lampirkan screenshot bukti pembayaran.</p>
+            <a class="btn btn-wa btn-block" id="waFallback" href="#" target="_blank" rel="noopener" hidden>Kirim Ulang ke WhatsApp</a>
+            <div class="fb-flow-actions" id="fbFlowActions" hidden>
+              <button class="btn btn-ghost btn-copy-message btn-block" id="copyConfirmationSuccess" data-default-text="1. Salin Pesan Konfirmasi Pembayaran" type="button">1. Salin Pesan Konfirmasi Pembayaran</button>
+              <a class="btn btn-fb btn-block" id="fbFallback" href="https://www.facebook.com/messages/t/100005545543049" target="_blank" rel="noopener">2. Buka Messenger Chat Admin Babay</a>
+              <a class="btn btn-ghost btn-block" id="fbCommentLink" href="https://www.facebook.com/BayuRizkySampurna/posts/pfbid0ZHmjuoawUJ1qa8GXLiLUyF7gkCfKurqJzdaAMsTPY14ASjewSv5jqW36MzA868kql" target="_blank" rel="noopener">3. Buka Postingan yang Dipin Babay</a>
+              <p class="fb-comment-instruction" id="fbCommentInstruction">Jika chat belum dibalas, komentar: “CPM sudah checkout”.</p>
+            </div>
             <button class="btn btn-ghost btn-block" id="closeSuccess" type="button" style="margin-top:10px">Tutup</button>
           </div>
         </div>
@@ -1187,13 +1223,15 @@
     document.addEventListener('DOMContentLoaded', () => {
       const WA_NUMBER = '6281523984574';
       const GLOBAL_URL = 'https://babay.web.id/chatgpt-global';
+      const FACEBOOK_MESSENGER_URL = 'https://www.facebook.com/messages/t/100005545543049';
+      const FACEBOOK_POST_URL = 'https://www.facebook.com/BayuRizkySampurna/posts/pfbid0ZHmjuoawUJ1qa8GXLiLUyF7gkCfKurqJzdaAMsTPY14ASjewSv5jqW36MzA868kql';
       const countryPopup = document.getElementById('countryPopup');
       const adminRestPopup = document.getElementById('adminRestPopup');
       const continueAfterRest = document.getElementById('continueAfterRest');
       const ADMIN_TIMEZONE = 'Asia/Jakarta';
-      const ADMIN_REST_START_HOUR = 22;
+      const ADMIN_REST_START_HOUR = 23;
       const ADMIN_REST_END_HOUR = 5;
-      let pendingRegionAction = null;
+      let pendingRestAction = null;
 
       function getJakartaHour() {
         const parts = new Intl.DateTimeFormat('en-GB', {
@@ -1216,21 +1254,21 @@
       }
 
       function showAdminRestPopup(nextAction) {
-        pendingRegionAction = typeof nextAction === 'function' ? nextAction : null;
+        pendingRestAction = typeof nextAction === 'function' ? nextAction : null;
         if (!adminRestPopup) {
-          pendingRegionAction?.();
-          pendingRegionAction = null;
+          pendingRestAction?.();
+          pendingRestAction = null;
           return;
         }
         adminRestPopup.classList.add('active');
         document.body.classList.add('rest-lock');
       }
 
-      function continueRegionAction() {
+      function continueAfterRestAction() {
         adminRestPopup?.classList.remove('active');
         document.body.classList.remove('rest-lock');
-        const action = pendingRegionAction;
-        pendingRegionAction = null;
+        const action = pendingRestAction;
+        pendingRestAction = null;
         action?.();
       }
 
@@ -1248,16 +1286,12 @@
             };
 
             closeCountryPopup();
-            if (isAdminRestTime()) {
-              showAdminRestPopup(nextAction);
-            } else {
-              nextAction();
-            }
+            nextAction();
           });
         });
       }
 
-      continueAfterRest?.addEventListener('click', continueRegionAction);
+      continueAfterRest?.addEventListener('click', continueAfterRestAction);
 
       /* ==========================================================
          UBAH STATUS SEMUA PAKET CUKUP DI BAGIAN INI
@@ -1383,9 +1417,9 @@
          EDIT REKENING / E-WALLET DI SINI
          ================================ */
       const PAYMENT_ACCOUNTS = {
-        QRIS: { label: 'QRIS', type: 'QRIS', owner: 'BAYU RIZKY SAMPURNA', number: 'Scan QRIS BabayShop', code: '', copyable: false },
-        DANA: { label: 'DANA', type: 'E-Wallet', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
-        'Bank Jago': { label: 'Bank Jago', type: 'Transfer Bank', owner: 'BAYU RIZKY SAMPURNA', number: '100645331871', code: 'Kode Bank: 542', copyable: true },
+        QRIS: { label: 'QRIS', type: 'QRIS', owner: 'BAYU RIZKY SAMPURNA', number: 'Scan QRIS BabayShop', code: '', copyable: false, recommended: true },
+        DANA: { label: 'DANA', type: 'E-Wallet', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true, recommended: true },
+        'Bank Jago': { label: 'Bank Jago', type: 'Transfer Bank', owner: 'BAYU RIZKY SAMPURNA', number: '100645331871', code: 'Kode Bank: 542', copyable: true, recommended: true },
         GoPay: { label: 'GoPay', type: 'E-Wallet', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
         ShopeePay: { label: 'ShopeePay', type: 'E-Wallet', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
         LinkAja: { label: 'LinkAja', type: 'E-Wallet', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
@@ -1393,7 +1427,7 @@
       };
 
       const QRIS_TIMEZONE = 'Asia/Jakarta';
-      const QRIS_OPEN_MINUTE = 6 * 60;
+      const QRIS_OPEN_MINUTE = 5 * 60;
       const QRIS_CLOSE_MINUTE = 23 * 60;
 
       function getJakartaMinuteOfDay() {
@@ -1417,10 +1451,6 @@
         const priority = isQrisAvailable() ? ['QRIS', 'DANA', 'Bank Jago'] : ['DANA', 'Bank Jago'];
         const remaining = Object.keys(PAYMENT_ACCOUNTS).filter(key => !priority.includes(key) && (key !== 'QRIS' || isQrisAvailable()));
         return [...priority, ...remaining].filter(key => PAYMENT_ACCOUNTS[key]);
-      }
-
-      function getDefaultPaymentKey() {
-        return isQrisAvailable() ? 'QRIS' : 'DANA';
       }
 
       function getFulfillmentText(status, productId = '') {
@@ -1568,6 +1598,7 @@
       updateCatalogVisibility();
 
       const checkoutModal = $('#checkoutModal');
+      const modalBack = $('#modalBack');
       const modalClose = $('#modalClose');
       const closeSuccess = $('#closeSuccess');
       const stepInput = $('#stepInput');
@@ -1612,10 +1643,18 @@
       const payMethodUsed = $('#payMethodUsed');
       const payDestination = $('#payDestination');
       const confirmWa = $('#confirmWa');
+      const confirmFb = $('#confirmFb');
       const waFallback = $('#waFallback');
+      const fbFallback = $('#fbFallback');
+      const copyConfirmationSuccess = $('#copyConfirmationSuccess');
+      const fbFlowActions = $('#fbFlowActions');
+      const fbCommentLink = $('#fbCommentLink');
+      const successBadge = $('#successBadge');
+      const successTitle = $('#successTitle');
+      const successText = $('#successText');
 
       let currentProduct = null;
-      let selectedPay = 'QRIS';
+      let selectedPay = null;
       let countdown = null;
       let qty = 1;
       let unique = 0;
@@ -1649,6 +1688,8 @@
 
       function showStep(step) {
         [stepInput, stepPay, stepSuccess].forEach(s => s.classList.toggle('active', s === step));
+        modalBack.hidden = step === stepInput;
+        modalBack.setAttribute('aria-label', step === stepSuccess ? 'Kembali ke pembayaran' : 'Kembali ke detail paket');
       }
 
       function openModal(productId) {
@@ -1666,7 +1707,10 @@
         $$('.field').forEach(f => f.classList.remove('invalid'));
         
         updateSummary();
+        selectedPay = null;
         refreshPaymentAvailability(true);
+        payList.classList.remove('active');
+        payToggle.setAttribute('aria-expanded', 'false');
         showStep(stepInput);
         checkoutModal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -1680,6 +1724,13 @@
       }
 
       $$('.btn-buy').forEach(btn => btn.addEventListener('click', () => openModal(btn.dataset.id)));
+      modalBack.addEventListener('click', () => {
+        if (stepSuccess.classList.contains('active')) {
+          showStep(stepPay);
+          return;
+        }
+        if (stepPay.classList.contains('active')) showStep(stepInput);
+      });
       modalClose.addEventListener('click', closeModal);
       closeSuccess.addEventListener('click', closeModal);
       checkoutModal.addEventListener('click', e => { if (e.target === checkoutModal) closeModal(); });
@@ -1688,10 +1739,8 @@
         return !!agree.checked;
       }
 
-      checkoutForm.addEventListener('submit', e => {
-        e.preventDefault();
-        if (!currentProduct || !validate()) return;
-        
+      function proceedToPayment() {
+        if (!currentProduct) return;
         unique = Math.floor(501 + Math.random() * 499);
         total = currentFinalBase + unique;
         
@@ -1703,9 +1752,24 @@
         uniqueCode.textContent = `+${rupiah(unique)}`;
         totalPrice.textContent = rupiah(total);
         
+        selectedPay = null;
         refreshPaymentAvailability(true);
+        payList.classList.add('active');
+        payToggle.setAttribute('aria-expanded', 'true');
         startTimer(10 * 60);
         showStep(stepPay);
+      }
+
+      checkoutForm.addEventListener('submit', e => {
+        e.preventDefault();
+        if (!currentProduct || !validate()) return;
+
+        if (isAdminRestTime()) {
+          showAdminRestPopup(proceedToPayment);
+          return;
+        }
+
+        proceedToPayment();
       });
 
       function startTimer(seconds) {
@@ -1725,11 +1789,24 @@
       function renderPaymentOptions() {
         payList.innerHTML = '';
         getAvailablePaymentKeys().forEach((key) => {
+          const data = PAYMENT_ACCOUNTS[key];
           const btn = document.createElement('button');
           btn.type = 'button';
-          btn.className = 'pay-option' + (key === selectedPay ? ' active' : '');
+          btn.className = 'pay-option' + (key === selectedPay ? ' active' : '') + (data.recommended ? ' is-recommended' : '');
           btn.dataset.paymentKey = key;
-          btn.textContent = PAYMENT_ACCOUNTS[key].label;
+          btn.setAttribute('aria-label', data.recommended ? `${data.label}, rekomendasi` : data.label);
+
+          const label = document.createElement('span');
+          label.textContent = data.label;
+          btn.appendChild(label);
+
+          if (data.recommended) {
+            const badge = document.createElement('span');
+            badge.className = 'pay-recommended';
+            badge.innerHTML = '<span class="recommended-fire" aria-hidden="true">🔥</span> Rekomendasi';
+            btn.appendChild(badge);
+          }
+
           btn.addEventListener('click', () => {
             setPayment(key);
             payList.classList.remove('active');
@@ -1744,21 +1821,41 @@
         payToggle.setAttribute('aria-expanded', String(open));
       });
 
+      function resetPaymentSelection() {
+        selectedPay = null;
+        qrBox.hidden = true;
+        manualPayCard.classList.remove('active');
+        payCurrent.textContent = 'Pilih metode pembayaran';
+        payMethodUsed.textContent = 'Belum dipilih';
+        payDestination.textContent = '-';
+        payToggle.classList.add('needs-selection');
+        confirmWa.disabled = true;
+        confirmFb.disabled = true;
+        $$('.pay-option', payList).forEach(btn => btn.classList.remove('active'));
+      }
+
       function setPayment(key) {
         const availableKeys = getAvailablePaymentKeys();
-        const fallbackKey = getDefaultPaymentKey();
-        selectedPay = availableKeys.includes(key) ? key : fallbackKey;
+        if (!availableKeys.includes(key)) {
+          resetPaymentSelection();
+          return;
+        }
+
+        selectedPay = key;
         const data = PAYMENT_ACCOUNTS[selectedPay];
         payCurrent.textContent = `Opsi Pembayaran (Klik untuk Mengganti) • ${data.label}`;
         payMethodUsed.textContent = data.label;
         payDestination.textContent = data.number;
+        payToggle.classList.remove('needs-selection');
+        confirmWa.disabled = false;
+        confirmFb.disabled = false;
         $$('.pay-option', payList).forEach(btn => btn.classList.toggle('active', btn.dataset.paymentKey === selectedPay));
         if (selectedPay === 'QRIS') {
-          qrBox.style.display = 'block';
+          qrBox.hidden = false;
           manualPayCard.classList.remove('active');
           return;
         }
-        qrBox.style.display = 'none';
+        qrBox.hidden = true;
         manualPayCard.classList.add('active');
         manualPayName.textContent = data.label;
         manualPayOwner.textContent = data.owner;
@@ -1773,9 +1870,17 @@
         if (!force && qrisAvailable === lastQrisAvailability) return;
         lastQrisAvailability = qrisAvailable;
         const availableKeys = getAvailablePaymentKeys();
-        if (!availableKeys.includes(selectedPay)) selectedPay = getDefaultPaymentKey();
+        if (selectedPay && !availableKeys.includes(selectedPay)) selectedPay = null;
         renderPaymentOptions();
-        setPayment(selectedPay);
+        if (selectedPay) {
+          setPayment(selectedPay);
+        } else {
+          resetPaymentSelection();
+          if (stepPay.classList.contains('active')) {
+            payList.classList.add('active');
+            payToggle.setAttribute('aria-expanded', 'true');
+          }
+        }
       }
 
       refreshPaymentAvailability(true);
@@ -1822,11 +1927,12 @@
         }
       });
 
-      confirmWa.addEventListener('click', () => {
-        if (!currentProduct) return;
+      function buildConfirmationMessage() {
+        if (!currentProduct || !selectedPay) return '';
         const dateText = new Date().toLocaleString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
         const pay = PAYMENT_ACCOUNTS[selectedPay];
-        const msg = `Halo Admin Babay, saya mau konfirmasi order paket ChatGPT.\n\n` +
+        return `Halo Admin Babay, saya sudah checkout dan mau konfirmasi pembayaran paket ChatGPT.\n\n` +
+          `Rincian Produk yang Dipesan:\n` +
           `Tanggal/Jam: ${dateText}\n` +
           `Paket: ${currentProduct.name}\n` +
           `Kode Paket: ${currentProduct.code}\n` +
@@ -1845,11 +1951,48 @@
           `Metode Pembayaran: ${pay.label}\n` +
           `ID Transaksi: ${txId.textContent}\n\n` +
           `Saya sudah membaca detail paket dan memahami bahwa kendala di luar atau setelah masa garansi tidak menjadi tanggung jawab BabayShop serta tidak akan di-handle. Saya akan melampirkan bukti pembayaran. Tolong segera diproses, terima kasih.`;
-        
+      }
+
+      async function copyConfirmationMessage(button) {
+        const msg = buildConfirmationMessage();
+        if (!msg) return;
+        const defaultText = button.dataset.defaultText || 'Salin Pesan Konfirmasi Pembayaran';
+        await copyText(msg);
+        button.textContent = 'Pesan Konfirmasi Tersalin ✓';
+        setTimeout(() => {
+          button.textContent = defaultText;
+        }, 1600);
+      }
+
+      function showConfirmationSuccess(channel) {
+        const isWhatsapp = channel === 'whatsapp';
+        successBadge.textContent = isWhatsapp ? 'Mengalihkan ke WhatsApp Admin' : 'Konfirmasi Facebook';
+        successTitle.textContent = isWhatsapp ? 'Menunggu konfirmasi manual' : 'Ikuti 3 langkah konfirmasi';
+        successText.textContent = isWhatsapp
+          ? 'Pesan detail pesanan sudah disiapkan. Kirim ke WhatsApp Admin Babay dan lampirkan screenshot bukti pembayaran.'
+          : 'Setelah transfer, lakukan langkah berikut secara berurutan. Tidak ada pesan yang disalin atau tautan yang dibuka otomatis.';
+        waFallback.hidden = !isWhatsapp;
+        fbFlowActions.hidden = isWhatsapp;
+        showStep(stepSuccess);
+      }
+
+      copyConfirmationSuccess.addEventListener('click', () => copyConfirmationMessage(copyConfirmationSuccess));
+
+      confirmWa.addEventListener('click', () => {
+        const msg = buildConfirmationMessage();
+        if (!msg) return;
         lastWaLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
         waFallback.href = lastWaLink;
         window.open(lastWaLink, '_blank', 'noopener');
-        showStep(stepSuccess);
+        showConfirmationSuccess('whatsapp');
+      });
+
+      confirmFb.addEventListener('click', () => {
+        const msg = buildConfirmationMessage();
+        if (!msg) return;
+        fbFallback.href = FACEBOOK_MESSENGER_URL;
+        fbCommentLink.href = FACEBOOK_POST_URL;
+        showConfirmationSuccess('facebook');
       });
     });
   </script>
@@ -1857,6 +2000,7 @@
   
   
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
