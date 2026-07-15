@@ -1,96 +1,291 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GPT Plus Redeem Note Generator</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
---bg:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
---card:rgba(255,255,255,.06);
---border:rgba(255,255,255,.15);
---accent:#7c4dff;
---text:#eee;
-}
-*{box-sizing:border-box;font-family:Inter,sans-serif}
-body{margin:0;background:var(--bg);min-height:100vh;color:var(--text);display:flex;justify-content:center;padding:20px}
-.container{max-width:560px;width:100%}
-.card{background:var(--card);backdrop-filter:blur(15px);border:1px solid var(--border);border-radius:18px;padding:24px;box-shadow:0 8px 30px rgba(0,0,0,.35)}
-h1{text-align:center;margin-top:0}
-.group{margin-bottom:16px}
-label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;margin-bottom:6px;color:#bbb}
-input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:rgba(0,0,0,.25);color:#fff}
-textarea{height:560px;resize:vertical;font-family:Consolas,monospace}
-button{width:100%;padding:13px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-weight:700;cursor:pointer}
-.actions{display:flex;gap:10px;margin-top:10px}
-.actions button{flex:1}
-.hidden{display:none}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GPT Plus Redeem Note Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      --card: rgba(255, 255, 255, .06);
+      --border: rgba(255, 255, 255, .15);
+      --accent: #7c4dff;
+      --accent-hover: #8f6aff;
+      --text: #eee;
+      --muted: #bbb;
+      --success: #7ee2a8;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Inter, system-ui, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      min-height: 100vh;
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 620px;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, .35);
+    }
+
+    h1 {
+      text-align: center;
+      margin: 0 0 24px;
+      font-size: clamp(22px, 5vw, 30px);
+    }
+
+    .group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: var(--muted);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, .25);
+      color: #fff;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent-hover);
+      box-shadow: 0 0 0 3px rgba(124, 77, 255, .2);
+    }
+
+    select option {
+      color: #111;
+    }
+
+    textarea {
+      resize: vertical;
+      font-family: Consolas, "Courier New", monospace;
+      line-height: 1.5;
+    }
+
+    #kode {
+      min-height: 150px;
+    }
+
+    #hasil {
+      min-height: 560px;
+    }
+
+    .field-info {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .counter {
+      color: var(--success);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .warranty-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+
+    button:hover {
+      background: var(--accent-hover);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .actions button {
+      flex: 1;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-<div class="card">
-<h1>🎁 GPT Plus Redeem Note</h1>
+  <main class="container">
+    <section class="card">
+      <h1>🎁 GPT Plus Redeem Note</h1>
 
-<div class="group">
-<label>Tanggal Pembelian</label>
-<input type="date" id="tgl">
-</div>
+      <div class="group">
+        <label for="tgl">Tanggal Pembelian</label>
+        <input type="date" id="tgl">
+      </div>
 
-<div class="group">
-<label>Kode Redeem</label>
-<input id="kode" placeholder="EUR-XFZ1507A8D">
-</div>
+      <div class="group">
+        <label for="kode">Kode Redeem (Bulk)</label>
+        <textarea id="kode" spellcheck="false" placeholder="EUR-XXXXXXXXXX&#10;EUR-XXXXXXXXXX&#10;EUR-XXXXXXXXXX"></textarea>
+        <div class="field-info">
+          <span>Pisahkan kode dengan Enter, spasi, koma, atau titik koma.</span>
+          <span class="counter" id="jumlahKode" aria-live="polite">0 kode</span>
+        </div>
+      </div>
 
-<div class="group">
-<label>Channel Region Akun</label>
-<select id="region">
-<option>Brazil</option>
-<option>India</option>
-<option>Eropa</option>
-<option>Indonesia</option>
-</select>
-</div>
+      <div class="group">
+        <label for="region">Channel / Region Akun</label>
+        <input id="region" list="regionList" value="Brazil" placeholder="Ketik region atau channel kustom">
+        <datalist id="regionList">
+          <option value="Brazil">
+          <option value="India">
+          <option value="Eropa">
+          <option value="Indonesia">
+        </datalist>
+      </div>
 
-<div class="group">
-<label>Garansi</label>
-<input value="Garansi 1 Jam Redeem" readonly>
-</div>
+      <div class="group">
+        <label for="garansiJumlah">Garansi Redeem</label>
+        <div class="warranty-row">
+          <input type="number" id="garansiJumlah" value="1" min="1" step="1" inputmode="numeric" aria-label="Jumlah garansi">
+          <select id="garansiSatuan" aria-label="Satuan garansi">
+            <option value="Jam">Jam</option>
+            <option value="Hari">Hari</option>
+          </select>
+        </div>
+      </div>
 
-<button onclick="generate()">Generate Nota</button>
-</div>
+      <button type="button" onclick="generate()">Generate Nota</button>
+    </section>
 
-<div class="card hidden" id="hasilCard" style="margin-top:18px">
-<label>Nota</label>
-<textarea id="hasil" readonly></textarea>
-<div class="actions">
-<button onclick="copyText()">Salin</button>
-<button onclick="editNota()" id="editBtn">Edit</button>
-</div>
-</div>
-</div>
+    <section class="card hidden" id="hasilCard" style="margin-top: 18px">
+      <label for="hasil">Nota</label>
+      <textarea id="hasil" readonly></textarea>
+      <div class="actions">
+        <button type="button" onclick="copyText()" id="copyBtn">Salin</button>
+        <button type="button" onclick="editNota()" id="editBtn">Edit</button>
+      </div>
+    </section>
+  </main>
 
-<script>
-document.getElementById("tgl").valueAsDate=new Date();
-let edit=false;
+  <script>
+    const tanggalInput = document.getElementById("tgl");
+    const kodeInput = document.getElementById("kode");
+    const jumlahKode = document.getElementById("jumlahKode");
+    let edit = false;
 
-function formatDate(v){
-if(!v)return "-";
-return new Date(v).toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"});
-}
+    tanggalInput.valueAsDate = new Date();
 
-function generate(){
-const tgl=formatDate(document.getElementById("tgl").value);
-const kode=document.getElementById("kode").value||"...";
-const region=document.getElementById("region").value;
+    function getCodes() {
+      return kodeInput.value
+        .split(/[\s,;]+/)
+        .map(kode => kode.trim())
+        .filter(Boolean);
+    }
 
-const txt=`PESANAN GPT PLUS PRIVATE REDEEM BERHASIL
+    function updateCount() {
+      const total = getCodes().length;
+      jumlahKode.textContent = `${total} kode`;
+    }
+
+    kodeInput.addEventListener("input", updateCount);
+
+    function formatDate(value) {
+      if (!value) return "-";
+      const [year, month, day] = value.split("-").map(Number);
+      return new Date(year, month - 1, day).toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
+    }
+
+    function generate() {
+      const codes = getCodes();
+
+      if (codes.length === 0) {
+        alert("Masukkan minimal 1 kode redeem.");
+        kodeInput.focus();
+        return;
+      }
+
+      const tgl = formatDate(tanggalInput.value);
+      const region = document.getElementById("region").value.trim() || "-";
+      const garansiJumlahInput = document.getElementById("garansiJumlah");
+      const garansiJumlah = Math.max(1, parseInt(garansiJumlahInput.value, 10) || 1);
+      const garansiSatuan = document.getElementById("garansiSatuan").value;
+      const daftarKode = codes.map((kode, index) => `${index + 1}. ${kode}`).join("\n");
+
+      garansiJumlahInput.value = garansiJumlah;
+
+      const txt = `PESANAN GPT PLUS PRIVATE REDEEM BERHASIL
 ━━━━━━━━━━━━━━━━━━
 
 Tanggal Pembelian  : ${tgl}
-Kode Redeem  : ${kode}
-Region  : ${region}
+Jumlah Kode        : ${codes.length}
+Channel / Region   : ${region}
+Garansi Redeem     : ${garansiJumlah} ${garansiSatuan}
+
+Kode Redeem:
+${daftarKode}
 ━━━━━━━━━━━━━━━━━━
 
 📌 CARA KLAIM
@@ -104,7 +299,7 @@ https://babayshop.id/gpt/redeem-acc
 ━━━━━━━━━━━━━━━━━━
 
 📜 SYARAT & KETENTUAN
-• Garansi hanya berlaku 1 jam untuk proses redeem.
+• Garansi hanya berlaku ${garansiJumlah} ${garansiSatuan} untuk proses redeem.
 • Setelah redeem berhasil, transaksi dinyatakan selesai.
 • Tidak ada jaminan permanen. Sewaktu-waktu akun dapat terkena take down, suspend ataupun banned oleh pihak OpenAI.
 • Hal tersebut berada di luar tanggung jawab kami.
@@ -114,23 +309,42 @@ https://babayshop.id/gpt/redeem-acc
 
 Terima kasih telah mempercayai BabayShop ❤️`;
 
-document.getElementById("hasil").value=txt;
-document.getElementById("hasilCard").classList.remove("hidden");
-}
+      document.getElementById("hasil").value = txt;
+      document.getElementById("hasilCard").classList.remove("hidden");
+      document.getElementById("hasilCard").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
 
-function copyText(){
-const t=document.getElementById("hasil");
-t.select();
-document.execCommand("copy");
-}
+    async function copyText() {
+      const textarea = document.getElementById("hasil");
+      const copyBtn = document.getElementById("copyBtn");
 
-function editNota(){
-edit=!edit;
-const t=document.getElementById("hasil");
-const b=document.getElementById("editBtn");
-if(edit){t.removeAttribute("readonly");b.innerText="Selesai";}
-else{t.setAttribute("readonly","readonly");b.innerText="Edit";}
-}
-</script>
+      try {
+        await navigator.clipboard.writeText(textarea.value);
+      } catch (error) {
+        textarea.select();
+        document.execCommand("copy");
+      }
+
+      copyBtn.textContent = "Tersalin";
+      setTimeout(() => {
+        copyBtn.textContent = "Salin";
+      }, 1500);
+    }
+
+    function editNota() {
+      edit = !edit;
+      const textarea = document.getElementById("hasil");
+      const editBtn = document.getElementById("editBtn");
+
+      if (edit) {
+        textarea.removeAttribute("readonly");
+        textarea.focus();
+        editBtn.textContent = "Selesai";
+      } else {
+        textarea.setAttribute("readonly", "readonly");
+        editBtn.textContent = "Edit";
+      }
+    }
+  </script>
 </body>
 </html>
