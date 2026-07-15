@@ -1,5 +1,7 @@
 
 
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -593,7 +595,22 @@
     .fb-confirm-note { margin-top: 10px; color: var(--muted); font-size: 11.5px; line-height: 1.5; text-align: center; }
     .fb-confirm-note a, .fb-post-link { color: #93c5fd; text-decoration: underline; text-underline-offset: 3px; }
     .fb-post-link { display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 700; }
-    .fb-flow-actions { width: 100%; display: grid; gap: 9px; margin-bottom: 12px; }
+    .confirmation-flow, .fb-flow-actions { width: 100%; display: grid; gap: 12px; margin-bottom: 12px; }
+    .confirmation-step { position: relative; padding: 15px; border-radius: 16px; border: 1px solid var(--border); background: rgba(255,255,255,.025); text-align: left; }
+    .confirmation-step-head { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 12px; }
+    .confirmation-step-number { flex: 0 0 auto; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 999px; color: #07111f; background: linear-gradient(135deg, #a5f3fc, #60a5fa); font-weight: 800; font-size: 12px; }
+    .confirmation-step h4 { margin: 1px 0 4px; color: #fff; font-size: 14px; line-height: 1.35; }
+    .confirmation-step p { margin: 0 !important; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .confirmation-preview { width: 100%; min-height: 168px; margin: 0 0 10px; padding: 12px; resize: vertical; border: 1px solid rgba(34,211,238,.18); border-radius: 12px; outline: none; color: #dbeafe; background: rgba(2,6,23,.72); font-family: var(--font-mono); font-size: 11px; line-height: 1.55; }
+    .confirmation-preview:focus { border-color: rgba(34,211,238,.50); box-shadow: 0 0 0 3px rgba(34,211,238,.07); }
+    .contact-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+    .contact-choice-grid .btn { min-height: 54px; padding-inline: 12px; white-space: normal; line-height: 1.35; }
+    .contact-link.is-locked { opacity: .42; cursor: not-allowed; pointer-events: none; filter: grayscale(.35); box-shadow: none; }
+    .copy-state-hint { display: block; margin-top: 9px; color: #fde68a; font-size: 11.5px; line-height: 1.45; text-align: center; }
+    .copy-state-hint.is-ready { color: #bbf7d0; }
+    .facebook-profile-help { display: block; margin-top: 9px; color: #bfdbfe; font-size: 11.5px; line-height: 1.5; }
+    .followup-step { border-color: rgba(251,191,36,.22); background: rgba(251,191,36,.045); }
+    .followup-step .confirmation-step-number { color: #111827; background: linear-gradient(135deg, #fde68a, #f59e0b); }
     .fb-comment-instruction { margin: 0 !important; padding: 11px 12px; border-radius: 12px; color: #fde68a !important; background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.20); font-size: 12px !important; }
     
     .success { text-align: center; padding: 8px 0; }
@@ -616,6 +633,10 @@
       .nav-toggle { display: block; }
       .footer-grid { grid-template-columns: 1fr; }
       .reseller-box { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .contact-choice-grid { grid-template-columns: 1fr; }
+      .confirmation-preview { min-height: 190px; }
     }
     @media (max-width: 700px) {
       #countryPopup { padding: 10px; align-items: center; overflow-y: auto; }
@@ -1191,26 +1212,71 @@
               <div class="pay-row"><span>Kode Unik</span><strong id="uniqueCode">+Rp0</strong></div>
               <div class="pay-row pay-row-total"><span>Total Transfer</span><div class="total-copy-wrap"><strong class="total total-selectable" id="totalPrice" tabindex="0" title="Nominal dapat diblok atau diklik untuk disalin">Rp0</strong><button class="copy-btn total-copy-btn" id="copyTotal" type="button">Salin Nominal</button></div></div>
             </div>
-            <p class="pay-warning">Transfer sesuai nominal sampai 3 digit terakhir agar verifikasi lebih mudah. Setelah bayar, klik tombol konfirmasi dan lampirkan bukti transfer.</p>
+            <p class="pay-warning">Transfer sesuai nominal sampai 3 digit terakhir agar verifikasi lebih mudah. Setelah bayar, buka panduan konfirmasi, salin rincian, lalu hubungi admin pilihan Anda.</p>
             <div class="confirm-actions">
-              <button class="btn btn-wa btn-block btn-lg" id="confirmWa" type="button" disabled>🔥 Konfirmasi via WhatsApp (Rekomendasi)</button>
+              <button class="btn btn-wa btn-block btn-lg" id="confirmWa" type="button" disabled>🔥 Lanjut Konfirmasi via WhatsApp (Rekomendasi)</button>
               <button class="btn btn-fb btn-block btn-lg" id="confirmFb" type="button" disabled>Lanjut Konfirmasi via Facebook</button>
             </div>
-            <p class="fb-confirm-note">Pilihan Facebook akan menampilkan panduan konfirmasi terlebih dahulu dan tidak membuka tautan secara otomatis.</p>
+            <p class="fb-confirm-note">Kedua pilihan hanya membuka panduan. Pesan tidak disalin, tautan admin tidak dibuka, dan chat tidak dikirim otomatis.</p>
           </div>
         </div>
 
         <div class="checkout-step" id="stepSuccess">
           <div class="success">
-            <span class="success-badge" id="successBadge">Membuka kanal konfirmasi</span>
-            <h3 id="successTitle">Menunggu konfirmasi manual</h3>
-            <p id="successText">Kirim detail pesanan dan lampirkan screenshot bukti pembayaran.</p>
-            <a class="btn btn-wa btn-block" id="waFallback" href="#" target="_blank" rel="noopener" hidden>Kirim Ulang ke WhatsApp</a>
+            <span class="success-badge" id="successBadge">Konfirmasi manual</span>
+            <h3 id="successTitle">Salin rincian, lalu hubungi admin</h3>
+            <p id="successText">Tidak ada pesan atau aplikasi yang dibuka otomatis.</p>
+
+            <div class="confirmation-flow" id="waFlowActions" hidden>
+              <div class="confirmation-step">
+                <div class="confirmation-step-head">
+                  <span class="confirmation-step-number">1</span>
+                  <div><h4>Salin pesan rincian pesanan</h4><p>Periksa rincian berikut, lalu salin. Setelah menghubungi admin, lampirkan juga screenshot bukti pembayaran.</p></div>
+                </div>
+                <textarea class="confirmation-preview" id="waConfirmationPreview" readonly aria-label="Rincian pesanan untuk WhatsApp"></textarea>
+                <button class="btn btn-ghost btn-copy-message btn-block" id="copyConfirmationWa" data-default-text="Salin Pesan Rincian" type="button">Salin Pesan Rincian</button>
+              </div>
+              <div class="confirmation-step" id="waAdminStep">
+                <div class="confirmation-step-head">
+                  <span class="confirmation-step-number">2</span>
+                  <div><h4>Buka WhatsApp admin</h4><p>Setelah pesan tersalin, pilih salah satu WhatsApp admin di bawah ini.</p></div>
+                </div>
+                <div class="contact-choice-grid">
+                  <a class="btn btn-wa contact-link is-locked" id="waBusinessLink" data-contact-channel="whatsapp" href="https://wa.me/6281523984574" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1">babayshop.id<br>0815-2398-4574</a>
+                  <a class="btn btn-wa contact-link is-locked" id="waPersonalLink" data-contact-channel="whatsapp" href="https://wa.me/6285758058711" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1">Bayu Sampurna<br>0857-5805-8711</a>
+                </div>
+                <span class="copy-state-hint" id="waCopyHint">Salin pesan pada langkah 1 agar tombol WhatsApp aktif.</span>
+              </div>
+            </div>
+
             <div class="fb-flow-actions" id="fbFlowActions" hidden>
-              <button class="btn btn-ghost btn-copy-message btn-block" id="copyConfirmationSuccess" data-default-text="1. Salin Pesan Konfirmasi Pembayaran" type="button">1. Salin Pesan Konfirmasi Pembayaran</button>
-              <a class="btn btn-fb btn-block" id="fbFallback" href="https://www.facebook.com/messages/t/100005545543049" target="_blank" rel="noopener">2. Buka Messenger Chat Admin Babay</a>
-              <a class="btn btn-ghost btn-block" id="fbCommentLink" href="https://www.facebook.com/BayuRizkySampurna/posts/pfbid0ZHmjuoawUJ1qa8GXLiLUyF7gkCfKurqJzdaAMsTPY14ASjewSv5jqW36MzA868kql" target="_blank" rel="noopener">3. Buka Postingan yang Dipin Babay</a>
-              <p class="fb-comment-instruction" id="fbCommentInstruction">Jika chat belum dibalas, komentar: “CPM sudah checkout”.</p>
+              <div class="confirmation-step">
+                <div class="confirmation-step-head">
+                  <span class="confirmation-step-number">1</span>
+                  <div><h4>Salin pesan rincian pesanan</h4><p>Periksa rincian berikut, lalu salin. Lampirkan screenshot bukti pembayaran saat menghubungi admin.</p></div>
+                </div>
+                <textarea class="confirmation-preview" id="fbConfirmationPreview" readonly aria-label="Rincian pesanan untuk Facebook"></textarea>
+                <button class="btn btn-ghost btn-copy-message btn-block" id="copyConfirmationSuccess" data-default-text="Salin Pesan Rincian" type="button">Salin Pesan Rincian</button>
+              </div>
+              <div class="confirmation-step" id="fbAdminStep">
+                <div class="confirmation-step-head">
+                  <span class="confirmation-step-number">2</span>
+                  <div><h4>Hubungi admin Facebook</h4><p>Pilih salah satu cara berikut setelah pesan tersalin.</p></div>
+                </div>
+                <div class="contact-choice-grid">
+                  <a class="btn btn-fb contact-link is-locked" id="fbFallback" data-contact-channel="facebook" href="https://www.facebook.com/messages/t/100005545543049" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1">Buka Messenger Admin</a>
+                  <a class="btn btn-fb contact-link is-locked" id="fbProfileLink" data-contact-channel="facebook" href="https://www.facebook.com/BayuRizkySampurna" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1">Buka Profil Facebook</a>
+                </div>
+                <span class="facebook-profile-help">Jika membuka profil: tekan tombol titik tiga (⋯), lalu pilih <strong>Kirim pesan</strong>.</span>
+                <span class="copy-state-hint" id="fbCopyHint">Salin pesan pada langkah 1 agar tombol Facebook aktif.</span>
+              </div>
+              <div class="confirmation-step followup-step" id="fbFollowupStep" hidden>
+                <div class="confirmation-step-head">
+                  <span class="confirmation-step-number">3</span>
+                  <div><h4>Hanya jika chat belum dibalas</h4><p>Buka postingan yang dipin, lalu komentar: <strong>“CPM sudah checkout”</strong>.</p></div>
+                </div>
+                <a class="btn btn-ghost btn-block" id="fbCommentLink" href="https://www.facebook.com/BayuRizkySampurna/posts/pfbid0ZHmjuoawUJ1qa8GXLiLUyF7gkCfKurqJzdaAMsTPY14ASjewSv5jqW36MzA868kql" target="_blank" rel="noopener">Buka Postingan yang Dipin</a>
+              </div>
             </div>
             <button class="btn btn-ghost btn-block" id="closeSuccess" type="button" style="margin-top:10px">Tutup</button>
           </div>
@@ -1221,9 +1287,11 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const WA_NUMBER = '6285758058711';
+      const WHATSAPP_BUSINESS_URL = 'https://wa.me/6281523984574';
+      const WHATSAPP_PERSONAL_URL = 'https://wa.me/6285758058711';
       const GLOBAL_URL = 'https://babay.web.id/chatgpt-global';
       const FACEBOOK_MESSENGER_URL = 'https://www.facebook.com/messages/t/100005545543049';
+      const FACEBOOK_PROFILE_URL = 'https://www.facebook.com/BayuRizkySampurna';
       const FACEBOOK_POST_URL = 'https://www.facebook.com/BayuRizkySampurna/posts/pfbid0ZHmjuoawUJ1qa8GXLiLUyF7gkCfKurqJzdaAMsTPY14ASjewSv5jqW36MzA868kql';
       const countryPopup = document.getElementById('countryPopup');
       const adminRestPopup = document.getElementById('adminRestPopup');
@@ -1644,10 +1712,19 @@
       const payDestination = $('#payDestination');
       const confirmWa = $('#confirmWa');
       const confirmFb = $('#confirmFb');
-      const waFallback = $('#waFallback');
+      const waFlowActions = $('#waFlowActions');
+      const waConfirmationPreview = $('#waConfirmationPreview');
+      const copyConfirmationWa = $('#copyConfirmationWa');
+      const waBusinessLink = $('#waBusinessLink');
+      const waPersonalLink = $('#waPersonalLink');
+      const waCopyHint = $('#waCopyHint');
       const fbFallback = $('#fbFallback');
+      const fbProfileLink = $('#fbProfileLink');
+      const fbConfirmationPreview = $('#fbConfirmationPreview');
       const copyConfirmationSuccess = $('#copyConfirmationSuccess');
       const fbFlowActions = $('#fbFlowActions');
+      const fbFollowupStep = $('#fbFollowupStep');
+      const fbCopyHint = $('#fbCopyHint');
       const fbCommentLink = $('#fbCommentLink');
       const successBadge = $('#successBadge');
       const successTitle = $('#successTitle');
@@ -1662,7 +1739,6 @@
       let currentDiscAmt = 0;
       let currentFinalBase = 0;
       let currentDiscPct = 0;
-      let lastWaLink = '#';
 
       function updateSummary() {
         if (!currentProduct) return;
@@ -1890,16 +1966,16 @@
         try {
           await navigator.clipboard.writeText(value);
         } catch (_) {
-          const input = document.createElement('input');
-          input.value = value;
-          input.setAttribute('readonly', '');
-          input.style.position = 'fixed';
-          input.style.opacity = '0';
-          document.body.appendChild(input);
-          input.select();
-          input.setSelectionRange(0, value.length);
+          const textarea = document.createElement('textarea');
+          textarea.value = value;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          textarea.setSelectionRange(0, value.length);
           document.execCommand('copy');
-          input.remove();
+          textarea.remove();
         }
       }
 
@@ -1953,12 +2029,36 @@
           `Saya sudah membaca detail paket dan memahami bahwa kendala di luar atau setelah masa garansi tidak menjadi tanggung jawab BabayShop serta tidak akan di-handle. Saya akan melampirkan bukti pembayaran. Tolong segera diproses, terima kasih.`;
       }
 
-      async function copyConfirmationMessage(button) {
+      function setContactLinksState(channel, isReady) {
+        document.querySelectorAll(`[data-contact-channel="${channel}"]`).forEach(link => {
+          link.classList.toggle('is-locked', !isReady);
+          link.setAttribute('aria-disabled', String(!isReady));
+          if (isReady) {
+            link.removeAttribute('tabindex');
+          } else {
+            link.setAttribute('tabindex', '-1');
+          }
+        });
+
+        const hint = channel === 'whatsapp' ? waCopyHint : fbCopyHint;
+        hint.classList.toggle('is-ready', isReady);
+        hint.textContent = isReady
+          ? 'Pesan sudah tersalin. Silakan pilih salah satu kontak admin.'
+          : `Salin pesan pada langkah 1 agar tombol ${channel === 'whatsapp' ? 'WhatsApp' : 'Facebook'} aktif.`;
+      }
+
+      function resetConfirmationFlow(channel) {
+        setContactLinksState(channel, false);
+        if (channel === 'facebook') fbFollowupStep.hidden = true;
+      }
+
+      async function copyConfirmationMessage(button, channel) {
         const msg = buildConfirmationMessage();
         if (!msg) return;
-        const defaultText = button.dataset.defaultText || 'Salin Pesan Konfirmasi Pembayaran';
+        const defaultText = button.dataset.defaultText || 'Salin Pesan Rincian';
         await copyText(msg);
-        button.textContent = 'Pesan Konfirmasi Tersalin ✓';
+        setContactLinksState(channel, true);
+        button.textContent = 'Pesan Rincian Tersalin ✓';
         setTimeout(() => {
           button.textContent = defaultText;
         }, 1600);
@@ -1966,24 +2066,38 @@
 
       function showConfirmationSuccess(channel) {
         const isWhatsapp = channel === 'whatsapp';
-        successBadge.textContent = isWhatsapp ? 'Mengalihkan ke WhatsApp Admin' : 'Konfirmasi Facebook';
-        successTitle.textContent = isWhatsapp ? 'Menunggu konfirmasi manual' : 'Ikuti 3 langkah konfirmasi';
+        const msg = buildConfirmationMessage();
+        successBadge.textContent = isWhatsapp ? 'Konfirmasi WhatsApp Manual' : 'Konfirmasi Facebook Manual';
+        successTitle.textContent = isWhatsapp ? 'Salin dulu, lalu pilih WhatsApp admin' : 'Ikuti langkah konfirmasi Facebook';
         successText.textContent = isWhatsapp
-          ? 'Pesan detail pesanan sudah disiapkan. Kirim ke WhatsApp Admin Babay dan lampirkan screenshot bukti pembayaran.'
-          : 'Setelah transfer, lakukan langkah berikut secara berurutan. Tidak ada pesan yang disalin atau tautan yang dibuka otomatis.';
-        waFallback.hidden = !isWhatsapp;
+          ? 'WhatsApp tidak dibuka dan pesan tidak dikirim otomatis. Selesaikan dua langkah berikut secara manual.'
+          : 'Pesan tidak disalin dan Facebook tidak dibuka otomatis. Selesaikan langkah berikut secara berurutan.';
+        waConfirmationPreview.value = msg;
+        fbConfirmationPreview.value = msg;
+        resetConfirmationFlow(channel);
+        waFlowActions.hidden = !isWhatsapp;
         fbFlowActions.hidden = isWhatsapp;
         showStep(stepSuccess);
       }
 
-      copyConfirmationSuccess.addEventListener('click', () => copyConfirmationMessage(copyConfirmationSuccess));
+      copyConfirmationWa.addEventListener('click', () => copyConfirmationMessage(copyConfirmationWa, 'whatsapp'));
+      copyConfirmationSuccess.addEventListener('click', () => copyConfirmationMessage(copyConfirmationSuccess, 'facebook'));
+
+      [fbFallback, fbProfileLink].forEach(link => {
+        link.addEventListener('click', e => {
+          if (link.getAttribute('aria-disabled') === 'true') {
+            e.preventDefault();
+            return;
+          }
+          fbFollowupStep.hidden = false;
+        });
+      });
 
       confirmWa.addEventListener('click', () => {
         const msg = buildConfirmationMessage();
         if (!msg) return;
-        lastWaLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-        waFallback.href = lastWaLink;
-        window.open(lastWaLink, '_blank', 'noopener');
+        waBusinessLink.href = WHATSAPP_BUSINESS_URL;
+        waPersonalLink.href = WHATSAPP_PERSONAL_URL;
         showConfirmationSuccess('whatsapp');
       });
 
@@ -1991,6 +2105,7 @@
         const msg = buildConfirmationMessage();
         if (!msg) return;
         fbFallback.href = FACEBOOK_MESSENGER_URL;
+        fbProfileLink.href = FACEBOOK_PROFILE_URL;
         fbCommentLink.href = FACEBOOK_POST_URL;
         showConfirmationSuccess('facebook');
       });
@@ -2000,6 +2115,7 @@
   
   
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
