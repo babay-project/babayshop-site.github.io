@@ -1,6 +1,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -493,7 +494,11 @@
     .footer ul { list-style: none; display: grid; gap: 8px; }
     .copy { border-top: 1px solid rgba(255,255,255,.06); padding-top: 20px; text-align: center; color: var(--dim); font-size: 12.5px; }
     
-    .fab { display: none !important; }
+    .fab { position: fixed; right: 22px; bottom: 22px; z-index: 90; display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 9px 17px 9px 9px; border: 1px solid rgba(134,239,172,.32); border-radius: 999px; color: #fff; background: linear-gradient(135deg, #128c48, #22c55e); box-shadow: 0 16px 42px rgba(34,197,94,.30), inset 0 1px 0 rgba(255,255,255,.18); font-size: 13px; font-weight: 700; transition: transform .22s, box-shadow .22s; }
+    .fab:hover { transform: translateY(-3px); box-shadow: 0 20px 50px rgba(34,197,94,.40), inset 0 1px 0 rgba(255,255,255,.18); }
+    .fab:focus-visible { outline: 3px solid rgba(165,243,252,.65); outline-offset: 3px; }
+    .fab-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 999px; color: #166534; background: #fff; font-size: 11px; font-weight: 900; letter-spacing: -.02em; }
+    .fab-label { white-space: nowrap; }
     .back-packages { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 140px); opacity: 0; pointer-events: none; z-index: 78; background: rgba(12,14,24,.88); border: 1px solid var(--border2); backdrop-filter: blur(14px); color: #fff; padding: 12px 20px; border-radius: 999px; font-weight: 600; box-shadow: 0 14px 42px rgba(0,0,0,.45); transition: transform .25s, opacity .25s; }
     .back-packages.show { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
     
@@ -603,6 +608,7 @@
     .confirmation-preview { width: 100%; min-height: 168px; margin: 0 0 10px; padding: 12px; resize: vertical; border: 1px solid rgba(34,211,238,.18); border-radius: 12px; outline: none; color: #dbeafe; background: rgba(2,6,23,.72); font-family: var(--font-mono); font-size: 11px; line-height: 1.55; }
     .confirmation-preview:focus { border-color: rgba(34,211,238,.50); box-shadow: 0 0 0 3px rgba(34,211,238,.07); }
     .contact-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+    .contact-choice-grid.wa-single { grid-template-columns: 1fr; }
     .contact-choice-grid .btn { min-height: 54px; padding-inline: 12px; white-space: normal; line-height: 1.35; }
     .contact-link.is-locked { opacity: .42; cursor: not-allowed; pointer-events: none; filter: grayscale(.35); box-shadow: none; }
     .copy-state-hint { display: block; margin-top: 9px; color: #fde68a; font-size: 11.5px; line-height: 1.45; text-align: center; }
@@ -672,7 +678,8 @@
       .steps { grid-template-columns: repeat(2, 1fr); gap: 9px; }
       .step { padding: 14px; border-radius: 16px; }
       .footer { padding: 30px 0 82px; }
-      .fab { display: none; }
+      .fab { right: 14px; bottom: 14px; min-height: 48px; padding: 7px 14px 7px 7px; }
+      .fab-icon { width: 32px; height: 32px; }
       .back-packages { display: none; }
       .modal { max-height: calc(100vh - 18px); border-radius: 13px; }
       .modal-head { padding: 14px 17px; }
@@ -1151,6 +1158,11 @@
     </div>
   </footer>
 
+  <a class="fab" href="https://wa.me/6281523984574" target="_blank" rel="noopener" aria-label="Tanya admin babayshop.id melalui WhatsApp" title="Tanya admin babayshop.id">
+    <span class="fab-icon" aria-hidden="true">WA</span>
+    <span class="fab-label">Tanya Admin</span>
+  </a>
+
   <button class="back-packages" id="backPackages" type="button">↑ Kembali ke Paket</button>
 
   <div class="modal-overlay" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -1238,11 +1250,10 @@
               <div class="confirmation-step" id="waAdminStep">
                 <div class="confirmation-step-head">
                   <span class="confirmation-step-number">2</span>
-                  <div><h4>Buka WhatsApp admin</h4><p>Setelah pesan tersalin, pilih salah satu WhatsApp admin di bawah ini.</p></div>
+                  <div><h4>Buka WhatsApp admin</h4><p>Setelah pesan tersalin, buka WhatsApp resmi babayshop.id di bawah ini.</p></div>
                 </div>
-                <div class="contact-choice-grid">
+                <div class="contact-choice-grid wa-single">
                   <a class="btn btn-wa contact-link is-locked" id="waBusinessLink" data-contact-channel="whatsapp" href="https://wa.me/6281523984574" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1">babayshop.id<br>0815-2398-4574</a>
-                  <a class="btn btn-wa contact-link is-locked" id="waPersonalLink" data-contact-channel="whatsapp" href="https://wa.me/6285758058711" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1">Bayu Sampurna<br>0857-5805-8711</a>
                 </div>
                 <span class="copy-state-hint" id="waCopyHint">Salin pesan pada langkah 1 agar tombol WhatsApp aktif.</span>
               </div>
@@ -1272,9 +1283,9 @@
               <div class="confirmation-step followup-step" id="fbFollowupStep" hidden>
                 <div class="confirmation-step-head">
                   <span class="confirmation-step-number">3</span>
-                  <div><h4>Hanya jika chat belum dibalas</h4><p>Buka postingan yang dipin, lalu komentar: <strong>“CPM sudah checkout”</strong>.</p></div>
+                  <div><h4>Tips agar pesan cepat dibaca</h4><p>Pesan Messenger terkadang masuk folder spam. Setelah mengirim chat, buka postingan yang dipin dan cukup komentar: <strong>“cpm dah checkout”</strong>.</p></div>
                 </div>
-                <a class="btn btn-ghost btn-block" id="fbCommentLink" href="https://www.facebook.com/BayuRizkySampurna/posts/pfbid0ZHmjuoawUJ1qa8GXLiLUyF7gkCfKurqJzdaAMsTPY14ASjewSv5jqW36MzA868kql" target="_blank" rel="noopener">Buka Postingan yang Dipin</a>
+                <a class="btn btn-ghost btn-block" id="fbCommentLink" href="https://www.facebook.com/share/p/1BKewQEgyh/" target="_blank" rel="noopener">Buka Postingan yang Dipin</a>
               </div>
             </div>
             <button class="btn btn-ghost btn-block" id="closeSuccess" type="button" style="margin-top:10px">Tutup</button>
@@ -1287,11 +1298,10 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const WHATSAPP_BUSINESS_URL = 'https://wa.me/6281523984574';
-      const WHATSAPP_PERSONAL_URL = 'https://wa.me/6285758058711';
       const GLOBAL_URL = 'https://babay.web.id/chatgpt-global';
       const FACEBOOK_MESSENGER_URL = 'https://www.facebook.com/messages/t/100005545543049';
       const FACEBOOK_PROFILE_URL = 'https://www.facebook.com/BayuRizkySampurna';
-      const FACEBOOK_POST_URL = 'https://www.facebook.com/BayuRizkySampurna/posts/pfbid0ZHmjuoawUJ1qa8GXLiLUyF7gkCfKurqJzdaAMsTPY14ASjewSv5jqW36MzA868kql';
+      const FACEBOOK_POST_URL = 'https://www.facebook.com/share/p/1BKewQEgyh/';
       const countryPopup = document.getElementById('countryPopup');
       const adminRestPopup = document.getElementById('adminRestPopup');
       const continueAfterRest = document.getElementById('continueAfterRest');
@@ -1715,7 +1725,6 @@
       const waConfirmationPreview = $('#waConfirmationPreview');
       const copyConfirmationWa = $('#copyConfirmationWa');
       const waBusinessLink = $('#waBusinessLink');
-      const waPersonalLink = $('#waPersonalLink');
       const waCopyHint = $('#waCopyHint');
       const fbFallback = $('#fbFallback');
       const fbProfileLink = $('#fbProfileLink');
@@ -2070,7 +2079,7 @@
         successTitle.textContent = isWhatsapp ? 'Salin dulu, lalu pilih WhatsApp admin' : 'Ikuti langkah konfirmasi Facebook';
         successText.textContent = isWhatsapp
           ? 'WhatsApp tidak dibuka dan pesan tidak dikirim otomatis. Selesaikan dua langkah berikut secara manual.'
-          : 'Pesan tidak disalin dan Facebook tidak dibuka otomatis. Selesaikan langkah berikut secara berurutan.';
+          : 'Pesan tidak disalin dan Facebook tidak dibuka otomatis. Setelah chat, ikuti tips komentar pada postingan pin agar pesan lebih cepat terlihat.';
         waConfirmationPreview.value = msg;
         fbConfirmationPreview.value = msg;
         resetConfirmationFlow(channel);
@@ -2096,7 +2105,6 @@
         const msg = buildConfirmationMessage();
         if (!msg) return;
         waBusinessLink.href = WHATSAPP_BUSINESS_URL;
-        waPersonalLink.href = WHATSAPP_PERSONAL_URL;
         showConfirmationSuccess('whatsapp');
       });
 
