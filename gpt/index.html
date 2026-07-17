@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -804,10 +800,8 @@
           <h2 class="section-title">Pilih paket ChatGPT</h2>
           <p class="section-sub">Pilih paket yang dibutuhkan. Info benefit lengkap tidak dipanjangkan di sini karena sudah tersedia di halaman resmi ChatGPT.</p>
           <div class="filters">
-            <button class="filter-chip active" data-filter="all" type="button">Semua</button>
-            <button class="filter-chip" data-filter="plus" type="button">Plus Private</button>
-            <button class="filter-chip" data-filter="reseller" type="button">Paket Reseller</button>
-            <button class="filter-chip soldout-control" id="soldOutToggle" type="button" aria-pressed="false">Tampilkan Produk Sold Out</button>
+            <button class="filter-chip active" data-stock-filter="ready" type="button">Produk Ready</button>
+            <button class="filter-chip soldout-control" data-stock-filter="soldout" type="button">Produk Sold Out</button>
           </div>
         </div>
 
@@ -815,13 +809,13 @@
           <article class="pkg featured reveal" data-cat="plus" data-product="PLUS_UPI">
             <div class="pkg-head"><div class="pkg-code">A</div><div><h3>AI Chat GPT Plus 1 Month Private</h3><span class="pkg-role">Channel India (UPI)</span></div></div>
             <div class="pkg-body">
-              <div class="price"><strong>Rp47.000</strong><span> / paket</span><span class="badge-mini">Private</span></div>
-              <p class="tagline">Channel India (UPI), garansi 1 x 24 jam (1 hari), private, akun private, dan Codex.</p>
+              <div class="price"><span class="old-price">Rp47.000</span><strong>Rp34.000</strong><span> / paket</span><span class="badge-mini">Private</span></div>
+              <p class="tagline">Channel India (UPI), private, akun private, dan support Codex (belum OTP).</p>
               <ul class="features">
                 <li><span class="chk">✓</span><span>Private, akun private.</span></li>
-                <li><span class="chk">✓</span><span>Garansi 1 x 24 jam (1 hari).</span></li>
-                <li><span class="chk">✓</span><span>Support Codex.</span></li>
-                <li><span class="chk">✓</span><span>Durasi 1 bulan: 25–28 days.</span></li>
+                <li><span class="chk">✓</span><span>Support Codex (belum OTP).</span></li>
+                <li><span class="warn">!</span><span>Tanpa garansi setelah akun berhasil masuk.</span></li>
+                <li><span class="warn">!</span><span>Tidak ada jaminan full durasi.</span></li>
                 <li><span class="warn">!</span><span>Detail fitur Plus cek link resmi di bawah.</span></li>
               </ul>
               <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
@@ -833,9 +827,9 @@
             <div class="pkg-head"><div class="pkg-code">BZ.1</div><div><h3>Chat GPT Plus 1 Month Private</h3><span class="pkg-role">Channel Brazil (PIX) • Redeem Code</span></div></div>
             <div class="pkg-body">
               <div class="price"><span class="old-price">Rp55.000</span><strong>Rp38.000</strong><span> / paket</span><span class="badge-mini">Termurah</span></div>
-              <p class="tagline">BZ.1: Channel Brazil (PIX), mendapatkan akun email Microsoft + akun GPT, bebas ganti password, dan layanan hanya dijamin sampai akun berhasil masuk.</p>
+              <p class="tagline">Channel Brazil (PIX), mendapatkan akun email Microsoft + akun GPT, bebas ganti password, dan layanan hanya dijamin sampai akun berhasil masuk.</p>
               <ul class="features">
-                <li><span class="chk">✓</span><span></span></li>
+                <li><span class="chk">✓</span><span>dapat akun Microsoft + akun GPT Plus</span></li>
                 <li><span class="chk">✓</span><span>Bebas ganti password akun.</span></li>
                 <li><span class="chk">✓</span><span>Include verifikasi nomor untuk Codex.</span></li>
                 <li><span class="chk">✓</span><span>Durasi maksimal 1 bulan.</span></li>
@@ -927,7 +921,7 @@
                 <li><span class="chk">✓</span><span data-c2-process>Jika Ready, akun langsung dikirim. Jika Open Pre Order, estimasi 2 jam–1 hari; bisa lebih lama tetapi jarang, dan umumnya paling lama seharian.</span></li>
                 <li><span class="chk">✓</span><span>Full Garansi sampai 7 hari.</span></li>
                 <li><span class="chk">✓</span><span>Stabilitas dan peluang full durasi lebih tinggi.</span></li>
-                <li><span class="chk">✓</span><span>Belum ada Laporan akun deactivated / banned.</span></li>
+                <li><span class="chk">✓</span><span>Minim Laporan akun deactivated / banned.</span></li>
                 <li><span class="chk">✓</span><span>Support Codex (Verif OTP Sendiri).</span></li>          
                 <li><span class="chk">✓</span><span>Durasi 1 bulan: 25–28 days.</span></li>
                 <li><span class="chk">✓</span><span>Jika Status Ready : Akun Siap Kirim</span></li>
@@ -954,35 +948,13 @@
                 <button class="btn btn-primary btn-block btn-buy" data-id="RESELLER" type="button">CHECKOUT!</button></div>
             </div>
           </article>
-        </div>
-
-        <div class="reseller-box reveal">
-          <div>
-            <h3>PAKET RESELLER: Method Info / Channel GPT</h3>
-            <p>Paket info method/channel GPT Plus dan layanan lainnya langsung dari maker & supplier. Cocok untuk yang mau jadi seller GPT dengan harga channel lebih murah. Harga paket: Rp125.000.</p>
-          </div>
-          <button class="btn btn-amber btn-pill btn-buy" data-id="RESELLER" data-product-cta="RESELLER" type="button">CHECKOUT!</button>
-        </div>
-      </div>
+        </div>      
     </section>
 
-    <section id="benefit">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <span class="section-label">Info Singkat</span>
-          <h2 class="section-title">Benefit tidak perlu dibaca panjang di sini</h2>
-          <p class="section-sub">Agar halaman lebih cepat ke paket, penjelasan fitur dibuat ringkas. Customer yang mau detail lengkap bisa cek langsung ke halaman resmi ChatGPT, lalu langsung checkout paket yang dibutuhkan.</p>
-        </div>
-        <div class="grid-2">
-          <article class="card reveal">
-            <div class="icon">+</div>
-            <h3>ChatGPT Plus</h3>
-            <p>Untuk kerja lebih serius, coding, riset, upload file, gambar, dan fitur lanjutan sesuai limit akun.</p>
-            <a class="btn btn-ghost btn-block" style="margin-top:16px" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Buka Info Plus</a>
-          </article>
+    
 </div>
       </div>
-    </section>
+  
 
     <section>
       <div class="wrap">
@@ -1008,7 +980,7 @@
             <table>
               <thead><tr><th>Paket</th><th>Harga</th><th>Garansi</th><th>Status</th><th>Catatan</th></tr></thead>
               <tbody>
-                <tr data-product="PLUS_UPI"><td>Plus Private (Channel India / UPI)</td><td>Rp47.000</td><td>1 x 24 jam (1 hari)</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, akun private, dan Support Codex.</td></tr>
+                <tr data-product="PLUS_UPI"><td>Plus Private (Channel India / UPI)</td><td><s>Rp47.000</s> Rp34.000</td><td>Tanpa garansi setelah akun berhasil masuk</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, akun private, support Codex (belum OTP), dan tidak ada jaminan full durasi.</td></tr>
                 <tr data-product="PLUS_BRAZIL_PIX_BZ1"><td>BZ.1 Plus Private (Channel Brazil / PIX)</td><td><s>Rp59.000</s> Rp38.000</td><td>Tanpa garansi; sampai akun masuk</td><td><span class="table-status" data-table-status>Status</span></td><td>Dapat akun email Microsoft + akun GPT, bebas ganti password, include verifikasi nomor untuk Codex, maksimal 1 bulan tanpa jaminan full durasi.</td></tr>
                 <tr data-product="PLUS_BRAZIL_PIX_BZ2"><td>BZ.2 Plus Private (Channel Brazil / PIX)</td><td><s>Rp59.000</s> Rp42.000</td><td>2 hari</td><td><span class="table-status" data-table-status>Status</span></td><td>Dapat akun email Microsoft + akun GPT, bebas ganti password, include verifikasi nomor untuk Codex, maksimal 1 bulan tanpa jaminan full durasi.</td></tr>
                 <tr data-product="PLUS_EUROPE_B1"><td>B1 Plus Private (Channel Eropa / SEPA)</td><td>Rp49.000</td><td>1 x 48 jam (2 hari)</td><td><span class="table-status" data-table-status>Status</span></td><td>Private, akun private, dan Support Codex.</td></tr>
@@ -1114,7 +1086,7 @@
           <h2 class="section-title">Pertanyaan yang sering ditanyakan</h2>
         </div>
         <div class="faq reveal">
-          <details open><summary>Bedanya Plus Channel India, BZ.1, BZ.2, B1 Eropa, B2 Email Pembeli, C1, dan C2 apa?</summary><div class="faq-content">Fungsi Plus utamanya sama, tetapi tipe layanan, metode pembayaran, harga, dan masa garansinya berbeda. BZ.1 seharga Rp38.000 tanpa garansi setelah akun berhasil masuk, sedangkan BZ.2 seharga Rp42.000 dengan garansi 2 hari. India UPI bergaransi 1 x 24 jam (1 hari), B1 Eropa SEPA dan B2 Email Pembeli bergaransi 1 x 48 jam (2 hari), C1 Full Garansi sampai 3 hari, dan C2 Full Garansi sampai 7 hari. Untuk C2, jika Ready akun langsung dikirim; jika Open Pre Order estimasinya 2 jam–1 hari, bisa lebih lama tetapi jarang. C2 juga memiliki stabilitas/full durasi lebih tinggi dengan laporan akun deactivated atau banned yang sangat minim.</div></details>
+          <details open><summary>Bedanya Plus Channel India, BZ.1, BZ.2, B1 Eropa, B2 Email Pembeli, C1, dan C2 apa?</summary><div class="faq-content">Fungsi Plus utamanya sama, tetapi tipe layanan, metode pembayaran, harga, dan masa garansinya berbeda. India UPI seharga Rp34.000, support Codex (belum OTP), tanpa garansi setelah akun berhasil masuk, dan tidak ada jaminan full durasi. BZ.1 seharga Rp38.000 tanpa garansi setelah akun berhasil masuk, sedangkan BZ.2 seharga Rp42.000 dengan garansi 2 hari. B1 Eropa SEPA dan B2 Email Pembeli bergaransi 1 x 48 jam (2 hari), C1 Full Garansi sampai 3 hari, dan C2 Full Garansi sampai 7 hari. Untuk C2, jika Ready akun langsung dikirim; jika Open Pre Order estimasinya 2 jam–1 hari, bisa lebih lama tetapi jarang. C2 juga memiliki stabilitas/full durasi lebih tinggi dengan laporan akun deactivated atau banned yang sangat minim.</div></details>
 <details><summary>Apa itu Paket B2 GPT Plus Email Pembeli?</summary><div class="faq-content">B2 adalah GPT Plus 1 bulan menggunakan email pembeli sendiri, harga Rp45.000, garansi 1 x 48 jam (2 hari), dan method payment Polandia / Belanda.</div></details>
           <details><summary>Apa itu Paket Reseller?</summary><div class="faq-content">Paket Reseller adalah paket info method/channel GPT Plus dan layanan lainnya langsung dari maker & supplier. Harga Rp125.000, cocok untuk yang ingin mulai jadi reseller GPT dan mencari channel dengan modal lebih murah.</div></details>
           <details><summary>Kapan garansi bisa hangus?</summary><div class="faq-content">Garansi bisa hangus jika akun digunakan berlebihan, spam, dipakai banyak perangkat, dibagikan ke orang lain, memakai cookies/token, API/tools pihak ketiga, proxy/router terlarang, atau mengubah profile, password, billing, maupun plan akun.</div></details>
@@ -1158,7 +1130,7 @@
     </div>
   </footer>
 
-  <a class="fab" href="https://wa.me/6281523984574" target="_blank" rel="noopener" aria-label="Tanya admin babayshop.id melalui WhatsApp" title="Tanya admin babayshop.id">
+  <a class="fab" href="https://wa.me/6281523984574?text=Halo%20admin%2C%20mau%20tanya-tanya%20seputar%20GPT%20Plus%20yang%20dijual%20di%20web." target="_blank" rel="noopener" aria-label="Tanya admin babayshop.id melalui WhatsApp" title="Tanya admin babayshop.id">
     <span class="fab-icon" aria-hidden="true">WA</span>
     <span class="fab-label">Tanya Admin</span>
   </a>
@@ -1379,9 +1351,9 @@
          soldout  = stok habis, tombol checkout otomatis nonaktif
          ========================================================== */
       const PACKAGE_STATUS = {
-        PLUS_UPI: 'soldout',
-        PLUS_BRAZIL_PIX_BZ1: 'soldout',
-        PLUS_BRAZIL_PIX_BZ2: 'reasoldoutdy',
+        PLUS_UPI: 'ready',
+        PLUS_BRAZIL_PIX_BZ1: 'ready',
+        PLUS_BRAZIL_PIX_BZ2: 'soldout',
         PLUS_EUROPE_B1: 'soldout',
         PLUS_SELF_SERVICE_B2: 'soldout',
         PLUS_VCC_C1: 'soldout',
@@ -1403,12 +1375,12 @@
           code: 'A',
           name: 'AI Chat GPT Plus 1 Month Private',
           method: 'Channel India (UPI)',
-          price: 47000,
-          warranty: 'Garansi 1 x 24 jam (1 hari)',
-          duration: '1 Bulan (25–28 Days)',
-          desc: 'Garansi 1 x 24 jam (1 hari), Private, Akun Private, Codex.',
+          price: 34000,
+          warranty: 'Tanpa garansi setelah akun berhasil masuk',
+          duration: 'Tidak ada jaminan full durasi',
+          desc: 'Private, akun private, dan support Codex (belum OTP). Tanpa garansi setelah akun berhasil masuk dan tidak ada jaminan full durasi.',
           emailRequired: false,
-          note: 'Channel India (UPI). Private, akun private, dan Support Codex.'
+          note: 'Channel India (UPI). Private, akun private, dan support Codex (belum OTP). Tanpa garansi setelah akun berhasil masuk. Tidak ada jaminan full durasi.'
         },
         PLUS_BRAZIL_PIX_BZ1: {
           code: 'BZ.1',
@@ -1634,42 +1606,30 @@
       }, { threshold: .12 });
       reveals.forEach(el => revealObs.observe(el));
 
-      const filterChips = $$('.filter-chip[data-filter]');
-      const soldOutToggle = $('#soldOutToggle');
+      const filterChips = $$('.filter-chip[data-stock-filter]');
       const packages = $$('.pkg');
       const productRows = $$('tr[data-product]');
-      let activePackageFilter = 'all';
-      let showSoldOut = false;
+      let activeStockFilter = 'ready';
 
       function updateCatalogVisibility() {
         packages.forEach(pkg => {
-          const matchesCategory = activePackageFilter === 'all' || pkg.dataset.cat === activePackageFilter;
           const isSoldOut = getPackageStatus(pkg.dataset.product) === 'soldout';
-          pkg.classList.toggle('catalog-hidden', !matchesCategory || (!showSoldOut && isSoldOut));
+          pkg.classList.toggle('catalog-hidden', activeStockFilter === 'soldout' ? !isSoldOut : isSoldOut);
         });
 
         productRows.forEach(row => {
           const isSoldOut = getPackageStatus(row.dataset.product) === 'soldout';
-          row.classList.toggle('catalog-hidden', !showSoldOut && isSoldOut);
+          row.classList.toggle('catalog-hidden', activeStockFilter === 'soldout' ? !isSoldOut : isSoldOut);
         });
-
-        soldOutToggle.classList.toggle('active', showSoldOut);
-        soldOutToggle.setAttribute('aria-pressed', String(showSoldOut));
-        soldOutToggle.textContent = showSoldOut ? 'Sembunyikan Produk Sold Out' : 'Tampilkan Produk Sold Out';
       }
 
       filterChips.forEach(chip => {
         chip.addEventListener('click', () => {
           filterChips.forEach(c => c.classList.remove('active'));
           chip.classList.add('active');
-          activePackageFilter = chip.dataset.filter;
+          activeStockFilter = chip.dataset.stockFilter;
           updateCatalogVisibility();
         });
-      });
-
-      soldOutToggle.addEventListener('click', () => {
-        showSoldOut = !showSoldOut;
-        updateCatalogVisibility();
       });
 
       updateCatalogVisibility();
@@ -2122,6 +2082,7 @@
   
   
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
