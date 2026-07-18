@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -183,10 +184,18 @@
       </div>
 
       <div class="group">
-        <label for="kode">Kode Redeem (Bulk)</label>
+        <label for="modeInput">Jenis Input</label>
+        <select id="modeInput">
+          <option value="redeem">Kode Redeem (Bulk)</option>
+          <option value="akun">Akun Microsoft — Email | Password</option>
+        </select>
+      </div>
+
+      <div class="group">
+        <label for="kode" id="inputLabel">Kode Redeem (Bulk)</label>
         <textarea id="kode" spellcheck="false" placeholder="EUR-XXXXXXXXXX&#10;EUR-XXXXXXXXXX&#10;EUR-XXXXXXXXXX"></textarea>
         <div class="field-info">
-          <span>Pisahkan kode dengan Enter, spasi, koma, atau titik koma.</span>
+          <span id="inputInfo">Pisahkan kode dengan Enter, spasi, koma, atau titik koma.</span>
           <span class="counter" id="jumlahKode" aria-live="polite">0 kode</span>
         </div>
       </div>
@@ -203,7 +212,7 @@
       </div>
 
       <div class="group">
-        <label for="garansiJumlah">Garansi Redeem</label>
+        <label for="garansiJumlah" id="garansiLabel">Garansi Redeem</label>
         <div class="warranty-row">
           <input type="number" id="garansiJumlah" value="1" min="1" step="1" inputmode="numeric" aria-label="Jumlah garansi">
           <select id="garansiSatuan" aria-label="Satuan garansi">
@@ -230,6 +239,7 @@
     const tanggalInput = document.getElementById("tgl");
     const kodeInput = document.getElementById("kode");
     const jumlahKode = document.getElementById("jumlahKode");
+    const modeInput = document.getElementById("modeInput");
     let edit = false;
 
     tanggalInput.valueAsDate = new Date();
@@ -241,12 +251,49 @@
         .filter(Boolean);
     }
 
+    function getAccounts() {
+      return kodeInput.value
+        .split(/\r?\n/)
+        .map(line => line.trim())
+        .filter(Boolean)
+        .map(line => {
+          const parts = line.split("|").map(part => part.trim());
+          return {
+            email: parts[0] || "",
+            password: parts[1] || "",
+            valid: parts.length === 2 && parts[0] && parts[1]
+          };
+        });
+    }
+
+    function isAccountMode() {
+      return modeInput.value === "akun";
+    }
+
     function updateCount() {
-      const total = getCodes().length;
-      jumlahKode.textContent = `${total} kode`;
+      const total = isAccountMode() ? getAccounts().length : getCodes().length;
+      jumlahKode.textContent = `${total} ${isAccountMode() ? "akun" : "kode"}`;
     }
 
     kodeInput.addEventListener("input", updateCount);
+
+    modeInput.addEventListener("change", () => {
+      const akun = isAccountMode();
+      document.getElementById("inputLabel").textContent = akun
+        ? "Akun Microsoft (Bulk)"
+        : "Kode Redeem (Bulk)";
+      document.getElementById("inputInfo").textContent = akun
+        ? "Satu akun per baris dengan format: email | password"
+        : "Pisahkan kode dengan Enter, spasi, koma, atau titik koma.";
+      document.getElementById("garansiLabel").textContent = akun
+        ? "Garansi Akun"
+        : "Garansi Redeem";
+      kodeInput.placeholder = akun
+        ? "akun1@outlook.com | Password123\nakun2@hotmail.com | Password456"
+        : "EUR-XXXXXXXXXX\nEUR-XXXXXXXXXX\nEUR-XXXXXXXXXX";
+      kodeInput.value = "";
+      updateCount();
+    });
 
     function formatDate(value) {
       if (!value) return "-";
@@ -259,10 +306,17 @@
     }
 
     function generate() {
-      const codes = getCodes();
+      const akunMode = isAccountMode();
+      const items = akunMode ? getAccounts() : getCodes();
 
-      if (codes.length === 0) {
-        alert("Masukkan minimal 1 kode redeem.");
+      if (items.length === 0) {
+        alert(akunMode ? "Masukkan minimal 1 akun Microsoft." : "Masukkan minimal 1 kode redeem.");
+        kodeInput.focus();
+        return;
+      }
+
+      if (akunMode && items.some(account => !account.valid)) {
+        alert("Format akun belum sesuai. Gunakan satu akun per baris: email | password");
         kodeInput.focus();
         return;
       }
@@ -272,24 +326,26 @@
       const garansiJumlahInput = document.getElementById("garansiJumlah");
       const garansiJumlah = Math.max(1, parseInt(garansiJumlahInput.value, 10) || 1);
       const garansiSatuan = document.getElementById("garansiSatuan").value;
-      const daftarKode = codes.map((kode, index) => `${index + 1}. ${kode}`).join("\n");
+      const daftarItem = akunMode
+        ? items.map((account, index) => `#Akun_${index + 1}\nEmail    : ${account.email}\nPassword : ${account.password}`).join("\n\n")
+        : items.map((kode, index) => `${index + 1}. ${kode}`).join("\n");
 
       garansiJumlahInput.value = garansiJumlah;
 
-      const txt = `PESANAN GPT PLUS PRIVATE REDEEM BERHASIL
+      const txt = `PESANAN GPT PLUS PRIVATE ${akunMode ? "BERHASIL" : "REDEEM BERHASIL"}
 ━━━━━━━━━━━━━━━━━━
 
 Tanggal Pembelian  : ${tgl}
-Jumlah Kode        : ${codes.length}
+Jumlah ${akunMode ? "Akun" : "Kode"}        : ${items.length}
 Channel / Region   : ${region}
-Garansi Redeem     : ${garansiJumlah} ${garansiSatuan}
+Garansi ${akunMode ? "Akun" : "Redeem"}     : ${garansiJumlah} ${garansiSatuan}
 
-Kode Redeem:
-${daftarKode}
+${akunMode ? "Data Akun Microsoft" : "Kode Redeem"}:
+${daftarItem}
 ━━━━━━━━━━━━━━━━━━
 
 📌 CARA KLAIM
-Ikuti panduan klaim berikut:
+${akunMode ? "Akun sudah diredeem. Tidak perlu melakukan proses redeem lagi.\nBuka tutorial berikut dan langsung mulai dari STEP 4 untuk mengamankan akun:" : "Ikuti panduan klaim berikut:"}
 https://babayshop.id/gpt/redeem-acc
 ━━━━━━━━━━━━━━━━━━
 
@@ -299,8 +355,8 @@ https://babayshop.id/gpt/redeem-acc
 ━━━━━━━━━━━━━━━━━━
 
 📜 SYARAT & KETENTUAN
-• Garansi hanya berlaku ${garansiJumlah} ${garansiSatuan} untuk proses redeem.
-• Setelah redeem berhasil, transaksi dinyatakan selesai.
+• Garansi hanya berlaku ${garansiJumlah} ${garansiSatuan} ${akunMode ? "untuk login dan mengamankan akun" : "untuk proses redeem"}.
+• ${akunMode ? "Setelah akun berhasil diamankan" : "Setelah redeem berhasil"}, transaksi dinyatakan selesai.
 • Tidak ada jaminan permanen. Sewaktu-waktu akun dapat terkena take down, suspend ataupun banned oleh pihak OpenAI.
 • Hal tersebut berada di luar tanggung jawab kami.
 • Membeli = memahami dan menyetujui seluruh ketentuan.
@@ -346,5 +402,6 @@ Terima kasih telah mempercayai BabayShop ❤️`;
       }
     }
   </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
