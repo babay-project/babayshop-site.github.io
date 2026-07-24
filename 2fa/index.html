@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -874,6 +873,7 @@
       let alternativeLink = "";
       let lastCounter = -1;
       let toastTimeout;
+      let isPendingUpdate = false;
 
       /** Remove whitespace and normalize pasted or typed Base32 secrets. */
       function normalizeSecret(value) {
@@ -905,8 +905,6 @@
           throw new Error("OTPAuth.js is not loaded");
         }
 
-        // OTPAuth accepts a Base32 string directly. Passing the normalized
-        // string avoids compatibility issues between different UMD releases.
         return new window.OTPAuth.TOTP({
           issuer: "Local Authenticator",
           label: "Browser",
@@ -935,12 +933,16 @@
         return url.toString();
       }
 
+      /** PERBAIKAN: Hanya update URL jika ada perubahan, jangan hapus key di error path */
       function updateBrowserUrl(secret) {
         const url = new URL(window.location.href);
         url.search = "";
         url.hash = "";
         if (secret) url.searchParams.set("key", secret);
-        history.replaceState(null, "", `${url.pathname}${url.search}`);
+        const newUrl = `${url.pathname}${url.search}`;
+        if (newUrl !== window.location.pathname + window.location.search) {
+          history.replaceState(null, "", newUrl);
+        }
       }
 
       function updateSecretDetails(secret) {
@@ -981,10 +983,11 @@
       }
 
       function getTiming(now = Date.now()) {
+        if (typeof now !== 'number' || isNaN(now)) now = Date.now();
         const elapsedSeconds = (now / 1000) % PERIOD;
         return {
-          secondsLeft: Math.max(1, Math.ceil(PERIOD - elapsedSeconds)),
-          progress: (PERIOD - elapsedSeconds) / PERIOD,
+          secondsLeft: Math.max(1, Math.ceil(PERIOD - Math.max(0, elapsedSeconds))),
+          progress: Math.max(0, Math.min(1, (PERIOD - elapsedSeconds) / PERIOD)),
           counter: Math.floor(now / 1000 / PERIOD)
         };
       }
@@ -998,60 +1001,67 @@
       }
 
       function updateCode(now = Date.now()) {
-        const normalized = normalizeSecret(secretInput.value);
-        if (secretInput.value !== normalized) {
-          secretInput.value = normalized;
-        }
-
-        const validation = validateSecret(normalized);
-        const timing = renderTiming(now);
-
-        if (!validation.valid) {
-          showError(validation.message || "");
-          showEmptyState();
-          updateSecretDetails("");
-          updateBrowserUrl("");
-          return;
-        }
+        // Prevent re-entrant calls from stacking
+        if (isPendingUpdate) return;
+        isPendingUpdate = true;
 
         try {
-          updateSecretDetails(normalized);
-          updateBrowserUrl(normalized);
+          const normalized = normalizeSecret(secretInput.value);
+          if (secretInput.value !== normalized) {
+            secretInput.value = normalized;
+          }
 
-          if (normalized === activeSecret && timing.counter === lastCounter && currentCode && nextCode) {
-            renderTiming(now);
+          const validation = validateSecret(normalized);
+          const timing = renderTiming(now);
+
+          if (!validation.valid) {
+            showError(validation.message || "");
+            showEmptyState();
+            updateSecretDetails("");
+            updateBrowserUrl(normalized); // PERBAIKAN: kirim normalized (string kosong) agar updateBrowserUrl bisa decide
             return;
           }
 
-          const totp = createTotp(normalized);
-          const generatedCurrentCode = totp.generate({ timestamp: now });
-          const generatedNextCode = totp.generate({ timestamp: now + PERIOD * 1000 });
+          try {
+            updateSecretDetails(normalized);
+            updateBrowserUrl(normalized);
 
-          currentCode = generatedCurrentCode;
-          nextCode = generatedNextCode;
-          activeSecret = normalized;
-          lastCounter = timing.counter;
+            if (normalized === activeSecret && timing.counter === lastCounter && currentCode && nextCode) {
+              renderTiming(now);
+              return;
+            }
 
-          otpCode.classList.add("refreshing");
-          requestAnimationFrame(() => {
+            const totp = createTotp(normalized);
+            const generatedCurrentCode = totp.generate({ timestamp: now });
+            const generatedNextCode = totp.generate({ timestamp: now + PERIOD * 1000 });
+
+            currentCode = generatedCurrentCode;
+            nextCode = generatedNextCode;
+            activeSecret = normalized;
+            lastCounter = timing.counter;
+
+            // PERBAIKAN: Update langsung tanpa requestAnimationFrame
             otpCode.textContent = formatCode(currentCode);
             otpCode.classList.remove("empty", "refreshing");
-          });
 
-          copyButton.disabled = false;
-          showError("");
-          renderTiming(now);
-        } catch (error) {
-          console.error("Unable to generate TOTP:", error);
-          const libraryMissing = !window.OTPAuth?.TOTP;
-          showError(
-            libraryMissing
-              ? t("libraryError")
-              : t("generateError")
-          );
-          showEmptyState();
-          updateSecretDetails("");
-          updateBrowserUrl("");
+            copyButton.disabled = false;
+            showError("");
+            renderTiming(now);
+          } catch (error) {
+            console.error("Unable to generate TOTP:", error);
+            const libraryMissing = !window.OTPAuth?.TOTP;
+            showError(
+              libraryMissing
+                ? t("libraryError")
+                : t("generateError")
+            );
+            // PERBAIKAN: Jangan updateBrowserUrl("") — biarkan URL tetap
+            // Tapi tetap tampilkan empty state
+            showEmptyState();
+            updateSecretDetails("");
+          }
+        } finally {
+          isPendingUpdate = false;
         }
       }
 
@@ -1117,13 +1127,20 @@
       languageSelect.addEventListener("change", (event) => applyLanguage(event.target.value));
       applyLanguage(currentLanguage);
 
-      // Load a normalized secret directly from ?key= without requiring interaction.
+      // PERBAIKAN: Load dari URL + dispatch event agar state konsisten
       const urlSecret = normalizeSecret(new URLSearchParams(window.location.search).get("key") || "");
-      if (urlSecret) secretInput.value = urlSecret;
+      if (urlSecret) {
+        secretInput.value = urlSecret;
+        // Dispatch event agar handler input mereset state dan memanggil updateCode
+        secretInput.dispatchEvent(new Event("input", { bubbles: true }));
+      } else {
+        updateCode(Date.now());
+      }
 
-      updateCode(Date.now());
+      // Tetap pakai interval 250ms untuk update timer
       window.setInterval(() => updateCode(Date.now()), 250);
     })();
   </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"1d748233dd8c471da273c224c13723ea","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
