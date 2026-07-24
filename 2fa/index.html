@@ -864,7 +864,11 @@
         document.getElementById("linkLabel").textContent = t("link");
         document.getElementById("copyLinkText").textContent = t("copyLink");
         document.getElementById("securityNote").innerHTML = t("security");
-        updateCode(Date.now());
+        // PERBAIKAN: Hanya panggil updateCode jika bukan initial load dari URL
+        // (initial load sudah di-handle oleh kode inisialisasi setelah applyLanguage)
+        if (!window.__initialUrlSecretLoaded) {
+          updateCode(Date.now());
+        }
       }
 
       let currentCode = "";
@@ -933,16 +937,20 @@
         return url.toString();
       }
 
-      /** PERBAIKAN: Hanya update URL jika ada perubahan, jangan hapus key di error path */
+      /** PERBAIKAN: Hanya update URL jika secret berbeda dari URL saat ini */
       function updateBrowserUrl(secret) {
         const url = new URL(window.location.href);
+        const currentKey = url.searchParams.get("key") || "";
+        const normalizedSecret = secret || "";
+
+        // PERBAIKAN: Jangan replaceState kalau tidak ada perubahan
+        if (currentKey === normalizedSecret) return;
+
         url.search = "";
         url.hash = "";
         if (secret) url.searchParams.set("key", secret);
         const newUrl = `${url.pathname}${url.search}`;
-        if (newUrl !== window.location.pathname + window.location.search) {
-          history.replaceState(null, "", newUrl);
-        }
+        history.replaceState(null, "", newUrl);
       }
 
       function updateSecretDetails(secret) {
@@ -1001,7 +1009,6 @@
       }
 
       function updateCode(now = Date.now()) {
-        // Prevent re-entrant calls from stacking
         if (isPendingUpdate) return;
         isPendingUpdate = true;
 
@@ -1018,7 +1025,12 @@
             showError(validation.message || "");
             showEmptyState();
             updateSecretDetails("");
-            updateBrowserUrl(normalized); // PERBAIKAN: kirim normalized (string kosong) agar updateBrowserUrl bisa decide
+            // PERBAIKAN: Jangan updateBrowserUrl kalau secret kosong (cegah stripping URL parameter)
+            if (normalized) {
+              updateBrowserUrl(normalized);
+            }
+            // PERBAIKAN: Kalau normalized kosong dan URL punya key, jangan dihapus
+            // Biarkan URL tetap, user bisa melihat ada key di URL
             return;
           }
 
@@ -1040,7 +1052,6 @@
             activeSecret = normalized;
             lastCounter = timing.counter;
 
-            // PERBAIKAN: Update langsung tanpa requestAnimationFrame
             otpCode.textContent = formatCode(currentCode);
             otpCode.classList.remove("empty", "refreshing");
 
@@ -1055,10 +1066,9 @@
                 ? t("libraryError")
                 : t("generateError")
             );
-            // PERBAIKAN: Jangan updateBrowserUrl("") — biarkan URL tetap
-            // Tapi tetap tampilkan empty state
             showEmptyState();
             updateSecretDetails("");
+            // PERBAIKAN: Jangan hapus URL parameter saat error
           }
         } finally {
           isPendingUpdate = false;
@@ -1125,19 +1135,30 @@
       });
 
       languageSelect.addEventListener("change", (event) => applyLanguage(event.target.value));
-      applyLanguage(currentLanguage);
 
-      // PERBAIKAN: Load dari URL + dispatch event agar state konsisten
+      // ============================================================
+      // PERBAIKAN UTAMA: URUTAN INISIALISASI YANG BENAR
+      // ============================================================
+      // 1. Baca URL parameter DULUAN
       const urlSecret = normalizeSecret(new URLSearchParams(window.location.search).get("key") || "");
       if (urlSecret) {
         secretInput.value = urlSecret;
-        // Dispatch event agar handler input mereset state dan memanggil updateCode
-        secretInput.dispatchEvent(new Event("input", { bubbles: true }));
-      } else {
-        updateCode(Date.now());
       }
+      window.__initialUrlSecretLoaded = true;
 
-      // Tetap pakai interval 250ms untuk update timer
+      // 2. Baru apply language - updateCode di dalamnya sudah punya secretInput.value
+      applyLanguage(currentLanguage);
+
+      // 3. Jika dari URL, dispatch event untuk reset state via handler yang konsisten
+      if (urlSecret) {
+        // Reset state biar handler input bisa mulai fresh
+        activeSecret = "";
+        lastCounter = -1;
+        secretInput.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+      // ============================================================
+
+      // Interval untuk update timer setiap 250ms
       window.setInterval(() => updateCode(Date.now()), 250);
     })();
   </script>
