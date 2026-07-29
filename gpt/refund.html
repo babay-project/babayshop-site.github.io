@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Refund Garansi ChatGPT Plus</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 450px;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #e1e8ed;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #10a37f;
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 6px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #fff;
+            color: #2d3748;
+        }
+
+        input:focus, select:focus {
+            border-color: #10a37f;
+            outline: none;
+        }
+
+        /* Input yang tidak bisa diedit */
+        input[readonly] {
+            background-color: #edf2f7;
+            color: #718096;
+            cursor: not-allowed;
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            background-color: #10a37f;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #0d8a6a;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .result-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 2px dashed #cbd5e0;
+            font-weight: bold;
+            font-size: 16px;
+            color: #10a37f;
+        }
+
+        .formula-note {
+            font-size: 11px;
+            color: #718096;
+            margin-top: 12px;
+            line-height: 1.4;
+            background-color: #edf2f7;
+            padding: 8px 10px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Hitung Refund ChatGPT Plus</h2>
+
+    <div class="form-group">
+        <label for="harga">Harga Jual Akun (Rp)</label>
+        <input type="number" id="harga" value="85000" placeholder="Masukkan harga jual">
+    </div>
+
+    <div class="form-group">
+        <label for="totalGaransi">Total Garansi</label>
+        <select id="totalGaransi">
+            <option value="10">10 Hari</option>
+            <option value="7" selected>7 Hari</option>
+            <option value="2">2 Hari</option>
+            <option value="1">1 Hari</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="hariTerpakai">Hari Terpakai (Hari)</label>
+        <input type="number" id="hariTerpakai" value="3" placeholder="Contoh: 3">
+    </div>
+
+    <div class="form-group">
+        <label for="biayaLayanan">Biaya Layanan</label>
+        <input type="text" id="biayaLayanan" value="10%" readonly>
+    </div>
+
+    <button onclick="hitungRefund()">Hitung Nominal Refund</button>
+
+    <div class="result-box">
+        <div class="result-row">
+            <span>Sisa Garansi:</span>
+            <strong id="outSisaHari">4 Hari</strong>
+        </div>
+        <div class="result-row">
+            <span>Nilai Pro-Rata Sisa Hari:</span>
+            <span id="outProrata">Rp 48.571</span>
+        </div>
+        <div class="result-row">
+            <span>Biaya Layanan (10%):</span>
+            <span id="outPotongan" style="color: #e53e3e;">- Rp 8.500</span>
+        </div>
+        <div class="result-total">
+            <span>Total Refund Ke Pembeli:</span>
+            <span id="outTotal">Rp 40.071</span>
+        </div>
+
+        <div class="formula-note">
+            *Rumus: <code>((Sisa Garansi / Total Garansi) x Harga Jual) - Biaya Layanan 10%</code>
+        </div>
+    </div>
+</div>
+
+<script>
+    function formatRupiah(val) {
+        return 'Rp ' + Math.round(val).toLocaleString('id-ID');
+    }
+
+    function hitungRefund() {
+        var harga = parseFloat(document.getElementById('harga').value) || 0;
+        var totalGaransi = parseFloat(document.getElementById('totalGaransi').value) || 0;
+        var hariTerpakai = parseFloat(document.getElementById('hariTerpakai').value) || 0;
+        var persenJasa = 10; // Biaya layanan dikunci di 10%
+
+        if (totalGaransi <= 0) {
+            alert('Silakan pilih durasi garansi yang valid.');
+            return;
+        }
+
+        var sisaHari = totalGaransi - hariTerpakai;
+        if (sisaHari < 0) sisaHari = 0;
+
+        var nilaiProrata = (sisaHari / totalGaransi) * harga;
+        var nominalPotongan = (persenJasa / 100) * harga;
+        var totalRefund = nilaiProrata - nominalPotongan;
+
+        if (totalRefund < 0) totalRefund = 0;
+
+        document.getElementById('outSisaHari').innerText = sisaHari + ' Hari';
+        document.getElementById('outProrata').innerText = formatRupiah(nilaiProrata);
+        document.getElementById('outPotongan').innerText = '- ' + formatRupiah(nominalPotongan);
+        document.getElementById('outTotal').innerText = formatRupiah(totalRefund);
+    }
+</script>
+
+</body>
+</html>
