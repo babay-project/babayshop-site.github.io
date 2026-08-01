@@ -538,8 +538,27 @@
             </div>
 
             <div class="form-group">
+              <label for="modeTanggal">Cara Menghitung Masa Terpakai</label>
+              <select id="modeTanggal">
+                <option value="manual">Input jumlah hari manual</option>
+                <option value="kalender" selected>Pilih tanggal dari kalender</option>
+              </select>
+            </div>
+
+            <div class="form-group" id="manualTerpakaiGroup">
               <label for="terpakai">Masa Sudah Terpakai</label>
               <input type="number" id="terpakai" value="3" min="0">
+            </div>
+
+            <div class="form-group" id="tanggalMulaiGroup">
+              <label for="tanggalMulai">Tanggal Mulai Garansi</label>
+              <input type="date" id="tanggalMulai">
+            </div>
+
+            <div class="form-group" id="tanggalKlaimGroup">
+              <label for="tanggalKlaim">Tanggal Klaim / Pengecekan</label>
+              <input type="date" id="tanggalKlaim">
+              <div class="helper">Hari terpakai dihitung otomatis dari selisih tanggal.</div>
             </div>
 
             <div class="form-group">
@@ -676,7 +695,7 @@
   <script>
     const ids = [
       'namaCustomer','namaProduk','harga','totalGaransi','satuanGaransi',
-      'terpakai','metodePotongan','nilaiPotongan','biayaTambahan',
+      'terpakai','modeTanggal','tanggalMulai','tanggalKlaim','metodePotongan','nilaiPotongan','biayaTambahan',
       'alasan','metodeRefund','pembulatan','pakaiProrata'
     ];
 
@@ -714,12 +733,48 @@
       input.disabled = false;
     }
 
+
+    function formatDateInput(date){
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function hitungSelisihTanggal(){
+      const mulaiValue = document.getElementById('tanggalMulai').value;
+      const klaimValue = document.getElementById('tanggalKlaim').value;
+
+      if(!mulaiValue || !klaimValue) return 0;
+
+      const mulai = new Date(mulaiValue + 'T00:00:00');
+      const klaim = new Date(klaimValue + 'T00:00:00');
+      const selisihMs = klaim - mulai;
+
+      if(selisihMs < 0) return -1;
+      return Math.floor(selisihMs / 86400000);
+    }
+
+    function updateModeTanggal(){
+      const mode = document.getElementById('modeTanggal').value;
+      const manualGroup = document.getElementById('manualTerpakaiGroup');
+      const mulaiGroup = document.getElementById('tanggalMulaiGroup');
+      const klaimGroup = document.getElementById('tanggalKlaimGroup');
+
+      manualGroup.style.display = mode === 'manual' ? 'flex' : 'none';
+      mulaiGroup.style.display = mode === 'kalender' ? 'flex' : 'none';
+      klaimGroup.style.display = mode === 'kalender' ? 'flex' : 'none';
+    }
+
     function hitungRefund(){
       const namaCustomer = document.getElementById('namaCustomer').value.trim() || 'Kak';
       const produk = document.getElementById('namaProduk').value.trim() || 'akun/aplikasi';
       const harga = angka('harga');
       const total = Math.max(1, angka('totalGaransi'));
-      const terpakai = angka('terpakai');
+      const modeTanggal = document.getElementById('modeTanggal').value;
+      let terpakai = modeTanggal === 'kalender' ? hitungSelisihTanggal() : angka('terpakai');
+      const tanggalTidakValid = terpakai < 0;
+      if(tanggalTidakValid) terpakai = 0;
       const satuan = document.getElementById('satuanGaransi').value;
       const metodePotongan = document.getElementById('metodePotongan').value;
       const nilaiPotongan = angka('nilaiPotongan');
@@ -753,7 +808,10 @@
       refund = bulatkan(refund, pembulatan);
 
       const warningBox = document.getElementById('warningBox');
-      if(terpakai > total){
+      if(tanggalTidakValid){
+        warningBox.style.display = 'block';
+        warningBox.textContent = 'Tanggal klaim tidak boleh lebih awal dari tanggal mulai garansi.';
+      }else if(terpakai > total){
         warningBox.style.display = 'block';
         warningBox.textContent = 'Masa terpakai melebihi total garansi. Sisa garansi dihitung 0.';
       }else{
@@ -770,12 +828,18 @@
       document.getElementById('outTambahan').textContent = '- ' + rupiah(tambahan);
       document.getElementById('outMetode').textContent = metodeRefund;
 
+      const tanggalMulaiText = document.getElementById('tanggalMulai').value;
+      const tanggalKlaimText = document.getElementById('tanggalKlaim').value;
+      const rincianTanggal = modeTanggal === 'kalender'
+        ? `• Tanggal mulai garansi: ${tanggalMulaiText || '-'}\n• Tanggal klaim: ${tanggalKlaimText || '-'}\n`
+        : '';
+
       const note = `Halo ${namaCustomer}, mohon maaf atas kendala pada ${produk}. ${capitalize(alasan)}
 
 Berdasarkan masa garansi, berikut rincian refund:
 • Harga pembelian: ${rupiah(harga)}
 • Total garansi: ${total} ${satuan}
-• Masa terpakai: ${terpakai} ${satuan}
+${rincianTanggal}• Masa terpakai: ${terpakai} ${satuan}
 • Sisa garansi: ${sisa} ${satuan}
 • Nilai sisa: ${rupiah(dasarRefund)}
 • Biaya layanan: ${rupiah(potonganLayanan)} (${labelPotongan})
@@ -841,6 +905,12 @@ Sekali lagi kami mohon maaf atas ketidaknyamanannya. Terima kasih atas pengertia
       document.getElementById('harga').value = 85000;
       document.getElementById('totalGaransi').value = 7;
       document.getElementById('satuanGaransi').value = 'Hari';
+      document.getElementById('modeTanggal').value = 'kalender';
+      const today = new Date();
+      const start = new Date(today);
+      start.setDate(today.getDate() - 3);
+      document.getElementById('tanggalMulai').value = formatDateInput(start);
+      document.getElementById('tanggalKlaim').value = formatDateInput(today);
       document.getElementById('terpakai').value = 3;
       document.getElementById('metodePotongan').value = 'persen_harga';
       document.getElementById('nilaiPotongan').value = 10;
@@ -850,8 +920,14 @@ Sekali lagi kami mohon maaf atas ketidaknyamanannya. Terima kasih atas pengertia
       document.getElementById('pembulatan').value = '1000';
       document.getElementById('pakaiProrata').checked = true;
       updatePotonganHint();
+      updateModeTanggal();
       hitungRefund();
     }
+
+    document.getElementById('modeTanggal').addEventListener('change', () => {
+      updateModeTanggal();
+      hitungRefund();
+    });
 
     document.getElementById('metodePotongan').addEventListener('change', () => {
       updatePotonganHint();
@@ -865,7 +941,14 @@ Sekali lagi kami mohon maaf atas ketidaknyamanannya. Terima kasih atas pengertia
       el.addEventListener('change', hitungRefund);
     });
 
+    const today = new Date();
+    const defaultStart = new Date(today);
+    defaultStart.setDate(today.getDate() - 3);
+    document.getElementById('tanggalMulai').value = formatDateInput(defaultStart);
+    document.getElementById('tanggalKlaim').value = formatDateInput(today);
+
     updatePotonganHint();
+    updateModeTanggal();
     hitungRefund();
   </script>
 </body>
