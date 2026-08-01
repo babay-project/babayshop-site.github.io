@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garansi Akun Manager</title>
+  <style>
+    :root{
+      --bg:#07111f;
+      --panel:#0d1b2e;
+      --panel2:#12233a;
+      --line:#233a58;
+      --text:#eef6ff;
+      --muted:#9db0c8;
+      --accent:#4f8cff;
+      --accent2:#28d7a1;
+      --danger:#ff6b7a;
+      --warning:#ffc857;
+      --shadow:0 18px 50px rgba(0,0,0,.28);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(79,140,255,.18), transparent 34%),
+        radial-gradient(circle at 100% 20%, rgba(40,215,161,.12), transparent 28%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+    .wrap{max-width:1440px;margin:auto;padding:24px}
+    .hero{
+      display:flex;justify-content:space-between;align-items:flex-start;gap:20px;
+      margin-bottom:20px
+    }
+    h1{font-size:clamp(28px,4vw,44px);margin:0 0 8px;letter-spacing:-.04em}
+    .sub{color:var(--muted);max-width:780px;line-height:1.6}
+    .privacy{
+      padding:10px 14px;border:1px solid rgba(40,215,161,.35);
+      background:rgba(40,215,161,.08);border-radius:999px;color:#baf6e4;
+      font-size:13px;white-space:nowrap
+    }
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .card{
+      background:linear-gradient(180deg,rgba(18,35,58,.96),rgba(13,27,46,.96));
+      border:1px solid var(--line);border-radius:var(--radius);padding:18px;
+      box-shadow:var(--shadow)
+    }
+    .card h2{font-size:18px;margin:0 0 6px}
+    .hint{font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.5}
+    textarea,input,select{
+      width:100%;border:1px solid var(--line);background:#091626;color:var(--text);
+      border-radius:12px;padding:12px 13px;outline:none;font:inherit;
+      transition:.2s border,.2s box-shadow
+    }
+    textarea{min-height:260px;resize:vertical;line-height:1.55}
+    textarea:focus,input:focus,select:focus{
+      border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,140,255,.14)
+    }
+    .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+    button,.btn{
+      border:0;border-radius:12px;padding:11px 15px;font-weight:700;cursor:pointer;
+      background:var(--accent);color:white;text-decoration:none;display:inline-flex;
+      align-items:center;justify-content:center;gap:8px;font-size:14px
+    }
+    button:hover,.btn:hover{filter:brightness(1.08)}
+    .secondary{background:#203653;color:#eaf2ff}
+    .success{background:var(--accent2);color:#04271d}
+    .danger{background:var(--danger)}
+    .warning{background:var(--warning);color:#382b00}
+    .ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+    .stat{padding:15px;border-radius:15px;background:#0b192b;border:1px solid var(--line)}
+    .stat b{display:block;font-size:25px;margin-bottom:3px}
+    .stat span{color:var(--muted);font-size:12px}
+    .controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+    .label{font-size:12px;color:var(--muted);margin:0 0 6px}
+    .notice{
+      display:none;padding:12px 14px;border-radius:12px;margin:12px 0;
+      border:1px solid rgba(255,200,87,.35);background:rgba(255,200,87,.08);
+      color:#ffe7a3;font-size:14px
+    }
+    .result-card{
+      border:1px solid var(--line);border-radius:16px;background:#091626;
+      margin:12px 0;overflow:hidden
+    }
+    .result-head{
+      padding:12px 14px;display:flex;gap:12px;justify-content:space-between;
+      align-items:center;background:#10223a;border-bottom:1px solid var(--line)
+    }
+    .who{font-weight:800;word-break:break-all}
+    .badge{
+      font-size:11px;padding:5px 8px;border-radius:999px;background:#203653;color:#cfe0f5
+    }
+    .done-badge{background:rgba(40,215,161,.15);color:#9ef0d7}
+    .result-body{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px}
+    .account-box,.message-box{
+      background:#07111f;border:1px solid var(--line);border-radius:12px;padding:12px;
+      white-space:pre-wrap;word-break:break-word;font-size:13px;line-height:1.55
+    }
+    .actions{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 14px}
+    .actions button,.actions .btn{padding:9px 11px;font-size:12px}
+    .small{font-size:12px;color:var(--muted)}
+    .empty{
+      text-align:center;padding:45px 16px;border:1px dashed var(--line);
+      border-radius:16px;color:var(--muted)
+    }
+    .footer{color:var(--muted);font-size:12px;text-align:center;padding:28px 0 10px}
+    .top-actions{display:flex;gap:8px;flex-wrap:wrap}
+    @media(max-width:920px){
+      .grid,.result-body{grid-template-columns:1fr}
+      .stats{grid-template-columns:1fr 1fr}
+      .controls{grid-template-columns:1fr}
+      .hero{flex-direction:column}
+      .privacy{white-space:normal}
+    }
+    @media(max-width:520px){
+      .wrap{padding:14px}
+      .stats{grid-template-columns:1fr 1fr}
+      textarea{min-height:210px}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <h1>Garansi Akun Manager</h1>
+      <div class="sub">
+        Pasangkan daftar penerima dengan akun garansi secara otomatis, buat pesan Indonesia/English,
+        salin pesan, buka WhatsApp, atau tandai proses yang sudah selesai.
+      </div>
+    </div>
+    <div class="privacy">🔒 Diproses lokal di browser</div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>1. Mass Input Kontak</h2>
+      <div class="hint">
+        Satu kontak per baris. Bisa nomor WhatsApp atau link profil Facebook.
+        Nomor Indonesia otomatis diubah ke format 62.
+      </div>
+      <textarea id="contactsInput" spellcheck="false">087774014440
+081222962489
+082211377312
+085156197602
+089506732740
+6282164899040
+https://www.facebook.com/kim.juniorr.56/
+081372228914
+6281586634383
+6289689075040
+6289669179119
+62895428897784
+6285196426063
+6281290250801
+6285719451192
+6285121077524
+6285121077524
++85512784993
++62 855-2075-1488
+09560855648</textarea>
+    </div>
+
+    <div class="card">
+      <h2>2. Mass Input Akun</h2>
+      <div class="hint">
+        Format satu akun per baris: <b>email | password | secret key</b>
+      </div>
+      <textarea id="accountsInput" spellcheck="false" placeholder="contoh@gmail.com | password123 | S6SHS32IK5DGO7DLQDK5IXAS4ZXGVGL4"></textarea>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <button id="generateBtn">⚡ Proses & Pasangkan</button>
+    <button class="secondary" id="addContactBtn">＋ Tambah Kontak</button>
+    <button class="secondary" id="addAccountBtn">＋ Tambah Akun</button>
+    <button class="ghost" id="saveBtn">💾 Simpan Lokal</button>
+    <button class="ghost" id="loadBtn">↩ Muat Simpanan</button>
+    <button class="danger" id="resetBtn">🗑 Reset</button>
+  </div>
+
+  <section class="stats">
+    <div class="stat"><b id="contactCount">0</b><span>Kontak terdeteksi</span></div>
+    <div class="stat"><b id="accountCount">0</b><span>Akun valid</span></div>
+    <div class="stat"><b id="pairedCount">0</b><span>Pasangan dibuat</span></div>
+    <div class="stat"><b id="doneCount">0</b><span>Selesai dikirim</span></div>
+  </section>
+
+  <section class="card">
+    <div class="result-head" style="margin:-18px -18px 16px;border-radius:18px 18px 0 0">
+      <div>
+        <h2 style="margin:0">3. Hasil Pesan Garansi</h2>
+        <div class="small">Urutan kontak dipasangkan dengan urutan akun.</div>
+      </div>
+      <div class="top-actions">
+        <button class="secondary" id="copyAllBtn">📋 Salin Semua</button>
+        <button class="secondary" id="exportBtn">⬇ Export CSV</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div>
+        <div class="label">Bahasa pesan</div>
+        <select id="language">
+          <option value="id">Indonesia</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <div>
+        <div class="label">Nama paket</div>
+        <input id="packageName" value="GPT Plus Apple Pay Fresh VCC" />
+      </div>
+      <div>
+        <div class="label">Link web 2FA</div>
+        <input id="twoFaUrl" value="https://babay.web.id/2fa/" />
+      </div>
+    </div>
+
+    <div id="mismatchNotice" class="notice"></div>
+    <div id="results" class="empty">Masukkan akun lalu klik <b>Proses & Pasangkan</b>.</div>
+  </section>
+
+  <div class="footer">
+    Jangan kirim data login melalui perangkat umum. Hapus data lokal setelah seluruh garansi selesai.
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let pairs = [];
+let doneSet = new Set();
+
+function cleanLines(text){
+  return text.split(/\r?\n/).map(v => v.trim()).filter(Boolean);
+}
+
+function normalizePhone(raw){
+  let value = raw.trim().replace(/[^\d+]/g, "");
+  if (!value) return "";
+  if (value.startsWith("+")) value = value.slice(1);
+
+  // Indonesia
+  if (value.startsWith("0") && value.length >= 9) {
+    value = "62" + value.slice(1);
+  }
+  return value;
+}
+
+function parseContacts(){
+  return cleanLines($("contactsInput").value).map((raw, index) => {
+    const isFacebook = /facebook\.com|fb\.com/i.test(raw);
+    if (isFacebook) {
+      let url = raw;
+      if (!/^https?:\/\//i.test(url)) url = "https://" + url;
+      return { id:index, type:"facebook", raw, value:url, valid:true };
+    }
+    const phone = normalizePhone(raw);
+    return {
+      id:index,
+      type:"whatsapp",
+      raw,
+      value:phone,
+      valid:/^\d{8,15}$/.test(phone)
+    };
+  });
+}
+
+function parseAccounts(){
+  return cleanLines($("accountsInput").value).map((line, index) => {
+    const parts = line.split("|").map(v => v.trim());
+    return {
+      id:index,
+      raw:line,
+      email:parts[0] || "",
+      password:parts[1] || "",
+      secret:parts.slice(2).join("|").trim(),
+      valid:parts.length >= 3 && !!parts[0] && !!parts[1] && !!parts.slice(2).join("|").trim()
+    };
+  }).filter(a => a.valid);
+}
+
+function getMessage(account){
+  const pack = $("packageName").value.trim() || "GPT Plus Apple Pay Fresh VCC";
+  const url = $("twoFaUrl").value.trim() || "https://babay.web.id/2fa/";
+  if ($("language").value === "en") {
+    return `Hello, sorry for the wait. Here is your replacement ${pack} account. Please log in first. Once you have successfully accessed the account, the warranty process will be considered complete. Thank you.
+
+Email: ${account.email}
+
+Password: ${account.password}
+
+Secret key: ${account.secret}
+
+To get the MFA code, copy the secret key and paste it into a 2FA website. You can use Babay 2FA here:
+${url}
+
+All previous terms and conditions still apply. Hopefully there will be no further issues.`;
+  }
+  return `Halo Kak, maaf sudah menunggu. Ini akun garansi ${pack}-nya. Silakan login terlebih dahulu. Jika sudah berhasil masuk, maka proses garansi dinyatakan selesai. Terima kasih.
+
+Email: ${account.email}
+
+Password: ${account.password}
+
+Secret key: ${account.secret}
+
+Untuk mendapatkan kode MFA, copy secret key lalu paste ke web 2FA. Bisa menggunakan web Babay:
+${url}
+
+Untuk semua ketentuan dan hal lainnya masih sama seperti sebelumnya. Semoga tidak ada kendala lagi.`;
+}
+
+function updateLiveCounts(){
+  const contacts = parseContacts();
+  const accounts = parseAccounts();
+  $("contactCount").textContent = contacts.length;
+  $("accountCount").textContent = accounts.length;
+  $("pairedCount").textContent = Math.min(contacts.length, accounts.length);
+  $("doneCount").textContent = doneSet.size;
+}
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, s => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[s]));
+}
+
+function generate(){
+  const contacts = parseContacts();
+  const accounts = parseAccounts();
+  const total = Math.min(contacts.length, accounts.length);
+  pairs = Array.from({length:total}, (_,i) => ({
+    index:i,
+    contact:contacts[i],
+    account:accounts[i]
+  }));
+
+  const notice = $("mismatchNotice");
+  if (contacts.length !== accounts.length) {
+    notice.style.display = "block";
+    notice.textContent = contacts.length > accounts.length
+      ? `Ada ${contacts.length - accounts.length} kontak yang belum mendapat akun.`
+      : `Ada ${accounts.length - contacts.length} akun yang belum mendapat kontak.`;
+  } else {
+    notice.style.display = "none";
+  }
+
+  render();
+  updateLiveCounts();
+}
+
+function render(){
+  const box = $("results");
+  if (!pairs.length) {
+    box.className = "empty";
+    box.innerHTML = 'Belum ada pasangan data. Pastikan format akun sudah benar.';
+    return;
+  }
+
+  box.className = "";
+  box.innerHTML = pairs.map(p => {
+    const msg = getMessage(p.account);
+    const key = p.index;
+    const isDone = doneSet.has(key);
+    const targetLabel = p.contact.type === "facebook" ? "Facebook" : "WhatsApp";
+    const link = p.contact.type === "facebook"
+      ? p.contact.value
+      : `https://wa.me/${p.contact.value}?text=${encodeURIComponent(msg)}`;
+
+    return `
+      <article class="result-card">
+        <div class="result-head">
+          <div>
+            <div class="who">${escapeHtml(p.contact.raw)}</div>
+            <div class="small">Penerima #${p.index + 1} · ${targetLabel}</div>
+          </div>
+          <span class="badge ${isDone ? "done-badge" : ""}">
+            ${isDone ? "✓ Selesai" : "Belum dikirim"}
+          </span>
+        </div>
+        <div class="result-body">
+          <div>
+            <div class="label">Data akun</div>
+            <div class="account-box">Email: ${escapeHtml(p.account.email)}
+Password: ${escapeHtml(p.account.password)}
+Secret key: ${escapeHtml(p.account.secret)}</div>
+          </div>
+          <div>
+            <div class="label">Preview pesan</div>
+            <div class="message-box">${escapeHtml(msg)}</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button onclick="copyMessage(${p.index})">📋 Salin Pesan</button>
+          <a class="btn success" target="_blank" rel="noopener noreferrer" href="${escapeHtml(link)}">
+            ${p.contact.type === "facebook" ? "🔗 Buka Facebook" : "💬 Buka WhatsApp"}
+          </a>
+          <button class="secondary" onclick="copyAccount(${p.index})">🔐 Salin Akun</button>
+          <button class="${isDone ? "warning" : "ghost"}" onclick="toggleDone(${p.index})">
+            ${isDone ? "↩ Batalkan Selesai" : "✓ Tandai Selesai"}
+          </button>
+          <button class="danger" onclick="removePair(${p.index})">Hapus</button>
+        </div>
+      </article>`;
+  }).join("");
+}
+
+async function copyText(text){
+  try{
+    await navigator.clipboard.writeText(text);
+    toast("Berhasil disalin.");
+  }catch{
+    const t = document.createElement("textarea");
+    t.value = text; document.body.appendChild(t); t.select();
+    document.execCommand("copy"); t.remove();
+    toast("Berhasil disalin.");
+  }
+}
+
+function copyMessage(index){
+  const p = pairs.find(x => x.index === index);
+  if (p) copyText(getMessage(p.account));
+}
+
+function copyAccount(index){
+  const p = pairs.find(x => x.index === index);
+  if (p) copyText(`${p.account.email} | ${p.account.password} | ${p.account.secret}`);
+}
+
+function toggleDone(index){
+  doneSet.has(index) ? doneSet.delete(index) : doneSet.add(index);
+  render(); updateLiveCounts();
+}
+
+function removePair(index){
+  pairs = pairs.filter(p => p.index !== index);
+  doneSet.delete(index);
+  render(); updateLiveCounts();
+}
+
+function toast(message){
+  const el = document.createElement("div");
+  el.textContent = message;
+  Object.assign(el.style,{
+    position:"fixed",right:"18px",bottom:"18px",padding:"12px 16px",
+    background:"#28d7a1",color:"#04271d",fontWeight:"800",borderRadius:"12px",
+    zIndex:"9999",boxShadow:"0 12px 30px rgba(0,0,0,.3)"
+  });
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),1700);
+}
+
+function addLine(target, example){
+  const el = $(target);
+  if (el.value && !el.value.endsWith("\n")) el.value += "\n";
+  el.value += example;
+  el.focus();
+  el.setSelectionRange(el.value.length, el.value.length);
+  updateLiveCounts();
+}
+
+function saveLocal(){
+  const data = {
+    contacts:$("contactsInput").value,
+    accounts:$("accountsInput").value,
+    language:$("language").value,
+    packageName:$("packageName").value,
+    twoFaUrl:$("twoFaUrl").value,
+    done:[...doneSet]
+  };
+  localStorage.setItem("garansiManagerData", JSON.stringify(data));
+  toast("Data tersimpan di browser.");
+}
+
+function loadLocal(){
+  const raw = localStorage.getItem("garansiManagerData");
+  if (!raw) return toast("Belum ada data tersimpan.");
+  try{
+    const data = JSON.parse(raw);
+    $("contactsInput").value = data.contacts || "";
+    $("accountsInput").value = data.accounts || "";
+    $("language").value = data.language || "id";
+    $("packageName").value = data.packageName || "";
+    $("twoFaUrl").value = data.twoFaUrl || "";
+    doneSet = new Set(data.done || []);
+    generate();
+    toast("Data berhasil dimuat.");
+  }catch{
+    toast("Data simpanan rusak.");
+  }
+}
+
+function resetAll(){
+  if (!confirm("Hapus semua data dari halaman dan penyimpanan lokal?")) return;
+  $("contactsInput").value = "";
+  $("accountsInput").value = "";
+  pairs = [];
+  doneSet.clear();
+  localStorage.removeItem("garansiManagerData");
+  render(); updateLiveCounts();
+}
+
+function copyAll(){
+  if (!pairs.length) return toast("Belum ada hasil.");
+  const text = pairs.map((p,i) =>
+    `=== PENERIMA ${i+1}: ${p.contact.raw} ===\n${getMessage(p.account)}`
+  ).join("\n\n");
+  copyText(text);
+}
+
+function csvCell(v){
+  return `"${String(v ?? "").replace(/"/g,'""')}"`;
+}
+
+function exportCsv(){
+  if (!pairs.length) return toast("Belum ada hasil.");
+  const rows = [
+    ["No","Tipe Kontak","Kontak","Email","Password","Secret Key","Status","Pesan"],
+    ...pairs.map((p,i)=>[
+      i+1,p.contact.type,p.contact.raw,p.account.email,p.account.password,p.account.secret,
+      doneSet.has(p.index) ? "Selesai" : "Belum",getMessage(p.account)
+    ])
+  ];
+  const csv = "\uFEFF" + rows.map(r=>r.map(csvCell).join(",")).join("\n");
+  const blob = new Blob([csv],{type:"text/csv;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href=url;a.download=`garansi-akun-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();URL.revokeObjectURL(url);
+}
+
+$("generateBtn").addEventListener("click",generate);
+$("addContactBtn").addEventListener("click",()=>addLine("contactsInput","08xxxxxxxxxx"));
+$("addAccountBtn").addEventListener("click",()=>addLine("accountsInput","email@gmail.com | password | SECRETKEY"));
+$("saveBtn").addEventListener("click",saveLocal);
+$("loadBtn").addEventListener("click",loadLocal);
+$("resetBtn").addEventListener("click",resetAll);
+$("copyAllBtn").addEventListener("click",copyAll);
+$("exportBtn").addEventListener("click",exportCsv);
+
+["contactsInput","accountsInput"].forEach(id => $(id).addEventListener("input",updateLiveCounts));
+["language","packageName","twoFaUrl"].forEach(id => $(id).addEventListener("input",render));
+
+updateLiveCounts();
+</script>
+</body>
+</html>
