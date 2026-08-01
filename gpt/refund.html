@@ -1,222 +1,872 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Refund Garansi ChatGPT Plus</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refund & Garansi Calculator</title>
+  <style>
+    :root{
+      --primary:#10a37f;
+      --primary-dark:#087f63;
+      --primary-soft:#e8fff8;
+      --bg:#eef3f7;
+      --card:#ffffff;
+      --text:#17212b;
+      --muted:#6b7280;
+      --border:#dce4ea;
+      --danger:#e5484d;
+      --warning:#f59e0b;
+      --shadow:0 18px 45px rgba(27, 50, 73, .12);
+      --radius:18px;
+    }
 
-        body {
-            background-color: #f4f6f9;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
+    *{
+      box-sizing:border-box;
+      font-family:Inter, "Segoe UI", Arial, sans-serif;
+    }
 
-        .card {
-            background: #ffffff;
-            width: 100%;
-            max-width: 450px;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border: 1px solid #e1e8ed;
-        }
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at top left, rgba(16,163,127,.16), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(59,130,246,.12), transparent 28%),
+        var(--bg);
+      color:var(--text);
+    }
 
-        h2 {
-            margin-top: 0;
-            color: #10a37f;
-            font-size: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
+    .app-shell{
+      width:min(1180px, calc(100% - 28px));
+      margin:28px auto;
+    }
 
-        .form-group {
-            margin-bottom: 16px;
-        }
+    .topbar{
+      background:linear-gradient(135deg, #0f172a, #173b35);
+      color:#fff;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      margin-bottom:20px;
+      position:relative;
+      overflow:hidden;
+    }
 
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #4a5568;
-            margin-bottom: 6px;
-        }
+    .topbar::after{
+      content:"";
+      position:absolute;
+      width:240px;
+      height:240px;
+      border-radius:50%;
+      right:-70px;
+      top:-100px;
+      background:rgba(255,255,255,.08);
+    }
 
-        input, select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #cbd5e0;
-            border-radius: 6px;
-            font-size: 14px;
-            background-color: #fff;
-            color: #2d3748;
-        }
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      position:relative;
+      z-index:1;
+    }
 
-        input:focus, select:focus {
-            border-color: #10a37f;
-            outline: none;
-        }
+    .logo{
+      width:52px;
+      height:52px;
+      display:grid;
+      place-items:center;
+      border-radius:16px;
+      background:linear-gradient(135deg, #10a37f, #59d9b7);
+      font-size:26px;
+      box-shadow:0 12px 28px rgba(16,163,127,.3);
+    }
 
-        /* Input yang tidak bisa diedit */
-        input[readonly] {
-            background-color: #edf2f7;
-            color: #718096;
-            cursor: not-allowed;
-            font-weight: bold;
-        }
+    .brand h1{
+      margin:0 0 4px;
+      font-size:24px;
+    }
 
-        button {
-            width: 100%;
-            background-color: #10a37f;
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 15px;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.2s;
-        }
+    .brand p{
+      margin:0;
+      color:#d7e7e2;
+      font-size:14px;
+    }
 
-        button:hover {
-            background-color: #0d8a6a;
-        }
+    .grid{
+      display:grid;
+      grid-template-columns:minmax(0, 1.15fr) minmax(340px, .85fr);
+      gap:20px;
+    }
 
-        .result-box {
-            margin-top: 20px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 16px;
-            border-radius: 8px;
-        }
+    .panel{
+      background:rgba(255,255,255,.95);
+      border:1px solid rgba(220,228,234,.95);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
 
-        .result-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #4a5568;
-        }
+    .panel-header{
+      padding:18px 20px;
+      border-bottom:1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+    }
 
-        .result-total {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
-            padding-top: 10px;
-            border-top: 2px dashed #cbd5e0;
-            font-weight: bold;
-            font-size: 16px;
-            color: #10a37f;
-        }
+    .panel-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      font-size:17px;
+    }
 
-        .formula-note {
-            font-size: 11px;
-            color: #718096;
-            margin-top: 12px;
-            line-height: 1.4;
-            background-color: #edf2f7;
-            padding: 8px 10px;
-            border-radius: 6px;
-        }
-    </style>
+    .badge{
+      font-size:11px;
+      font-weight:800;
+      padding:6px 9px;
+      border-radius:999px;
+      background:var(--primary-soft);
+      color:var(--primary-dark);
+    }
+
+    .panel-body{
+      padding:20px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:15px;
+    }
+
+    .full{
+      grid-column:1 / -1;
+    }
+
+    .form-group{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    label{
+      font-size:12px;
+      font-weight:800;
+      color:#4b5563;
+      letter-spacing:.01em;
+    }
+
+    input, select, textarea{
+      width:100%;
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:11px;
+      padding:12px 13px;
+      font-size:14px;
+      color:var(--text);
+      transition:.2s ease;
+      outline:none;
+    }
+
+    input:focus, select:focus, textarea:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(16,163,127,.1);
+    }
+
+    textarea{
+      resize:vertical;
+      min-height:92px;
+      line-height:1.55;
+    }
+
+    .input-prefix{
+      position:relative;
+    }
+
+    .input-prefix span{
+      position:absolute;
+      left:13px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-weight:700;
+      pointer-events:none;
+    }
+
+    .input-prefix input{
+      padding-left:36px;
+    }
+
+    .helper{
+      margin-top:4px;
+      font-size:11px;
+      line-height:1.45;
+      color:var(--muted);
+    }
+
+    .switch-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:12px 13px;
+      border:1px solid var(--border);
+      border-radius:11px;
+      background:#f9fbfc;
+    }
+
+    .switch-row span{
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .switch{
+      position:relative;
+      width:46px;
+      height:26px;
+    }
+
+    .switch input{
+      opacity:0;
+      width:0;
+      height:0;
+    }
+
+    .slider{
+      position:absolute;
+      inset:0;
+      cursor:pointer;
+      background:#cbd5e1;
+      border-radius:999px;
+      transition:.2s;
+    }
+
+    .slider::before{
+      content:"";
+      position:absolute;
+      width:20px;
+      height:20px;
+      left:3px;
+      top:3px;
+      background:#fff;
+      border-radius:50%;
+      box-shadow:0 2px 6px rgba(0,0,0,.2);
+      transition:.2s;
+    }
+
+    .switch input:checked + .slider{
+      background:var(--primary);
+    }
+
+    .switch input:checked + .slider::before{
+      transform:translateX(20px);
+    }
+
+    .button-row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    button{
+      border:none;
+      border-radius:11px;
+      padding:13px 16px;
+      font-weight:800;
+      font-size:14px;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--primary), #17b98f);
+      color:#fff;
+      box-shadow:0 10px 20px rgba(16,163,127,.22);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      background:linear-gradient(135deg, var(--primary-dark), var(--primary));
+    }
+
+    .btn-secondary{
+      background:#edf2f7;
+      color:#344054;
+    }
+
+    .btn-secondary:hover{
+      background:#e2e8f0;
+    }
+
+    .summary-card{
+      background:linear-gradient(145deg, #0f172a, #173e37);
+      border-radius:16px;
+      color:#fff;
+      padding:20px;
+      position:relative;
+      overflow:hidden;
+      margin-bottom:16px;
+    }
+
+    .summary-card::after{
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:rgba(255,255,255,.06);
+      right:-60px;
+      bottom:-90px;
+    }
+
+    .summary-label{
+      color:#b9d8cf;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .summary-value{
+      font-size:34px;
+      font-weight:900;
+      margin:7px 0 4px;
+      letter-spacing:-.03em;
+      position:relative;
+      z-index:1;
+    }
+
+    .summary-sub{
+      color:#dceee9;
+      font-size:12px;
+    }
+
+    .result-list{
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      margin-bottom:16px;
+    }
+
+    .result-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:13px 15px;
+      border-bottom:1px solid var(--border);
+      font-size:13px;
+    }
+
+    .result-row:last-child{
+      border-bottom:none;
+    }
+
+    .result-row span:first-child{
+      color:var(--muted);
+    }
+
+    .result-row strong{
+      text-align:right;
+    }
+
+    .negative{
+      color:var(--danger);
+    }
+
+    .positive{
+      color:var(--primary-dark);
+    }
+
+    .note-box{
+      background:#f8fafc;
+      border:1px dashed #cbd5e1;
+      border-radius:14px;
+      padding:15px;
+    }
+
+    .note-box h3{
+      margin:0 0 10px;
+      font-size:14px;
+    }
+
+    .customer-note{
+      white-space:pre-wrap;
+      font-size:13px;
+      line-height:1.6;
+      color:#344054;
+      min-height:150px;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:11px;
+      padding:13px;
+    }
+
+    .copy-status{
+      margin-top:8px;
+      min-height:18px;
+      color:var(--primary-dark);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .formula{
+      margin-top:14px;
+      padding:12px;
+      border-radius:11px;
+      background:#f5f7fa;
+      color:#667085;
+      font-size:11px;
+      line-height:1.5;
+    }
+
+    .warning{
+      margin-top:12px;
+      display:none;
+      padding:11px 12px;
+      border-radius:11px;
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      color:#9a3412;
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    .mini-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .app-footer{
+      text-align:center;
+      color:#7b8794;
+      font-size:11px;
+      margin-top:16px;
+    }
+
+    @media (max-width:900px){
+      .grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:600px){
+      .app-shell{
+        width:min(100% - 16px, 1180px);
+        margin:12px auto;
+      }
+
+      .topbar{
+        padding:19px;
+        border-radius:18px;
+      }
+
+      .brand h1{
+        font-size:20px;
+      }
+
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .full{
+        grid-column:auto;
+      }
+
+      .button-row, .mini-actions{
+        grid-template-columns:1fr;
+      }
+
+      .summary-value{
+        font-size:29px;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<div class="card">
-    <h2>Hitung Refund ChatGPT Plus</h2>
-
-    <div class="form-group">
-        <label for="harga">Harga Jual Akun (Rp)</label>
-        <input type="number" id="harga" value="85000" placeholder="Masukkan harga jual">
-    </div>
-
-    <div class="form-group">
-        <label for="totalGaransi">Total Garansi</label>
-        <select id="totalGaransi">
-            <option value="10">10 Hari</option>
-            <option value="7" selected>7 Hari</option>
-            <option value="2">2 Hari</option>
-            <option value="1">1 Hari</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="hariTerpakai">Hari Terpakai (Hari)</label>
-        <input type="number" id="hariTerpakai" value="3" placeholder="Contoh: 3">
-    </div>
-
-    <div class="form-group">
-        <label for="biayaLayanan">Biaya Layanan</label>
-        <input type="text" id="biayaLayanan" value="10%" readonly>
-    </div>
-
-    <button onclick="hitungRefund()">Hitung Nominal Refund</button>
-
-    <div class="result-box">
-        <div class="result-row">
-            <span>Sisa Garansi:</span>
-            <strong id="outSisaHari">4 Hari</strong>
+  <main class="app-shell">
+    <section class="topbar">
+      <div class="brand">
+        <div class="logo">🛡️</div>
+        <div>
+          <h1>Refund & Garansi Calculator</h1>
+          <p>Hitung refund akun atau aplikasi dengan aturan garansi yang fleksibel.</p>
         </div>
-        <div class="result-row">
-            <span>Nilai Pro-Rata Sisa Hari:</span>
-            <span id="outProrata">Rp 48.571</span>
-        </div>
-        <div class="result-row">
-            <span>Biaya Layanan (10%):</span>
-            <span id="outPotongan" style="color: #e53e3e;">- Rp 8.500</span>
-        </div>
-        <div class="result-total">
-            <span>Total Refund Ke Pembeli:</span>
-            <span id="outTotal">Rp 40.071</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">⚙️ Pengaturan Refund</div>
+          <div class="badge">CUSTOM</div>
         </div>
 
-        <div class="formula-note">
-            *Rumus: <code>((Sisa Garansi / Total Garansi) x Harga Jual) - Biaya Layanan 10%</code>
-        </div>
-    </div>
-</div>
+        <div class="panel-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="namaCustomer">Nama Customer</label>
+              <input type="text" id="namaCustomer" placeholder="Contoh: Kak Andi" value="Kak">
+            </div>
 
-<script>
-    function formatRupiah(val) {
-        return 'Rp ' + Math.round(val).toLocaleString('id-ID');
+            <div class="form-group">
+              <label for="namaProduk">Nama Akun / Aplikasi</label>
+              <input type="text" id="namaProduk" placeholder="Contoh: ChatGPT Plus" value="ChatGPT Plus">
+            </div>
+
+            <div class="form-group">
+              <label for="harga">Harga Jual</label>
+              <div class="input-prefix">
+                <span>Rp</span>
+                <input type="number" id="harga" value="85000" min="0">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="totalGaransi">Total Garansi</label>
+              <div style="display:grid;grid-template-columns:1fr 120px;gap:8px;">
+                <input type="number" id="totalGaransi" value="7" min="1">
+                <select id="satuanGaransi">
+                  <option value="Hari" selected>Hari</option>
+                  <option value="Minggu">Minggu</option>
+                  <option value="Bulan">Bulan</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="terpakai">Masa Sudah Terpakai</label>
+              <input type="number" id="terpakai" value="3" min="0">
+            </div>
+
+            <div class="form-group">
+              <label for="metodePotongan">Metode Biaya Layanan</label>
+              <select id="metodePotongan">
+                <option value="persen_harga" selected>Persen dari harga jual</option>
+                <option value="persen_prorata">Persen dari nilai sisa</option>
+                <option value="nominal">Nominal tetap</option>
+                <option value="tanpa">Tanpa potongan</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="nilaiPotongan">Nilai Biaya Layanan</label>
+              <input type="number" id="nilaiPotongan" value="10" min="0">
+              <div class="helper" id="potonganHint">Masukkan dalam persen (%).</div>
+            </div>
+
+            <div class="form-group">
+              <label for="biayaTambahan">Potongan Tambahan</label>
+              <div class="input-prefix">
+                <span>Rp</span>
+                <input type="number" id="biayaTambahan" value="0" min="0">
+              </div>
+            </div>
+
+            <div class="form-group full">
+              <label for="alasan">Alasan Refund / Kendala</label>
+              <textarea id="alasan" placeholder="Contoh: akun mengalami kendala login dan tidak dapat digunakan.">akun mengalami kendala dan tidak dapat digunakan kembali.</textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="metodeRefund">Metode Pengembalian</label>
+              <select id="metodeRefund">
+                <option value="Transfer bank / e-wallet" selected>Transfer bank / e-wallet</option>
+                <option value="Saldo toko">Saldo toko</option>
+                <option value="Penggantian akun">Penggantian akun</option>
+                <option value="Sesuai kesepakatan">Sesuai kesepakatan</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="pembulatan">Pembulatan Hasil</label>
+              <select id="pembulatan">
+                <option value="1">Tanpa pembulatan</option>
+                <option value="100">Kelipatan Rp100</option>
+                <option value="500">Kelipatan Rp500</option>
+                <option value="1000" selected>Kelipatan Rp1.000</option>
+              </select>
+            </div>
+
+            <div class="form-group full">
+              <div class="switch-row">
+                <span>Gunakan perhitungan pro-rata</span>
+                <label class="switch">
+                  <input type="checkbox" id="pakaiProrata" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="helper">Jika dimatikan, refund dihitung dari harga jual dikurangi seluruh potongan.</div>
+            </div>
+          </div>
+
+          <div class="warning" id="warningBox"></div>
+
+          <div class="button-row">
+            <button class="btn-primary" onclick="hitungRefund()">Hitung Refund</button>
+            <button class="btn-secondary" onclick="resetForm()">Reset Data</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">📄 Hasil Perhitungan</div>
+          <div class="badge">LIVE RESULT</div>
+        </div>
+
+        <div class="panel-body">
+          <div class="summary-card">
+            <div class="summary-label">TOTAL REFUND KE CUSTOMER</div>
+            <div class="summary-value" id="outTotal">Rp 40.000</div>
+            <div class="summary-sub" id="outProduk">ChatGPT Plus • Sisa garansi 4 Hari</div>
+          </div>
+
+          <div class="result-list">
+            <div class="result-row">
+              <span>Harga Jual</span>
+              <strong id="outHarga">Rp 85.000</strong>
+            </div>
+            <div class="result-row">
+              <span>Sisa Garansi</span>
+              <strong id="outSisa">4 Hari</strong>
+            </div>
+            <div class="result-row">
+              <span>Nilai Pro-Rata</span>
+              <strong class="positive" id="outProrata">Rp 48.571</strong>
+            </div>
+            <div class="result-row">
+              <span>Biaya Layanan</span>
+              <strong class="negative" id="outLayanan">- Rp 8.500</strong>
+            </div>
+            <div class="result-row">
+              <span>Potongan Tambahan</span>
+              <strong class="negative" id="outTambahan">- Rp 0</strong>
+            </div>
+            <div class="result-row">
+              <span>Metode Refund</span>
+              <strong id="outMetode">Transfer bank / e-wallet</strong>
+            </div>
+          </div>
+
+          <div class="note-box">
+            <h3>Pesan Siap Dikirim ke Customer</h3>
+            <div class="customer-note" id="customerNote"></div>
+            <div class="copy-status" id="copyStatus"></div>
+
+            <div class="mini-actions">
+              <button class="btn-primary" onclick="copyNote()">Salin Pesan</button>
+              <button class="btn-secondary" onclick="copyRincian()">Salin Rincian</button>
+            </div>
+          </div>
+
+          <div class="formula" id="formulaText">
+            Rumus: ((sisa garansi ÷ total garansi) × harga jual) − biaya layanan − potongan tambahan.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="app-footer">Data hanya diproses di browser dan tidak dikirim ke server.</div>
+  </main>
+
+  <script>
+    const ids = [
+      'namaCustomer','namaProduk','harga','totalGaransi','satuanGaransi',
+      'terpakai','metodePotongan','nilaiPotongan','biayaTambahan',
+      'alasan','metodeRefund','pembulatan','pakaiProrata'
+    ];
+
+    function rupiah(value){
+      return 'Rp ' + Math.round(Number(value) || 0).toLocaleString('id-ID');
     }
 
-    function hitungRefund() {
-        var harga = parseFloat(document.getElementById('harga').value) || 0;
-        var totalGaransi = parseFloat(document.getElementById('totalGaransi').value) || 0;
-        var hariTerpakai = parseFloat(document.getElementById('hariTerpakai').value) || 0;
-        var persenJasa = 10; // Biaya layanan dikunci di 10%
-
-        if (totalGaransi <= 0) {
-            alert('Silakan pilih durasi garansi yang valid.');
-            return;
-        }
-
-        var sisaHari = totalGaransi - hariTerpakai;
-        if (sisaHari < 0) sisaHari = 0;
-
-        var nilaiProrata = (sisaHari / totalGaransi) * harga;
-        var nominalPotongan = (persenJasa / 100) * harga;
-        var totalRefund = nilaiProrata - nominalPotongan;
-
-        if (totalRefund < 0) totalRefund = 0;
-
-        document.getElementById('outSisaHari').innerText = sisaHari + ' Hari';
-        document.getElementById('outProrata').innerText = formatRupiah(nilaiProrata);
-        document.getElementById('outPotongan').innerText = '- ' + formatRupiah(nominalPotongan);
-        document.getElementById('outTotal').innerText = formatRupiah(totalRefund);
+    function angka(id){
+      return Math.max(0, parseFloat(document.getElementById(id).value) || 0);
     }
-</script>
 
+    function bulatkan(nilai, kelipatan){
+      kelipatan = Number(kelipatan) || 1;
+      return Math.round(nilai / kelipatan) * kelipatan;
+    }
+
+    function updatePotonganHint(){
+      const metode = document.getElementById('metodePotongan').value;
+      const input = document.getElementById('nilaiPotongan');
+      const hint = document.getElementById('potonganHint');
+
+      if(metode === 'nominal'){
+        hint.textContent = 'Masukkan nominal rupiah.';
+        input.placeholder = 'Contoh: 10000';
+      }else if(metode === 'tanpa'){
+        hint.textContent = 'Biaya layanan dinonaktifkan.';
+        input.value = 0;
+        input.disabled = true;
+        return;
+      }else{
+        hint.textContent = 'Masukkan dalam persen (%).';
+        input.placeholder = 'Contoh: 10';
+      }
+
+      input.disabled = false;
+    }
+
+    function hitungRefund(){
+      const namaCustomer = document.getElementById('namaCustomer').value.trim() || 'Kak';
+      const produk = document.getElementById('namaProduk').value.trim() || 'akun/aplikasi';
+      const harga = angka('harga');
+      const total = Math.max(1, angka('totalGaransi'));
+      const terpakai = angka('terpakai');
+      const satuan = document.getElementById('satuanGaransi').value;
+      const metodePotongan = document.getElementById('metodePotongan').value;
+      const nilaiPotongan = angka('nilaiPotongan');
+      const tambahan = angka('biayaTambahan');
+      const alasan = document.getElementById('alasan').value.trim() || 'terdapat kendala pada akun.';
+      const metodeRefund = document.getElementById('metodeRefund').value;
+      const pakaiProrata = document.getElementById('pakaiProrata').checked;
+      const pembulatan = document.getElementById('pembulatan').value;
+
+      const sisa = Math.max(0, total - terpakai);
+      const dasarRefund = pakaiProrata ? (sisa / total) * harga : harga;
+
+      let potonganLayanan = 0;
+      let labelPotongan = '';
+
+      if(metodePotongan === 'persen_harga'){
+        potonganLayanan = (nilaiPotongan / 100) * harga;
+        labelPotongan = nilaiPotongan + '% dari harga jual';
+      }else if(metodePotongan === 'persen_prorata'){
+        potonganLayanan = (nilaiPotongan / 100) * dasarRefund;
+        labelPotongan = nilaiPotongan + '% dari nilai sisa';
+      }else if(metodePotongan === 'nominal'){
+        potonganLayanan = nilaiPotongan;
+        labelPotongan = rupiah(nilaiPotongan);
+      }else{
+        potonganLayanan = 0;
+        labelPotongan = 'tanpa biaya layanan';
+      }
+
+      let refund = Math.max(0, dasarRefund - potonganLayanan - tambahan);
+      refund = bulatkan(refund, pembulatan);
+
+      const warningBox = document.getElementById('warningBox');
+      if(terpakai > total){
+        warningBox.style.display = 'block';
+        warningBox.textContent = 'Masa terpakai melebihi total garansi. Sisa garansi dihitung 0.';
+      }else{
+        warningBox.style.display = 'none';
+        warningBox.textContent = '';
+      }
+
+      document.getElementById('outTotal').textContent = rupiah(refund);
+      document.getElementById('outProduk').textContent = produk + ' • Sisa garansi ' + sisa + ' ' + satuan;
+      document.getElementById('outHarga').textContent = rupiah(harga);
+      document.getElementById('outSisa').textContent = sisa + ' ' + satuan;
+      document.getElementById('outProrata').textContent = rupiah(dasarRefund);
+      document.getElementById('outLayanan').textContent = '- ' + rupiah(potonganLayanan);
+      document.getElementById('outTambahan').textContent = '- ' + rupiah(tambahan);
+      document.getElementById('outMetode').textContent = metodeRefund;
+
+      const note = `Halo ${namaCustomer}, mohon maaf atas kendala pada ${produk}. ${capitalize(alasan)}
+
+Berdasarkan masa garansi, berikut rincian refund:
+• Harga pembelian: ${rupiah(harga)}
+• Total garansi: ${total} ${satuan}
+• Masa terpakai: ${terpakai} ${satuan}
+• Sisa garansi: ${sisa} ${satuan}
+• Nilai sisa: ${rupiah(dasarRefund)}
+• Biaya layanan: ${rupiah(potonganLayanan)} (${labelPotongan})
+• Potongan tambahan: ${rupiah(tambahan)}
+
+Total refund yang diterima: ${rupiah(refund)}
+Metode pengembalian: ${metodeRefund}
+
+Sekali lagi kami mohon maaf atas ketidaknyamanannya. Terima kasih atas pengertiannya.`;
+
+      document.getElementById('customerNote').textContent = note;
+
+      document.getElementById('formulaText').textContent = pakaiProrata
+        ? 'Rumus: ((sisa garansi ÷ total garansi) × harga jual) − biaya layanan − potongan tambahan.'
+        : 'Rumus: harga jual − biaya layanan − potongan tambahan. Perhitungan pro-rata sedang dinonaktifkan.';
+
+      document.getElementById('copyStatus').textContent = '';
+    }
+
+    function capitalize(text){
+      if(!text) return '';
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    async function salin(text, successMessage){
+      try{
+        await navigator.clipboard.writeText(text);
+        document.getElementById('copyStatus').textContent = successMessage;
+      }catch(e){
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        temp.remove();
+        document.getElementById('copyStatus').textContent = successMessage;
+      }
+    }
+
+    function copyNote(){
+      salin(document.getElementById('customerNote').textContent, 'Pesan berhasil disalin.');
+    }
+
+    function copyRincian(){
+      const rincian = [
+        'RINCIAN REFUND',
+        'Produk: ' + document.getElementById('namaProduk').value,
+        'Harga: ' + document.getElementById('outHarga').textContent,
+        'Sisa garansi: ' + document.getElementById('outSisa').textContent,
+        'Nilai sisa: ' + document.getElementById('outProrata').textContent,
+        'Biaya layanan: ' + document.getElementById('outLayanan').textContent,
+        'Potongan tambahan: ' + document.getElementById('outTambahan').textContent,
+        'Total refund: ' + document.getElementById('outTotal').textContent,
+        'Metode: ' + document.getElementById('outMetode').textContent
+      ].join('\n');
+
+      salin(rincian, 'Rincian berhasil disalin.');
+    }
+
+    function resetForm(){
+      document.getElementById('namaCustomer').value = 'Kak';
+      document.getElementById('namaProduk').value = 'ChatGPT Plus';
+      document.getElementById('harga').value = 85000;
+      document.getElementById('totalGaransi').value = 7;
+      document.getElementById('satuanGaransi').value = 'Hari';
+      document.getElementById('terpakai').value = 3;
+      document.getElementById('metodePotongan').value = 'persen_harga';
+      document.getElementById('nilaiPotongan').value = 10;
+      document.getElementById('biayaTambahan').value = 0;
+      document.getElementById('alasan').value = 'akun mengalami kendala dan tidak dapat digunakan kembali.';
+      document.getElementById('metodeRefund').value = 'Transfer bank / e-wallet';
+      document.getElementById('pembulatan').value = '1000';
+      document.getElementById('pakaiProrata').checked = true;
+      updatePotonganHint();
+      hitungRefund();
+    }
+
+    document.getElementById('metodePotongan').addEventListener('change', () => {
+      updatePotonganHint();
+      hitungRefund();
+    });
+
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', hitungRefund);
+      el.addEventListener('change', hitungRefund);
+    });
+
+    updatePotonganHint();
+    hitungRefund();
+  </script>
 </body>
 </html>
