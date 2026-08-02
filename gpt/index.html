@@ -3,6 +3,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -458,6 +459,12 @@
     .stock { margin-top: auto; display: inline-flex; align-items: center; gap: 7px; color: #bbf7d0; font-size: 12px; font-weight: 600; margin-bottom: 14px; }
     .stock-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--green); box-shadow: 0 0 12px var(--green); }
     .pkg-actions { display: grid; gap: 9px; }
+    .warranty-options { display: grid; gap: 9px; margin: 2px 0 16px; }
+    .warranty-option { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; padding: 12px 13px; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,.025); }
+    .warranty-option strong { font-size: 13px; color: #fff; }
+    .warranty-option small { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .warranty-option .option-price { color: #a5f3fc; font-family: var(--font-title); font-size: 16px; font-weight: 700; white-space: nowrap; }
+    .warranty-option .btn { grid-column: 1 / -1; padding: 10px 14px; }
     .pkg-theme { position: relative; isolation: isolate; }
     .pkg-theme::before, .pkg-theme::after { content: ""; position: absolute; pointer-events: none; z-index: -1; }
     .theme-fire { border-color: rgba(249,115,22,.58); box-shadow: 0 0 30px rgba(239,68,68,.14); }
@@ -786,10 +793,9 @@
 
   <header class="nav" id="nav">
     <div class="wrap nav-inner">
-      <a class="brand" href="#home" aria-label="BabayShop beranda"><span class="brand-mark">✦</span><span class="brand-text">Babay<span>Shop</span></span></a>
+      <a class="brand" href="#katalog" aria-label="BabayShop beranda"><span class="brand-mark">✦</span><span class="brand-text">Babay<span>Shop</span></span></a>
       <nav class="nav-links" aria-label="Navigasi utama">
         <a href="#katalog">Katalog</a>
-        <a href="#benefit">Info Singkat</a>
         <a href="#alur">Cara Order</a>
         <a href="#ketentuan">Ketentuan</a>
         <a href="#faq">FAQ</a>
@@ -809,38 +815,6 @@
   </header>
 
   <main>
-    <section class="hero" id="home">
-      <div class="wrap hero-inner">
-        <div>
-          <span class="label"><span class="label-dot"></span>Ready & PO</span>
-          <h1 class="hero-title">ChatGPT<br><span class="gradient-text">Plus</span></h1>
-          <p class="hero-lead">Pilih paket ChatGPT sesuai kebutuhan: Plus Private berbagai channel, B2 GPT Plus pakai Email Pembeli, atau Paket Reseller untuk info method/channel dari maker & supplier.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary btn-lg btn-pill" href="#katalog">Pilih Paket</a>
-            <a class="btn btn-amber btn-lg btn-pill" href="#katalog">CHECKOUT!</a>
-          </div>
-        </div>
-
-        <aside class="hero-panel" aria-hidden="true">
-          <div class="window-bar"><span class="dot" style="background:#ef4444"></span><span class="dot" style="background:#f59e0b"></span><span class="dot" style="background:#22c55e"></span><span class="win-title">BabayShop · ChatGPT Dashboard</span><span class="live">● Ready</span></div>
-          <div class="mock-chat">
-            <div class="bubble user"><b>Customer</b><p>Mau ChatGPT yang private, verifikasi OTP manual, dan garansi jelas.</p></div>
-            <div class="bubble ai"><b>BabayShop</b><p>Pilih Plus Private sesuai channel, B2 GPT Plus pakai Email Pembeli, atau Paket Reseller untuk info channel/method GPT.</p></div>
-          </div>
-        </aside>
-      </div>
-    </section>
-    
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker-label">💡 INFO PENTING LAYANAN KAMI 💡</div>
-      <div class="ticker-track">
-        <span class="ticker-item"><span class="ticker-dot"></span><span class="highlight">FUNGSI 100% SAMA:</span> GPT Plus beda channel/metode payment hanya beda cara pembuatan dan pembelian paket saja.</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Harga disesuaikan karena perbedaan modal, kurs, channel supplier, dan tipe layanan. Pilih sesuai budget serta kebutuhan garansi.</span>
-        <span class="ticker-item"><span class="ticker-dot"></span><span class="highlight">FUNGSI 100% SAMA:</span> GPT Plus beda channel/metode payment hanya beda cara pembuatan dan pembelian paket saja.</span>
-        <span class="ticker-item"><span class="ticker-dot"></span>Harga disesuaikan karena perbedaan modal, kurs, channel supplier, dan tipe layanan. Pilih sesuai budget serta kebutuhan garansi.</span>
-      </div>
-    </div>
-
     <section id="katalog">
       <div class="wrap">
         <div class="section-head reveal">
@@ -940,38 +914,35 @@
               <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_SELF_SERVICE_B2" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="#ketentuan-b2">Baca Ketentuan B2</a></div>
             </div>
           </article>
-
-          <article class="pkg pkg-theme theme-ice reveal" data-cat="plus" data-product="PLUS_VCC_C1">
-            <div class="pkg-head"><div class="pkg-code">C1</div><div><h3>GPT Plus Trial 1 Month Private</h3><span class="pkg-role">Bill Apple Pay · Mastercard / Visa</span></div></div>
+          <article class="pkg pkg-theme theme-ice reveal" data-cat="plus" data-product="PLUS_VCC_C_1D">
+            <div class="pkg-head"><div class="pkg-code">C</div><div><h3>GPT Plus Trial 1 Month Private</h3><span class="pkg-role">Bill Apple Pay · Mastercard / Visa</span></div></div>
             <div class="pkg-body">
-              <div class="price"><span class="old-price">Rp120.000</span><strong>Rp70.000</strong><span> / paket</span><span class="badge-mini">Paket Hemat</span></div>
-              <p class="tagline">Pembayaran paket menggunakan Apple Pay melalui kartu Mastercard atau Visa. Akun memakai Gmail disposable dengan durasi aktif sekitar 23–28 hari.</p>
+              <div class="price"><strong>Mulai Rp70.000</strong><span> / paket</span><span class="badge-mini">Pilih Garansi</span></div>
+              <p class="tagline">Satu Paket C dengan pilihan masa garansi. Pembayaran menggunakan Apple Pay melalui Mastercard atau Visa, memakai Gmail disposable, dan durasi aktif sekitar 23–28 hari.</p>
               <ul class="features">
                 <li><span class="chk">✓</span><span>Private, akun digunakan sendiri.</span></li>
-                <li><span class="chk">✓</span><span>Garansi 1 × 48 jam berupa replace akun.</span></li>
-                <li><span class="chk">✓</span><span>Email Menggunakan : Gmail.</span></li>
-                <li><span class="chk">✓</span><span>Durasi 23–28 hari.</span></li>
-                <li><span class="chk">✓</span><span>Verifikasi OTP Codex manual.</span></li>
-                              </ul>
-              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
-              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C1" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
-            </div>
-          </article>
-
-          <article class="pkg pkg-theme theme-ice reveal" data-cat="plus" data-product="PLUS_VCC_C2">
-            <div class="pkg-head"><div class="pkg-code">C2</div><div><h3>GPT Plus Trial 1 Month Private</h3><span class="pkg-role">Bill Apple Pay · Mastercard / Visa</span></div></div>
-            <div class="pkg-body">
-              <div class="price"><span class="old-price">Rp150.000</span><strong>Rp83.000</strong><span> / paket</span><span class="badge-mini">Garansi 5 Hari</span></div>
-              <p class="tagline">Pembayaran paket menggunakan Apple Pay melalui kartu Mastercard atau Visa. Akun memakai Gmail disposable, garansi 5 hari, dan durasi aktif sekitar 23–28 hari.</p>
-              <ul class="features">
-                <li><span class="chk">✓</span><span>Private, akun digunakan sendiri.</span></li>
-                <li><span class="chk">✓</span><span>Garansi 5 hari berupa replace akun atau refund.</span></li>
-                <li><span class="chk">✓</span><span>Email Menggunakan : Gmail.</span></li>
-                <li><span class="chk">✓</span><span>Durasi 23–28 hari.</span></li>
-                <li><span class="chk">✓</span><span>Verifikasi OTP Codex manual.</span></li>
-                              </ul>
-              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
-              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C2" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
+                <li><span class="chk">✓</span><span>Pilih garansi 1 hari, 3 hari, atau 25 hari.</span></li>
+                <li><span class="chk">✓</span><span>Garansi berupa replace akun atau refund sesuai ketentuan.</span></li>
+                <li><span class="chk">✓</span><span>Email menggunakan Gmail disposable.</span></li>
+                <li><span class="chk">✓</span><span>Verifikasi OTP dilakukan manual.</span></li>
+                <li><span class="chk">✓</span><span>Durasi aktif sekitar 23–28 hari.</span></li>
+              </ul>
+              <div class="warranty-options" aria-label="Pilihan garansi Paket C">
+                <div class="warranty-option">
+                  <div><strong>Garansi 1 Hari</strong><small>Status Ready</small></div><span class="option-price">Rp70.000</span>
+                  <button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C_1D" data-product-cta="PLUS_VCC_C_1D" type="button">CHECKOUT 1 HARI</button>
+                </div>
+                <div class="warranty-option">
+                  <div><strong>Garansi 3 Hari</strong><small>Status Ready</small></div><span class="option-price">Rp85.000</span>
+                  <button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C_3D" data-product-cta="PLUS_VCC_C_3D" type="button">CHECKOUT 3 HARI</button>
+                </div>
+                <div class="warranty-option">
+                  <div><strong>Garansi 25 Hari</strong><small>Status Ready</small></div><span class="option-price">Rp135.000</span>
+                  <button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C_25D" data-product-cta="PLUS_VCC_C_25D" type="button">CHECKOUT 25 HARI</button>
+                </div>
+              </div>
+              <div class="stock ready" data-stock><span class="stock-dot"></span><span data-stock-label>Semua Pilihan Ready</span></div>
+              <div class="pkg-actions"><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
             </div>
           </article>
 <article class="pkg reseller-electric reveal" data-cat="reseller" id="reseller" data-product="RESELLER">
@@ -1073,9 +1044,9 @@
             <span class="term-kicker">03 · Garansi</span>
             <h3>Ketentuan garansi paket</h3>
             <ul class="term-list">
-              <li>Paket C1 dan C2 menggunakan Gmail disposable.</li>
+              <li>Paket C menggunakan Gmail disposable dengan pilihan garansi 1 hari, 3 hari, atau 25 hari.</li>
               <li>Metode pembayaran menggunakan payment method yang sah berdasarkan region akun dan dijamin aman dari sisi proses paket.</li>
-              <li>Durasi garansi mengikuti deskripsi paket yang dipilih: Paket A India tanpa garansi setelah akun diterima, BZ.1 garansi 1 x 24 jam (1 hari), BZ.2 garansi 2 hari, B1 Eropa dan B2 Email Pembeli 1 x 48 jam (2 hari), C1 garansi replace akun 1 × 48 jam, serta C2 garansi 5 hari berupa replace akun atau refund.</li>
+              <li>Durasi garansi mengikuti deskripsi paket yang dipilih: Paket A India tanpa garansi setelah akun diterima, BZ.1 garansi 1 hari, BZ.2 garansi 2 hari, B1 Eropa dan B2 Email Pembeli garansi 2 hari, sedangkan Paket C tersedia dengan pilihan garansi 1 hari, 3 hari, atau 25 hari.</li>
               <li>Garansi mengarah ke kendala paket, seperti paket hilang, plan kembali ke Free, atau masalah paket yang bukan disebabkan kesalahan pengguna selama masih berada dalam masa garansi.</li>
               <li class="warn-item">Kami tidak bertanggung jawab dan tidak meng-handle akun yang bermasalah di luar atau setelah melewati masa garansi paket.</li>
               <li class="warn-item">Produk ini merupakan offer GPT trial komersial yang dibayar resmi menggunakan metode pembayaran luar Indonesia. Stabilitas akun tetap mengikuti sistem dan kebijakan OpenAI.</li>
@@ -1112,7 +1083,7 @@
           <h2 class="section-title">Pertanyaan yang sering ditanyakan</h2>
         </div>
         <div class="faq reveal">
-          <details open><summary>Bedanya Plus Channel India, BZ.1, BZ.2, B1 Eropa, B2 Email Pembeli, C1, dan C2 apa?</summary><div class="faq-content">Fungsi Plus utamanya sama, tetapi tipe layanan, metode pembayaran, harga, dan masa garansinya berbeda. C1 seharga Rp70.000 dengan garansi replace akun 1 × 48 jam, sedangkan C2 seharga Rp83.000 dengan garansi 5 hari berupa replace akun atau refund. C1 dan C2 menggunakan Gmail disposable, berdurasi 23–28 hari.</div></details>
+          <details open><summary>Bedanya Plus Channel India, BZ.1, BZ.2, B1 Eropa, B2 Email Pembeli, dan Paket C apa?</summary><div class="faq-content">Fungsi Plus utamanya sama, tetapi tipe layanan, metode pembayaran, harga, dan masa garansinya berbeda. Paket C dibuat menjadi satu pilihan dengan harga Rp70.000 untuk garansi 1 hari, Rp85.000 untuk garansi 3 hari, dan Rp135.000 untuk garansi 25 hari. Paket C menggunakan Gmail disposable dengan durasi sekitar 23–28 hari.</div></details>
 <details><summary>Apa itu Paket B2 GPT Plus Email Pembeli?</summary><div class="faq-content">B2 adalah GPT Plus 1 bulan menggunakan email pembeli sendiri, harga Rp45.000, garansi 1 x 48 jam (2 hari), dan method payment Polandia / Belanda.</div></details>
           <details><summary>Apa itu Paket Reseller?</summary><div class="faq-content">Paket Reseller adalah paket info method/channel GPT Plus dan layanan lainnya langsung dari maker & supplier. Harga promo Rp120.000 lifetime, cocok untuk yang ingin mulai jadi reseller GPT dan mencari channel dengan modal lebih murah.</div></details>
           <details><summary>Kapan garansi bisa hangus?</summary><div class="faq-content">Garansi bisa hangus jika akun digunakan berlebihan, spam, dipakai banyak perangkat, dibagikan ke orang lain, memakai cookies/token, API/tools pihak ketiga, proxy/router terlarang, atau mengubah profile, password, billing, maupun plan akun.</div></details>
@@ -1369,8 +1340,9 @@
         PLUS_BRAZIL_PIX_BZ2: 'soldout',
         PLUS_EUROPE_B1: 'soldout',
         PLUS_SELF_SERVICE_B2: 'soldout',
-        PLUS_VCC_C1: 'soldout',
-        PLUS_VCC_C2: 'soldout',
+        PLUS_VCC_C_1D: 'ready',
+        PLUS_VCC_C_3D: 'ready',
+        PLUS_VCC_C_25D: 'ready',
         RESELLER: 'preorder'
       };
 
@@ -1440,27 +1412,38 @@
           maxQty: 10,
           note: 'Pakai email pembeli. Method payment Polandia / Belanda. Garansi 1 x 48 jam (2 hari).'
         },
-        PLUS_VCC_C1: {
-          code: 'C1',
-          name: 'GPT Plus Trial 1 Month Private',
+        PLUS_VCC_C_1D: {
+          code: 'C-1D',
+          name: 'GPT Plus Trial 1 Month Private — Paket C',
           method: 'Bill Apple Pay · Mastercard / Visa',
           price: 70000,
-          warranty: '1 × 48 jam (Replace akun)',
+          warranty: 'Garansi 1 hari (Replace akun / Refund sesuai ketentuan)',
           duration: '23–28 hari',
-          desc: 'Pembayaran menggunakan Apple Pay melalui Mastercard atau Visa. Menggunakan Gmail disposable.',
+          desc: 'Paket C dengan garansi 1 hari. Pembayaran menggunakan Apple Pay melalui Mastercard atau Visa dan memakai Gmail disposable.',
           emailRequired: false,
-          note: 'Verifikasi OTP dilakukan manual. Gmail Disposable.'
+          note: 'Status Ready. Verifikasi OTP manual. Gmail disposable.'
         },
-        PLUS_VCC_C2: {
-          code: 'C2',
-          name: 'GPT Plus Trial 1 Month Private',
+        PLUS_VCC_C_3D: {
+          code: 'C-3D',
+          name: 'GPT Plus Trial 1 Month Private — Paket C',
           method: 'Bill Apple Pay · Mastercard / Visa',
-          price: 83000,
-          warranty: '5 Hari (Replace akun / Refund)',
+          price: 85000,
+          warranty: 'Garansi 3 hari (Replace akun / Refund sesuai ketentuan)',
           duration: '23–28 hari',
-          desc: 'Pembayaran menggunakan Apple Pay melalui Mastercard atau Visa. Menggunakan Gmail disposable dengan garansi 5 hari.',
+          desc: 'Paket C dengan garansi 3 hari. Pembayaran menggunakan Apple Pay melalui Mastercard atau Visa dan memakai Gmail disposable.',
           emailRequired: false,
-          note: 'Verifikasi OTP dilakukan manual. Gmail Disposable.'
+          note: 'Status Ready. Verifikasi OTP manual. Gmail disposable.'
+        },
+        PLUS_VCC_C_25D: {
+          code: 'C-25D',
+          name: 'GPT Plus Trial 1 Month Private — Paket C',
+          method: 'Bill Apple Pay · Mastercard / Visa',
+          price: 135000,
+          warranty: 'Garansi 25 hari (Replace akun / Refund sesuai ketentuan)',
+          duration: '23–28 hari',
+          desc: 'Paket C dengan garansi 25 hari. Pembayaran menggunakan Apple Pay melalui Mastercard atau Visa dan memakai Gmail disposable.',
+          emailRequired: false,
+          note: 'Status Ready. Verifikasi OTP manual. Gmail disposable.'
         },
         RESELLER: {
           code: 'E',
@@ -1516,9 +1499,6 @@
       }
 
       function getFulfillmentText(status, productId = '') {
-        if (status === 'preorder' && productId === 'PLUS_VCC_C2') {
-          return 'Estimasi 2 jam–1 hari; bisa lebih lama tetapi jarang, dan umumnya paling lama seharian';
-        }
         if (status === 'preorder') return 'Mengikuti estimasi pre order pada deskripsi paket';
         if (status === 'ready') return 'Langsung diberikan setelah pembayaran dikonfirmasi';
         return 'Belum tersedia';
@@ -1562,15 +1542,7 @@
             element.classList.toggle('is-soldout', status === 'soldout');
             if (stock) stock.className = `stock ${meta.className}`;
             if (stockLabel) stockLabel.textContent = meta.label;
-            if (productId === 'PLUS_VCC_C2') {
-              $$('[data-c2-process]', element).forEach(item => {
-                item.textContent = status === 'preorder'
-                  ? 'Open Pre Order: estimasi 2 jam–1 hari; bisa lebih lama tetapi jarang, dan umumnya paling lama seharian.'
-                  : status === 'ready'
-                    ? 'Ready: akun langsung dikirim setelah pembayaran dikonfirmasi.'
-                    : 'Produk sedang Sold Out.';
-              });
-            }
+            if (productId === 'PLUS_VCC_C_1D' && stockLabel) stockLabel.textContent = 'Semua Pilihan Ready';
             setCheckoutButtonState(buyButton, status);
           }
 
@@ -1727,7 +1699,7 @@
         summaryQty.textContent = qty + 'x';
         
         let base = currentProduct.price * qty;
-        currentDiscPct = qty >= 2 ? Math.min(Number((qty * 0.7).toFixed(1)), 7) : 0;
+        currentDiscPct = qty >= 2 ? Math.min(qty, 10) : 0;
         currentDiscAmt = Math.floor(base * (currentDiscPct / 100));
         currentFinalBase = base - currentDiscAmt;
 
@@ -2003,12 +1975,8 @@
           `Kode Unik: +${rupiah(unique)}\n` +
           `Total Transfer: ${rupiah(total)}\n` +
           `Garansi: ${currentProduct.warranty}\n` +
-          `Durasi: ${currentProduct.duration}\n` +
-          (currentProduct.id === 'PLUS_VCC_C1'
-            ? `\nCatatan:\n• Verifikasi OTP manual\n• Durasi 23–28 hari\n• Gmail Disposable\n`
-            : currentProduct.id === 'PLUS_VCC_C2'
-              ? `\nGaransi:\n5 Hari (Replace akun / Refund)\n\nCatatan:\n• Verifikasi OTP manual\n• Durasi 23–28 hari\n• Gmail Disposable\n`
-              : `Catatan Paket: ${currentProduct.note}\n`) +
+          `Durasi: ${currentProduct.duration}\n` +          `Catatan Paket: ${currentProduct.note}
+` +
           `Metode Pembayaran: ${pay.label}\n` +
           `ID Transaksi: ${txId.textContent}\n\n` +
           `Saya sudah membaca detail paket dan memahami bahwa kendala di luar atau setelah masa garansi tidak menjadi tanggung jawab BabayShop serta tidak akan di-handle. Saya akan melampirkan bukti pembayaran. Tolong segera diproses, terima kasih.`;
@@ -2099,6 +2067,7 @@
   
   
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
