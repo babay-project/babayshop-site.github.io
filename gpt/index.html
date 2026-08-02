@@ -411,6 +411,77 @@
     .notice li::before { content: "•"; position: absolute; left: 3px; color: var(--amber); font-weight: 600; }
     .notice a { color: #a5f3fc; font-weight: 600; }
 
+
+    /* PERINGATAN DYOR DI ATAS PILIHAN PAKET */
+    .dyor-warning {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      margin: 0 0 24px;
+      padding: 20px;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(251,191,36,.38);
+      background: linear-gradient(135deg, rgba(251,191,36,.11), rgba(239,68,68,.055));
+      box-shadow: 0 16px 38px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.05);
+    }
+    .dyor-warning::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at top right, rgba(251,191,36,.13), transparent 38%);
+    }
+    .dyor-warning > * { position: relative; }
+    .dyor-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 15px;
+      color: #111827;
+      background: linear-gradient(135deg, #fde68a, #f59e0b);
+      box-shadow: 0 12px 28px rgba(245,158,11,.20);
+      font-size: 23px;
+    }
+    .dyor-content h3 {
+      margin: 1px 0 8px;
+      color: #fef3c7;
+      font-family: var(--font-title);
+      font-size: 18px;
+      line-height: 1.3;
+    }
+    .dyor-content p {
+      color: #e5e7eb;
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+    .dyor-content strong { color: #fde68a; }
+    .dyor-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+    .dyor-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: #fdebd3;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(251,191,36,.18);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    @media (max-width: 620px) {
+      .dyor-warning { grid-template-columns: 1fr; gap: 12px; padding: 17px; }
+      .dyor-icon { width: 42px; height: 42px; border-radius: 13px; font-size: 20px; }
+    }
+
     .terms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
     .term-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; position: relative; overflow: hidden; }
     .term-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(34,211,238,.10), transparent 42%); pointer-events: none; }
@@ -824,6 +895,20 @@
           <div class="filters">
             <button class="filter-chip active" data-stock-filter="ready" type="button">Produk Ready</button>
             <button class="filter-chip soldout-control" data-stock-filter="soldout" type="button">Produk Sold Out</button>
+          </div>
+        </div>
+
+
+        <div class="dyor-warning reveal" role="note" aria-label="Peringatan sebelum membeli">
+          <div class="dyor-icon" aria-hidden="true">⚠️</div>
+          <div class="dyor-content">
+            <p>Produk yang tersedia merupakan <strong>produk digital komersial</strong> dengan harga lebih murah dibandingkan langganan resmi. Tidak ada jaminan permanen; perlindungan hanya berlaku sesuai <strong>masa garansi paket yang dipilih</strong>. Setelah masa garansi berakhir, kendala di luar garansi tidak dapat diklaim. Dengan melakukan pembelian, pembeli dianggap sudah memahami dan menerima risiko produk digital. Apabila tidak ingin mengambil risiko, silakan berlangganan langsung melalui layanan resmi.</p>
+            <div class="dyor-points" aria-label="Ringkasan peringatan">
+             
+              <span class="dyor-chip">Garansi sesuai pilihan</span>
+          
+              <span class="dyor-chip">Alternatif: langganan resmi</span>
+            </div>
           </div>
         </div>
 
