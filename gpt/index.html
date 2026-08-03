@@ -4,6 +4,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -626,7 +627,7 @@
     
     .modal-overlay { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(2,4,10,.84); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity .25s; }
     .modal-overlay.active { opacity: 1; pointer-events: auto; }
-    .modal { width: min(520px, 100%); max-height: calc(100vh - 40px); overflow: hidden; display: flex; flex-direction: column; background: #0d101b; border: 1px solid var(--border2); border-radius: 24px; box-shadow: 0 34px 90px rgba(0,0,0,.68); transform: translateY(18px); transition: transform .25s; }
+    .modal { position: relative; width: min(520px, 100%); max-height: calc(100vh - 40px); overflow: hidden; display: flex; flex-direction: column; background: #0d101b; border: 1px solid var(--border2); border-radius: 24px; box-shadow: 0 34px 90px rgba(0,0,0,.68); transform: translateY(18px); transition: transform .25s; }
     .modal-overlay.active .modal { transform: translateY(0); }
     .modal-head { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .modal-head-main { min-width: 0; display: flex; align-items: center; gap: 12px; }
@@ -638,6 +639,9 @@
     .modal-back:active { transform: scale(.97); }
     .modal-close { background: transparent; color: var(--muted); border: 0; cursor: pointer; font-size: 26px; line-height: 1; }
     .modal-body { padding: 24px; overflow-y: auto; }
+    .scroll-cue { position: absolute; left: 50%; bottom: 9px; z-index: 8; display: none; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid rgba(34,211,238,.34); border-radius: 999px; color: #cffafe; background: rgba(7,11,22,.94); box-shadow: 0 8px 24px rgba(0,0,0,.48); font-size: 10.5px; font-weight: 800; transform: translateX(-50%); cursor: pointer; animation: scrollCueBounce 1.4s ease-in-out infinite; }
+    .modal.has-more .scroll-cue { display: inline-flex; }
+    @keyframes scrollCueBounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 4px); } }
     .checkout-step { display: none; }
     .checkout-step.active { display: block; }
     .desc { color: var(--muted); font-size: 13.5px; line-height: 1.6; margin-bottom: 18px; }
@@ -719,6 +723,9 @@
     .btn:disabled { opacity: .48; cursor: not-allowed; box-shadow: none; }
     .btn:disabled:hover { transform: none; }
     .fb-confirm-note { margin-top: 10px; color: var(--muted); font-size: 11.5px; line-height: 1.5; text-align: center; }
+    .payment-proof-check { width: 100%; margin: 0 0 12px; padding: 12px 13px; border: 1px solid rgba(34,197,94,.24); border-radius: 14px; background: rgba(34,197,94,.065); color: #dcfce7; }
+    .payment-proof-check input { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 0; accent-color: #22c55e; }
+    .payment-proof-hint { width: 100%; margin: -5px 0 12px; color: #fde68a; font-size: 11.5px; line-height: 1.45; text-align: center; }
     .fb-confirm-note a, .fb-post-link { color: #93c5fd; text-decoration: underline; text-underline-offset: 3px; }
     .fb-post-link { display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 700; }
     .confirmation-flow, .fb-flow-actions { width: 100%; display: grid; gap: 12px; margin-bottom: 12px; }
@@ -806,6 +813,62 @@
       .modal { max-height: calc(100vh - 18px); border-radius: 13px; }
       .modal-head { padding: 14px 17px; }
       .modal-body { padding: 16px; }
+      /* Checkout mobile dibuat seperti bottom sheet agar ruang layar lebih efisien. */
+      .modal-overlay { align-items: flex-end; padding: 0; }
+      .modal { width: 100%; max-height: 94dvh; border-radius: 18px 18px 0 0; border-bottom: 0; }
+      .modal-head { position: sticky; top: 0; z-index: 4; padding: 10px 14px; background: rgba(13,16,27,.97); backdrop-filter: blur(14px); }
+      .modal-head h2 { font-size: 15px; }
+      .modal-sub { max-width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10.5px; }
+      .modal-close { width: 36px; height: 36px; font-size: 24px; }
+      .modal-back { padding: 7px 8px; font-size: 10.5px; }
+      .modal-body { padding: 12px 14px calc(14px + env(safe-area-inset-bottom)); overscroll-behavior: contain; }
+      .modal.has-more .modal-body { padding-bottom: calc(55px + env(safe-area-inset-bottom)); }
+      .scroll-cue { bottom: calc(9px + env(safe-area-inset-bottom)); }
+      .desc { margin-bottom: 10px; font-size: 11.5px; line-height: 1.45; }
+      .form { gap: 10px; }
+      .qty-box { margin-bottom: 2px; }
+      .qty-box .hint { font-size: 10px; line-height: 1.35; }
+      .check-row { font-size: 10.5px; line-height: 1.4; }
+      .summary { gap: 5px; padding: 10px 12px; border-radius: 12px; }
+      .summary-row { font-size: 11px; }
+      .summary-row strong { max-width: 68%; font-size: 13px; text-align: right; }
+      .qty-controls { padding: 4px; }
+      .qty-btn { width: 31px; height: 31px; }
+      .pay-box { display: block; }
+      .timer { margin-bottom: 8px; font-size: 11px; text-align: center; }
+      .qr { width: min(52vw, 190px); margin: 0 auto 10px; padding: 8px; }
+      .qr img { display: block; width: 100%; height: auto; aspect-ratio: 1; }
+      .pay-switch { margin-bottom: 9px; }
+      .pay-toggle { padding: 9px 11px; border-radius: 11px; font-size: 11.5px; animation: none; }
+      .pay-list { max-height: 180px; overflow-y: auto; padding: 5px; }
+      .pay-option { padding: 8px 9px; font-size: 11px; }
+      .pay-card { padding: 11px; margin-bottom: 9px; }
+      .pay-card h3 { font-size: 16px; }
+      .number-box { padding: 8px; }
+      .pay-details { padding: 9px 11px; margin-bottom: 9px; border-radius: 12px; }
+      .pay-row { padding: 4px 0; font-size: 10.5px; }
+      .pay-row strong { max-width: 64%; }
+      .pay-row-total { align-items: flex-start; }
+      .total-copy-wrap { gap: 5px; }
+      .total { font-size: 14px !important; }
+      .total-selectable, .total-copy-btn { padding: 6px 7px; }
+      .pay-warning { margin-bottom: 9px; font-size: 10.5px; line-height: 1.4; }
+      .payment-proof-check { margin-bottom: 8px; padding: 9px 10px; font-size: 10.5px; }
+      .payment-proof-hint { margin: -2px 0 8px; font-size: 10px; }
+      .confirm-actions { gap: 7px; }
+      .confirm-actions .btn { min-height: 42px; }
+      .fb-confirm-note { margin-top: 7px; font-size: 9.5px; line-height: 1.35; }
+      .success { padding-top: 0; }
+      .success-badge { margin-bottom: 9px; padding: 7px 10px; font-size: 11px; }
+      .success h3 { margin-bottom: 5px; font-size: 17px; }
+      .success > p { margin-bottom: 10px; font-size: 11px; line-height: 1.4; }
+      .confirmation-flow, .fb-flow-actions { gap: 8px; }
+      .confirmation-step { padding: 10px; border-radius: 12px; }
+      .confirmation-step-head { gap: 8px; margin-bottom: 7px; }
+      .confirmation-step-number { width: 24px; height: 24px; }
+      .confirmation-step h4 { font-size: 12px; }
+      .confirmation-step p { font-size: 10.5px; line-height: 1.4; }
+      .confirmation-preview { min-height: 105px; max-height: 135px; padding: 8px; font-size: 9.5px; }
     }
     @media (max-width: 380px) {
       .hero-actions, .cta-actions, .steps, .filters { grid-template-columns: 1fr; }
@@ -1265,6 +1328,8 @@
               <div class="pay-row pay-row-total"><span>Total Transfer</span><div class="total-copy-wrap"><strong class="total total-selectable" id="totalPrice" tabindex="0" title="Nominal dapat diblok atau diklik untuk disalin">Rp0</strong><button class="copy-btn total-copy-btn" id="copyTotal" type="button">Salin Nominal</button></div></div>
             </div>
             <p class="pay-warning">Transfer sesuai nominal sampai 3 digit terakhir agar verifikasi lebih mudah. Setelah bayar, buka panduan konfirmasi, salin rincian, lalu hubungi admin pilihan Anda.</p>
+            <label class="check-row payment-proof-check"><input id="paymentCompleted" type="checkbox"><span>Saya sudah menyelesaikan pembayaran sesuai total transfer di atas dan siap melampirkan bukti pembayaran.</span></label>
+            <p class="payment-proof-hint" id="paymentProofHint">Centang konfirmasi pembayaran untuk mengaktifkan tombol WhatsApp/Facebook.</p>
             <div class="confirm-actions">
               <button class="btn btn-wa btn-block btn-lg" id="confirmWa" type="button" disabled><svg class="wa-icon" aria-hidden="true" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg> Lanjut Konfirmasi via WhatsApp (Rekomendasi)</button>
               <button class="btn btn-fb btn-block btn-lg" id="confirmFb" type="button" disabled>Lanjut Konfirmasi via Facebook</button>
@@ -1333,6 +1398,7 @@
           </div>
         </div>
       </div>
+      <button class="scroll-cue" id="scrollCue" type="button" aria-label="Geser untuk melihat isi checkout berikutnya">Geser ke bawah <span aria-hidden="true">↓</span></button>
     </div>
   </div>
 
@@ -1573,8 +1639,7 @@
       }
 
       function isQrisAvailable() {
-        const minuteOfDay = getJakartaMinuteOfDay();
-        return minuteOfDay >= QRIS_OPEN_MINUTE && minuteOfDay < QRIS_CLOSE_MINUTE;
+        return true;
       }
 
       function getAvailablePaymentKeys() {
@@ -1705,6 +1770,9 @@
       updateCatalogVisibility();
 
       const checkoutModal = $('#checkoutModal');
+      const checkoutDialog = $('.modal', checkoutModal);
+      const modalBody = $('.modal-body', checkoutModal);
+      const scrollCue = $('#scrollCue');
       const modalBack = $('#modalBack');
       const modalClose = $('#modalClose');
       const closeSuccess = $('#closeSuccess');
@@ -1751,6 +1819,8 @@
       const payDestination = $('#payDestination');
       const confirmWa = $('#confirmWa');
       const confirmFb = $('#confirmFb');
+      const paymentCompleted = $('#paymentCompleted');
+      const paymentProofHint = $('#paymentProofHint');
       const waFlowActions = $('#waFlowActions');
       const waConfirmationPreview = $('#waConfirmationPreview');
       const copyConfirmationWa = $('#copyConfirmationWa');
@@ -1804,7 +1874,18 @@
         [stepInput, stepPay, stepSuccess].forEach(s => s.classList.toggle('active', s === step));
         modalBack.hidden = step === stepInput;
         modalBack.setAttribute('aria-label', step === stepSuccess ? 'Kembali ke pembayaran' : 'Kembali ke detail paket');
+        modalBody.scrollTop = 0;
+        requestAnimationFrame(updateModalScrollCue);
       }
+
+      function updateModalScrollCue() {
+        const hasMore = modalBody.scrollHeight - modalBody.scrollTop - modalBody.clientHeight > 18;
+        checkoutDialog.classList.toggle('has-more', checkoutModal.classList.contains('active') && hasMore);
+      }
+
+      modalBody.addEventListener('scroll', updateModalScrollCue, { passive: true });
+      window.addEventListener('resize', updateModalScrollCue);
+      scrollCue.addEventListener('click', () => modalBody.scrollBy({ top: Math.max(160, modalBody.clientHeight * .55), behavior: 'smooth' }));
 
       function openModal(productId) {
         const product = PRODUCTS[productId];
@@ -1813,8 +1894,10 @@
 
         currentProduct = { ...product, id: productId, status };
         qty = 1;
-        modalProduct.textContent = `${currentProduct.code}. ${currentProduct.name} · ${currentProduct.method}`;
-        packageDesc.textContent = `Status: ${STATUS_META[currentProduct.status].label}. ${currentProduct.desc} Estimasi proses: ${getFulfillmentText(currentProduct.status, currentProduct.id)}. Baca ketentuan sebelum lanjut checkout.`;
+        const shortName = currentProduct.name.replace('GPT Plus Trial 1 Month Private — ', '').replace('GPT Plus Trial 1 Month Private', 'GPT Plus Private');
+        const shortWarranty = currentProduct.warranty.split('(')[0].trim();
+        modalProduct.textContent = `${currentProduct.code} • ${shortName}`;
+        packageDesc.textContent = `${STATUS_META[currentProduct.status].label} • ${shortWarranty} • Diproses setelah pembayaran.`;
         summaryName.textContent = currentProduct.name;
         
         agree.checked = true;
@@ -1828,10 +1911,12 @@
         showStep(stepInput);
         checkoutModal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        requestAnimationFrame(updateModalScrollCue);
       }
 
       function closeModal() {
         checkoutModal.classList.remove('active');
+        checkoutDialog.classList.remove('has-more');
         document.body.style.overflow = '';
         clearInterval(countdown);
         currentProduct = null;
@@ -1866,10 +1951,14 @@
         uniqueCode.textContent = `+${rupiah(unique)}`;
         totalPrice.textContent = rupiah(total);
         
+        paymentCompleted.checked = false;
         selectedPay = null;
         refreshPaymentAvailability(true);
-        payList.classList.add('active');
-        payToggle.setAttribute('aria-expanded', 'true');
+        const defaultPayment = getAvailablePaymentKeys().includes('QRIS') ? 'QRIS' : getAvailablePaymentKeys()[0];
+        if (defaultPayment) setPayment(defaultPayment);
+        payList.classList.remove('active');
+        payToggle.setAttribute('aria-expanded', 'false');
+        updateConfirmationAvailability();
         startTimer(10 * 60);
         showStep(stepPay);
       }
@@ -1948,6 +2037,18 @@
         $$('.pay-option', payList).forEach(btn => btn.classList.remove('active'));
       }
 
+      function updateConfirmationAvailability() {
+        const ready = Boolean(selectedPay && paymentCompleted.checked);
+        confirmWa.disabled = !ready;
+        confirmFb.disabled = !ready;
+        paymentProofHint.textContent = ready
+          ? 'Pembayaran dikonfirmasi. Silakan lanjut dan lampirkan bukti pembayaran di chat admin.'
+          : 'Centang konfirmasi pembayaran untuk mengaktifkan tombol WhatsApp/Facebook.';
+        paymentProofHint.style.color = ready ? '#bbf7d0' : '#fde68a';
+      }
+
+      paymentCompleted.addEventListener('change', updateConfirmationAvailability);
+
       function setPayment(key) {
         const availableKeys = getAvailablePaymentKeys();
         if (!availableKeys.includes(key)) {
@@ -1961,8 +2062,7 @@
         payMethodUsed.textContent = data.label;
         payDestination.textContent = data.number;
         payToggle.classList.remove('needs-selection');
-        confirmWa.disabled = false;
-        confirmFb.disabled = false;
+        updateConfirmationAvailability();
         $$('.pay-option', payList).forEach(btn => btn.classList.toggle('active', btn.dataset.paymentKey === selectedPay));
         if (selectedPay === 'QRIS') {
           qrBox.hidden = false;
@@ -1991,8 +2091,10 @@
         } else {
           resetPaymentSelection();
           if (stepPay.classList.contains('active')) {
-            payList.classList.add('active');
-            payToggle.setAttribute('aria-expanded', 'true');
+            const defaultPayment = availableKeys.includes('QRIS') ? 'QRIS' : availableKeys[0];
+            if (defaultPayment) setPayment(defaultPayment);
+            payList.classList.remove('active');
+            payToggle.setAttribute('aria-expanded', 'false');
           }
         }
       }
@@ -2152,6 +2254,7 @@
   
   
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
 </body>
