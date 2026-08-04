@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panduan Google AI Pro Family Sharing - BabayShop</title>
+    <meta name="description" content="Panduan dua skema penggunaan Google AI Pro Family Sharing dari BabayShop." />
+    <meta name="theme-color" content="#050505" />
+    <style>
+      :root {
+        --bg: #050505;
+        --panel: #0a0a0a;
+        --soft: rgba(255, 255, 255, 0.05);
+        --line: rgba(255, 255, 255, 0.11);
+        --text: #e7e7e7;
+        --muted: #a3a3a3;
+        --white: #fff;
+        --green: #4ade80;
+        --blue: #60a5fa;
+        --amber: #fbbf24;
+        --red: #f87171;
+        --radius: 14px;
+        --max: 980px;
+        --font: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background:
+          linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+        background-size: 32px 32px;
+        mask-image: radial-gradient(circle at 50% 0, #000, transparent 75%);
+      }
+      a { color: inherit; text-decoration: none; }
+      strong { color: var(--white); }
+      .wrap { width: min(var(--max), calc(100% - 28px)); margin-inline: auto; }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--line);
+        background: rgba(5,5,5,.88);
+        backdrop-filter: blur(14px);
+      }
+      .nav-inner {
+        min-height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .brand { font-size: 15px; font-weight: 800; }
+      .nav-link { font-size: 12px; color: var(--muted); }
+
+      .hero { padding: 54px 0 28px; text-align: center; }
+      .eyebrow {
+        display: inline-flex;
+        padding: 5px 10px;
+        margin-bottom: 14px;
+        border: 1px solid rgba(74,222,128,.24);
+        border-radius: 999px;
+        background: rgba(74,222,128,.08);
+        color: var(--green);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+      }
+      h1 {
+        max-width: 760px;
+        margin: auto;
+        color: var(--white);
+        font-size: clamp(27px, 5vw, 45px);
+        line-height: 1.14;
+        letter-spacing: -.04em;
+      }
+      .hero p { max-width: 660px; margin: 14px auto 0; color: var(--muted); font-size: 15px; }
+
+      .card {
+        padding: 22px;
+        margin-bottom: 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+      }
+      .card-title {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding-bottom: 12px;
+        margin-bottom: 14px;
+        border-bottom: 1px solid var(--line);
+        color: var(--white);
+        font-size: 18px;
+      }
+      .intro-grid, .scheme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .account {
+        padding: 15px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--soft);
+      }
+      .account b { display: block; margin-bottom: 3px; }
+      .account span { color: var(--muted); font-size: 13px; }
+
+      .scheme {
+        position: relative;
+        overflow: hidden;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+      }
+      .scheme::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--blue); }
+      .scheme:nth-child(2)::before { background: var(--green); }
+      .scheme-label { color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+      .scheme:nth-child(2) .scheme-label { color: var(--green); }
+      .scheme h2 { margin: 5px 0 7px; color: var(--white); font-size: 19px; line-height: 1.3; }
+      .scheme > p { margin-bottom: 15px; color: var(--muted); font-size: 13.5px; }
+
+      .steps { list-style: none; counter-reset: step; display: grid; gap: 12px; }
+      .steps li { position: relative; padding-left: 35px; color: var(--muted); font-size: 13.5px; }
+      .steps li::before {
+        counter-increment: step;
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: 1px;
+        width: 23px;
+        height: 23px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: var(--soft);
+        color: var(--white);
+        font-size: 11px;
+        font-weight: 800;
+      }
+      .note {
+        padding: 14px;
+        margin-top: 16px;
+        border: 1px dashed rgba(251,191,36,.35);
+        border-radius: 9px;
+        background: rgba(251,191,36,.06);
+        color: #f7df9d;
+        font-size: 13px;
+      }
+      .note b { color: var(--amber); }
+
+      .plain-list { list-style: none; display: grid; gap: 9px; }
+      .plain-list li { position: relative; padding-left: 20px; color: var(--muted); font-size: 14px; }
+      .plain-list li::before { content: "•"; position: absolute; left: 5px; color: var(--green); }
+      .danger li::before { color: var(--red); }
+
+      .warranty {
+        border-color: rgba(248,113,113,.25);
+        background: linear-gradient(135deg, rgba(248,113,113,.06), var(--panel) 60%);
+      }
+      .warranty p { color: var(--muted); font-size: 14px; }
+      .warranty p + p { margin-top: 10px; }
+
+      .actions { display: flex; gap: 10px; margin-top: 20px; }
+      .btn {
+        min-height: 43px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 16px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--soft);
+        color: var(--white);
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .btn-primary { background: var(--white); color: #050505; border-color: var(--white); }
+      footer { padding: 30px 0; text-align: center; color: #666; font-size: 12px; }
+
+      @media (max-width: 720px) {
+        .wrap { width: min(100% - 20px, var(--max)); }
+        .nav-inner { min-height: 50px; }
+        .nav-link { display: none; }
+        .hero { padding: 34px 5px 22px; }
+        .hero p { font-size: 13.5px; }
+        .card { padding: 16px; margin-bottom: 12px; }
+        .intro-grid, .scheme-grid { grid-template-columns: 1fr; gap: 12px; }
+        .scheme { padding: 17px; }
+        .scheme h2 { font-size: 17px; }
+        .actions { flex-direction: column; }
+        .btn { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="#top">✦ BabayShop</a>
+        <a class="nav-link" href="https://babay.web.id/google">Kembali ke katalog Google AI</a>
+      </div>
+    </nav>
+
+    <main class="wrap" id="top">
+      <header class="hero">
+        <span class="eyebrow">Panduan Family Sharing</span>
+        <h1>Pengaturan Google AI Pro dalam 2 Skema</h1>
+        <p>Pilih posisi Family Manager yang paling sesuai. Kedua skema menghubungkan Gmail pribadi pembeli dengan Gmail Pro dari seller.</p>
+      </header>
+
+      <section class="card">
+        <h2 class="card-title">📦 Persiapan Akun</h2>
+        <div class="intro-grid">
+          <div class="account">
+            <b>1 Gmail Pribadi Pembeli</b>
+            <span>Akun milik pembeli yang akan menerima benefit Google AI Pro.</span>
+          </div>
+          <div class="account">
+            <b>1 Gmail Pro dari Seller</b>
+            <span>Akun pembawa benefit Pro. Data akun ini juga akan diberikan kepada pembeli.</span>
+          </div>
+        </div>
+        <div class="note"><b>Estimasi penyiapan Gmail Pro:</b> tercepat 1–2 jam dan paling lama 1–2 hari.</div>
+      </section>
+
+      <div class="scheme-grid">
+        <section class="scheme" id="skema-1">
+          <span class="scheme-label">Skema 1</span>
+          <h2>Gmail Pembeli Menjadi Head</h2>
+          <p>Gmail pribadi pembeli menjadi Family Manager, sedangkan Gmail Pro dari seller menjadi member.</p>
+          <ol class="steps">
+            <li>Buka pengaturan Google, masuk ke <strong>Kelola akun → Keluarga → Siapkan keluarga</strong>, lalu buat keluarga baru.</li>
+            <li>Jika Gmail pribadi masih menjadi anggota keluarga lain, keluar terlebih dahulu. Akun pembeli harus menjadi pengelola keluarga sendiri.</li>
+            <li>Setelah Gmail Pro siap, admin akan memberi tahu alamat email yang harus diundang. Invite Gmail Pro tersebut sebagai member.</li>
+            <li>Admin menerima undangan melalui Gmail Pro dan membagikan benefit Google AI Pro kepada keluarga pembeli.</li>
+            <li>Gmail pribadi pembeli mendapat benefit Pro sepenuhnya. Pembeli masih memiliki 4 slot untuk mengundang Gmail lain.</li>
+          </ol>
+          <div class="note"><b>Kuota digunakan bersama:</b> seluruh anggota dalam satu keluarga memakai pool yang sama, termasuk 5 TB penyimpanan dan 1.000 token. Untuk penggunaan pribadi, cukup isi keluarga dengan Gmail pembeli dan Gmail Pro dari admin.</div>
+        </section>
+
+        <section class="scheme" id="skema-2">
+          <span class="scheme-label">Skema 2</span>
+          <h2>Gmail Pro Menjadi Head</h2>
+          <p>Skema ini lebih simpel. Gmail Pro dari admin menjadi Family Manager dan pembeli tinggal menunggu akun selesai disiapkan.</p>
+          <ol class="steps">
+            <li>Tunggu proses penyiapan akun dengan estimasi tercepat 1–2 jam dan paling lama 1–2 hari.</li>
+            <li>Setelah siap, admin memberikan data Gmail Pro kepada pembeli.</li>
+            <li>Pembeli dapat memakai akun tersebut dan mengundang hingga 5 Gmail lain sebagai anggota keluarga.</li>
+            <li>Semua anggota yang berhasil masuk ke keluarga akan menerima benefit Google AI Pro dari akun Head.</li>
+          </ol>
+          <div class="note"><b>Ingat:</b> kuota dan benefit dalam keluarga digunakan bersama oleh seluruh anggota.</div>
+        </section>
+      </div>
+
+      <section class="card" style="margin-top: 18px;">
+        <h2 class="card-title">🔐 Login & Pengamanan Gmail Pro</h2>
+        <ul class="plain-list">
+          <li>Login-kan Gmail Pro terlebih dahulu di smartphone pembeli. Lebih disarankan menggunakan aplikasi Google di Android.</li>
+          <li>Setelah berhasil masuk, segera ganti password dan data akun, lalu tambahkan nomor HP pemulihan milik pembeli.</li>
+          <li>Saat login, biasanya diperlukan email, password, email pemulihan, dan kode verifikasi.</li>
+          <li>Untuk metode verifikasi, pilih <strong>Google Authenticator</strong>. Jika opsi tersebut belum terlihat, pilih <strong>Coba cara lain / Try another way</strong> sampai Google Authenticator tersedia.</li>
+          <li>Pastikan akun tetap login di smartphone agar akses dan pemulihan akun lebih mudah.</li>
+        </ul>
+      </section>
+
+      <section class="card warranty">
+        <h2 class="card-title">🛡️ Ketentuan Garansi</h2>
+        <p><strong>Garansi berlaku selama 1 bulan</strong> dan hanya mencakup benefit paket Google AI Pro yang hilang atau akun yang kembali menjadi versi Free.</p>
+        <p>Masalah akun seperti kendala verifikasi, akun dinonaktifkan, perubahan keamanan, atau kendala login berada di luar tanggung jawab kami. Akun yang disiapkan adalah Gmail lama yang telah dilepas dari metode verifikasi sebelumnya, kecuali email pemulihan dan Google Authenticator.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://wa.me/6281523984574?text=Halo%20kak%20Babay%2C%20saya%20butuh%20bantuan%20Google%20AI%20Pro." target="_blank" rel="noopener">💬 Hubungi Admin Babay</a>
+          <a class="btn" href="https://babay.web.id/google">🛒 Katalog Paket AI</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>© 2026 BabayShop · Panduan Google AI Pro Family Sharing</footer>
+  </body>
+</html>
