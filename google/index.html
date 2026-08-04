@@ -4719,9 +4719,254 @@
       transform: none !important;
     }
 
+
+
+    /* ==========================================================================
+       STATUS TOKO: HALAMAN TUTUP SEMENTARA
+       ========================================================================== */
+    #storeClosedPage {
+      display: none;
+      min-height: 100vh;
+      position: relative;
+      z-index: 9999;
+      padding: 32px 20px;
+      background:
+        radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.14), transparent 36%),
+        #07080f;
+      color: var(--text);
+      align-items: center;
+      justify-content: center;
+    }
+
+    body.store-is-closed {
+      overflow-x: hidden;
+      min-height: 100vh;
+      background: #07080f;
+    }
+
+    body.store-is-closed > *:not(#storeClosedPage) {
+      display: none !important;
+    }
+
+    body.store-is-closed #storeClosedPage {
+      display: flex !important;
+    }
+
+    .store-closed-shell {
+      width: min(100%, 760px);
+      position: relative;
+    }
+
+    .store-closed-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 30px;
+      padding: clamp(28px, 5vw, 56px);
+      background: linear-gradient(145deg, rgba(19, 21, 38, 0.96), rgba(9, 10, 18, 0.98));
+      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .store-closed-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), transparent 42%, rgba(219, 39, 119, 0.06));
+    }
+
+    .store-closed-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .store-closed-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      color: #fff;
+      font-family: var(--font-title);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .store-closed-brand-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.045);
+    }
+
+    .store-closed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 13px;
+      margin-bottom: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(251, 191, 36, 0.28);
+      background: rgba(251, 191, 36, 0.08);
+      color: #fde68a;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .store-closed-title {
+      margin: 0 0 16px;
+      color: #fff;
+      font-family: var(--font-title);
+      font-size: clamp(36px, 7vw, 66px);
+      font-weight: 900;
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .store-closed-lead {
+      max-width: 650px;
+      margin: 0 0 28px;
+      color: #b6bfd5;
+      font-size: clamp(15px, 2vw, 18px);
+      line-height: 1.7;
+    }
+
+    .store-closed-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .store-closed-info {
+      min-height: 116px;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.025);
+    }
+
+    .store-closed-info span {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--dim);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .store-closed-info strong {
+      display: block;
+      color: #fff;
+      font-family: var(--font-title);
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .store-closed-reason {
+      padding: 20px;
+      margin-bottom: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(99, 102, 241, 0.18);
+      background: rgba(99, 102, 241, 0.055);
+    }
+
+    .store-closed-reason span {
+      display: block;
+      margin-bottom: 7px;
+      color: #a5b4fc;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .store-closed-reason p {
+      margin: 0;
+      color: #d7dcff;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .store-closed-note {
+      margin: 0;
+      padding: 17px 18px;
+      border-left: 3px solid var(--amber);
+      border-radius: 0 14px 14px 0;
+      background: rgba(251, 191, 36, 0.055);
+      color: #fef3c7;
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+
+    .store-closed-footer {
+      margin-top: 24px;
+      color: var(--dim);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 620px) {
+      #storeClosedPage { padding: 14px; }
+      .store-closed-card { border-radius: 22px; padding: 24px 20px; }
+      .store-closed-brand { margin-bottom: 22px; font-size: 18px; }
+      .store-closed-title { font-size: clamp(36px, 13vw, 48px); }
+      .store-closed-grid { grid-template-columns: 1fr; gap: 10px; }
+      .store-closed-info { min-height: auto; padding: 15px; }
+      .store-closed-reason { padding: 16px; }
+      .store-closed-note { font-size: 12.5px; }
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- Halaman khusus ketika status toko CLOSE -->
+  <div id="storeClosedPage" role="main" aria-labelledby="storeClosedTitle">
+    <div class="store-closed-shell">
+      <div class="store-closed-card">
+        <div class="store-closed-content">
+          <div class="store-closed-brand">
+            
+           
+          </div>
+
+          <div class="store-closed-badge">Tutup Sementara</div>
+          <h1 class="store-closed-title" id="storeClosedTitle">BabayShop.id <br> tutup sementara.</h1>
+          <p class="store-closed-lead" id="storeClosedLead">BabayShop.id sedang tutup sementara. Seluruh pemesanan baru dihentikan sampai admin kembali aktif.</p>
+
+          <div class="store-closed-grid">
+            <div class="store-closed-info">
+              <span>Periode Tutup</span>
+              <strong id="storeClosedPeriod">-</strong>
+            </div>
+            <div class="store-closed-info">
+              <span>Estimasi Buka Kembali</span>
+              <strong id="storeReopenDate">-</strong>
+            </div>
+          </div>
+
+          <div class="store-closed-reason">
+            <span>Alasan</span>
+            <p id="storeClosedReason">-</p>
+          </div>
+
+          <p class="store-closed-note">
+            Admin tetap menerima pesan untuk keperluan garansi, komplain, atau kendala pesanan sebelumnya melalui WhatsApp. Namun, kemungkinan besar respons akan sangat lambat sampai admin mulai aktif kembali.
+          </p>
+
+          <div class="store-closed-footer">Terima kasih atas pengertiannya — BabayShop.id</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Skip Link for Accessibility -->
   <a href="#katalog" class="skip-link">Lewati ke Katalog Paket</a>
 
@@ -5617,6 +5862,69 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+
+      /* ==========================================================================
+         STATUS WEBSITE BABAYSHOP.ID
+         Ubah status menjadi 'open' atau 'close'.
+
+         Contoh sehari:
+         startDate: '2026-08-05'
+         endDate:   '2026-08-05'
+
+         Contoh beberapa hari:
+         startDate: '2026-08-05'
+         endDate:   '2026-08-08'
+         ========================================================================== */
+      const STORE_STATUS = {
+        status: 'close', // PILIH: 'open' atau 'close'
+        startDate: '2026-08-05',
+        endDate: '2026-08-06',
+        reopenDate: '2026-08-07',
+        reason: 'Admin sedang perjalanan jauh + Kontrol di Rumah Sakit mohon doanya :)'
+      };
+
+      function formatStoreDate(dateString) {
+        if (!dateString) return '-';
+        const date = new Date(`${dateString}T00:00:00`);
+        if (Number.isNaN(date.getTime())) return dateString;
+        return new Intl.DateTimeFormat('id-ID', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        }).format(date);
+      }
+
+      function applyStoreStatus() {
+        const isClosed = String(STORE_STATUS.status).trim().toLowerCase() === 'close';
+        if (!isClosed) return;
+
+        const startDate = STORE_STATUS.startDate;
+        const endDate = STORE_STATUS.endDate || startDate;
+        const sameDay = startDate && endDate && startDate === endDate;
+        const periodText = sameDay
+          ? formatStoreDate(startDate)
+          : `${formatStoreDate(startDate)} sampai ${formatStoreDate(endDate)}`;
+
+        const closedPeriod = document.getElementById('storeClosedPeriod');
+        const reopenDate = document.getElementById('storeReopenDate');
+        const closedReason = document.getElementById('storeClosedReason');
+        const closedLead = document.getElementById('storeClosedLead');
+
+        if (closedPeriod) closedPeriod.textContent = periodText;
+        if (reopenDate) reopenDate.textContent = formatStoreDate(STORE_STATUS.reopenDate);
+        if (closedReason) closedReason.textContent = STORE_STATUS.reason || 'Admin sedang tidak aktif sementara.';
+        if (closedLead) {
+          closedLead.textContent = `Mohon maaf, BabayShop.id tutup ${sameDay ? 'pada' : 'mulai'} ${periodText}. Seluruh pemesanan baru dihentikan sementara.`;
+        }
+
+        document.body.classList.add('store-is-closed');
+        document.title = 'BabayShop.id Sedang Tutup Sementara';
+        window.scrollTo(0, 0);
+      }
+
+      applyStoreStatus();
+
       /* ==========================================================================
          GLOBAL CONSTANTS & DOM ELEMENTS
          ========================================================================== */
