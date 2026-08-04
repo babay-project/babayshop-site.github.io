@@ -1,6 +1,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="id">
   <head>
@@ -1097,8 +1098,8 @@
 
     .packages-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+      gap: 20px;
       align-items: stretch;
     }
 
@@ -1328,6 +1329,146 @@
       color: var(--indigo);
     }
 
+    /* Animated package frames: JIO fire, Pixel ice, Invite eco */
+    .pkg-card.package-fire,
+    .pkg-card.package-ice,
+    .pkg-card.package-eco {
+      isolation: isolate;
+    }
+
+    .pkg-card.package-fire::after,
+    .pkg-card.package-ice::after,
+    .pkg-card.package-eco::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 2px;
+      pointer-events: none;
+      z-index: 8;
+      background-size: 300% 300%;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    .pkg-card.package-fire::after {
+      background-image: linear-gradient(115deg, #5f0b0b, #ef1b1b, #ff7a00, #ffcc33, #ef1b1b, #5f0b0b);
+      animation: frameFlow 2.2s linear infinite, fireFrameGlow 1.35s ease-in-out infinite;
+    }
+
+    .pkg-card.package-ice::after {
+      background-image: linear-gradient(115deg, #082f75, #2563eb, #38bdf8, #e0f2fe, #60a5fa, #082f75);
+      animation: frameFlow 4.8s linear infinite, iceFrameGlow 2.8s ease-in-out infinite;
+    }
+
+    .pkg-card.package-eco::after {
+      background-image: linear-gradient(115deg, #064e3b, #059669, #34d399, #bbf7d0, #16a34a, #064e3b);
+      animation: frameFlow 4s linear infinite, ecoFrameGlow 2.4s ease-in-out infinite;
+    }
+
+    .pkg-frame-label {
+      margin-left: auto;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 9.5px;
+      font-weight: 900;
+      letter-spacing: 0.055em;
+      line-height: 1;
+      text-transform: uppercase;
+      white-space: nowrap;
+      position: relative;
+      z-index: 10;
+    }
+
+    .pkg-title-group {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .label-fire {
+      color: #fff1f2;
+      border: 1px solid rgba(248, 113, 113, 0.45);
+      background: linear-gradient(135deg, rgba(127, 29, 29, 0.92), rgba(239, 68, 68, 0.76));
+      box-shadow: 0 0 18px rgba(239, 68, 68, 0.28);
+      animation: fireLabelPulse 1.35s ease-in-out infinite;
+    }
+
+    .label-ice {
+      color: #e0f2fe;
+      border: 1px solid rgba(125, 211, 252, 0.5);
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(14, 165, 233, 0.62));
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.25);
+      animation: iceLabelPulse 2.8s ease-in-out infinite;
+    }
+
+    .label-eco {
+      color: #ecfdf5;
+      border: 1px solid rgba(110, 231, 183, 0.45);
+      background: linear-gradient(135deg, rgba(6, 95, 70, 0.92), rgba(16, 185, 129, 0.66));
+      box-shadow: 0 0 18px rgba(52, 211, 153, 0.22);
+      animation: ecoLabelPulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes frameFlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+
+    @keyframes fireFrameGlow {
+      0%, 100% { filter: drop-shadow(0 0 3px rgba(239, 68, 68, 0.45)); opacity: 0.82; }
+      50% { filter: drop-shadow(0 0 11px rgba(255, 92, 0, 0.85)); opacity: 1; }
+    }
+
+    @keyframes iceFrameGlow {
+      0%, 100% { filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.38)); opacity: 0.78; }
+      50% { filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.72)); opacity: 1; }
+    }
+
+    @keyframes ecoFrameGlow {
+      0%, 100% { filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.34)); opacity: 0.8; }
+      50% { filter: drop-shadow(0 0 11px rgba(52, 211, 153, 0.65)); opacity: 1; }
+    }
+
+    @keyframes fireLabelPulse {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-1px) scale(1.035); }
+    }
+
+    @keyframes iceLabelPulse {
+      0%, 100% { opacity: 0.82; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes ecoLabelPulse {
+      0%, 100% { box-shadow: 0 0 10px rgba(52, 211, 153, 0.16); }
+      50% { box-shadow: 0 0 22px rgba(52, 211, 153, 0.38); }
+    }
+
+    @media (max-width: 520px) {
+      .pkg-header {
+        flex-wrap: wrap;
+      }
+
+      .pkg-frame-label {
+        margin-left: 52px;
+        margin-top: -8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pkg-card.package-fire::after,
+      .pkg-card.package-ice::after,
+      .pkg-card.package-eco::after,
+      .pkg-frame-label {
+        animation: none !important;
+      }
+    }
+
 
 
     /* ==========================================================================
@@ -1405,7 +1546,7 @@
     }
     .qty-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 8px;
     }
     .qty-option {
@@ -1430,6 +1571,30 @@
       color: #fff;
       border-color: rgba(251, 191, 36, 0.45);
       background: rgba(251, 191, 36, 0.09);
+    }
+    .qty-option.qty-discount {
+      color: #fef3c7;
+      border-color: rgba(251, 191, 36, 0.42);
+      background: linear-gradient(145deg, rgba(251,191,36,0.10), rgba(99,102,241,0.08));
+      box-shadow: 0 0 12px rgba(251,191,36,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+      animation: qtyDiscountGlow 1.8s ease-in-out infinite;
+    }
+    .qty-option.qty-discount small {
+      color: #fde68a;
+    }
+    .qty-option.qty-discount.active {
+      color: #fff;
+      border-color: #fbbf24;
+      background: linear-gradient(145deg, rgba(245,158,11,0.28), rgba(99,102,241,0.20));
+      box-shadow: 0 0 22px rgba(251,191,36,0.48), 0 0 38px rgba(99,102,241,0.20);
+      transform: translateY(-2px) scale(1.03);
+    }
+    @keyframes qtyDiscountGlow {
+      0%, 100% { box-shadow: 0 0 9px rgba(251,191,36,0.16), inset 0 1px 0 rgba(255,255,255,0.08); }
+      50% { box-shadow: 0 0 20px rgba(251,191,36,0.42), 0 0 30px rgba(99,102,241,0.14); }
+    }
+    @media (max-width: 560px) {
+      .qty-grid { grid-template-columns: repeat(3, 1fr); }
     }
     .bulk-save-row {
       display: none;
@@ -2256,6 +2421,70 @@
       background: rgba(239, 68, 68, 0.02);
     }
 
+    .promo-group {
+      padding: 14px;
+      border: 1px solid rgba(239, 68, 68, 0.22);
+      border-radius: var(--r-md);
+      background: linear-gradient(135deg, rgba(127, 29, 29, 0.12), rgba(239, 68, 68, 0.035));
+    }
+
+    .promo-input-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+    }
+
+    .promo-input-row .btn {
+      padding: 10px 15px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #b91c1c, #ef4444);
+      color: #fff;
+      box-shadow: 0 5px 16px rgba(239, 68, 68, 0.2);
+    }
+
+    .promo-feedback {
+      display: none;
+      font-size: 12px;
+      font-weight: 750;
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+
+    .promo-feedback.active {
+      display: block;
+    }
+
+    .promo-feedback.success {
+      color: #86efac;
+    }
+
+    .promo-feedback.error {
+      color: #fca5a5;
+    }
+
+    .promo-discount-row {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(52, 168, 83, 0.2);
+      background: rgba(52, 168, 83, 0.065);
+      color: #bbf7d0;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .promo-discount-row.active {
+      display: flex;
+    }
+
+    .promo-discount-row strong {
+      color: #86efac;
+      white-space: nowrap;
+    }
+
     .form-checkbox {
       display: flex;
       gap: 10px;
@@ -2646,18 +2875,6 @@
       text-align: left;
     }
     .payment-method-hidden-field { display: none !important; }
-    .payment-choice-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:18px 0 22px; }
-    .payment-choice-btn { min-height:110px; border:1px solid var(--border); border-radius:16px; background:rgba(255,255,255,.025); color:var(--text); cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; font:inherit; font-weight:800; transition:transform .2s,border-color .2s,background .2s; }
-    .payment-choice-btn:hover { transform:translateY(-3px); border-color:var(--indigo); background:rgba(99,102,241,.1); }
-    .payment-fire { display:inline-block; animation:firePulse .75s ease-in-out infinite alternate; filter:drop-shadow(0 0 8px rgba(251,146,60,.8)); }
-    @keyframes firePulse { from { transform:translateY(1px) scale(.92); } to { transform:translateY(-2px) scale(1.12); } }
-    .warranty-addon-box { display:none; padding:14px; border:1px solid rgba(251,191,36,.28); border-radius:14px; background:rgba(251,191,36,.06); }
-    .warranty-addon-box.active { display:flex; }
-    .copy-confirm-status { min-height:20px; color:var(--green); font-size:12px; font-weight:700; margin-top:8px; }
-    .checkout-back { width:38px; height:38px; border-radius:11px; border:1px solid var(--border); background:rgba(255,255,255,.035); color:var(--text); cursor:pointer; display:grid; place-items:center; flex-shrink:0; }
-    .checkout-back:hover { background:rgba(99,102,241,.12); border-color:rgba(99,102,241,.4); }
-    .confirmation-message-preview { max-height:190px; overflow:auto; white-space:pre-wrap; text-align:left; background:rgba(255,255,255,.025); border:1px solid var(--border); border-radius:14px; padding:14px; margin:16px 0; color:#dbe4ff; font:12px/1.55 var(--font-main); }
-    @media (max-width:520px) { .payment-choice-grid { grid-template-columns:1fr; } .payment-choice-btn { min-height:72px; } }
     @media (max-width: 420px) {
       .selected-payment-number-box { grid-template-columns: 1fr; }
       .btn-copy-payment { width: 100%; }
@@ -2884,9 +3101,6 @@
       }
       .hero-visual {
         display: none;
-      }
-      .packages-grid {
-        grid-template-columns: repeat(2, 1fr);
       }
       .info-grid {
         grid-template-columns: 1fr;
@@ -4554,7 +4768,6 @@
 
           <article >
           </article>
-
         </div>
 
         <!-- Exclusive Bonus Platform Highlight -->
@@ -4613,46 +4826,46 @@
 
         <div class="packages-grid">
           <!-- Paket A: Voucher JIO Max Durasi 18B -->
-          <article class="pkg-card clay clay--interactive spotlight reveal-on-scroll" data-cat="head">
+          <article class="pkg-card package-fire clay clay--interactive spotlight reveal-on-scroll" data-cat="head">
             <div class="pkg-header">
               <div class="pkg-code code-indigo">A</div>
               <div class="pkg-title-group">
                 <h3>Offer Voucher JIO (Max 18 Bulan)</h3>
                 <span class="pkg-role">Head Google AI Pro</span>
               </div>
+              <span class="pkg-frame-label label-fire">🔥BEST SELLER</span>
             </div>
             <div class="pkg-body">
               <div class="price-row">
-                <span class="price-old">Rp100.000</span>
+                <span class="price-old">Rp200.000</span>
                 <div class="price-new">
-                  <strong>Rp75.000</strong>
+                  <strong>Rp150.000</strong>
                   <span class="price-unit">/ paket</span>
                   <span class="discount-tag text-green">Promo</span>
                 </div>
               </div>
-              <p class="pkg-tagline">Durasi 18 bulan adalah maksimal. Durasi aktif mengikuti ketentuan website JIO saat klaim.</p>
+              <p class="pkg-tagline"><strong>Maksimal durasi yang bisa didapatkan adalah 18 bulan.</strong> Tidak ada jaminan paket akan aktif penuh selama 18 bulan (layanan dapat berhenti lebih awal).</p>
               <div class="bulk-promo-clip" data-bulk-clip="A">
                 <span class="bulk-promo-kicker">Promo Bulk</span>
                 <div class="bulk-promo-line"><span>Ambil 2 voucher</span><strong>Rp140.000</strong></div>
                
               </div>
               <ul class="pkg-features">
-                <li><span class="icon-chk text-green">✓</span><span>Klaim voucher JIO Max Durasi 18B.</span></li>
+                <li><span class="icon-chk text-green">✓</span><span>Klaim voucher JIO dengan durasi maksimal 18 bulan.</span></li>
                 <li><span class="icon-chk text-green">✓</span><span>Akun jadi Head / pengelola paket.</span></li>
                 <li><span class="icon-chk text-green">✓</span><span>Bisa invite 5 member.</span></li>
                 <li><span class="icon-chk text-green">✓</span><span>Akses Antigravity Plan Pro.</span></li>
                 <li><span class="icon-chk text-green">✓</span><span>1.000+ AI Flow Credits.</span></li>
                 <li><span class="icon-chk text-green">✓</span><span>Tutorial klaim via YouTube BabayShop.</span></li>
-                <li><span class="icon-chk text-indigo">✓</span><span class="text-glow-indigo">Garansi sampai akun berhasil klaim paket (maks. 1x24 jam).</span></li>
-                <li><span class="icon-chk text-amber">!</span><span>Setelah paket aktif lebih dari 24 jam, garansi selesai dan komplain setelahnya tidak dapat diterima, kecuali membeli tambahan garansi layanan 1 bulan.</span></li>
+                <li><span class="icon-chk text-green">✓</span><span>Kode <strong>DISKONBAY</strong> memberikan diskon acak (Sampai 10,000) saat checkout.</span></li>
+                <li><span class="icon-chk text-indigo">✓</span><span class="text-glow-indigo">Garansi klaim maksimal 1x24 jam dan hanya berlaku sampai paket berhasil aktif. Setelah paket aktif, garansi berakhir—termasuk jika paket kemudian dicabut, dihentikan, atau dinonaktifkan oleh JIO.</span></li>
               </ul>
               <div class="pkg-stock-status text-green">
                 <span class="stock-dot pulse"></span>
                 <span>Stok: Ready</span>
               </div>
               <div class="pkg-actions">
-                <button class="btn btn-primary btn-block btn-buy" data-id="A" data-name="Voucher JIO Max Durasi 18B" data-price="75000" type="button">Checkout</button>
-                <button class="btn btn-bulk btn-block btn-bulk-order" data-id="A" data-name="Voucher JIO Max Durasi 18B" data-price="75000" data-bulk-qty="2" type="button">Pesan Bulk Hemat</button>
+                <button class="btn btn-primary btn-block btn-buy" data-id="A" data-name="Voucher JIO Max Durasi 18B" data-price="75000" type="button">Beli Sekarang</button>
                 <a class="pkg-tutorial-link" href="https://youtu.be/j1EfO8NGXvI" target="_blank" rel="noopener">Lihat tutorial klaim Jio →</a>
                 <a class="pkg-tutorial-link" href="https://babay.web.id/jio" target="_blank" rel="noopener">Baca diskusi →</a>
               </div>
@@ -4660,24 +4873,25 @@
           </article>
 
           <!-- Paket C: AI PRO 12 Bulan Pixel Head -->
-          <article class="pkg-card clay clay--interactive spotlight reveal-on-scroll" data-cat="head">
+          <article class="pkg-card package-ice clay clay--interactive spotlight reveal-on-scroll" data-cat="head">
             <div class="pkg-header">
               <div class="pkg-code code-pink">C</div>
               <div class="pkg-title-group">
                 <h3>Offer Voucher Pixel (12 Bulan)</h3>
                 <span class="pkg-role">Head Google AI Pro</span>
               </div>
+              <span class="pkg-frame-label label-ice">❄ Paling Stabil</span>
             </div>
             <div class="pkg-body">
               <div class="price-row">
                 <span class="price-old">Rp130.000</span>
                 <div class="price-new">
-                  <strong>Rp85.000</strong>
+                  <strong>Rp86.000</strong>
                   <span class="price-unit">/ paket</span>
                   <span class="discount-tag text-green">Promo</span>
                 </div>
               </div>
-              <p class="pkg-tagline">Head bisa memakai Gmail admin atau Gmail kamu sendiri. Garansi tetap 1 bulan.</p>
+              <p class="pkg-tagline">Opsi Paket yang paling stabil. Bisa memakai Gmail admin atau Gmail kamu sendiri untuk menjadi head.</p>
               <div class="bulk-promo-clip" data-bulk-clip="C">
                 <span class="bulk-promo-kicker">Bundle Admin</span>
                 <div class="bulk-promo-line"><span>Ambil 2 head</span><strong>Rp160.000</strong></div>
@@ -4689,16 +4903,14 @@
                 <li><span class="icon-chk text-green">✓</span><span>Gmail admin: old & strong 2016–2022.</span></li>
                 <li><span class="icon-chk text-green">✓</span><span>Akses Antigravity Plan Pro.</span></li>
                 <li><span class="icon-chk text-green">✓</span><span>1.000+ AI Flow Credits.</span></li>
-                <li><span class="icon-chk text-pink">✓</span><span class="text-glow-pink">Garansi layanan standar 1 bulan.</span></li>
-                <li><span class="icon-chk text-amber">+</span><span>Opsional tambah garansi 2 bulan menjadi total 3 bulan: +Rp20.000 per paket.</span></li>
+                <li><span class="icon-chk text-pink">✓</span><span class="text-glow-pink">Garansi layanan 1 bulan.</span></li>
               </ul>
               <div class="pkg-stock-status text-green">
                 <span class="stock-dot pulse"></span>
                 <span>Stok: Ready (Pre Order)</span>
               </div>
               <div class="pkg-actions">
-                <button class="btn btn-primary btn-block btn-buy" data-id="C" data-name="Offer Voucher Pixel 12 Bulan" data-price="85000" type="button">Checkout</button>
-                <button class="btn btn-bulk btn-block btn-bulk-order" data-id="C" data-name="Offer Voucher Pixel 12 Bulan" data-price="85000" data-bulk-qty="2" type="button">Pesan Bulk Hemat</button>
+                <button class="btn btn-primary btn-block btn-buy" data-id="C" data-name="AI PRO 12 Bulan Pixel Head" data-price="86000" type="button">Beli Sekarang</button>
                 <a class="pkg-tutorial-link" href="https://babay.web.id/pixel.html" target="_blank" rel="noopener">Baca diskusi →</a>
                 <a class="pkg-tutorial-link" href="https://babay.web.id/snk/pixel" target="_blank" rel="noopener">S&K Pixel Head →</a>
               </div>
@@ -4706,13 +4918,14 @@
           </article>
 
           <!-- Paket D: Invite Email 12 Bulan -->
-          <article class="pkg-card clay clay--interactive spotlight reveal-on-scroll" data-cat="invite">
+          <article class="pkg-card package-eco clay clay--interactive spotlight reveal-on-scroll" data-cat="invite">
             <div class="pkg-header">
               <div class="pkg-code code-green">D</div>
               <div class="pkg-title-group">
                 <h3>Invite Email 12 Bulan</h3>
                 <span class="pkg-role">Member Google AI Pro</span>
               </div>
+              <span class="pkg-frame-label label-eco">✓ Ekonomis & Stabil</span>
             </div>
             <div class="pkg-body">
               <div class="price-row">
@@ -4723,16 +4936,16 @@
                   <span class="discount-tag text-green">Promo</span>
                 </div>
               </div>
-              <p class="pkg-tagline">Paling hemat untuk pemakaian personal ringan.</p>
+              <p class="pkg-tagline">Pilihan ekonomis untuk member. Token/kuota Flow dan Antigravity digunakan bersama (sharing) oleh maksimal 5 user dalam satu paket.</p>
               <div class="bulk-promo-clip" data-bulk-clip="D">
                 <span class="bulk-promo-kicker">Promo Slot</span>
-                <div class="bulk-promo-line"><span>Ambil 2 slot invite</span><strong>Rp55.000</strong></div>
+                <div class="bulk-promo-line"><span>Ambil 3 slot</span><strong>Rp90.000</strong></div>
                   </div>
               <ul class="pkg-features">
                 <li><span class="icon-chk text-green">✓</span><span>Durasi 12 bulan.</span></li>
                 <li><span class="icon-chk text-green">✓</span><span>Pakai email Google pribadi pembeli.</span></li>
-                <li><span class="icon-chk text-green">✓</span><span>Akses Antigravity Plan Pro.</span></li>
-                <li><span class="icon-chk text-green">✓</span><span>1.000+ AI Flow Sharing.</span></li>
+                <li><span class="icon-chk text-green">✓</span><span>Akses Antigravity Plan Pro sharing maksimal 5 user.</span></li>
+                <li><span class="icon-chk text-green">✓</span><span>Token/kuota AI Flow sharing maksimal 5 user.</span></li>
                 <li><span class="icon-chk text-green">✓</span><span>Coba akses Google AI Pro sharing.</span></li>
                 <li><span class="icon-chk text-amber">!</span><span>Khusus akun belum pernah join family.</span></li>
                 <li><span class="icon-chk text-green">✓</span><span>Garansi layanan 1 bulan.</span></li>
@@ -4742,93 +4955,7 @@
                 <span>Stok: Ready</span>
               </div>
               <div class="pkg-actions">
-                <button class="btn btn-primary btn-block btn-buy" data-id="D" data-name="Invite Email 12 Bulan" data-price="35000" type="button">Checkout</button>
-                <button class="btn btn-bulk btn-block btn-bulk-order" data-id="D" data-name="Invite Email 12 Bulan" data-price="35000" data-bulk-qty="2" type="button">Pesan 2 Slot Promo</button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Paket X: Bundle JIO + Pixel -->
-          <article class="pkg-card clay clay--interactive spotlight reveal-on-scroll" data-cat="head">
-            <div class="pkg-header">
-              <div class="pkg-code code-indigo">X</div>
-              <div class="pkg-title-group">
-                <h3>Bundle JIO 18 Bulan + Pixel 12 Bulan</h3>
-                <span class="pkg-role">Paket Hemat 2 Produk</span>
-              </div>
-            </div>
-            <div class="pkg-body">
-              <div class="price-row">
-                <span class="price-old">Rp160.000</span>
-                <div class="price-new">
-                  <strong>Rp145.000</strong>
-                  <span class="price-unit">/ bundle</span>
-                  <span class="discount-tag text-green">Best Value</span>
-                </div>
-              </div>
-              <p class="pkg-tagline">Sekali beli langsung dapat 1 voucher JIO dan 1 akun Pixel.</p>
-              <div class="bulk-promo-clip" data-bulk-clip="X">
-                <span class="bulk-promo-kicker">🔥 Bulk X Super Hemat</span>
-                <div class="bulk-promo-line"><span>Ambil 2 bundle spesial</span><strong>Rp260.000</strong></div>
-              </div>
-              <ul class="pkg-features">
-                <li><span class="icon-chk text-green">✓</span><span>1× Voucher Google AI Pro by JIO hingga 18 bulan.</span></li>
-                <li><span class="icon-chk text-indigo">✓</span><span>Voucher JIO bergaransi 7 hari.</span></li>
-                <li><span class="icon-chk text-green">✓</span><span>1× Akun Google AI Pro by Pixel 12 bulan.</span></li>
-                <li><span class="icon-chk text-pink">✓</span><span>Akun Pixel bergaransi 3 bulan.</span></li>
-                <li><span class="icon-chk text-amber">★</span><span><strong>Bulk 2 bundle:</strong> dapat total 3 voucher JIO + 2 akun Head Google AI Pro Pixel.</span></li>
-                <li><span class="icon-chk text-green">✓</span><span>Bonus 1 voucher JIO dibanding membeli 2 bundle biasa.</span></li>
-                <li><span class="icon-chk text-green">✓</span><span>Nilai normal produk Rp395.000, bayar hanya Rp260.000 — hemat Rp135.000.</span></li>
-              </ul>
-              <div class="pkg-stock-status text-green">
-                <span class="stock-dot pulse"></span>
-                <span>Stok: Ready (Pre Order)</span>
-              </div>
-              <div class="pkg-actions">
-                <button class="btn btn-primary btn-block btn-buy" data-id="X" data-name="Bundle JIO 18 Bulan + Pixel 12 Bulan" data-price="145000" type="button">Checkout Bundle X</button>
-                <button class="btn btn-bulk btn-block btn-bulk-order" data-id="X" data-name="Bulk 2 Bundle X: 3 Voucher JIO + 2 Akun Pixel" data-price="145000" data-bulk-qty="2" type="button">Checkout Bulk 2 — Rp260.000</button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Paket Y: YouTube Premium Family - Manual Pre Order -->
-          <article class="pkg-card clay clay--interactive spotlight reveal-on-scroll" data-cat="invite">
-            <div class="pkg-header">
-              <div class="pkg-code code-red">Y</div>
-              <div class="pkg-title-group">
-                <h3>YouTube Premium Family</h3>
-                <span class="pkg-role">Have Fun Package · Manual Pre Order</span>
-              </div>
-            </div>
-            <div class="pkg-body">
-              <div class="price-row">
-                <span class="price-old">Harga Fleksibel</span>
-                <div class="price-new">
-                  <strong>Rp5.000–Rp15.000</strong>
-                  <span class="price-unit">/ akun</span>
-                  <span class="discount-tag text-green">Mulai 5K</span>
-                </div>
-              </div>
-              <p class="pkg-tagline">Harga mengikuti stok ready dan sisa durasi premium yang tersedia. Durasi maksimal 30 hari.</p>
-              <div class="bulk-promo-clip">
-                <span class="bulk-promo-kicker">Bonus Paket</span>
-                <div class="bulk-promo-line"><span>Google AI Plus 200 GB</span><strong>Jika Beruntung!</strong></div>
-              </div>
-              <ul class="pkg-features">
-                <li><span class="icon-chk text-green">✓</span><span>YouTube Premium melalui invite ke Family Premium.</span></li>
-                <li><span class="icon-chk text-green">✓</span><span>Bisa memakai Gmail kamu sendiri yang belum pernah bergabung ke family mana pun.</span></li>
-                <li><span class="icon-chk text-indigo">✓</span><span>Bisa memakai Gmail old dari admin: tambahan Rp15.000 dan tidak mudah tersuspend.</span></li>
-                <li><span class="icon-chk text-green">✓</span><span>Jika beruntung, akun juga memperoleh Google AI Plus dengan penyimpanan 200 GB.</span></li>
-                <li><span class="icon-chk text-amber">!</span><span>Stok, durasi aktual, serta harga akhir wajib ditanyakan dahulu kepada Admin Babay.</span></li>
-                <li><span class="icon-chk text-pink">★</span><span><strong style="text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px;">BISA DIPERPANJANG SAMPAI KAPAN PUN — SAMPAI METHOD-NYA KOID.</strong></span></li>
-                <li><span class="icon-chk text-green">↻</span><span>Jika premium YouTube di family telah habis, BabayShop akan memperpanjangnya untuk 1 bulan berikutnya selama method masih hidup.</span></li>
-              </ul>
-              <div class="pkg-stock-status text-amber">
-                <span class="stock-dot pulse"></span>
-                <span>Stok &amp; durasi: Tanya Admin / Pre Order</span>
-              </div>
-              <div class="pkg-actions">
-                <a class="btn btn-wa btn-block" href="https://wa.me/6281523984574?text=Halo%20Admin%20Babay%2C%20saya%20mau%20tanya%20Paket%20Y%20YouTube%20Premium%20Family.%0A%0AMohon%20info%3A%0A-%20Stok%20yang%20ready%0A-%20Sisa%20durasi%20premium%0A-%20Harga%20saat%20ini%0A-%20Pilihan%20Gmail%20sendiri%20atau%20Gmail%20old%20admin%20%28%2B15rb%29%0A%0ATerima%20kasih." target="_blank" rel="noopener">Pre Order Manual via WhatsApp</a>
+                <button class="btn btn-primary btn-block btn-buy" data-id="D" data-name="Invite Email 12 Bulan" data-price="35000" type="button">Beli Sekarang</button>
               </div>
             </div>
           </article>
@@ -4851,7 +4978,8 @@
               <h3>Voucher JIO Max Durasi 18B</h3>
             </div>
             <p><strong>Voucher JIO</strong> berasal dari program promosi Reliance Jio di India untuk pengguna Jio Unlimited 5G yang memenuhi syarat. Bukan hasil crack, bukan aplikasi mod, dan bukan generator ilegal.</p>
-            <p>Benefitnya berasal dari mekanisme promo JIO + Google. Durasi 18 bulan adalah durasi maksimal; durasi aktif asli mengikuti ketentuan yang muncul di website JIO saat proses klaim.</p>
+            <p><strong>Maksimal durasi yang bisa didapatkan adalah 18 bulan.</strong> Tidak ada jaminan paket akan aktif penuh selama 18 bulan. Durasi aktual mengikuti ketentuan provider JIO lebih awal sesuai kebijakan provider.</p>
+            <p style="color:#fca5a5;"><strong>Penegasan garansi:</strong> Garansi Voucher JIO hanya untuk proses klaim maksimal 1x24 jam dan berakhir saat paket berhasil aktif. Apabila setelah aktif paket dicabut, dihentikan, atau dinonaktifkan oleh JIO, hal tersebut tidak termasuk garansi.</p>
             
             <div class="soft-box">
               <p>Pengalaman pengguna dan diskusi forum dirangkum di halaman khusus BabayShop.</p>
@@ -4865,7 +4993,7 @@
               <h3>Voucher Pixel (Device Offer)</h3>
             </div>
             <p><strong>Voucher Pixel</strong> berasal dari promo trial Google AI Pro untuk perangkat Google Pixel tertentu. Offer muncul setelah device eligible dicek via Gemini atau Google One.</p>
-            <p>Untuk Paket C, Head bisa memakai Gmail admin BabayShop atau Gmail kamu sendiri. Garansi standar 1 bulan dan dapat ditambah 2 bulan menjadi total 3 bulan dengan biaya Rp20.000 per paket.</p>
+            <p>Untuk Paket C, Head bisa memakai Gmail admin BabayShop atau Gmail kamu sendiri. Jika memilih Gmail admin, akun disiapkan oleh Babay; jika memilih Gmail sendiri, email kamu akan diproses sebagai Head Google AI Pro.</p>
             </div>
             <div class="soft-box">
               <p>Proses klaim, device eligible, dan risiko ada di halaman diskusi Pixel.</p>
@@ -4904,6 +5032,11 @@
                 <td class="comparison-feature">Kontrol akses</td>
                 <td>Bisa mengelola paket dan slot member selama fitur family sharing tersedia.</td>
                 <td>Tidak bisa mengelola member atau invite orang lain.</td>
+              </tr>
+              <tr>
+                <td class="comparison-feature">Token/kuota AI</td>
+                <td>Head mengelola akses paket dan benefit yang tersedia.</td>
+                <td>Token/kuota Flow dan Antigravity digunakan bersama (sharing) oleh maksimal 5 user dalam satu paket.</td>
               </tr>
               <tr>
                 <td class="comparison-feature">Cocok untuk</td>
@@ -4989,10 +5122,11 @@
               <p><strong>Ketentuan & Solusi Garansi Jio New</strong></p>
               <p>Paket ini menawarkan harga yang lebih ekonomis dengan proteksi klaim sampai akun berhasil klaim paket.</p>
               <ul>
+                <li><strong>Durasi:</strong> Maksimal durasi yang bisa didapatkan adalah 18 bulan. Tidak ada jaminan aktif penuh selama 18 bulan sesuai kebijakan provider JIO.</li>
                 <li><strong>Masa Klaim:</strong> Garansi berlaku sampai akun berhasil klaim paket, dengan batas maksimal pengecekan 1x24 jam sejak voucher/proses klaim diberikan.</li>
                 <li><strong>Solusi Garansi:</strong> Jika klaim gagal dalam masa 1x24 jam, admin akan membantu penggantian/proses ulang sampai berhasil klaim, atau opsi refund jika sistem sedang trouble.</li>
               </ul>
-              <p class="w-note" style="border-left-color: var(--red); color: #fca5a5; background: rgba(239, 68, 68, 0.02);">Setelah akun berhasil klaim paket atau lewat 1x24 jam tanpa laporan kendala, masa garansi klaim dinyatakan selesai.</p>
+              <p class="w-note" style="border-left-color: var(--red); color: #fca5a5; background: rgba(239, 68, 68, 0.02);">Setelah paket berhasil aktif, garansi langsung dinyatakan selesai. Tidak ada garansi apabila setelah aktif paket dicabut, dihentikan, atau dinonaktifkan oleh JIO. Batas laporan kendala klaim maksimal 1x24 jam.</p>
             </div>
           </div>
 
@@ -5005,8 +5139,7 @@
             <div class="warranty-card-body">
               <div class="w-meta">
                 <span>Opsi Head: <strong>Gmail Admin / Gmail Kamu Sendiri</strong></span>
-                <span>Standar: <strong class="text-green" style="color: var(--green);">Garansi 1 Bulan</strong></span>
-                <span>Tambahan Rp20.000: <strong class="text-green" style="color: var(--green);">Total Garansi 3 Bulan</strong></span>
+                <span>Masa Garansi: <strong class="text-green" style="color: var(--green);">1 Bulan</strong></span>
               </div>
               <p><strong>Cakupan Garansi Pixel</strong></p>
               <p>Head Google AI Pro bisa memakai Gmail admin BabayShop atau Gmail kamu sendiri. Jika memakai Gmail admin, akun disiapkan dan dicek oleh Babay sebelum diserahkan.</p>
@@ -5108,7 +5241,7 @@
           <details class="faq-item">
             <summary>Paket C pakai Gmail admin atau Gmail sendiri?</summary>
             <div class="faq-content">
-              <p>Paket C fleksibel: bisa memakai Gmail admin BabayShop atau Gmail kamu sendiri sebagai Head Google AI Pro. Garansi standar 1 bulan; tambah Rp20.000 per paket untuk tambahan 2 bulan sehingga total garansi menjadi 3 bulan.</p>
+              <p>Paket C fleksibel: bisa memakai Gmail admin BabayShop atau Gmail kamu sendiri sebagai Head Google AI Pro. Jika memakai Gmail admin, Babay menyiapkan akun; jika memakai Gmail sendiri, isi email saat checkout atau konfirmasi ke admin. Garansi layanan tetap 1 bulan.</p>
             </div>
           </details>
 
@@ -5221,11 +5354,8 @@
     <div class="modal-checkout">
       <!-- Modal Header -->
       <div class="modal-checkout-header">
-        <button class="checkout-back" id="btnCheckoutBack" type="button" aria-label="Kembali ke langkah sebelumnya" title="Kembali">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
-        </button>
         <div class="checkout-title-group">
-          <h2 id="checkoutModalTitle">Checkout Pembayaran</h2>
+          <h2 id="checkoutModalTitle">Pembayaran QRIS</h2>
           <span class="checkout-subtitle" id="checkoutProdName">Nama Paket</span>
         </div>
         <button class="checkout-close" id="btnCheckoutClose" type="button" aria-label="Tutup checkout">
@@ -5255,18 +5385,28 @@
               <label>Jumlah Pembelian</label>
               <div class="qty-grid" id="qtyGrid">
                 <button class="qty-option active" type="button" data-qty="1">1<small>Satuan</small></button>
-                <button class="qty-option" type="button" data-qty="2">2<small>Bulk</small></button>
-                <button class="qty-option" type="button" data-qty="3">3<small>Hemat</small></button>
-                <button class="qty-option" type="button" data-qty="5">5<small>Reseller</small></button>
+                <button class="qty-option qty-discount" type="button" data-qty="2">2<small class="qty-discount-label">Diskon</small></button>
+                <button class="qty-option qty-discount" type="button" data-qty="3">3<small class="qty-discount-label">Diskon</small></button>
+                <button class="qty-option qty-discount" type="button" data-qty="4">4<small class="qty-discount-label">Diskon</small></button>
+                <button class="qty-option qty-discount" type="button" data-qty="5">5<small class="qty-discount-label">Diskon</small></button>
               </div>
             </div>
 
-            <div class="bulk-save-row" id="bulkSaveRow">Harga bulk aktif. Total tagihan sudah menyesuaikan promo jumlah pembelian.</div>
+            <div class="form-group promo-group" id="promoGroup" hidden>
+              <label for="inputPromo">Kode Voucher Khusus Paket JIO</label>
+              <div class="promo-input-row">
+                <input type="text" id="inputPromo" placeholder="Masukkan kode voucher" autocomplete="off" maxlength="20">
+                <button class="btn" type="button" id="btnApplyPromo">Terapkan</button>
+              </div>
+              <span class="promo-feedback" id="promoFeedback" aria-live="polite"></span>
+              <small style="color: var(--muted); font-size: 11px;">Gunakan <strong style="color:#fca5a5;">DISKONBAY</strong> untuk diskon acak (Sampai 10,000).</small>
+            </div>
 
-            <label class="form-checkbox warranty-addon-box" id="warrantyAddonBox" for="warrantyAddon">
-              <input type="checkbox" id="warrantyAddon">
-              <span id="warrantyAddonText">Tambah garansi layanan <strong style="color:var(--amber);">+Rp20.000 per paket</strong></span>
-            </label>
+            <div class="bulk-save-row" id="bulkSaveRow">Harga bulk aktif. Total tagihan sudah menyesuaikan promo jumlah pembelian.</div>
+            <div class="promo-discount-row" id="promoDiscountRow">
+              <span>Voucher DISKONBAY aktif</span>
+              <strong id="promoDiscountText">-Rp0</strong>
+            </div>
 
             <div class="form-checkbox">
               <input type="checkbox" id="checkAgree" checked required>
@@ -5282,18 +5422,7 @@
           </form>
         </div>
 
-        <!-- Step 2: Choose Payment Method -->
-        <div class="checkout-step-container" id="checkoutStepPaymentChoice">
-          <p class="checkout-step-desc" style="text-align:center;">Pilih metode pembayaran terlebih dahulu. Detail pembayaran baru ditampilkan setelah dipilih.</p>
-          <div class="payment-choice-grid">
-            <button class="payment-choice-btn" type="button" data-primary-pay="QRIS"><span class="payment-fire">🔥</span><strong>QRIS</strong><small>Paling praktis</small></button>
-            <button class="payment-choice-btn" type="button" data-primary-pay="DANA"><span class="payment-fire">🔥</span><strong>DANA</strong><small>E-Wallet</small></button>
-            <button class="payment-choice-btn" type="button" data-primary-pay="Bank Jago"><span class="payment-fire">🔥</span><strong>JAGO</strong><small>Transfer bank</small></button>
-          </div>
-          <button class="btn btn-ghost btn-block" type="button" id="btnBackToCheckoutInput">Kembali</button>
-        </div>
-
-        <!-- Step 3: Payment Detail -->
+        <!-- Step 2: QRIS Display -->
         <div class="checkout-step-container" id="checkoutStepPay">
           <div class="qris-payment-box">
             
@@ -5301,7 +5430,7 @@
 
             <div class="qris-timer-row">
               <span class="timer-label">Selesaikan pembayaran dalam:</span>
-              <span class="timer-countdown" id="qrisTimer">10:00</span>
+              <span class="timer-countdown" id="qrisTimer">05:00</span>
             </div>
 
             <!-- QR Code Container -->
@@ -5334,7 +5463,7 @@
             <div class="payment-switch-box" id="paymentSwitchBox">
               <button class="payment-method-toggle" id="btnTogglePaymentMethods" type="button" aria-expanded="false" aria-controls="paymentMethodList">
                 <span class="payment-method-toggle-text">
-                  <strong>Metode pembayaran</strong>
+                  <strong>Ganti metode pembayaran</strong>
                   <span id="paymentMethodCurrent">Metode aktif: QRIS</span>
                 </span>
                 <svg class="payment-method-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -5343,8 +5472,14 @@
               </button>
               <div class="payment-method-list" id="paymentMethodList">
                 <button class="payment-method-btn active" type="button" data-pay="QRIS">QRIS</button>
+                <button class="payment-method-btn" type="button" data-pay="GoPay">GoPay</button>
                 <button class="payment-method-btn" type="button" data-pay="DANA">DANA</button>
+                <button class="payment-method-btn" type="button" data-pay="ShopeePay">ShopeePay</button>
+                <button class="payment-method-btn" type="button" data-pay="LinkAja">LinkAja</button>
+                <button class="payment-method-btn" type="button" data-pay="Mandiri">Mandiri</button>
+                <button class="payment-method-btn" type="button" data-pay="BSI">BSI</button>
                 <button class="payment-method-btn" type="button" data-pay="Bank Jago">Bank Jago</button>
+                <button class="payment-method-btn" type="button" data-pay="SeaBank">SeaBank</button>
               </div>
             </div>
 
@@ -5353,7 +5488,7 @@
             <div class="qris-details-card">
               <div class="qris-row">
                 <span>Merchant:</span>
-                <strong>JASA BABAY CREATOR</strong>
+                <strong>BAYU RIZKY SAMPURNA - DIGITAL & KREATIF</strong>
               </div>
               <div class="qris-row">
                 <span>ID Transaksi:</span>
@@ -5393,23 +5528,20 @@
           </div>
         </div>
 
-        <!-- Step 4: Manual WhatsApp Confirmation -->
+        <!-- Step 3: Redirecting / Completed State -->
         <div class="checkout-step-container" id="checkoutStepSuccess">
           <div class="success-delivery-box" style="text-align: center; padding: 10px 0;">
             <div class="success-icon-banner" style="background: rgba(99, 102, 241, 0.08); border-color: rgba(99, 102, 241, 0.18); color: #a5b4fc; margin-bottom: 20px;">
-              Pembayaran tercatat — lanjutkan konfirmasi manual
+              💬 Mengalihkan ke WhatsApp Admin...
             </div>
-            <h3>Konfirmasi WhatsApp dalam 2 Langkah</h3>
+            <h3>Menunggu Konfirmasi Manual</h3>
             <p style="color: var(--muted); font-size: 13.5px; margin-bottom: 24px; line-height: 1.6;">
-              Salin rincian di bawah terlebih dahulu. Setelah itu buka WhatsApp admin, ketik sapaan <strong>Halo</strong> atau <strong>Hi</strong> sendiri, kemudian tempel rincian dan lampirkan bukti transfer.
+              Kami telah membuka WhatsApp untuk mengirimkan detail pesanan Anda. Silakan kirim pesan tersebut dan lampirkan bukti screenshot transfer agar Admin Babay dapat memproses pesanan Anda secepatnya.
             </p>
-            <pre class="confirmation-message-preview" id="confirmationMessagePreview">Rincian pesanan akan tampil di sini.</pre>
             <div class="delivery-actions">
-              <button class="btn btn-primary btn-block" id="btnCopyConfirmation" type="button">1. Salin Pesan Rincian</button>
-              <a class="btn btn-soldout btn-block" id="btnWaFallback" href="#" target="_blank" rel="noopener" aria-disabled="true">
-                2. Buka WhatsApp Admin
+              <a class="btn btn-wa btn-block" id="btnWaFallback" href="#" target="_blank" rel="noopener">
+                💬 Kirim Pesan Ulang ke WhatsApp
               </a>
-              <div class="copy-confirm-status" id="copyConfirmationStatus" aria-live="polite"></div>
               <button class="btn btn-ghost btn-block" id="btnDeliveryClose" type="button">Tutup Jendela</button>
             </div>
           </div>
@@ -5438,7 +5570,6 @@
 
       // Modal 2: Checkout Modal
       const checkoutModal = document.getElementById('checkoutModal');
-      const btnCheckoutBack = document.getElementById('btnCheckoutBack');
       const btnCheckoutClose = document.getElementById('btnCheckoutClose');
       const checkoutProdName = document.getElementById('checkoutProdName');
       const checkoutPriceText = document.getElementById('checkoutPriceText');
@@ -5451,7 +5582,6 @@
 
       // Checkout Steps
       const stepInput = document.getElementById('checkoutStepInput');
-      const stepPaymentChoice = document.getElementById('checkoutStepPaymentChoice');
       const stepPay = document.getElementById('checkoutStepPay');
       const stepSuccess = document.getElementById('checkoutStepSuccess');
 
@@ -5465,14 +5595,6 @@
       const labelCheckAgree = document.querySelector('label[for="checkAgree"]');
       const btnGoToPayment = document.getElementById('btnGoToPayment');
       const btnSimulatePayment = document.getElementById('btnSimulatePayment');
-      const primaryPaymentButtons = document.querySelectorAll('[data-primary-pay]');
-      const btnBackToCheckoutInput = document.getElementById('btnBackToCheckoutInput');
-      const warrantyAddonBox = document.getElementById('warrantyAddonBox');
-      const warrantyAddon = document.getElementById('warrantyAddon');
-      const warrantyAddonText = document.getElementById('warrantyAddonText');
-      const btnCopyConfirmation = document.getElementById('btnCopyConfirmation');
-      const copyConfirmationStatus = document.getElementById('copyConfirmationStatus');
-      const confirmationMessagePreview = document.getElementById('confirmationMessagePreview');
       const qtyGroup = document.getElementById('qtyGroup');
       const qtyGrid = document.getElementById('qtyGrid');
       const qtyButtons = document.querySelectorAll('.qty-option');
@@ -5481,6 +5603,12 @@
       const emailRequiredStar = document.getElementById('emailRequiredStar');
       const emailHelpNote = document.getElementById('emailHelpNote');
       const labelEmail = document.getElementById('labelEmail');
+      const promoGroup = document.getElementById('promoGroup');
+      const inputPromo = document.getElementById('inputPromo');
+      const btnApplyPromo = document.getElementById('btnApplyPromo');
+      const promoFeedback = document.getElementById('promoFeedback');
+      const promoDiscountRow = document.getElementById('promoDiscountRow');
+      const promoDiscountText = document.getElementById('promoDiscountText');
 
       function setEmailLabel(text) {
         if (labelEmail && labelEmail.firstChild) labelEmail.firstChild.nodeValue = `${text} `;
@@ -5509,7 +5637,6 @@
       let qrisCountdownInterval = null;
       let currentUniqueCode = 0;
       let selectedPaymentKey = 'QRIS';
-      let currentConfirmationMessage = '';
 
       /* ==========================================================================
          SECTION EDIT HARGA PAKET
@@ -5518,17 +5645,22 @@
          hargaPromo = harga aktif / nominal paket sebelum kode unik
          ========================================================================== */
       const PAKET_HARGA = {
-        A: { hargaLama: 100000, hargaPromo: 75000 },
-        C: { hargaLama: 130000, hargaPromo: 85000 },
-        D: { hargaLama: 40000, hargaPromo: 35000 },
-        X: { hargaLama: 160000, hargaPromo: 145000 }
+        A: { hargaLama: 200000, hargaPromo: 150000 },
+        C: { hargaLama: 130000, hargaPromo: 86000 },
+        D: { hargaLama: 40000, hargaPromo: 35000 }
       };
 
       const BULK_HARGA = {
-        A: { 1: 75000, 2: 140000, 3: 200000, 5: 320000 },
-        C: { 1: 85000, 2: 160000, 3: 230000, 5: 360000 },
-        D: { 1: 35000, 2: 55000, 3: 82500 },
-        X: { 1: 145000, 2: 260000 }
+        A: { 1: 150000, 2: 280000, 3: 400000, 4: 470000, 5: 520000 },
+        C: { 1: 86000, 2: 160000, 3: 230000, 4: 300000, 5: 360000 },
+        D: { 1: 35000, 2: 65000, 3: 90000, 4: 120000, 5: 150000 }
+      };
+
+      const PROMO_JIO = {
+        code: 'DISKONBAY',
+        minDiscount: 3000,
+        maxDiscount: 10000,
+        step: 1000
       };
 
       /* ==========================================================================
@@ -5536,7 +5668,7 @@
          Cukup ubah nomor/kode di bawah ini jika rekening berubah.
          ========================================================================== */
       const PAYMENT_ACCOUNTS = {
-        QRIS: { label: 'QRIS', type: 'QRIS', name: 'QRIS Babay Creator', owner: 'JASA BABAY CREATOR', number: 'Scan QRIS Babay Creator', code: '', copyable: false },
+        QRIS: { label: 'QRIS', type: 'QRIS', name: 'QRIS BabayShop', owner: 'BAYU RIZKY SAMPURNA', number: 'Scan QRIS BabayShop', code: '', copyable: false },
         GoPay: { label: 'GoPay', type: 'E-Wallet', name: 'GoPay', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
         DANA: { label: 'DANA', type: 'E-Wallet', name: 'DANA', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
         ShopeePay: { label: 'ShopeePay', type: 'E-Wallet', name: 'ShopeePay', owner: 'BAYU RIZKY SAMPURNA', number: '088215993544', code: '', copyable: true },
@@ -5722,10 +5854,7 @@
 
           if (oldPriceEl) oldPriceEl.textContent = formatRupiah(harga.hargaLama);
           if (newPriceEl) newPriceEl.textContent = formatRupiah(harga.hargaPromo);
-          if (buyBtn) {
-            buyBtn.setAttribute('data-price', String(harga.hargaPromo));
-            buyBtn.textContent = 'Checkout';
-          }
+          if (buyBtn) buyBtn.setAttribute('data-price', String(harga.hargaPromo));
         });
       }
       applyPaketHarga();
@@ -5813,16 +5942,97 @@
         return base * qty;
       }
 
-      function configureQtyOptions(packageId) {
-        const maxQty = packageId === 'D' ? 3 : packageId === 'X' ? 2 : 5;
-        if (qtyGrid) qtyGrid.style.gridTemplateColumns = packageId === 'D' ? 'repeat(3, 1fr)' : packageId === 'X' ? 'repeat(2, 1fr)' : '';
+      function setPromoFeedback(message = '', type = '') {
+        promoFeedback.textContent = message;
+        promoFeedback.className = 'promo-feedback';
+        if (message) promoFeedback.classList.add('active');
+        if (type) promoFeedback.classList.add(type);
+      }
 
+      function getRandomJioDiscount() {
+        const optionCount = Math.floor((PROMO_JIO.maxDiscount - PROMO_JIO.minDiscount) / PROMO_JIO.step) + 1;
+        let randomIndex;
+
+        if (window.crypto && window.crypto.getRandomValues) {
+          const randomValue = new Uint32Array(1);
+          window.crypto.getRandomValues(randomValue);
+          randomIndex = randomValue[0] % optionCount;
+        } else {
+          randomIndex = Math.floor(Math.random() * optionCount);
+        }
+
+        return PROMO_JIO.minDiscount + (randomIndex * PROMO_JIO.step);
+      }
+
+      function recalculateCheckoutPrice() {
+        if (!currentPackage) return;
+        currentPackage.basePrice = getPackageTotal(currentPackage.id, currentPackage.qty);
+        currentPackage.discount = currentPackage.id === 'A' && currentPackage.promoApplied
+          ? Math.min(currentPackage.promoDiscount, currentPackage.basePrice)
+          : 0;
+        currentPackage.price = Math.max(currentPackage.basePrice - currentPackage.discount, 0);
+        checkoutPriceText.textContent = formatRupiah(currentPackage.price);
+        promoDiscountRow.classList.toggle('active', currentPackage.discount > 0);
+        promoDiscountText.textContent = `-${formatRupiah(currentPackage.discount)}`;
+      }
+
+      function resetPromoState() {
+        if (currentPackage) {
+          currentPackage.promoApplied = false;
+          currentPackage.promoCode = '';
+          currentPackage.promoDiscount = 0;
+          currentPackage.discount = 0;
+        }
+        inputPromo.value = '';
+        setPromoFeedback();
+        promoDiscountRow.classList.remove('active');
+      }
+
+      function applyJioPromo() {
+        if (!currentPackage || currentPackage.id !== 'A') {
+          setPromoFeedback('Kode voucher ini hanya berlaku untuk Paket JIO.', 'error');
+          return;
+        }
+
+        const normalizedCode = inputPromo.value.trim().toUpperCase();
+        if (normalizedCode === PROMO_JIO.code) {
+          if (!currentPackage.promoApplied || !currentPackage.promoDiscount) {
+            currentPackage.promoDiscount = getRandomJioDiscount();
+          }
+          currentPackage.promoApplied = true;
+          currentPackage.promoCode = PROMO_JIO.code;
+          inputPromo.value = PROMO_JIO.code;
+          recalculateCheckoutPrice();
+          setPromoFeedback(`Voucher berhasil dipakai. Kamu mendapat diskon sebesar: ${formatRupiah(currentPackage.discount)}.`, 'success');
+          return;
+        }
+
+        currentPackage.promoApplied = false;
+        currentPackage.promoCode = '';
+        currentPackage.promoDiscount = 0;
+        recalculateCheckoutPrice();
+        setPromoFeedback(normalizedCode ? 'Kode voucher tidak valid.' : 'Masukkan kode voucher terlebih dahulu.', 'error');
+      }
+
+      function configureQtyOptions(packageId) {
+        const maxQty = packageId === 'D' ? 3 : 5;
+        if (qtyGrid) qtyGrid.style.gridTemplateColumns = packageId === 'D' ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)';
+
+        const unitPrice = PAKET_HARGA[packageId]?.hargaPromo || 0;
         qtyButtons.forEach(btn => {
           const qty = Number(btn.getAttribute('data-qty'));
           const shouldHide = qty > maxQty;
           btn.style.display = shouldHide ? 'none' : '';
           btn.disabled = shouldHide;
           if (shouldHide) btn.classList.remove('active');
+
+          const label = btn.querySelector('.qty-discount-label');
+          if (label && unitPrice > 0 && qty > 1) {
+            const normalTotal = unitPrice * qty;
+            const promoTotal = getPackageTotal(packageId, qty);
+            const discountPercent = Math.max(0, Math.round(((normalTotal - promoTotal) / normalTotal) * 100));
+            label.textContent = `Diskon ${discountPercent}%`;
+          }
         });
       }
 
@@ -5865,31 +6075,24 @@
       function updateCheckoutQuantity(qty) {
         if (!currentPackage) return;
 
-        const maxQty = currentPackage.id === 'D' ? 3 : currentPackage.id === 'X' ? 2 : 5;
+        const maxQty = currentPackage.id === 'D' ? 3 : 5;
         const safeQty = Math.min(Math.max(Number(qty) || 1, 1), maxQty);
         currentPackage.qty = safeQty;
-        const basePackagePrice = getPackageTotal(currentPackage.id, safeQty);
-        const warrantyEligible = currentPackage.id === 'A' || currentPackage.id === 'C';
-        const warrantyFee = warrantyEligible && warrantyAddon.checked ? 20000 * safeQty : 0;
-        currentPackage.warrantyAddon = warrantyFee > 0;
-        currentPackage.price = basePackagePrice + warrantyFee;
+        recalculateCheckoutPrice();
 
         qtyButtons.forEach(btn => btn.classList.toggle('active', Number(btn.getAttribute('data-qty')) === safeQty));
-        checkoutPriceText.textContent = formatRupiah(currentPackage.price);
         renderInviteEmailFields(safeQty);
 
         const normalPrice = currentPackage.unitPrice * safeQty;
-        const saving = normalPrice - basePackagePrice;
+        const saving = normalPrice - currentPackage.basePrice;
         if (saving > 0) {
           bulkSaveRow.classList.add('active');
-          bulkSaveRow.textContent = `Promo bulk aktif: ${safeQty} item ${formatRupiah(basePackagePrice)}${warrantyFee ? ` + garansi ${formatRupiah(warrantyFee)}` : ''}. Hemat ${formatRupiah(saving)} dari harga satuan.`;
+          bulkSaveRow.textContent = `Promo bulk aktif: ${safeQty} item total ${formatRupiah(currentPackage.basePrice)}. Hemat ${formatRupiah(saving)} dari harga satuan.`;
         } else {
           bulkSaveRow.classList.remove('active');
           bulkSaveRow.textContent = 'Harga bulk aktif. Total tagihan sudah menyesuaikan promo jumlah pembelian.';
         }
       }
-
-      warrantyAddon.addEventListener('change', () => updateCheckoutQuantity(currentPackage?.qty || 1));
 
       qtyButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -5897,24 +6100,46 @@
         });
       });
 
-      function openCheckoutFromButton(btn, defaultQty = 1) {
-        const checkoutHour = new Date().getHours();
-        if (checkoutHour >= 23 || checkoutHour < 5) {
-          alert('Info jam malam: Admin kemungkinan sedang istirahat pukul 23.00–05.00. Pesanan biasanya dijawab saat pagi atau jam kerja, namun Admin Babay akan membalas secepatnya.');
+      btnApplyPromo.addEventListener('click', applyJioPromo);
+      inputPromo.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          applyJioPromo();
         }
+      });
+      inputPromo.addEventListener('input', () => {
+        inputPromo.value = inputPromo.value.toUpperCase();
+        if (currentPackage?.promoApplied && inputPromo.value.trim() !== PROMO_JIO.code) {
+          currentPackage.promoApplied = false;
+          currentPackage.promoCode = '';
+          currentPackage.promoDiscount = 0;
+          recalculateCheckoutPrice();
+          setPromoFeedback('Kode diubah. Terapkan kembali untuk mendapat potongan.', 'error');
+        }
+      });
+
+      function openCheckoutFromButton(btn, defaultQty = 1) {
         const id = btn.getAttribute('data-id');
         const name = btn.getAttribute('data-name');
         const unitPrice = PAKET_HARGA[id]?.hargaPromo || parseInt(btn.getAttribute('data-price'));
-        const maxQty = id === 'D' ? 3 : id === 'X' ? 2 : 5;
+        const maxQty = id === 'D' ? 3 : 5;
         const safeDefaultQty = Math.min(Math.max(Number(defaultQty) || 1, 1), maxQty);
 
-        currentPackage = { id, name, unitPrice, qty: safeDefaultQty, price: getPackageTotal(id, safeDefaultQty) };
-        warrantyAddon.checked = false;
-        const warrantyEligible = id === 'A' || id === 'C';
-        warrantyAddonBox.classList.toggle('active', warrantyEligible);
-        warrantyAddonText.innerHTML = id === 'C'
-          ? 'Tambah garansi 2 bulan menjadi <strong style="color:var(--amber);">total 3 bulan (+Rp20.000 per paket)</strong>'
-          : 'Tambah garansi layanan 1 bulan <strong style="color:var(--amber);">+Rp20.000 per voucher</strong>';
+        currentPackage = {
+          id,
+          name,
+          unitPrice,
+          qty: safeDefaultQty,
+          basePrice: getPackageTotal(id, safeDefaultQty),
+          price: getPackageTotal(id, safeDefaultQty),
+          discount: 0,
+          promoDiscount: 0,
+          promoApplied: false,
+          promoCode: ''
+        };
+
+        resetPromoState();
+        promoGroup.hidden = id !== 'A';
 
         // Set checkout details
         checkoutProdName.textContent = name;
@@ -5943,7 +6168,7 @@
           emailRequiredStar.style.display = 'none';
           checkoutStepDesc.textContent = 'Untuk Pixel Head, kamu bisa memakai Gmail admin Babay atau Gmail kamu sendiri. Isi email jika ingin Gmail sendiri menjadi Head, atau kosongkan jika ingin memakai Gmail admin.';
           emailHelpNote.innerHTML = 'Opsional untuk Paket Pixel Head: isi Gmail kamu sendiri jika ingin menjadi Head. Kosongkan jika ingin Gmail admin Babay.';
-          if (labelCheckAgree) labelCheckAgree.textContent = 'Saya telah membaca, memahami, dan menyetujui risiko, garansi standar 1 bulan, opsi tambahan garansi 2 bulan, serta pilihan Gmail admin / Gmail sendiri.';
+          if (labelCheckAgree) labelCheckAgree.textContent = 'Saya telah membaca, memahami, dan menyetujui detail ketentuan risiko, garansi 1 bulan, serta pilihan Gmail admin / Gmail sendiri untuk paket ini.';
           inputEmail.placeholder = 'gmail kamu sendiri (opsional)';
           inputEmail.disabled = false;
           inputEmail.value = '';
@@ -5951,8 +6176,8 @@
           emailGroup.style.display = 'none';
           setEmailLabel('Email Aktivasi / Invite');
           emailRequiredStar.style.display = 'none';
-          checkoutStepDesc.textContent = 'Lanjutkan pembelian paket Google AI Pro tanpa mengisi email pada halaman ini.';
-          if (labelCheckAgree) labelCheckAgree.textContent = 'Saya telah membaca, memahami, dan menyetujui detail ketentuan risiko, garansi, serta persyaratan paket ini.';
+          checkoutStepDesc.textContent = 'Lanjutkan pembelian Paket JIO. Masukkan kode voucher DISKONBAY untuk diskon acak (Sampai 10,000).';
+          if (labelCheckAgree) labelCheckAgree.textContent = 'Saya memahami garansi Voucher JIO hanya untuk proses klaim maksimal 1x24 jam sampai paket aktif. Setelah aktif tidak ada garansi, termasuk jika paket dicabut oleh JIO.';
           inputEmail.disabled = true;
           inputEmail.value = '';
           inputEmail.parentElement.classList.remove('error');
@@ -5981,11 +6206,6 @@
         btn.addEventListener('click', () => openCheckoutFromButton(btn, 1));
       });
 
-      const bulkBtns = document.querySelectorAll('.btn-bulk-order');
-      bulkBtns.forEach(btn => {
-        btn.addEventListener('click', () => openCheckoutFromButton(btn, Number(btn.getAttribute('data-bulk-qty')) || 2));
-      });
-
       // Close Checkout Modal helper
       function closeCheckout() {
         checkoutModal.classList.remove('active');
@@ -5996,13 +6216,6 @@
       btnCheckoutClose.addEventListener('click', closeCheckout);
       btnDeliveryClose.addEventListener('click', closeCheckout);
 
-      btnCheckoutBack.addEventListener('click', () => {
-        if (stepSuccess.classList.contains('active')) showCheckoutStep(stepPay);
-        else if (stepPay.classList.contains('active')) showCheckoutStep(stepPaymentChoice);
-        else if (stepPaymentChoice.classList.contains('active')) showCheckoutStep(stepInput);
-        else closeCheckout();
-      });
-
       // Close modal when clicking outside content area
       checkoutModal.addEventListener('click', (e) => {
         if (e.target === checkoutModal) {
@@ -6011,7 +6224,7 @@
       });
 
       function showCheckoutStep(stepElement) {
-        const steps = [stepInput, stepPaymentChoice, stepPay, stepSuccess];
+        const steps = [stepInput, stepPay, stepSuccess];
         steps.forEach(step => {
           if (step === stepElement) {
             step.classList.add('active');
@@ -6059,23 +6272,18 @@
 
         if (!isValid) return;
 
-        // Proceed to payment method selection before showing any payment detail.
-        showCheckoutStep(stepPaymentChoice);
-      });
-
-      btnBackToCheckoutInput.addEventListener('click', () => showCheckoutStep(stepInput));
-      primaryPaymentButtons.forEach(btn => {
-        btn.addEventListener('click', () => generateQrisPayment(btn.getAttribute('data-primary-pay')));
+        // Proceed to Step 2: QRIS Display
+        generateQrisPayment();
       });
 
       // Generate QRIS simulated payment
-      function generateQrisPayment(methodKey) {
+      function generateQrisPayment() {
         // Generate mock TX-ID
         const randomId = Math.floor(1000000 + Math.random() * 9000000);
         qrisTxId.textContent = `TX-${randomId}`;
 
-        // Generate 3 digit unique code
-        currentUniqueCode = Math.floor(501 + Math.random() * 499);
+        // Generate kode unik 3 digit: selalu di atas 500 dan di bawah 999 (501–998)
+        currentUniqueCode = Math.floor(501 + Math.random() * 498);
         const totalPrice = currentPackage.price + currentUniqueCode;
 
         // Update nominal displays
@@ -6084,11 +6292,11 @@
         qrisTotalPriceText.textContent = formatRupiah(totalPrice);
 
         // Show Payment Step
-        setPaymentMethod(methodKey || 'QRIS');
+        setPaymentMethod('QRIS');
         showCheckoutStep(stepPay);
 
-        // Setup 10 minute countdown timer
-        let duration = 600;
+        // Setup 5 minute countdown timer
+        let duration = 300; // 5 minutes in seconds
         updateCountdownText(duration);
 
         clearInterval(qrisCountdownInterval);
@@ -6098,7 +6306,7 @@
 
           if (duration <= 0) {
             clearInterval(qrisCountdownInterval);
-            alert('Waktu pembayaran habis. Silakan checkout ulang.');
+            alert('Waktu pembayaran QRIS habis. Silakan checkout ulang.');
             closeCheckout();
           }
         }, 1000);
@@ -6138,36 +6346,29 @@ ${inviteEmailValues.map((email, index) => `  ${index + 1}. ${email}`).join('\n')
           : currentPackage.id === 'C'
             ? `- Opsi Head: ${headEmail ? `Gmail sendiri (${headEmail})` : 'Gmail admin BabayShop'}\n`
             : '';
-        const bundleContentLine = currentPackage.id === 'X'
-          ? currentPackage.qty === 2
-            ? '- Isi Bulk X: 3 Voucher JIO + 2 Akun Head Google AI Pro Pixel\n- Promo: Nilai normal Rp395.000, bayar Rp260.000, hemat Rp135.000\n'
-            : '- Isi Bundle X: 1 Voucher JIO + 1 Akun Head Google AI Pro Pixel\n'
+        const promoLine = currentPackage.promoApplied
+          ? `- Voucher: ${currentPackage.promoCode} (-${formatRupiah(currentPackage.discount)})\n`
           : '';
         const totalPayment = currentPackage.price + currentUniqueCode;
         const formatWaRupiah = (number) => formatRupiah(number).replace(/^Rp/, 'Rp ');
         const garansiText = {
-          A: currentPackage.warrantyAddon
-            ? 'Tambahan garansi layanan 1 bulan aktif (+Rp20.000 per voucher)'
-            : 'Garansi berakhir setelah paket aktif lebih dari 24 jam; komplain setelahnya tidak dapat diterima',
-          C: currentPackage.warrantyAddon
-            ? 'Garansi layanan total 3 bulan (tambahan 2 bulan aktif, +Rp20.000 per paket)'
-            : 'Garansi layanan standar 1 bulan',
-          D: 'Garansi layanan 1 bulan',
-          X: 'Voucher JIO garansi 7 hari + akun Pixel garansi 3 bulan'
+          A: 'Garansi klaim maksimal 1x24 jam, hanya sampai paket berhasil aktif. Setelah aktif tidak ada garansi, termasuk jika paket dicabut oleh JIO',
+          C: 'Garansi layanan 1 bulan',
+          D: 'Garansi layanan 1 bulan'
         }[currentPackage.id] || 'Mengikuti ketentuan garansi di website';
         const paymentTitle = selectedPaymentKey === 'QRIS'
           ? 'Pembayaran QRIS Manual:'
           : `Pembayaran Manual via ${account.label}:`;
         const paymentDestination = selectedPaymentKey === 'QRIS'
-          ? 'Merchant: JASA BABAY CREATOR'
+          ? 'Merchant: BAYU RIZKY SAMPURNA - DIGITAL & KREATIF'
           : `Tujuan: ${account.name} - ${account.number}\nAtas Nama: ${account.owner}${account.code ? `\n${account.code}` : ''}`;
 
         // Build WA message
-        const message = `Saya sudah transfer via ${payMethodVal}.
+        const message = `Halo Admin Babay, saya sudah transfer via ${payMethodVal}.
 
 - ${formattedDate}
 - ID: ${qrisTxId.textContent}
-${emailLine}${bundleContentLine}- Paket ${currentPackage.id} - ${currentPackage.name}
+${emailLine}${promoLine}- Paket ${currentPackage.id} - ${currentPackage.name}
 - Jumlah Pembelian: ${currentPackage.qty}
 - Nominal Transfer: ${formatWaRupiah(totalPayment)}
 - ${garansiText}
@@ -6177,37 +6378,18 @@ ${emailLine}${bundleContentLine}- Paket ${currentPackage.id} - ${currentPackage.
 ${paymentTitle}
 ${paymentDestination}
 
-Berikut saya lampirkan bukti screenshot transfer pembayaran. Mohon dicek dan diproses, terima kasih.`;
+Berikut saya lampirkan bukti screenshot transfer pembayaran. Mohon dicek dan diproses ya kak Babay, terima kasih.`;
+        
+        const waUrl = `https://wa.me/6281523984574?text=${encodeURIComponent(message)}`;
+        
+        // Open WhatsApp in new window
+        window.open(waUrl, '_blank');
 
-        // WhatsApp dibuka tanpa pesan otomatis. Pembeli mengetik Hai/Halo sendiri,
-        // lalu menyalin format rincian melalui tombol langkah kedua.
-        currentConfirmationMessage = message;
-        confirmationMessagePreview.textContent = message;
-        document.getElementById('btnWaFallback').href = '#';
-        document.getElementById('btnWaFallback').classList.add('btn-soldout');
-        document.getElementById('btnWaFallback').classList.remove('btn-wa');
-        document.getElementById('btnWaFallback').setAttribute('aria-disabled', 'true');
-        copyConfirmationStatus.textContent = '';
-        btnCopyConfirmation.textContent = '1. Salin Pesan Rincian';
+        // Set fallback href in case block popups or window open is blocked
+        document.getElementById('btnWaFallback').href = waUrl;
 
         // Transition web page UI to success redirect notice
         showCheckoutStep(stepSuccess);
-      });
-
-      btnCopyConfirmation.addEventListener('click', async () => {
-        if (!currentConfirmationMessage) return;
-        try {
-          await navigator.clipboard.writeText(currentConfirmationMessage);
-          copyConfirmationStatus.textContent = 'Pesan berhasil disalin. Sekarang buka WhatsApp, ketik Halo/Hi, lalu tempel rincian.';
-          btnCopyConfirmation.textContent = 'Pesan Berhasil Disalin';
-          const waButton = document.getElementById('btnWaFallback');
-          waButton.href = 'https://wa.me/6281523984574';
-          waButton.classList.remove('btn-soldout');
-          waButton.classList.add('btn-wa');
-          waButton.setAttribute('aria-disabled', 'false');
-        } catch (error) {
-          copyConfirmationStatus.textContent = 'Gagal menyalin otomatis. Izinkan akses clipboard lalu coba lagi.';
-        }
       });
 
       // Hidden payment fields are updated automatically by payment method buttons
@@ -6258,6 +6440,8 @@ Berikut saya lampirkan bukti screenshot transfer pembayaran. Mohon dicek dan dip
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
