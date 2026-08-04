@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pembayaran QRIS - Babayshop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta property="og:title" content="Pembayaran QRIS - Babayshop">
+  <meta property="og:description" content="Selesaikan pembayaran Anda menggunakan QRIS di Babayshop.">
+  <meta property="og:image" content="https://i.ibb.co.com/ch4cF3gk/BANNER.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://i.ibb.co.com/ch4cF3gk/BANNER.jpg">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07090d;
+      --surface: rgba(18, 21, 28, .94);
+      --surface-soft: #171b23;
+      --line: rgba(255, 255, 255, .09);
+      --text: #f7f8fa;
+      --muted: #8f98a8;
+      --accent: #b8ff5a;
+      --accent-soft: rgba(184, 255, 90, .12);
+      --success: #57e389;
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--bg); }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(184,255,90,.10), transparent 28rem),
+        radial-gradient(circle at 100% 35%, rgba(90,125,255,.10), transparent 25rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    button { font: inherit; }
+    .floating-shapes { display: none; }
+    .theme-toggle {
+      position: fixed;
+      z-index: 20;
+      top: max(14px, env(safe-area-inset-top));
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(18,21,28,.82);
+      color: var(--accent);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .main-container {
+      width: 100%;
+      min-height: 100vh;
+      padding: max(72px, calc(env(safe-area-inset-top) + 64px)) 14px max(24px, env(safe-area-inset-bottom));
+    }
+    .payment-card {
+      width: min(100%, 480px);
+      margin: 0 auto;
+      padding: 20px 16px 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(155deg, rgba(23,27,35,.97), rgba(12,14,19,.98));
+      box-shadow: 0 24px 80px rgba(0,0,0,.42);
+    }
+    .card-header { padding: 2px 2px 18px; text-align: left; }
+    .card-header::before {
+      content: "BABAYSHOP • SECURE CHECKOUT";
+      display: inline-flex;
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .14em;
+    }
+    .card-header h1 { margin: 0; color: var(--text); font-size: clamp(25px, 8vw, 34px); font-weight: 800; letter-spacing: -.04em; }
+    .subtitle { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+    .amount-section {
+      position: relative;
+      padding: 17px 18px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(184,255,90,.18);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(184,255,90,.14), rgba(184,255,90,.03));
+    }
+    .amount-section::after {
+      content: "IDR";
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .amount-label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+    .amount-value { margin: 0; color: var(--text); font-size: clamp(27px, 9vw, 38px); font-weight: 800; letter-spacing: -.04em; }
+    .qr-section { padding: 5px 0 14px; }
+    .qr-wrapper {
+      width: min(100%, 294px);
+      min-height: 294px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto;
+      padding: 14px;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 0 0 6px rgba(255,255,255,.04), 0 20px 50px rgba(0,0,0,.3);
+    }
+    .qr-wrapper img, .qr-wrapper canvas { display: block; max-width: 100%; height: auto; border-radius: 8px; }
+    .loading-spinner { color: #20242c; text-align: center; }
+    .spinner { width: 34px; height: 34px; margin: 0 auto 12px; border: 3px solid #e6e9ed; border-top-color: #222; border-radius: 50%; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .merchant-info {
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 6px 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .merchant-info i { color: var(--accent); }
+    .action-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 4px 0 18px; }
+    .btn-action {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-soft);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .btn-action:first-child { border-color: var(--accent); background: var(--accent); color: #11150d; }
+    .status-section { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+    .status-item { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 4px; border: 1px solid var(--line); border-radius: 12px; color: var(--muted); font-size: 11px; }
+    .status-item i { color: var(--success); }
+    .divider { margin: 20px 0; border: 0; border-top: 1px solid var(--line); opacity: 1; }
+    .instructions h6 { margin-bottom: 14px; color: var(--text); font-size: 14px; font-weight: 750; }
+    .instructions h6 i { margin-right: 5px; color: var(--accent); }
+    .steps { display: grid; gap: 9px; }
+    .step { display: grid; grid-template-columns: 30px 1fr; align-items: center; gap: 10px; padding: 10px; border-radius: 13px; background: rgba(255,255,255,.025); }
+    .step-number { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 800; }
+    .step p { margin: 0; color: #c7ccd5; font-size: 12px; line-height: 1.45; }
+    .supported-payment { margin-top: 20px; }
+    .supported-payment > p { margin-bottom: 10px; color: var(--muted); font-size: 11px; }
+    .payment-icons { display: flex; flex-wrap: wrap; gap: 7px; }
+    .payment-badge { padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.035); color: #dce0e7; font-size: 10px; font-weight: 650; }
+    .alert-qris-error {
+      background-color: rgba(255, 190, 70, .08);
+      color: #f3ca7c;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      border: 1px solid rgba(255, 190, 70, .2);
+    }
+    .alert-qris-error i { margin-top: 3px; }
+    .manual-payment-card {
+      background: rgba(255,255,255,.025);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: none;
+      border: 1px solid var(--line);
+      text-align: left;
+    }
+    .manual-payment-card h5 { margin-bottom: 5px; font-size: 18px; }
+    .manual-payment-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+    }
+    .manual-payment-item:last-child { margin-bottom: 0; }
+    .manual-payment-item:hover {
+      border-color: rgba(184,255,90,.28);
+      background-color: rgba(184,255,90,.035);
+    }
+    .bank-logo-placeholder {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-size: 18px;
+    }
+    .btn-copy-manual {
+      background: transparent;
+      border: 1px solid rgba(184,255,90,.26);
+      color: var(--accent);
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-copy-manual:hover { background: var(--accent-soft); }
+    .btn-copy-manual.copied {
+      background: #4caf50;
+      color: white;
+      border-color: #4caf50;
+    }
+    .manual-payment-card h5 { color: var(--text); }
+    .manual-payment-card .text-muted { color: var(--muted) !important; }
+    .manual-payment-card .text-dark { color: var(--text) !important; }
+    .manual-payment-card .bg-light { background: rgba(255,255,255,.07) !important; }
+    .bank-logo-placeholder, .bank--placeholder { flex: 0 0 40px; width: 40px; height: 40px; display: grid; place-items: center; margin-right: 11px; border-radius: 12px; }
+    .card-footer { display: flex; align-items: center; justify-content: center; gap: 7px; padding-top: 4px; color: var(--muted); font-size: 11px; }
+    .card-footer i { color: var(--success); }
+    @media (min-width: 600px) {
+      .main-container { padding-top: 38px; padding-bottom: 38px; }
+      .payment-card { padding: 26px; }
+    }
+    @media (max-width: 360px) {
+      .main-container { padding-left: 8px; padding-right: 8px; }
+      .payment-card { padding-left: 12px; padding-right: 12px; border-radius: 22px; }
+      .btn-action span { display: none; }
+      .btn-action { font-size: 15px; }
+      .manual-payment-item { align-items: flex-end; gap: 8px; }
+      .btn-copy-manual { padding: 6px 11px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+    <div class="shape shape-5"></div>
+  </div>
+
+  <button id="themeToggle" class="theme-toggle" title="Toggle Dark Mode">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <div class="main-container">
+<div class="payment-card">
+  <div class="card-header">
+    <h1>Pembayaran QRIS</h1>
+    <p class="subtitle">Babayshop Payment Gateway</p>
+  </div>
+      <div class="amount-section">
+        <span class="amount-label">Total Pembayaran</span>
+        <h2 id="amountDisplay" class="amount-value">Rp 0</h2>
+      </div>
+
+
+
+      <div id="messageContainer"></div>
+
+      <div class="qr-section">
+        <div id="qrContainer" class="qr-wrapper">
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Generating QR Code...</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="merchantDisplay" class="merchant-info" style="display:none;">
+        <i class="fas fa-store"></i>
+        <span id="displayMerchantName"></span>
+      </div>
+
+      <div id="actionButtons" class="action-buttons" style="display:none;">
+        <button onclick="downloadQR()" class="btn-action btn-download">
+          <i class="fas fa-download"></i>
+          <span>Download</span>
+        </button>
+        <button onclick="copyQRCode()" class="btn-action btn-copy">
+          <i class="fas fa-copy"></i>
+          <span>Copy</span>
+        </button>
+        <button onclick="shareQR()" class="btn-action btn-share">
+          <i class="fas fa-share-alt"></i>
+          <span>Share</span>
+        </button>
+      </div>
+
+      <div class="status-section">
+        <div class="status-item">
+          <i class="fas fa-shield-alt"></i>
+          <span>Aman</span>
+        </div>
+        <div class="status-item">
+          <i class="fas fa-bolt"></i>
+          <span>Instan</span>
+        </div>
+        <div class="status-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Terpercaya</span>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="instructions">
+        <h6><i class="fas fa-info-circle"></i> Cara Pembayaran</h6>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <p>Buka aplikasi e-wallet atau mobile banking</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <p>Pilih menu Scan QR / QRIS</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <p>Scan QR Code di atas</p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <p>Konfirmasi pembayaran</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="supported-payment">
+        <p>Didukung oleh:</p>
+        <div class="payment-icons">
+          <span class="payment-badge">GoPay</span>
+          <span class="payment-badge">OVO</span>
+          <span class="payment-badge">DANA</span>
+          <span class="payment-badge">ShopeePay</span>
+          <span class="payment-badge">LinkAja</span>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="alert-qris-error mt-4 mb-3">
+        <i class="fas fa-info-circle"></i>
+        <span>Jika QRIS error/tidak muncul, silakan transfer manual sesuai <strong>Total Pembayaran</strong> ke salah satu tujuan di bawah ini.</span>
+      </div>
+
+      <div class="manual-payment-card mb-3">
+        <h5 class="fw-bold">E-Wallet</h5>
+        <p class="text-muted small mb-3">Semua atas nama <strong>BAYU RIZKY SAMPURNA</strong>. Tap "Copy" untuk menyalin.</p>
+        
+        <div class="manual-payment-item">
+          <div class="d-flex align-items-center">
+            <div class="bank--placeholder bg-light text-primary"><i class="fas fa-wallet"></i></div>
+            <div>
+              <div class="fw-bold" style="font-size: 14px;">GoPay</div>
+              <div class="text-dark fw-semibold">0882 1599 3544</div>
+            </div>
+          </div>
+          <button class="btn-copy-manual" onclick="copyManualText('088215993544', this)">Copy</button>
+        </div>
+
+        <div class="manual-payment-item">
+          <div class="d-flex align-items-center">
+            <div class="bank--placeholder bg-light text-info"><i class="fas fa-wallet"></i></div>
+            <div>
+              <div class="fw-bold" style="font-size: 14px;">DANA</div>
+              <div class="text-dark fw-semibold">0882 1599 3544</div>
+            </div>
+          </div>
+          <button class="btn-copy-manual" onclick="copyManualText('088215993544', this)">Copy</button>
+        </div>
+
+        <div class="manual-payment-item">
+          <div class="d-flex align-items-center">
+            <div class="bank-logo-placeholder bg-light" style="color: #ee4d2d;"><i class="fas fa-wallet"></i></div>
+            <div>
+              <div class="fw-bold" style="font-size: 14px;">ShopeePay</div>
+              <div class="text-dark fw-semibold">0882 1599 3544</div>
+            </div>
+          </div>
+          <button class="btn-copy-manual" onclick="copyManualText('088215993544', this)">Copy</button>
+        </div>
+
+        <div class="manual-payment-item">
+          <div class="d-flex align-items-center">
+            <div class="bank-logo-placeholder bg-light text-danger"><i class="fas fa-wallet"></i></div>
+            <div>
+              <div class="fw-bold" style="font-size: 14px;">LinkAja</div>
+              <div class="text-dark fw-semibold">0882 1599 3544</div>
+            </div>
+          </div>
+          <button class="btn-copy-manual" onclick="copyManualText('088215993544', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="manual-payment-card mb-4">
+        <h5 class="fw-bold">Transfer Bank</h5>
+        <p class="text-muted small mb-3">Kode bank sudah disertakan.</p>
+        
+        <div class="manual-payment-item">
+          <div class="d-flex align-items-center">
+            <div class="bank-logo-placeholder bg-light text-warning"><i class="fas fa-building-columns"></i></div>
+            <div>
+              <div class="fw-bold" style="font-size: 14px;">Bank Mandiri</div>
+              <div class="text-muted" style="font-size: 12px;">Kode Bank: 008</div>
+              <div class="text-dark fw-semibold">1120 0204 38110</div>
+            </div>
+          </div>
+          <button class="btn-copy-manual" onclick="copyManualText('1120020438110', this)">Copy</button>
+        </div>
+
+        <div class="manual-payment-item">
+          <div class="d-flex align-items-center">
+            <div class="bank-logo-placeholder bg-light text-success"><i class="fas fa-building-columns"></i></div>
+            <div>
+              <div class="fw-bold" style="font-size: 14px;">BSI (Bank Syariah Indonesia)</div>
+              <div class="text-muted" style="font-size: 12px;">Kode Bank: 451</div>
+              <div class="text-dark fw-semibold">7183 942 225</div>
+            </div>
+          </div>
+          <button class="btn-copy-manual" onclick="copyManualText('7183942225', this)">Copy</button>
+        </div>
+
+        <div class="manual-payment-item">
+          <div class="d-flex align-items-center">
+            <div class="bank-logo-placeholder bg-light text-warning"><i class="fas fa-building-columns"></i></div>
+            <div>
+              <div class="fw-bold" style="font-size: 14px;">Bank Jago</div>
+              <div class="text-muted" style="font-size: 12px;">Kode Bank: 542</div>
+              <div class="text-dark fw-semibold">1006 4533 1871</div>
+            </div>
+          </div>
+          <button class="btn-copy-manual" onclick="copyManualText('100645331871', this)">Copy</button>
+        </div>
+
+        <div class="manual-payment-item">
+          <div class="d-flex align-items-center">
+            <div class="bank-logo-placeholder bg-light" style="color: #f76b1c;"><i class="fas fa-building-columns"></i></div>
+            <div>
+              <div class="fw-bold" style="font-size: 14px;">SeaBank</div>
+              <div class="text-muted" style="font-size: 12px;">Kode Bank: 535</div>
+              <div class="text-dark fw-semibold">9013 7594 0437</div>
+            </div>
+          </div>
+          <button class="btn-copy-manual" onclick="copyManualText('901375940437', this)">Copy</button>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <i class="fas fa-lock"></i>
+        <span>Transaksi aman dengan QRIS</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script src="script.js"></script>
+  
+  <script>
+    function copyManualText(text, btnElement) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btnElement.innerText;
+        btnElement.innerText = "Copied!";
+        btnElement.classList.add("copied");
+        setTimeout(() => {
+          btnElement.innerText = originalText;
+          btnElement.classList.remove("copied");
+        }, 2000);
+      }).catch(err => {
+        console.error('Gagal menyalin teks: ', err);
+        alert('Gagal menyalin nomor.');
+      });
+    }
+  </script>
+</body>
+</html>
