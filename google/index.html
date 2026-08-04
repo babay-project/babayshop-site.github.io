@@ -3,6 +3,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="id">
   <head>
@@ -4636,6 +4637,88 @@
       .pkg-features li { font-size: 11px; }
     }
 
+
+    /* ==========================================================================
+       SOLID MODE — ANIMASI DINONAKTIFKAN
+       Semua frame, label, background, ticker, indikator, dan efek visual dibuat
+       statis agar layar tidak berkedip. Transisi interaksi ringan tetap dipakai.
+       ========================================================================== */
+    *, *::before, *::after {
+      animation: none !important;
+      animation-duration: 0s !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+    }
+
+    /* Frame paket dibuat solid, tidak bergeser dan tidak berdenyut. */
+    .pkg-card.package-fire::after {
+      background: #ef4444;
+      filter: none;
+      opacity: 0.9;
+    }
+    .pkg-card.package-ice::after {
+      background: #38bdf8;
+      filter: none;
+      opacity: 0.9;
+    }
+    .pkg-card.package-eco::after {
+      background: #34d399;
+      filter: none;
+      opacity: 0.9;
+    }
+
+    .label-fire,
+    .label-ice,
+    .label-eco {
+      animation: none !important;
+      transform: none !important;
+      filter: none !important;
+    }
+
+    /* Pilihan jumlah memakai garis emas solid. */
+    .qty-option[data-qty="2"],
+    .qty-option[data-qty="3"],
+    .qty-option[data-qty="4"],
+    .qty-option[data-qty="5"] {
+      background:
+        linear-gradient(#11131d, #11131d) padding-box,
+        #fbbf24 border-box;
+      background-size: 100% 100%;
+    }
+
+    .qty-option.active {
+      background:
+        linear-gradient(#181a27, #181a27) padding-box,
+        #fbbf24 border-box;
+      background-size: 100% 100%;
+    }
+
+    /* Ticker brand menjadi baris statis dan bisa membungkus. */
+    .brands-track-container {
+      overflow: visible;
+    }
+    .brands-track-container::before,
+    .brands-track-container::after {
+      display: none;
+    }
+    .brands-track {
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+      transform: none !important;
+    }
+    .brands-track .blogo:nth-child(n+7) {
+      display: none;
+    }
+
+    /* Elemen reveal langsung terlihat tanpa efek masuk. */
+    .reveal-on-scroll,
+    .reveal-on-scroll.visible,
+    .fade-in-el {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
   </style>
 </head>
 <body>
@@ -6408,12 +6491,5 @@ Berikut saya lampirkan bukti screenshot transfer pembayaran. Mohon dicek dan dip
       }, 100);
     });
   </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1}' crossorigin="anonymous"></script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1}' crossorigin="anonymous"></script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1}' crossorigin="anonymous"></script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
