@@ -1,16 +1,20 @@
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+
   <title>ChatGPT Plus | BabayShop</title>
+
 
   <meta name="description" content="Paket ChatGPT Plus Private Paket C Apple Pay dan Produk X Apple Pay / GCash by BabayShop. Pilih paket cepat dan checkout via WhatsApp." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://babayshop.id/gpt" />
   <meta name="theme-color" content="#07080f" />
+
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -24,20 +28,25 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="ChatGPT Plus BabayShop" />
 
+
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="ChatGPT BabayShop" />
   <meta name="twitter:description" content="Paket ChatGPT Plus Apple Pay dan Apple Pay / GCash." />
   <meta name="twitter:image" content="cXZfH6gk/7fd3098a-5aad-4523-a889-5ca1954c4c18.png" />
 
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
 
   <script>
     /* ============================================================
        PENGATURAN STATUS WEBSITE — EDIT CUKUP DI BAGIAN INI
+
 
        status          : 'open'  = website tampil normal
                          'close' = hanya pengumuman tutup yang tampil
@@ -54,11 +63,13 @@
       reason: 'Admin sedang perjalanan keluar kota + ada Kontrol di Rumah Sakit... mohon doanya :)'
     };
 
+
     // Mencegah halaman normal terlihat sesaat sebelum JavaScript selesai dimuat.
     if (String(window.WEBSITE_STATUS.status).toLowerCase() === 'close') {
       document.documentElement.classList.add('website-is-closed');
     }
   </script>
+
 
   <style>
     #countryPopup {
@@ -229,6 +240,7 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
+
     /* POP-UP JAM ISTIRAHAT ADMIN (23.00–05.00 WIB) */
     body.rest-lock { overflow: hidden; }
     #adminRestPopup {
@@ -298,7 +310,7 @@
       font-size: 12px;
       font-weight: 700;
     }
-    
+
     :root {
       --bg: #07080f; --bg2: #0b0e18;
       --card: rgba(255,255,255,.035); --card2: rgba(255,255,255,.055);
@@ -321,7 +333,7 @@
     img { max-width: 100%; display: block; }
     [hidden] { display: none !important; }
     .wrap { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
-    
+
     .bg-grid, .bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
     .bg-grid { opacity: .035; background-size: 42px 42px; background-image: linear-gradient(to right, rgba(255,255,255,.55) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.55) 1px, transparent 1px); mask-image: radial-gradient(circle at center, #000 20%, transparent 78%); }
     .orb { position: absolute; border-radius: 999px; filter: blur(110px); opacity: .55; mix-blend-mode: screen; }
@@ -329,12 +341,12 @@
     .orb.two { width: 580px; height: 580px; right: -180px; top: 22%; background: rgba(34,211,238,.15); animation: drift 22s ease-in-out infinite alternate-reverse; }
     .orb.three { width: 460px; height: 460px; left: 16%; bottom: 4%; background: rgba(236,72,153,.16); animation: drift 24s ease-in-out infinite alternate; }
     @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(42px, 36px) scale(1.08); } }
-    
+
     #scrollBar { position: fixed; left: 0; top: 0; height: 3px; width: 0%; z-index: 999; background: linear-gradient(90deg, var(--green), var(--cyan), var(--indigo), var(--pink)); }
-    
+
     .topbar { position: relative; z-index: 20; padding: 8px 0; background: linear-gradient(90deg, rgba(34,211,238,.10), rgba(99,102,241,.14), rgba(236,72,153,.10)); border-bottom: 1px solid var(--border); color: #dbeafe; font-size: 13px; font-weight: 600; text-align: center; }
     .topbar strong { color: #fef3c7; }
-    
+
     .nav { position: sticky; top: 0; z-index: 50; background: rgba(7,8,15,.78); backdrop-filter: blur(18px); border-bottom: 1px solid var(--border); transition: box-shadow .25s, background .25s; }
     .nav.scrolled { background: rgba(7,8,15,.94); box-shadow: 0 14px 36px rgba(0,0,0,.35); }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 15px 0; }
@@ -350,7 +362,7 @@
     .mobile-drawer { display: none; border-top: 1px solid var(--border); background: #0a0c14; padding: 10px 20px 18px; }
     .mobile-drawer.active { display: block; }
     .mobile-drawer a { display: block; padding: 12px 0; color: var(--muted); font-weight: 600; border-bottom: 1px solid rgba(255,255,255,.04); }
-    
+
     .btn { border: 0; border-radius: var(--r-md); display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 22px; font-weight: 600; font-size: 14px; cursor: pointer; color: #fff; transition: transform .22s, box-shadow .22s, background .22s, border-color .22s; white-space: nowrap; user-select: none; }
     .btn:hover { transform: translateY(-2px); }
     .btn:active { transform: translateY(0) scale(.98); }
@@ -380,7 +392,7 @@
     .table-status.ready { color: #bbf7d0; background: rgba(34,197,94,.10); border: 1px solid rgba(34,197,94,.24); }
     .table-status.preorder { color: #fde68a; background: rgba(251,191,36,.10); border: 1px solid rgba(251,191,36,.24); }
     .table-status.soldout { color: #fecaca; background: rgba(239,68,68,.10); border: 1px solid rgba(239,68,68,.24); }
-    
+
     section { position: relative; z-index: 10; padding: 76px 0; }
     .section-head { margin-bottom: 42px; }
     .label, .section-label { display: inline-flex; align-items: center; gap: 8px; padding: 6px 13px; border-radius: 999px; background: rgba(34,211,238,.07); border: 1px solid rgba(34,211,238,.22); color: #a5f3fc; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
@@ -388,14 +400,14 @@
     @keyframes pulse { 0%,100%{opacity:1; transform:scale(1)} 50%{opacity:.45; transform:scale(1.25)} }
     .section-title { font-family: var(--font-title); font-size: clamp(31px, 4vw, 46px); line-height: 1.1; letter-spacing: -.035em; font-weight: 700; margin-bottom: 12px; }
     .section-sub { color: var(--muted); max-width: 720px; font-size: 15.5px; line-height: 1.7; }
-    
+
     .hero { padding: 88px 0 56px; }
     .hero-inner { display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: 55px; }
     .hero-title { font-family: var(--font-title); font-size: clamp(48px, 6.3vw, 82px); line-height: .92; letter-spacing: -.045em; font-weight: 700; margin-bottom: 24px; }
     .gradient-text { background: linear-gradient(90deg, #fff, #a5f3fc, #c7d2fe, #fbcfe8); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 28px rgba(99,102,241,.22)); }
     .hero-lead { color: var(--muted); font-size: 18px; line-height: 1.75; max-width: 610px; margin-bottom: 30px; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 34px; }
-    
+
     .hero-panel { position: relative; border-radius: var(--r-lg); padding: 28px; background: linear-gradient(145deg, rgba(18,20,36,.82), rgba(9,11,20,.93)); border: 1px solid rgba(99,102,241,.18); box-shadow: 0 28px 70px rgba(0,0,0,.58), inset 0 1px 0 rgba(255,255,255,.07); overflow: hidden; }
     .hero-panel::before { content:""; position: absolute; inset: -1px; background: radial-gradient(circle at top right, rgba(34,211,238,.18), transparent 42%), radial-gradient(circle at bottom left, rgba(236,72,153,.12), transparent 45%); pointer-events: none; }
     .window-bar { position: relative; display: flex; align-items: center; gap: 8px; padding-bottom: 15px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.06); }
@@ -408,7 +420,7 @@
     .bubble.ai { margin-right: 32px; background: rgba(99,102,241,.08); border-color: rgba(99,102,241,.22); }
     .bubble b { display: block; color: #fff; margin-bottom: 6px; font-family: var(--font-title); }
     .bubble p { color: #cbd5e1; font-size: 13px; line-height: 1.55; }
-    
+
     .ticker { border-block: 1px solid var(--border); background: rgba(255,255,255,.015); padding: 25px 0; overflow: hidden; position: relative; z-index: 10; }
     .ticker-label { text-align: center; color: var(--cyan); text-transform: uppercase; letter-spacing: .15em; font-size: 12px; font-weight: 600; margin-bottom: 14px; }
     .ticker-track { display: flex; width: max-content; gap: 36px; animation: ticker 40s linear infinite; }
@@ -416,20 +428,22 @@
     .ticker-item span.highlight { color: var(--green); font-weight: 600; }
     .ticker-dot { width: 8px; height: 8px; border-radius: 999px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
     @keyframes ticker { to { transform: translateX(-50%); } }
-    
+
     .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
     .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px; transition: transform .25s, background .25s, border-color .25s, box-shadow .25s; position: relative; overflow: hidden; }
     .card:hover { transform: translateY(-5px); background: var(--card2); border-color: var(--border2); box-shadow: 0 22px 48px rgba(0,0,0,.32); }
     .icon { width: 43px; height: 43px; border-radius: 14px; display: grid; place-items: center; background: rgba(99,102,241,.10); border: 1px solid rgba(99,102,241,.24); color: #c7d2fe; margin-bottom: 18px; font-weight: 600; }
     .card h3 { font-family: var(--font-title); font-size: 20px; line-height: 1.2; margin-bottom: 9px; }
     .card p { color: var(--muted); font-size: 14px; line-height: 1.65; }
-    
+
     .notice { padding: 28px; border-radius: var(--r-lg); background: linear-gradient(135deg, rgba(251,191,36,.08), rgba(239,68,68,.035)); border: 1px solid rgba(251,191,36,.24); }
     .notice h3 { color: #fef3c7; font-family: var(--font-title); font-size: 22px; margin-bottom: 12px; }
     .notice ul { list-style: none; display: grid; gap: 10px; }
     .notice li { color: #fdebd3; line-height: 1.62; font-size: 14px; padding-left: 22px; position: relative; }
     .notice li::before { content: "•"; position: absolute; left: 3px; color: var(--amber); font-weight: 600; }
     .notice a { color: #a5f3fc; font-weight: 600; }
+
+
 
 
     /* PERINGATAN DYOR DI ATAS PILIHAN PAKET */
@@ -502,6 +516,7 @@
       .dyor-icon { width: 42px; height: 42px; border-radius: 13px; font-size: 20px; }
     }
 
+
     .terms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
     .term-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; position: relative; overflow: hidden; }
     .term-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(34,211,238,.10), transparent 42%); pointer-events: none; }
@@ -515,7 +530,7 @@
     .term-list a { color: #a5f3fc; font-weight: 600; word-break: break-word; }
     .mono-key { display: inline-block; margin-top: 4px; padding: 4px 8px; border-radius: 9px; background: rgba(255,255,255,.045); border: 1px solid var(--border); font-family: var(--font-mono); color: #fff; font-size: 12px; word-break: break-all; }
     .term-note { margin-top: 16px; padding: 15px 17px; border-radius: 13px; border: 1px solid rgba(251,191,36,.22); background: rgba(251,191,36,.07); color: #fdebd3; font-size: 13.5px; line-height: 1.6; }
-    
+
     .filters { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
     .filter-chip { border: 1px solid var(--border); background: rgba(255,255,255,.035); color: var(--muted); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 13px; cursor: pointer; }
     .filter-chip:hover, .filter-chip.active { background: var(--indigo); border-color: var(--indigo); color: #fff; }
@@ -523,7 +538,7 @@
     .filter-chip.soldout-control:hover, .filter-chip.soldout-control.active { background: rgba(239,68,68,.16); border-color: rgba(239,68,68,.48); color: #fff; }
     .old-price { display: inline-block; margin-right: 8px; color: #fca5a5 !important; font-size: 15px !important; font-weight: 600; text-decoration: line-through; text-decoration-thickness: 1.5px; }
     .catalog-hidden { display: none !important; }
-    
+
     .packages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
     .pkg { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); display: flex; flex-direction: column; overflow: hidden; transition: transform .25s, border-color .25s, background .25s, box-shadow .25s; }
     .pkg:hover { transform: translateY(-7px); border-color: var(--border2); background: var(--card2); box-shadow: 0 24px 58px rgba(0,0,0,.42); }
@@ -578,20 +593,21 @@
     @keyframes snowSpin { to { transform: rotate(360deg) } }
     @keyframes electricPulse { 50% { opacity:.35; transform:scale(1.18) } }
     @media (prefers-reduced-motion: reduce) { .pkg-theme::before, .pkg-theme::after, .flash-sale { animation:none !important; } }
-    
+
+
 
     .table-wrap { overflow-x: auto; background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); }
     table { width: 100%; min-width: 720px; border-collapse: collapse; text-align: left; }
     th { padding: 17px 20px; background: rgba(99,102,241,.09); color: #c7d2fe; font-size: 13px; }
     td { padding: 17px 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13.5px; line-height: 1.55; }
     td:first-child { color: #fff; font-weight: 600; }
-    
+
     .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     .step { padding: 24px; border-radius: var(--r-lg); border: 1px solid var(--border); background: var(--card); }
     .step-num { width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, var(--cyan), var(--indigo)); font-family: var(--font-title); font-weight: 600; margin-bottom: 16px; }
     .step h3 { font-family: var(--font-title); font-size: 17px; margin-bottom: 7px; }
     .step p { color: var(--muted); font-size: 13px; line-height: 1.55; }
-    
+
     .faq { display: grid; gap: 10px; max-width: 850px; margin-inline: auto; }
     details { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
     details[open] { border-color: var(--border2); background: rgba(255,255,255,.045); }
@@ -600,20 +616,20 @@
     summary::after { content: "+"; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; background: rgba(255,255,255,.05); color: var(--muted); flex-shrink: 0; }
     details[open] summary::after { content: "−"; color: #a5f3fc; background: rgba(34,211,238,.1); }
     .faq-content { padding: 0 22px 19px; color: var(--muted); font-size: 14px; line-height: 1.68; }
-    
+
     .cta { padding-top: 28px; }
     .cta-box { text-align: center; border-radius: var(--r-lg); padding: 52px 28px; background: linear-gradient(135deg, rgba(34,211,238,.08), rgba(99,102,241,.12), rgba(236,72,153,.09)); border: 1px solid rgba(99,102,241,.25); box-shadow: 0 28px 70px rgba(0,0,0,.42); }
     .cta-box h2 { font-family: var(--font-title); font-size: clamp(27px, 4vw, 42px); letter-spacing: -.035em; margin-bottom: 10px; }
     .cta-box p { color: #c7d2fe; max-width: 620px; margin: 0 auto 24px; line-height: 1.65; }
     .cta-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-    
+
     .footer { position: relative; z-index: 10; border-top: 1px solid var(--border); background: rgba(0,0,0,.22); padding: 52px 0; }
     .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 34px; margin-bottom: 30px; }
     .footer p, .footer a { color: var(--muted); font-size: 13.5px; line-height: 1.65; }
     .footer b { display: block; font-family: var(--font-title); margin-bottom: 12px; }
     .footer ul { list-style: none; display: grid; gap: 8px; }
     .copy { border-top: 1px solid rgba(255,255,255,.06); padding-top: 20px; text-align: center; color: var(--dim); font-size: 12.5px; }
-    
+
     .fab { position: fixed; right: 22px; bottom: 22px; z-index: 90; display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 9px 17px 9px 9px; border: 1px solid rgba(134,239,172,.32); border-radius: 999px; color: #fff; background: linear-gradient(135deg, #128c48, #22c55e); box-shadow: 0 16px 42px rgba(34,197,94,.30), inset 0 1px 0 rgba(255,255,255,.18); font-size: 13px; font-weight: 700; transition: transform .22s, box-shadow .22s; }
     .fab:hover { transform: translateY(-3px); box-shadow: 0 20px 50px rgba(34,197,94,.40), inset 0 1px 0 rgba(255,255,255,.18); }
     .fab:focus-visible { outline: 3px solid rgba(165,243,252,.65); outline-offset: 3px; }
@@ -621,7 +637,7 @@
     .fab-label { white-space: nowrap; }
     .back-packages { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 140px); opacity: 0; pointer-events: none; z-index: 78; background: rgba(12,14,24,.88); border: 1px solid var(--border2); backdrop-filter: blur(14px); color: #fff; padding: 12px 20px; border-radius: 999px; font-weight: 600; box-shadow: 0 14px 42px rgba(0,0,0,.45); transition: transform .25s, opacity .25s; }
     .back-packages.show { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
-    
+
     .modal-overlay { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(2,4,10,.84); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity .25s; }
     .modal-overlay.active { opacity: 1; pointer-events: auto; }
     .modal { position: relative; width: min(520px, 100%); max-height: calc(100vh - 40px); overflow: hidden; display: flex; flex-direction: column; background: #0d101b; border: 1px solid var(--border2); border-radius: 24px; box-shadow: 0 34px 90px rgba(0,0,0,.68); transform: translateY(18px); transition: transform .25s; }
@@ -656,7 +672,7 @@
     .summary { display: grid; gap: 10px; background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 16px; padding: 15px; }
     .summary-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 13px; }
     .summary-row strong { color: #fff; font-family: var(--font-title); font-size: 18px; }
-    
+
     /* STYLE QUANTITY BOX */
     .qty-box { margin-bottom: 12px; }
     .qty-controls { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.025); border: 1px solid var(--border); padding: 6px; border-radius: 14px; }
@@ -664,7 +680,7 @@
     .qty-btn:hover { background: rgba(34,211,238,.25); color: #fff; }
     .qty-btn:active { transform: scale(0.95); }
     .qty-input { width: 44px; text-align: center; background: transparent; border: 0; color: #fff; font-size: 16px; font-weight: 600; pointer-events: none; }
-    
+
     .pay-box { display: grid; justify-items: center; }
     .timer { color: var(--muted); font-size: 13px; font-weight: 600; margin-bottom: 16px; }
     .timer strong { color: #fca5a5; background: rgba(239,68,68,.08); padding: 3px 8px; border-radius: 8px; }
@@ -743,15 +759,15 @@
     .followup-step { border-color: rgba(251,191,36,.22); background: rgba(251,191,36,.045); }
     .followup-step .confirmation-step-number { color: #111827; background: linear-gradient(135deg, #fde68a, #f59e0b); }
     .fb-comment-instruction { margin: 0 !important; padding: 11px 12px; border-radius: 12px; color: #fde68a !important; background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.20); font-size: 12px !important; }
-    
+
     .success { text-align: center; padding: 8px 0; }
     .success-badge { display: inline-flex; margin-bottom: 18px; padding: 10px 14px; border-radius: 999px; background: rgba(34,211,238,.08); border: 1px solid rgba(34,211,238,.20); color: #a5f3fc; font-weight: 600; }
     .success h3 { font-family: var(--font-title); font-size: 21px; margin-bottom: 8px; }
     .success p { color: var(--muted); font-size: 13.5px; line-height: 1.6; margin-bottom: 20px; }
-    
+
     .reveal { opacity: 0; transform: translateY(22px); transition: opacity .58s, transform .58s; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    
+
     @media (max-width: 1080px) {
       .hero-inner { grid-template-columns: 1fr; text-align: center; }
       .hero-lead, .stats { margin-inline: auto; }
@@ -869,6 +885,7 @@
       .hero-actions, .cta-actions, .steps, .filters { grid-template-columns: 1fr; }
       .hero-title { font-size: 34px; }
     }
+
 
     /* HALAMAN KHUSUS SAAT WEBSITE DITUTUP */
     #storeClosedPage { display: none; }
@@ -1104,6 +1121,7 @@
       <h1 id="storeClosedTitle">Babayshop.id <br><b>Tutup Sementara.</b> </h1>
       <p class="store-closed-lead" id="storeClosedPeriod">BabayShop.id tutup sementara.</p>
 
+
       <div class="store-closed-info">
         <div class="store-closed-row">
           <span>Alasan</span>
@@ -1115,10 +1133,12 @@
         </div>
       </div>
 
+
       <p class="store-closed-note">Admin tetap menerima pesan terkait garansi, komplain, dan bantuan lainnya melalui WhatsApp. Mohon maklum, respons kemungkinan jauh lebih lambat sampai admin kembali aktif.</p>
       <p class="store-closed-foot">Terima kasih atas pengertian dan kesabarannya.</p>
     </div>
   </section>
+
 
   <div id="countryPopup" role="dialog" aria-modal="true" aria-label="Region">
     <div class="country-box">
@@ -1136,6 +1156,7 @@
             <span class="country-action">Lanjut di halaman ini <span>&rarr;</span></span>
           </button>
 
+
           <button class="country-option international" type="button" data-region="global">
             <span class="country-top">
               <span class="country-icon">EN</span>
@@ -1152,6 +1173,7 @@
     </div>
   </div>
 
+
   <div id="adminRestPopup" role="dialog" aria-modal="true" aria-labelledby="adminRestTitle">
     <div class="admin-rest-box">
       <div class="admin-rest-icon" aria-hidden="true">☾</div>
@@ -1162,11 +1184,14 @@
     </div>
   </div>
 
+
   <div id="scrollBar" aria-hidden="true"></div>
   <div class="bg-orbs" aria-hidden="true"><div class="orb one"></div><div class="orb two"></div><div class="orb three"></div></div>
   <div class="bg-grid" aria-hidden="true"></div>
 
+
   <div class="topbar"><div class="wrap">ChatGPT Plus Private • Apple Pay / GCash • <strong>pilih paket, baca ketentuan, membeli = memahami</strong></div></div>
+
 
   <header class="nav" id="nav">
     <div class="wrap nav-inner">
@@ -1191,6 +1216,7 @@
     </div>
   </header>
 
+
   <main>
     <section id="katalog">
       <div class="wrap">
@@ -1205,18 +1231,22 @@
         </div>
 
 
+
+
         <div class="dyor-warning reveal" role="note" aria-label="Peringatan sebelum membeli">
           <div class="dyor-icon" aria-hidden="true">!</div>
           <div class="dyor-content">
+            <h3>DYOR: Do Your Own Risk</h3>
             <p><strong>Semua produk hanya untuk pembeli yang memahami dan siap menanggung risiko.</strong> Akun yang ditawarkan bukan akun resmi/legal dari OpenAI dan berpotensi mengalami pembatasan, penangguhan, atau banned sewaktu-waktu. Tidak ada jaminan permanen; perlindungan hanya berlaku sesuai masa garansi paket yang dipilih. Dengan membeli, pembeli dianggap memahami dan menerima seluruh risiko tersebut. Jika tidak siap mengambil risiko, silakan berlangganan langsung melalui layanan resmi.</p>
             <div class="dyor-points" aria-label="Ringkasan peringatan">
-             
+
               <span class="dyor-chip">Garansi sesuai pilihan</span>
-          
+
               <span class="dyor-chip">Alternatif: langganan resmi</span>
             </div>
           </div>
         </div>
+
 
         <div class="packages">
           <article class="pkg pkg-theme theme-ice reveal" data-cat="plus" data-product="PLUS_VCC_C_1D">
@@ -1229,13 +1259,17 @@
                 <li><span class="chk">+</span><span>Jangan matikan / ganti MFA.</span></li>
                 <li><span class="chk">+</span><span>Verifikasi OTP Codex dilakukan manual (bisa melalui web Hero-SMS).</span></li>
                 <li><span class="chk">+</span><span>Kami hanya menjual akun GPT Plus fresh; layanan Codex berada di luar kuasa kami.</span></li>
-                <li><span class="chk">+</span><span>Garansi 1 hari berupa pergantian akun maksimal 1 kali.</span></li>
+                <li><span class="chk">+</span><span>Garansi berupa pergantian akun refund sesuai durasi garansi.</span></li>
                 <li><span class="warn">!</span><span>Khusus pembeli yang memahami dan siap menanggung risiko akun nonresmi, termasuk kemungkinan akun terkena banned.</span></li>
               </ul>
               <div class="warranty-options" aria-label="Pilihan garansi Paket C">
                 <div class="warranty-option">
-                  <div><strong>Garansi 1 Hari</strong><small>Status Pre Order</small></div><span class="option-price">Rp73.000</span>
+                  <div><strong>Garansi 1 Hari</strong><small>Ready</small></div><span class="option-price">Rp73.000</span>
                   <button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C_1D" data-product-cta="PLUS_VCC_C_1D" type="button">CHECKOUT 1 HARI</button>
+                </div>
+                <div class="warranty-option">
+                  <div><strong>Garansi 25 Hari</strong><small>Pergantian akun maksimal 4 kali</small></div><span class="option-price">Rp195.000</span>
+                  <button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C_25D" data-product-cta="PLUS_VCC_C_25D" type="button">CHECKOUT 25 HARI</button>
                 </div>
               </div>
               <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
@@ -1243,11 +1277,12 @@
             </div>
           </article>
 
+
           <article class="pkg pkg-theme theme-fire featured reveal" data-cat="plus" data-product="PLUS_X">
             <div class="pkg-head"><div class="pkg-code">X</div><div><h3>GPT Plus Private (Trial 1 Month) DYOR</h3><span class="pkg-role">Bill Apple Pay / GCash</span></div></div>
             <div class="pkg-body">
               <div class="price"><strong>Rp68.000</strong><span> / paket</span><span class="badge-mini">DYOR</span></div>
-              <p class="tagline">GPT Plus private trial 1 bulan melalui bill Apple Pay atau GCash. Produk tanpa garansi; bantuan hanya sampai akun berhasil login.</p>
+              <p class="tagline">GPT Plus private trial 1 bulan melalui bill Apple Pay atau GCash. DYOR merupakan singkatan dari <strong>Do Your Own Risk</strong>. Produk tanpa garansi; bantuan hanya sampai akun berhasil login.</p>
               <ul class="features">
                 <li><span class="chk">+</span><span>Email menggunakan Gmail disposable; segera ganti email / password.</span></li>
                 <li><span class="chk">+</span><span>Jangan matikan / ganti MFA.</span></li>
@@ -1260,6 +1295,7 @@
               <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_X" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
             </div>
           </article>
+
 
           <article class="pkg reveal" data-cat="reseller" id="reseller" data-product="RESELLER">
             <div class="pkg-head"><div class="pkg-code">E</div><div><h3>PAKET RESELLER</h3><span class="pkg-role">Method Info / Channel GPT</span></div></div>
@@ -1276,12 +1312,23 @@
                 <li><span class="chk">+</span><span>Bisa dijual kembali dengan potensi keuntungan besar.</span></li>
                 <li><span class="warn">!</span><span>Informasi mengikuti update maker &amp; supplier.</span></li>
                 <li><span class="warn">!</span><span>Wajib paham risiko, stok, dan ketentuan channel.</span></li>
-               
+
               </ul>
               <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
               <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="RESELLER" type="button">CHECKOUT!</button></div>
             </div>
           </article>
+        </div>
+
+
+        <div class="notice reveal" style="margin-top:22px">
+          <h3>[!] PENGUMUMAN VERIFIKASI CODEX</h3>
+          <ul>
+            <li>Paket yang dijual hanya berupa akun GPT Plus dan tidak termasuk layanan verifikasi Codex.</li>
+            <li>Verifikasi Codex dapat dilakukan sendiri dengan membeli OTP SMS melalui <a href="https://hero-sms.com" target="_blank" rel="noopener">HeroSMS</a> atau <a href="https://5sim.net" target="_blank" rel="noopener">5SIM</a>. Gunakan nomor dari negara seperti Amerika Serikat, Irlandia, atau negara lain yang mendukung penerimaan SMS Codex.</li>
+            <li>Alternatif lain adalah menggunakan nomor WhatsApp pribadi atau meminjam nomor WhatsApp teman.</li>
+            <li><strong>BabayShop hanya melayani pembelian akun GPT Plus. Seluruh proses dan kendala verifikasi Codex berada di luar layanan kami.</strong></li>
+          </ul>
         </div>
 
         <div class="notice reveal" style="margin-top:22px">
@@ -1293,10 +1340,12 @@
         </div>
     </section>
 
-    
+
+
 </div>
       </div>
-  
+
+
 
     <section>
       <div class="wrap">
@@ -1305,11 +1354,12 @@
             <h3>Catatan penting sebelum membeli</h3>
             <ul>
               <li><strong>Durasi 1 bulan:</strong> dihitung 25–28 days.</li>
-              
+
               <li><strong>Risiko seluruh produk:</strong> khusus pembeli yang memahami dan siap menanggung risiko akun nonresmi, termasuk kemungkinan pembatasan, penangguhan, atau banned akun.</li>
               <li><strong>Benefit dan akses:</strong> mengikuti metode, stok, limit akun, channel, region, dan kebijakan OpenAI.</li>
               <li><strong>Link resmi:</strong> <a href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Plus</a>.</li>
-              <li><strong>Garansi Paket C:</strong> garansi 1 hari hanya berupa pergantian akun maksimal 1 kali.</li>
+              <li><strong>Garansi Paket C:</strong> tersedia garansi 1 hari dengan pergantian akun maksimal 1 kali, atau garansi 25 hari seharga Rp195.000 dengan pergantian akun maksimal 4 kali.</li>
+              <li><strong>Verifikasi Codex:</strong> pembelian hanya mencakup akun GPT Plus. Verifikasi Codex dilakukan sendiri dan berada di luar layanan BabayShop.</li>
               <li><strong>Diskon kuantitas:</strong> pembelian minimal 2 akun untuk paket non-reseller mendapat diskon tetap 0,5%. Paket Reseller hanya dapat dibeli 1 kali.</li>
               <li><strong>Penegasan garansi:</strong> kami tidak bertanggung jawab dan tidak meng-handle akun yang bermasalah di luar atau setelah melewati masa garansi paket.</li>
               <li><strong>Jenis penawaran:</strong> produk ini merupakan offer GPT trial komersial yang kami bayar secara resmi menggunakan metode pembayaran dari luar Indonesia. Stabilitas akun tetap mengikuti sistem dan kebijakan OpenAI.</li>
@@ -1321,6 +1371,7 @@
       </div>
     </section>
 
+
     <section id="ketentuan">
       <div class="wrap">
         <div class="section-head reveal">
@@ -1328,6 +1379,7 @@
           <h2 class="section-title">Cara login, aturan pakai, dan garansi</h2>
           <p class="section-sub">Bagian ini sengaja diletakkan sebelum FAQ agar pembeli membaca aturan penting terlebih dahulu. Membeli berarti sudah memahami dan menyetujui ketentuan BabayShop.</p>
         </div>
+
 
         <div class="terms-grid">
           <article class="term-card reveal">
@@ -1342,6 +1394,7 @@
             </ul>
           </article>
 
+
           <article class="term-card reveal">
             <span class="term-kicker">02 · Aturan Penggunaan</span>
             <h3>Gunakan akun secara wajar</h3>
@@ -1355,13 +1408,14 @@
             </ul>
           </article>
 
+
           <article class="term-card reveal">
             <span class="term-kicker">03 · Garansi</span>
             <h3>Ketentuan garansi paket</h3>
             <ul class="term-list">
-              <li>Paket C menggunakan Gmail disposable dengan garansi 1 hari.</li>
+              <li>Paket C menggunakan Gmail disposable dengan pilihan garansi 1 hari atau 25 hari.</li>
               <li>Metode pembayaran menggunakan payment method yang sah berdasarkan region akun dan dijamin aman dari sisi proses paket.</li>
-              <li>Durasi garansi mengikuti deskripsi paket yang dipilih: Paket C memiliki garansi 1 hari, sedangkan Produk X tidak memiliki garansi dan bantuan hanya diberikan sampai berhasil login.</li>
+              <li>Durasi garansi mengikuti paket yang dipilih: Paket C tersedia dengan garansi 1 hari (pergantian akun maksimal 1 kali) atau 25 hari (pergantian akun maksimal 4 kali), sedangkan Produk X tidak memiliki garansi dan bantuan hanya diberikan sampai berhasil login.</li>
               <li>Garansi mengarah ke kendala paket, seperti paket hilang, plan kembali ke Free, atau masalah paket yang bukan disebabkan kesalahan pengguna selama masih berada dalam masa garansi.</li>
               <li class="warn-item">Kami tidak bertanggung jawab dan tidak meng-handle akun yang bermasalah di luar atau setelah melewati masa garansi paket.</li>
               <li class="warn-item">Produk ini merupakan offer GPT trial komersial yang dibayar resmi menggunakan metode pembayaran luar Indonesia. Stabilitas akun tetap mengikuti sistem dan kebijakan OpenAI.</li>
@@ -1372,8 +1426,10 @@
           </article>
         </div>
 
+
 </div>
     </section>
+
 
     <section id="alur">
       <div class="wrap">
@@ -1388,8 +1444,10 @@
           <div class="step reveal"><div class="step-num">4</div><h3>Konfirmasi</h3><p>Konfirmasi melalui WhatsApp (rekomendasi) atau Facebook, lalu lampirkan bukti transfer agar pesanan segera diproses.</p></div>
         </div>
 
+
       </div>
     </section>
+
 
     <section id="faq">
       <div class="wrap">
@@ -1406,7 +1464,9 @@
       </div>
     </section>
 
+
   </main>
+
 
   <footer class="footer">
     <div class="wrap">
@@ -1428,7 +1488,9 @@
     </div>
   </footer>
 
+
   <button class="back-packages" id="backPackages" type="button">↑ Kembali ke Paket</button>
+
 
   <div class="modal-overlay" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
@@ -1462,6 +1524,7 @@
             <button class="btn btn-primary btn-block btn-lg" type="submit">Lanjut ke Pembayaran</button>
           </form>
         </div>
+
 
         <div class="checkout-step" id="stepPay">
           <div class="pay-box">
@@ -1499,11 +1562,13 @@
           </div>
         </div>
 
+
         <div class="checkout-step" id="stepSuccess">
           <div class="success">
             <span class="success-badge" id="successBadge">Konfirmasi manual</span>
             <h3 id="successTitle">Salin rincian, lalu hubungi admin</h3>
             <p id="successText">Tidak ada pesan atau aplikasi yang dibuka otomatis.</p>
+
 
             <div class="confirmation-flow" id="waFlowActions" hidden>
               <div class="confirmation-step">
@@ -1525,6 +1590,7 @@
                 <span class="copy-state-hint" id="waCopyHint">Salin pesan pada langkah 1 agar tombol WhatsApp aktif.</span>
               </div>
             </div>
+
 
             <div class="fb-flow-actions" id="fbFlowActions" hidden>
               <div class="confirmation-step">
@@ -1563,16 +1629,19 @@
     </div>
   </div>
 
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const websiteStatus = window.WEBSITE_STATUS || {};
       const isWebsiteClosed = String(websiteStatus.status || 'open').toLowerCase() === 'close';
+
 
       function formatStoreDate(value, withTime = false) {
         if (!value) return '';
         const normalized = value.includes('T') ? value : `${value}T00:00:00+07:00`;
         const date = new Date(normalized);
         if (Number.isNaN(date.getTime())) return value;
+
 
         return new Intl.DateTimeFormat('id-ID', {
           timeZone: 'Asia/Jakarta',
@@ -1583,6 +1652,7 @@
         }).format(date).replace('.', ':');
       }
 
+
       function renderClosedWebsite() {
         const start = formatStoreDate(websiteStatus.closedFrom);
         const end = formatStoreDate(websiteStatus.closedUntil);
@@ -1590,6 +1660,7 @@
         const periodText = sameDay
           ? `Mohon maaf, BabayShop.id tutup pada tanggal ${start}.`
           : `Mohon maaf, BabayShop.id tutup dari tanggal ${start} sampai ${end}.`;
+
 
         document.documentElement.classList.add('website-is-closed');
         document.body.classList.remove('region-lock', 'rest-lock');
@@ -1600,10 +1671,12 @@
           : 'Akan diumumkan kembali';
       }
 
+
       if (isWebsiteClosed) {
         renderClosedWebsite();
         return;
       }
+
 
       document.documentElement.classList.remove('website-is-closed');
       const WHATSAPP_BUSINESS_URL = 'https://wa.me/6281523984574';
@@ -1619,6 +1692,7 @@
       const ADMIN_REST_END_HOUR = 5;
       let pendingRestAction = null;
 
+
       function getJakartaHour() {
         const parts = new Intl.DateTimeFormat('en-GB', {
           timeZone: ADMIN_TIMEZONE,
@@ -1628,16 +1702,19 @@
         return Number(parts.find(part => part.type === 'hour')?.value || 0);
       }
 
+
       function isAdminRestTime() {
         const hour = getJakartaHour();
         return hour >= ADMIN_REST_START_HOUR || hour < ADMIN_REST_END_HOUR;
       }
+
 
       function closeCountryPopup() {
         if (!countryPopup) return;
         countryPopup.classList.add('is-hidden');
         document.body.classList.remove('region-lock');
       }
+
 
       function showAdminRestPopup(nextAction) {
         pendingRestAction = typeof nextAction === 'function' ? nextAction : null;
@@ -1650,6 +1727,7 @@
         document.body.classList.add('rest-lock');
       }
 
+
       function continueAfterRestAction() {
         adminRestPopup?.classList.remove('active');
         document.body.classList.remove('rest-lock');
@@ -1658,7 +1736,9 @@
         action?.();
       }
 
+
       document.body.classList.add('region-lock');
+
 
       if (countryPopup) {
         countryPopup.querySelectorAll('[data-region]').forEach(btn => {
@@ -1671,16 +1751,20 @@
               }
             };
 
+
             closeCountryPopup();
             nextAction();
           });
         });
       }
 
+
       continueAfterRest?.addEventListener('click', continueAfterRestAction);
+
 
       /* ==========================================================
          *edit UBAH STATUS SEMUA PAKET CUKUP DI BAGIAN INI #ubahdisini
+
 
          Pilihan status:
          ready    = stok tersedia, tombol checkout aktif
@@ -1689,15 +1773,18 @@
          ========================================================== */
       const PACKAGE_STATUS = {
         PLUS_VCC_C_1D: 'ready',
+        PLUS_VCC_C_25D: 'ready',
         PLUS_X: 'ready',
         RESELLER: 'ready'
       };
+
 
       const STATUS_META = {
         ready: { label: 'Ready', button: 'CHECKOUT!', className: 'ready' },
         preorder: { label: 'Open Pre Order', button: 'CHECKOUT!', className: 'preorder' },
         soldout: { label: 'Sold Out', button: 'SOLD OUT', className: 'soldout' }
       };
+
 
       /* ================================
          EDIT HARGA & DETAIL PAKET DI SINI
@@ -1712,7 +1799,18 @@
           duration: 'Trial 1 bulan',
           desc: 'Paket C dengan garansi 1 hari. Akun GPT Plus fresh menggunakan Gmail disposable; segera ganti email/password, jangan matikan atau ganti MFA.',
           emailRequired: false,
-          note: 'Email Gmail disposable: segera ganti email/password. Jangan matikan atau ganti MFA. OTP Codex manual, bisa melalui web Hero-SMS. Kami hanya menjual akun GPT Plus fresh; layanan Codex berada di luar kuasa kami.'
+          note: 'Pembelian hanya mencakup akun GPT Plus. Verifikasi Codex dilakukan sendiri dan berada di luar layanan BabayShop. Email Gmail disposable: segera ganti email/password. Jangan matikan atau ganti MFA.'
+        },
+        PLUS_VCC_C_25D: {
+          code: 'C-25D',
+          name: 'GPT Plus Trial 1 Month Private — Paket C Garansi 25 Hari',
+          method: 'Bill Apple Pay · Mastercard / Visa',
+          price: 195000,
+          warranty: 'Garansi 25 hari (Pergantian akun maksimal 4 kali)',
+          duration: 'Trial 1 bulan',
+          desc: 'Paket C dengan garansi 25 hari dan pergantian akun maksimal 4 kali. Akun GPT Plus fresh menggunakan Gmail disposable; segera ganti email/password, jangan matikan atau ganti MFA.',
+          emailRequired: false,
+          note: 'Pembelian hanya mencakup akun GPT Plus. Verifikasi Codex dilakukan sendiri dan berada di luar layanan BabayShop. Email Gmail disposable: segera ganti email/password. Jangan matikan atau ganti MFA.'
         },
         PLUS_X: {
           code: 'X',
@@ -1721,9 +1819,9 @@
           price: 68000,
           warranty: 'Tanpa garansi; bantuan hanya sampai berhasil login',
           duration: 'Trial 1 bulan',
-          desc: 'Akun GPT Plus fresh dengan Gmail disposable. Segera ganti email/password, jangan matikan atau ganti MFA, dan verifikasi OTP Codex manual bisa melalui web Hero-SMS.',
+          desc: 'DYOR berarti Do Your Own Risk. Akun GPT Plus fresh dengan Gmail disposable. Segera ganti email/password dan jangan matikan atau ganti MFA. Verifikasi Codex dilakukan sendiri.',
           emailRequired: false,
-          note: 'Khusus pembeli yang siap risiko. Email Gmail disposable: segera ganti email/password. Jangan matikan atau ganti MFA. OTP Codex manual, bisa melalui web Hero-SMS. Kami hanya menjual akun GPT Plus fresh; layanan Codex berada di luar kuasa kami.'
+          note: 'DYOR (Do Your Own Risk). Pembelian hanya mencakup akun GPT Plus. Verifikasi Codex dilakukan sendiri dan berada di luar layanan BabayShop. Email Gmail disposable: segera ganti email/password. Jangan matikan atau ganti MFA.'
         },
         RESELLER: {
           code: 'E',
@@ -1739,6 +1837,7 @@
         }
       };
 
+
       /* ================================
          EDIT REKENING / E-WALLET DI SINI
          ================================ */
@@ -1752,9 +1851,11 @@
         SeaBank: { label: 'SeaBank', type: 'Transfer Bank', owner: 'BAYU RIZKY SAMPURNA', number: '901375940437', code: 'Kode Bank: 535', copyable: true }
       };
 
+
       const QRIS_TIMEZONE = 'Asia/Jakarta';
       const QRIS_OPEN_MINUTE = 5 * 60;
       const QRIS_CLOSE_MINUTE = 23 * 60;
+
 
       function getJakartaMinuteOfDay() {
         const parts = new Intl.DateTimeFormat('en-GB', {
@@ -1768,9 +1869,11 @@
         return (hour * 60) + minute;
       }
 
+
       function isQrisAvailable() {
         return true;
       }
+
 
       function getAvailablePaymentKeys() {
         const priority = isQrisAvailable() ? ['QRIS', 'DANA', 'Bank Jago'] : ['DANA', 'Bank Jago'];
@@ -1778,35 +1881,42 @@
         return [...priority, ...remaining].filter(key => PAYMENT_ACCOUNTS[key]);
       }
 
+
       function getFulfillmentText(status, productId = '') {
         if (status === 'preorder') return 'Mengikuti estimasi pre order pada deskripsi paket';
         if (status === 'ready') return 'Langsung diberikan setelah pembayaran dikonfirmasi';
         return 'Belum tersedia';
       }
 
+
       const $ = (sel, root = document) => root.querySelector(sel);
       const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
       const rupiah = n => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n || 0);
+
 
       function getPackageStatus(productId) {
         const value = String(PACKAGE_STATUS[productId] || 'soldout').toLowerCase();
         return STATUS_META[value] ? value : 'soldout';
       }
 
+
       function setCheckoutButtonState(button, status) {
         if (!button) return;
         const meta = STATUS_META[status];
         const soldOut = status === 'soldout';
+
 
         button.disabled = soldOut;
         button.textContent = meta.button;
         button.setAttribute('aria-disabled', String(soldOut));
         button.classList.toggle('btn-disabled', soldOut);
 
+
         if (button.closest('.pkg')) {
           button.classList.toggle('btn-primary', !soldOut);
         }
       }
+
 
       function applyPackageStatuses() {
         $$('[data-product]').forEach(element => {
@@ -1814,16 +1924,19 @@
           const status = getPackageStatus(productId);
           const meta = STATUS_META[status];
 
+
           if (element.matches('.pkg')) {
             const stock = $('[data-stock]', element);
             const stockLabel = $('[data-stock-label]', element);
             const buyButton = $(`.btn-buy[data-id="${productId}"]`, element);
+
 
             element.classList.toggle('is-soldout', status === 'soldout');
             if (stock) stock.className = `stock ${meta.className}`;
             if (stockLabel) stockLabel.textContent = meta.label;
             setCheckoutButtonState(buyButton, status);
           }
+
 
           if (element.matches('tr')) {
             const tableStatus = $('[data-table-status]', element);
@@ -1834,18 +1947,22 @@
           }
         });
 
+
         $$('[data-product-cta]').forEach(button => {
           setCheckoutButtonState(button, getPackageStatus(button.dataset.productCta));
         });
       }
 
+
       applyPackageStatuses();
+
 
       const nav = $('#nav');
       const scrollBar = $('#scrollBar');
       const backPackages = $('#backPackages');
       const navToggle = $('#navToggle');
       const mobileDrawer = $('#mobileDrawer');
+
 
       function updateScroll() {
         const st = window.scrollY || document.documentElement.scrollTop;
@@ -1857,6 +1974,7 @@
       window.addEventListener('scroll', updateScroll, { passive: true });
       updateScroll();
 
+
       navToggle.addEventListener('click', () => {
         const open = mobileDrawer.classList.toggle('active');
         navToggle.setAttribute('aria-expanded', String(open));
@@ -1864,16 +1982,19 @@
       $$('#mobileDrawer a').forEach(a => a.addEventListener('click', () => mobileDrawer.classList.remove('active')));
       backPackages.addEventListener('click', () => $('#katalog').scrollIntoView({ behavior: 'smooth' }));
 
+
       const reveals = $$('.reveal');
       const revealObs = new IntersectionObserver(entries => {
         entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
       }, { threshold: .12 });
       reveals.forEach(el => revealObs.observe(el));
 
+
       const filterChips = $$('.filter-chip[data-stock-filter]');
       const packages = $$('.pkg');
       const productRows = $$('tr[data-product]');
       let activeStockFilter = 'ready';
+
 
       function updateCatalogVisibility() {
         packages.forEach(pkg => {
@@ -1881,11 +2002,13 @@
           pkg.classList.toggle('catalog-hidden', activeStockFilter === 'soldout' ? !isSoldOut : isSoldOut);
         });
 
+
         productRows.forEach(row => {
           const isSoldOut = getPackageStatus(row.dataset.product) === 'soldout';
           row.classList.toggle('catalog-hidden', activeStockFilter === 'soldout' ? !isSoldOut : isSoldOut);
         });
       }
+
 
       filterChips.forEach(chip => {
         chip.addEventListener('click', () => {
@@ -1896,7 +2019,9 @@
         });
       });
 
+
       updateCatalogVisibility();
+
 
       const checkoutModal = $('#checkoutModal');
       const checkoutDialog = $('.modal', checkoutModal);
@@ -1912,19 +2037,20 @@
       const modalProduct = $('#modalProduct');
       const packageDesc = $('#packageDesc');
       const agree = $('#agree');
-      
+
       const summaryName = $('#summaryName');
       const summaryQty = $('#summaryQty');
       const summaryDisc = $('#summaryDisc');
       const summaryPrice = $('#summaryPrice');
-      
+
       const qtyMinus = $('#qtyMinus');
       const qtyPlus = $('#qtyPlus');
       const qtyInput = $('#qtyInput');
 
+
       const timer = $('#timer');
       const txId = $('#txId');
-      
+
       const payQty = $('#payQty');
       const basePrice = $('#basePrice');
       const payDisc = $('#payDisc');
@@ -1932,7 +2058,7 @@
       const uniqueCode = $('#uniqueCode');
       const totalPrice = $('#totalPrice');
       const copyTotal = $('#copyTotal');
-      
+
       const qrBox = $('#qrBox');
       const manualPayCard = $('#manualPayCard');
       const manualPayName = $('#manualPayName');
@@ -1967,6 +2093,7 @@
       const successTitle = $('#successTitle');
       const successText = $('#successText');
 
+
       let currentProduct = null;
       let selectedPay = null;
       let countdown = null;
@@ -1977,19 +2104,22 @@
       let currentFinalBase = 0;
       let currentDiscPct = 0;
 
+
       function updateSummary() {
         if (!currentProduct) return;
         qtyInput.value = qty;
         summaryQty.textContent = qty + 'x';
-        
+
         let base = currentProduct.price * qty;
         currentDiscPct = currentProduct.id !== 'RESELLER' && qty >= 2 ? 0.5 : 0;
         currentDiscAmt = Math.floor(base * (currentDiscPct / 100));
         currentFinalBase = base - currentDiscAmt;
 
+
         summaryDisc.textContent = currentDiscAmt > 0 ? `-${rupiah(currentDiscAmt)} (${currentDiscPct}%)` : 'Rp0';
         summaryPrice.textContent = rupiah(currentFinalBase);
       }
+
 
       qtyMinus.addEventListener('click', () => {
         if (qty > 1) { qty--; updateSummary(); }
@@ -1999,6 +2129,7 @@
         if (qty < maxQty) { qty++; updateSummary(); }
       });
 
+
       function showStep(step) {
         [stepInput, stepPay, stepSuccess].forEach(s => s.classList.toggle('active', s === step));
         modalBack.hidden = step === stepInput;
@@ -2007,19 +2138,23 @@
         requestAnimationFrame(updateModalScrollCue);
       }
 
+
       function updateModalScrollCue() {
         const hasMore = modalBody.scrollHeight - modalBody.scrollTop - modalBody.clientHeight > 18;
         checkoutDialog.classList.toggle('has-more', checkoutModal.classList.contains('active') && hasMore);
       }
 
+
       modalBody.addEventListener('scroll', updateModalScrollCue, { passive: true });
       window.addEventListener('resize', updateModalScrollCue);
       scrollCue.addEventListener('click', () => modalBody.scrollBy({ top: Math.max(160, modalBody.clientHeight * .55), behavior: 'smooth' }));
+
 
       function openModal(productId) {
         const product = PRODUCTS[productId];
         const status = getPackageStatus(productId);
         if (!product || status === 'soldout') return;
+
 
         currentProduct = { ...product, id: productId, status };
         qty = 1;
@@ -2028,10 +2163,10 @@
         modalProduct.textContent = `${currentProduct.code} • ${shortName}`;
         packageDesc.textContent = `${STATUS_META[currentProduct.status].label} • ${shortWarranty} • Diproses setelah pembayaran.`;
         summaryName.textContent = currentProduct.name;
-        
+
         agree.checked = true;
         $$('.field').forEach(f => f.classList.remove('invalid'));
-        
+
         updateSummary();
         selectedPay = null;
         refreshPaymentAvailability(true);
@@ -2043,6 +2178,7 @@
         requestAnimationFrame(updateModalScrollCue);
       }
 
+
       function closeModal() {
         checkoutModal.classList.remove('active');
         checkoutDialog.classList.remove('has-more');
@@ -2050,6 +2186,7 @@
         clearInterval(countdown);
         currentProduct = null;
       }
+
 
       $$('.btn-buy').forEach(btn => btn.addEventListener('click', () => openModal(btn.dataset.id)));
       modalBack.addEventListener('click', () => {
@@ -2062,16 +2199,17 @@
       modalClose.addEventListener('click', closeModal);
       closeSuccess.addEventListener('click', closeModal);
       checkoutModal.addEventListener('click', e => { if (e.target === checkoutModal) closeModal(); });
-      
+
       function validate() {
         return !!agree.checked;
       }
+
 
       function proceedToPayment() {
         if (!currentProduct) return;
         unique = Math.floor(501 + Math.random() * 499);
         total = currentFinalBase + unique;
-        
+
         txId.textContent = `GPT-${Date.now().toString().slice(-8)}-${unique}`;
         payQty.textContent = qty + 'x';
         basePrice.textContent = rupiah(currentProduct.price * qty);
@@ -2079,7 +2217,7 @@
         finalBasePrice.textContent = rupiah(currentFinalBase);
         uniqueCode.textContent = `+${rupiah(unique)}`;
         totalPrice.textContent = rupiah(total);
-        
+
         paymentCompleted.checked = false;
         selectedPay = null;
         refreshPaymentAvailability(true);
@@ -2092,17 +2230,21 @@
         showStep(stepPay);
       }
 
+
       checkoutForm.addEventListener('submit', e => {
         e.preventDefault();
         if (!currentProduct || !validate()) return;
+
 
         if (isAdminRestTime()) {
           showAdminRestPopup(proceedToPayment);
           return;
         }
 
+
         proceedToPayment();
       });
+
 
       function startTimer(seconds) {
         clearInterval(countdown);
@@ -2118,6 +2260,7 @@
         countdown = setInterval(render, 1000);
       }
 
+
       function renderPaymentOptions() {
         payList.innerHTML = '';
         getAvailablePaymentKeys().forEach((key) => {
@@ -2128,9 +2271,11 @@
           btn.dataset.paymentKey = key;
           btn.setAttribute('aria-label', data.recommended ? `${data.label}, rekomendasi` : data.label);
 
+
           const label = document.createElement('span');
           label.textContent = data.label;
           btn.appendChild(label);
+
 
           if (data.recommended) {
             const badge = document.createElement('span');
@@ -2138,6 +2283,7 @@
             badge.innerHTML = '<span class="recommended-fire" aria-hidden="true">*</span> Rekomendasi';
             btn.appendChild(badge);
           }
+
 
           btn.addEventListener('click', () => {
             setPayment(key);
@@ -2148,10 +2294,12 @@
         });
       }
 
+
       payToggle.addEventListener('click', () => {
         const open = payList.classList.toggle('active');
         payToggle.setAttribute('aria-expanded', String(open));
       });
+
 
       function resetPaymentSelection() {
         selectedPay = null;
@@ -2166,6 +2314,7 @@
         $$('.pay-option', payList).forEach(btn => btn.classList.remove('active'));
       }
 
+
       function updateConfirmationAvailability() {
         const ready = Boolean(selectedPay && paymentCompleted.checked);
         confirmWa.disabled = !ready;
@@ -2176,7 +2325,9 @@
         paymentProofHint.style.color = ready ? '#bbf7d0' : '#fde68a';
       }
 
+
       paymentCompleted.addEventListener('change', updateConfirmationAvailability);
+
 
       function setPayment(key) {
         const availableKeys = getAvailablePaymentKeys();
@@ -2184,6 +2335,7 @@
           resetPaymentSelection();
           return;
         }
+
 
         selectedPay = key;
         const data = PAYMENT_ACCOUNTS[selectedPay];
@@ -2207,6 +2359,7 @@
         manualPayCode.textContent = data.code || 'Gunakan nomor tujuan di atas.';
       }
 
+
       let lastQrisAvailability = null;
       function refreshPaymentAvailability(force = false) {
         const qrisAvailable = isQrisAvailable();
@@ -2228,8 +2381,10 @@
         }
       }
 
+
       refreshPaymentAvailability(true);
       setInterval(() => refreshPaymentAvailability(false), 60 * 1000);
+
 
       async function copyText(value) {
         try {
@@ -2248,6 +2403,7 @@
         }
       }
 
+
       copyPay.addEventListener('click', async () => {
         const data = PAYMENT_ACCOUNTS[selectedPay];
         if (!data || !data.copyable) return;
@@ -2256,12 +2412,14 @@
         setTimeout(() => copyPay.textContent = 'Copy', 1200);
       });
 
+
       async function copyTotalTransfer() {
         if (!total || total <= 0) return;
         await copyText(String(total));
         copyTotal.textContent = 'Tersalin';
         setTimeout(() => copyTotal.textContent = 'Salin Nominal', 1400);
       }
+
 
       copyTotal.addEventListener('click', copyTotalTransfer);
       totalPrice.addEventListener('click', copyTotalTransfer);
@@ -2271,6 +2429,7 @@
           copyTotalTransfer();
         }
       });
+
 
       function buildConfirmationMessage() {
         if (!currentProduct || !selectedPay) return '';
@@ -2298,6 +2457,7 @@
           `Saya sudah membaca detail paket dan memahami bahwa kendala di luar atau setelah masa garansi tidak menjadi tanggung jawab BabayShop serta tidak akan di-handle. Saya akan melampirkan bukti pembayaran. Tolong segera diproses, terima kasih.`;
       }
 
+
       function setContactLinksState(channel, isReady) {
         document.querySelectorAll(`[data-contact-channel="${channel}"]`).forEach(link => {
           link.classList.toggle('is-locked', !isReady);
@@ -2309,6 +2469,7 @@
           }
         });
 
+
         const hint = channel === 'whatsapp' ? waCopyHint : fbCopyHint;
         hint.classList.toggle('is-ready', isReady);
         hint.textContent = isReady
@@ -2316,10 +2477,12 @@
           : `Salin pesan pada langkah 1 agar tombol ${channel === 'whatsapp' ? 'WhatsApp' : 'Facebook'} aktif.`;
       }
 
+
       function resetConfirmationFlow(channel) {
         setContactLinksState(channel, false);
         if (channel === 'facebook') fbFollowupStep.hidden = true;
       }
+
 
       async function copyConfirmationMessage(button, channel) {
         const msg = buildConfirmationMessage();
@@ -2332,6 +2495,7 @@
           button.textContent = defaultText;
         }, 1600);
       }
+
 
       function showConfirmationSuccess(channel) {
         const isWhatsapp = channel === 'whatsapp';
@@ -2349,8 +2513,10 @@
         showStep(stepSuccess);
       }
 
+
       copyConfirmationWa.addEventListener('click', () => copyConfirmationMessage(copyConfirmationWa, 'whatsapp'));
       copyConfirmationSuccess.addEventListener('click', () => copyConfirmationMessage(copyConfirmationSuccess, 'facebook'));
+
 
       [fbFallback, fbProfileLink].forEach(link => {
         link.addEventListener('click', e => {
@@ -2362,12 +2528,14 @@
         });
       });
 
+
       confirmWa.addEventListener('click', () => {
         const msg = buildConfirmationMessage();
         if (!msg) return;
         waBusinessLink.href = WHATSAPP_BUSINESS_URL;
         showConfirmationSuccess('whatsapp');
       });
+
 
       confirmFb.addEventListener('click', () => {
         const msg = buildConfirmationMessage();
@@ -2380,9 +2548,11 @@
     });
   </script>
 
-  
-  
+
+
+
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"6da13f81a4834c19b7163863b8805240","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
