@@ -15,21 +15,93 @@
   <!-- OTPAuth.js: RFC 6238-compatible TOTP generation in the browser. -->
   <script src="https://cdn.jsdelivr.net/npm/otpauth@9.5.1/dist/otpauth.umd.min.js"></script>
 
+  <script>
+    (() => {
+      try {
+        const savedTheme = localStorage.getItem("authenticator-theme");
+        document.documentElement.dataset.theme = ["red", "blue"].includes(savedTheme) ? savedTheme : "default";
+      } catch (error) {
+        document.documentElement.dataset.theme = "default";
+      }
+    })();
+  </script>
+
   <style>
     :root {
-      --primary: #22c55e;
-      --primary-dark: #16a34a;
-      --page: #0f111a;
-      --card: #171923;
+      --primary: #e5e7eb;
+      --primary-dark: #c7cbd1;
+      --page: #0b0c0f;
+      --card: #17191e;
       --ink: #ffffff;
-      --muted: #9ca3af;
-      --input: #222532;
+      --muted: #a8adb7;
+      --input: #24272e;
       --white: #ffffff;
       --danger: #fb7185;
-      --success: #22c55e;
-      --border: rgba(255, 255, 255, 0.08);
+      --success: #d1d5db;
+      --border: rgba(255, 255, 255, 0.1);
       --shadow: 0 28px 80px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.24);
       --soft-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+      --glow-a: rgba(255, 255, 255, 0.055);
+      --glow-b: rgba(148, 163, 184, 0.055);
+      --orb-a: rgba(255, 255, 255, 0.07);
+      --orb-b: rgba(148, 163, 184, 0.06);
+      --card-bg: rgba(23, 25, 30, 0.95);
+      --focus-ring: rgba(229, 231, 235, 0.14);
+      --accent-soft: rgba(229, 231, 235, 0.12);
+      --accent-hover: rgba(229, 231, 235, 0.2);
+      --accent-text: #f3f4f6;
+      --accent-shadow: rgba(209, 213, 219, 0.14);
+      --progress-start: #9ca3af;
+      --progress-end: #f3f4f6;
+      --theme-color: #0b0c0f;
+    }
+
+    :root[data-theme="red"] {
+      --primary: #ff5a67;
+      --primary-dark: #dc2639;
+      --page: #150609;
+      --card: #250d12;
+      --muted: #d0a4aa;
+      --input: #301117;
+      --success: #ff6571;
+      --border: rgba(255, 112, 124, 0.17);
+      --glow-a: rgba(255, 38, 59, 0.22);
+      --glow-b: rgba(255, 111, 65, 0.12);
+      --orb-a: rgba(255, 44, 65, 0.22);
+      --orb-b: rgba(255, 111, 65, 0.14);
+      --card-bg: rgba(37, 13, 18, 0.94);
+      --focus-ring: rgba(255, 74, 92, 0.2);
+      --accent-soft: rgba(255, 75, 91, 0.15);
+      --accent-hover: rgba(255, 75, 91, 0.26);
+      --accent-text: #ff9aa3;
+      --accent-shadow: rgba(255, 55, 75, 0.22);
+      --progress-start: #ef233c;
+      --progress-end: #ff8a5b;
+      --theme-color: #150609;
+    }
+
+    :root[data-theme="blue"] {
+      --primary: #63b3ff;
+      --primary-dark: #2584df;
+      --page: #06111f;
+      --card: #0b1d31;
+      --muted: #9ebbd5;
+      --input: #102944;
+      --success: #71c1ff;
+      --border: rgba(126, 198, 255, 0.17);
+      --glow-a: rgba(45, 139, 235, 0.2);
+      --glow-b: rgba(119, 210, 255, 0.11);
+      --orb-a: rgba(48, 146, 245, 0.2);
+      --orb-b: rgba(117, 211, 255, 0.13);
+      --card-bg: rgba(10, 29, 49, 0.94);
+      --focus-ring: rgba(78, 166, 255, 0.2);
+      --accent-soft: rgba(84, 171, 255, 0.15);
+      --accent-hover: rgba(84, 171, 255, 0.25);
+      --accent-text: #9bd4ff;
+      --accent-shadow: rgba(60, 158, 255, 0.22);
+      --progress-start: #268df0;
+      --progress-end: #8cddff;
+      --theme-color: #06111f;
     }
 
     * {
@@ -46,8 +118,8 @@
       margin: 0;
       color: var(--ink);
       background:
-        radial-gradient(circle at 20% 10%, rgba(34, 197, 94, 0.14), transparent 30%),
-        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.10), transparent 32%),
+        radial-gradient(circle at 20% 10%, var(--glow-a), transparent 30%),
+        radial-gradient(circle at 85% 85%, var(--glow-b), transparent 32%),
         var(--page);
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       overflow-x: hidden;
@@ -64,6 +136,7 @@
 
     .page-shell {
       position: relative;
+      z-index: 1;
       isolation: isolate;
       min-height: 100vh;
       display: grid;
@@ -82,18 +155,19 @@
       filter: blur(10px);
       opacity: 0.42;
       pointer-events: none;
+      transition: background-color 350ms ease, opacity 350ms ease;
     }
 
     .page-shell::before {
       top: -180px;
       right: -100px;
-      background: rgba(34, 197, 94, 0.16);
+      background: var(--orb-a);
     }
 
     .page-shell::after {
       bottom: -210px;
       left: -120px;
-      background: rgba(16, 185, 129, 0.13);
+      background: var(--orb-b);
     }
 
     main {
@@ -127,7 +201,7 @@
       flex: 0 0 9px;
       border-radius: 50%;
       background: var(--success);
-      box-shadow: 0 0 0 4px rgba(32, 178, 107, 0.11);
+      box-shadow: 0 0 0 4px var(--focus-ring);
     }
 
     .hero-title {
@@ -173,7 +247,7 @@
       padding: 42px;
       border: 1px solid var(--border);
       border-radius: 32px;
-      background: rgba(23, 25, 35, 0.94);
+      background: var(--card-bg);
       box-shadow: var(--shadow);
       text-align: left;
       backdrop-filter: blur(22px);
@@ -200,7 +274,7 @@
 
     .field-wrap:focus-within {
       transform: translateY(-1px);
-      box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.14), 0 17px 38px rgba(0, 0, 0, 0.28);
+      box-shadow: 0 0 0 5px var(--focus-ring), 0 17px 38px rgba(0, 0, 0, 0.28);
     }
 
     #secretInput {
@@ -258,14 +332,14 @@
     .copy-button {
       min-width: 105px;
       height: 54px;
-      background: rgba(34, 197, 94, 0.13);
-      color: #86efac;
+      background: var(--accent-soft);
+      color: var(--accent-text);
       box-shadow: none;
     }
 
     .copy-button:hover {
-      background: rgba(34, 197, 94, 0.22);
-      box-shadow: 0 9px 20px rgba(34, 197, 94, 0.14);
+      background: var(--accent-hover);
+      box-shadow: 0 9px 20px var(--accent-shadow);
     }
 
     .action-button svg {
@@ -314,23 +388,54 @@
       box-shadow: var(--soft-shadow);
     }
 
-    .code-row {
+    .code-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .code-version-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
+      padding: 15px 15px 15px 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .code-version-row:first-child {
+      background: var(--accent-soft);
+    }
+
+    .code-identity {
+      min-width: 0;
+    }
+
+    .code-version-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .otp-code {
       min-width: 0;
       color: var(--ink);
-      font-size: clamp(34px, 8vw, 42px);
+      font-size: clamp(27px, 7vw, 34px);
       font-weight: 850;
       line-height: 1;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       white-space: nowrap;
       font-variant-numeric: tabular-nums;
       transition: opacity 160ms ease, transform 160ms ease, color 180ms ease;
+    }
+
+    .code-version-row:first-child .otp-code {
+      font-size: clamp(31px, 8vw, 39px);
     }
 
     .otp-code.empty {
@@ -377,11 +482,11 @@
       width: 100%;
       height: 100%;
       border-radius: inherit;
-      background: linear-gradient(90deg, #22c55e, #86efac);
+      background: linear-gradient(90deg, var(--progress-start), var(--progress-end));
       transform-origin: left center;
       transform: scaleX(1);
       transition: transform 950ms linear;
-      box-shadow: 0 0 12px rgba(34, 197, 94, 0.34);
+      box-shadow: 0 0 12px var(--accent-shadow);
     }
 
     .detail-stack {
@@ -428,7 +533,7 @@
       font-variant-numeric: tabular-nums;
     }
 
-    .next-code-line {
+    .rotation-note {
       margin-top: 18px;
       color: var(--muted);
       font-size: 13px;
@@ -436,8 +541,8 @@
       text-align: center;
     }
 
-    .next-code-line strong {
-      color: #86efac;
+    .rotation-note strong {
+      color: var(--accent-text);
       font-weight: 850;
       letter-spacing: 0.06em;
       font-variant-numeric: tabular-nums;
@@ -516,6 +621,95 @@
       to { transform: scale(3.2); opacity: 0; }
     }
 
+    .weather-effects {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .effect-particle {
+      position: absolute;
+      left: var(--x);
+      pointer-events: none;
+    }
+
+    .effect-particle.snow {
+      top: -14px;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      background: rgba(235, 248, 255, 0.82);
+      box-shadow: 0 0 7px rgba(133, 207, 255, 0.5);
+      opacity: var(--opacity);
+      animation: snowFall var(--duration) linear var(--delay) infinite;
+    }
+
+    .effect-particle.ember {
+      bottom: -18px;
+      width: var(--size);
+      height: calc(var(--size) * 1.7);
+      border-radius: 65% 35% 55% 45%;
+      background: linear-gradient(#fff09a, #ff6b35 55%, #e71932);
+      box-shadow: 0 0 12px rgba(255, 64, 46, 0.75);
+      opacity: var(--opacity);
+      animation: emberRise var(--duration) ease-in var(--delay) infinite;
+    }
+
+    .theme-emoji {
+      position: fixed;
+      top: 26px;
+      right: 28px;
+      z-index: 2;
+      display: none;
+      font-size: clamp(40px, 6vw, 64px);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    :root[data-theme="red"] .theme-emoji {
+      display: block;
+      filter: drop-shadow(0 0 16px rgba(255, 68, 49, 0.72));
+      animation: flameFlicker 900ms ease-in-out infinite alternate;
+    }
+
+    :root[data-theme="blue"] .theme-emoji {
+      display: block;
+      filter: drop-shadow(0 0 13px rgba(92, 184, 255, 0.56));
+      animation: coldShiver 580ms steps(2, end) infinite;
+    }
+
+    :root[data-theme="default"] main {
+      animation: none;
+    }
+
+    :root[data-theme="default"] .ripple {
+      display: none;
+    }
+
+    @keyframes snowFall {
+      from { transform: translate3d(0, -5vh, 0); }
+      to { transform: translate3d(var(--drift), 108vh, 0); }
+    }
+
+    @keyframes emberRise {
+      0% { transform: translate3d(0, 4vh, 0) scale(0.55) rotate(2deg); }
+      60% { opacity: var(--opacity); }
+      100% { transform: translate3d(var(--drift), -108vh, 0) scale(1.05) rotate(-13deg); opacity: 0; }
+    }
+
+    @keyframes flameFlicker {
+      from { transform: translateY(1px) rotate(-3deg) scale(0.96); }
+      to { transform: translateY(-3px) rotate(3deg) scale(1.08); }
+    }
+
+    @keyframes coldShiver {
+      0%, 100% { transform: translateX(-2px) rotate(-2deg); }
+      50% { transform: translateX(2px) rotate(2deg); }
+    }
+
     @media (max-width: 620px) {
       .page-shell {
         place-items: start center;
@@ -571,7 +765,7 @@
       }
 
       .otp-code {
-        letter-spacing: 0.075em;
+        letter-spacing: 0.07em;
       }
 
       .detail-box {
@@ -625,10 +819,12 @@
     .top-controls {
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
       margin-bottom: 14px;
     }
 
-    .language-select {
+    .control-select {
       height: 38px;
       padding: 0 34px 0 14px;
       border: 1px solid var(--border);
@@ -642,11 +838,15 @@
       color-scheme: dark;
     }
 
+    .control-select:focus-visible {
+      box-shadow: 0 0 0 4px var(--focus-ring);
+    }
+
     @media (max-width: 620px) {
       .page-shell { padding: 18px 12px 18px; }
       main { width: 100%; }
       .top-controls { margin-bottom: 10px; }
-      .language-select { height: 34px; font-size: 11px; }
+      .control-select { height: 34px; font-size: 11px; }
       .privacy-badge { margin-bottom: 12px; padding: 7px 10px; font-size: 8px; }
       .hero-title .brand { font-size: clamp(40px, 14vw, 58px); }
       .hero-title .subtitle { margin-top: 8px; font-size: clamp(27px, 9vw, 39px); }
@@ -661,7 +861,12 @@
       .timer-row { margin-top: 18px; }
       .timer-value { font-size: 21px; }
       .progress-track { margin-top: 9px; height: 6px; }
-      .next-code-line { margin-top: 13px; font-size: 12px; }
+      .rotation-note { margin-top: 13px; font-size: 12px; }
+      .code-version-row { padding: 11px 9px; gap: 7px; }
+      .code-version-label { margin-bottom: 5px; font-size: 8px; }
+      .otp-code { font-size: clamp(21px, 6vw, 28px); letter-spacing: 0.06em; }
+      .code-version-row:first-child .otp-code { font-size: clamp(23px, 7vw, 32px); }
+      .theme-emoji { top: auto; right: 14px; bottom: 14px; font-size: 34px; }
       .detail-stack { gap: 8px; margin-top: 13px; }
       .detail-box { padding: 11px 11px 11px 13px; border-radius: 15px; }
       .detail-label { font-size: 9px; }
@@ -678,16 +883,28 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
+
+      .weather-effects {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
+  <div id="weatherEffects" class="weather-effects" aria-hidden="true"></div>
+  <div id="themeEmoji" class="theme-emoji" aria-hidden="true"></div>
+
   <div class="page-shell">
     <main>
       <div class="top-controls">
-        <select id="languageSelect" class="language-select" aria-label="Language">
+        <select id="languageSelect" class="control-select" aria-label="Language">
           <option value="en">English</option>
           <option value="id">Indonesia</option>
+        </select>
+        <select id="themeSelect" class="control-select" aria-label="Theme">
+          <option value="default">⚫ Default</option>
+          <option value="red">🔥 Merah</option>
+          <option value="blue">🥶 Biru</option>
         </select>
       </div>
       <div class="privacy-badge" aria-label="Privacy status">
@@ -731,15 +948,76 @@
         <p id="errorMessage" class="error-message" role="alert" aria-live="polite"></p>
 
         <div class="code-panel">
-          <div class="code-row">
-            <output id="otpCode" class="otp-code empty" aria-live="polite" aria-label="Generated authentication code">••• •••</output>
-            <button id="copyButton" class="action-button copy-button" type="button" aria-label="Copy generated code" disabled>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="8" y="8" width="12" height="12" rx="2"></rect>
-                <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
-              </svg>
-              <span id="copyCodeText">Copy Code</span>
-            </button>
+          <div class="code-stack">
+            <div class="code-version-row">
+              <div class="code-identity">
+                <span id="codeV1Label" class="code-version-label">Code v.1</span>
+                <output id="otpCode" class="otp-code empty" aria-live="polite" aria-label="Generated authentication code version 1">••••••</output>
+              </div>
+              <button id="copyButton" class="action-button copy-button" type="button" aria-label="Copy code version 1" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+                  <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+                </svg>
+                <span id="copyCodeText">Copy</span>
+              </button>
+            </div>
+
+            <div class="code-version-row">
+              <div class="code-identity">
+                <span id="codeV2Label" class="code-version-label">Code v.2</span>
+                <output id="otpCodeV2" class="otp-code empty" aria-label="Generated authentication code version 2">••••••</output>
+              </div>
+              <button id="copyButtonV2" class="action-button copy-button" type="button" aria-label="Copy code version 2" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+                  <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+                </svg>
+                <span class="copy-code-text">Copy</span>
+              </button>
+            </div>
+
+            <div class="code-version-row">
+              <div class="code-identity">
+                <span id="codeV3Label" class="code-version-label">Code v.3</span>
+                <output id="otpCodeV3" class="otp-code empty" aria-label="Generated authentication code version 3">••••••</output>
+              </div>
+              <button id="copyButtonV3" class="action-button copy-button" type="button" aria-label="Copy code version 3" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+                  <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+                </svg>
+                <span class="copy-code-text">Copy</span>
+              </button>
+            </div>
+
+            <div class="code-version-row">
+              <div class="code-identity">
+                <span id="codeV4Label" class="code-version-label">Code v.4</span>
+                <output id="otpCodeV4" class="otp-code empty" aria-label="Generated authentication code version 4">••••••</output>
+              </div>
+              <button id="copyButtonV4" class="action-button copy-button" type="button" aria-label="Copy code version 4" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+                  <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+                </svg>
+                <span class="copy-code-text">Copy</span>
+              </button>
+            </div>
+
+            <div class="code-version-row">
+              <div class="code-identity">
+                <span id="codeV5Label" class="code-version-label">Code v.5</span>
+                <output id="otpCodeV5" class="otp-code empty" aria-label="Generated authentication code version 5">••••••</output>
+              </div>
+              <button id="copyButtonV5" class="action-button copy-button" type="button" aria-label="Copy code version 5" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+                  <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+                </svg>
+                <span class="copy-code-text">Copy</span>
+              </button>
+            </div>
           </div>
 
           <div class="timer-row">
@@ -750,7 +1028,7 @@
             <div id="progressBar" class="progress-bar"></div>
           </div>
 
-          <p id="nextCodeLine" class="next-code-line" aria-live="polite">Next code (<strong>••• •••</strong>) in 30s</p>
+          <p id="rotationNote" class="rotation-note" aria-live="polite"><strong>v.1 → v.2</strong> in 30s</p>
 
           <div class="detail-stack">
             <div class="detail-box">
@@ -806,41 +1084,55 @@
       const secretInput = document.getElementById("secretInput");
       const pasteButton = document.getElementById("pasteButton");
       const copyButton = document.getElementById("copyButton");
+      const copyButtonV2 = document.getElementById("copyButtonV2");
+      const copyButtonV3 = document.getElementById("copyButtonV3");
+      const copyButtonV4 = document.getElementById("copyButtonV4");
+      const copyButtonV5 = document.getElementById("copyButtonV5");
       const copySecretButton = document.getElementById("copySecretButton");
       const copyLinkButton = document.getElementById("copyLinkButton");
       const otpCode = document.getElementById("otpCode");
+      const otpCodeV2 = document.getElementById("otpCodeV2");
+      const otpCodeV3 = document.getElementById("otpCodeV3");
+      const otpCodeV4 = document.getElementById("otpCodeV4");
+      const otpCodeV5 = document.getElementById("otpCodeV5");
       const timerValue = document.getElementById("timerValue");
       const progressBar = document.getElementById("progressBar");
-      const nextCodeLine = document.getElementById("nextCodeLine");
+      const rotationNote = document.getElementById("rotationNote");
       const normalizedSecretOutput = document.getElementById("normalizedSecret");
       const alternativeLinkOutput = document.getElementById("alternativeLink");
       const errorMessage = document.getElementById("errorMessage");
       const toast = document.getElementById("toast");
       const toastText = document.getElementById("toastText");
       const languageSelect = document.getElementById("languageSelect");
+      const themeSelect = document.getElementById("themeSelect");
+      const themeEmoji = document.getElementById("themeEmoji");
+      const weatherEffects = document.getElementById("weatherEffects");
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
       const translations = {
         en: {
           privacy: "Your secret never leaves the browser",
           brand: "Authenticator", subtitle: "Code Generator",
           description: 'Paste any TOTP <strong>secret key</strong> to instantly see your live <strong>6-digit code</strong> and the seconds until it rotates.',
-          placeholder: "Paste Base32 Secret", paste: "Paste", copyCode: "Copy Code", nextIn: "Next code in", nextCode: "Next code",
+          placeholder: "Paste Base32 Secret", paste: "Paste", copyCode: "Copy", nextIn: "Code v.1 changes in", rotationIn: "in",
+          themeDefault: "⚫ Default", themeRed: "🔥 Red", themeBlue: "🥶 Blue",
           secret: "Secret", copySecret: "Copy Secret", link: "Alternative Link", copyLink: "Copy Alternative Link",
           security: "<strong>Your secret never leaves your browser.</strong><br />No information is sent over the internet.",
           invalidChars: "Use a valid Base32 key containing only A–Z and 2–7.", tooShort: "That secret looks too short. Check the key and try again.", invalidLength: "This Base32 key has an invalid length.",
           libraryError: "OTPAuth.js failed to load. Connect once, reload the page, then try again.", generateError: "Failed to generate code. Make sure this is a valid Base32 TOTP secret.",
-          pasted: "Secret pasted and normalized", blocked: "Clipboard access was blocked", codeCopied: "Code copied", secretCopied: "Secret copied in lowercase", linkCopied: "Alternative link copied"
+          pasted: "Secret pasted and normalized", blocked: "Clipboard access was blocked", codeCopied: "Code v.1 copied", codeV2Copied: "Code v.2 copied", codeV3Copied: "Code v.3 copied", codeV4Copied: "Code v.4 copied", codeV5Copied: "Code v.5 copied", secretCopied: "Secret copied in lowercase", linkCopied: "Alternative link copied"
         },
         id: {
           privacy: "Rahasia Anda tidak pernah keluar dari browser",
           brand: "Autentikator", subtitle: "Pembuat Kode",
           description: 'Tempel <strong>kunci rahasia</strong> TOTP untuk langsung melihat <strong>kode 6 digit</strong> aktif dan waktu hingga kode berganti.',
-          placeholder: "Tempel Rahasia Base32", paste: "Tempel", copyCode: "Salin Kode", nextIn: "Kode berikutnya dalam", nextCode: "Kode berikutnya",
+          placeholder: "Tempel Rahasia Base32", paste: "Tempel", copyCode: "Salin", nextIn: "Code v.1 berganti dalam", rotationIn: "dalam",
+          themeDefault: "⚫ Default", themeRed: "🔥 Merah", themeBlue: "🥶 Biru",
           secret: "Rahasia", copySecret: "Salin Rahasia", link: "Tautan Alternatif", copyLink: "Salin Tautan",
           security: "<strong>Rahasia Anda tidak pernah keluar dari browser.</strong><br />Tidak ada informasi yang dikirim melalui internet.",
           invalidChars: "Gunakan kunci Base32 yang valid, hanya berisi A–Z dan 2–7.", tooShort: "Kunci tersebut terlalu pendek. Periksa lalu coba lagi.", invalidLength: "Panjang kunci Base32 ini tidak valid.",
           libraryError: "OTPAuth.js gagal dimuat. Hubungkan internet sekali, muat ulang halaman, lalu coba lagi.", generateError: "Kode gagal dibuat. Pastikan ini adalah rahasia TOTP Base32 yang valid.",
-          pasted: "Rahasia ditempel dan dinormalisasi", blocked: "Akses clipboard diblokir", codeCopied: "Kode disalin", secretCopied: "Rahasia disalin dalam huruf kecil", linkCopied: "Tautan alternatif disalin"
+          pasted: "Rahasia ditempel dan dinormalisasi", blocked: "Akses clipboard diblokir", codeCopied: "Code v.1 disalin", codeV2Copied: "Code v.2 disalin", codeV3Copied: "Code v.3 disalin", codeV4Copied: "Code v.4 disalin", codeV5Copied: "Code v.5 disalin", secretCopied: "Rahasia disalin dalam huruf kecil", linkCopied: "Tautan alternatif disalin"
         }
       };
       let currentLanguage = localStorage.getItem("authenticator-language") === "id" ? "id" : "en";
@@ -858,12 +1150,16 @@
         secretInput.placeholder = t("placeholder");
         document.getElementById("pasteText").textContent = t("paste");
         document.getElementById("copyCodeText").textContent = t("copyCode");
+        document.querySelectorAll(".copy-code-text").forEach((label) => { label.textContent = t("copyCode"); });
         document.getElementById("timerLabel").textContent = t("nextIn");
         document.getElementById("secretLabel").textContent = t("secret");
         document.getElementById("copySecretText").textContent = t("copySecret");
         document.getElementById("linkLabel").textContent = t("link");
         document.getElementById("copyLinkText").textContent = t("copyLink");
         document.getElementById("securityNote").innerHTML = t("security");
+        themeSelect.options[0].textContent = t("themeDefault");
+        themeSelect.options[1].textContent = t("themeRed");
+        themeSelect.options[2].textContent = t("themeBlue");
         // PERBAIKAN: Hanya panggil updateCode jika bukan initial load dari URL
         // (initial load sudah di-handle oleh kode inisialisasi setelah applyLanguage)
         if (!window.__initialUrlSecretLoaded) {
@@ -871,13 +1167,59 @@
         }
       }
 
+      const THEMES = ["default", "red", "blue"];
+      let currentTheme = THEMES.includes(document.documentElement.dataset.theme)
+        ? document.documentElement.dataset.theme
+        : "default";
       let currentCode = "";
       let nextCode = "";
+      let thirdCode = "";
+      let fourthCode = "";
+      let fifthCode = "";
       let activeSecret = "";
       let alternativeLink = "";
       let lastCounter = -1;
       let toastTimeout;
       let isPendingUpdate = false;
+
+      function createThemeParticles(theme) {
+        weatherEffects.replaceChildren();
+        if (theme === "default" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        const count = theme === "blue" ? 38 : 24;
+        const particleType = theme === "blue" ? "snow" : "ember";
+        const fragment = document.createDocumentFragment();
+
+        for (let index = 0; index < count; index += 1) {
+          const particle = document.createElement("span");
+          const duration = theme === "blue" ? 9 + Math.random() * 10 : 6 + Math.random() * 6;
+          const size = theme === "blue" ? 2 + Math.random() * 4 : 3 + Math.random() * 4;
+          particle.className = `effect-particle ${particleType}`;
+          particle.style.setProperty("--x", `${Math.random() * 100}%`);
+          particle.style.setProperty("--size", `${size}px`);
+          particle.style.setProperty("--opacity", String(0.28 + Math.random() * 0.55));
+          particle.style.setProperty("--duration", `${duration}s`);
+          particle.style.setProperty("--delay", `${-Math.random() * duration}s`);
+          particle.style.setProperty("--drift", `${-55 + Math.random() * 110}px`);
+          fragment.appendChild(particle);
+        }
+
+        weatherEffects.appendChild(fragment);
+      }
+
+      function applyTheme(theme) {
+        currentTheme = THEMES.includes(theme) ? theme : "default";
+        document.documentElement.dataset.theme = currentTheme;
+        themeSelect.value = currentTheme;
+        themeEmoji.textContent = currentTheme === "red" ? "🔥" : currentTheme === "blue" ? "🥶" : "";
+        themeColorMeta.setAttribute("content", getComputedStyle(document.documentElement).getPropertyValue("--theme-color").trim());
+        try {
+          localStorage.setItem("authenticator-theme", currentTheme);
+        } catch (error) {
+          // The selected theme still applies for this tab if storage is unavailable.
+        }
+        createThemeParticles(currentTheme);
+      }
 
       /** Remove whitespace and normalize pasted or typed Base32 secrets. */
       function normalizeSecret(value) {
@@ -920,7 +1262,7 @@
       }
 
       function formatCode(code) {
-        return code ? `${code.slice(0, 3)} ${code.slice(3)}` : "••• •••";
+        return code || "••••••";
       }
 
       function showError(message) {
@@ -975,12 +1317,21 @@
       function showEmptyState() {
         currentCode = "";
         nextCode = "";
+        thirdCode = "";
+        fourthCode = "";
+        fifthCode = "";
         activeSecret = "";
         lastCounter = -1;
-        otpCode.textContent = "••• •••";
-        otpCode.classList.add("empty");
-        nextCodeLine.innerHTML = `${t("nextCode")} (<strong>••• •••</strong>) ${currentLanguage === "id" ? "dalam" : "in"} 30s`;
+        [otpCode, otpCodeV2, otpCodeV3, otpCodeV4, otpCodeV5].forEach((output) => {
+          output.textContent = "••••••";
+          output.classList.add("empty");
+        });
+        rotationNote.innerHTML = `<strong>v.1 → v.2</strong> ${t("rotationIn")} ${getTiming().secondsLeft}s`;
         copyButton.disabled = true;
+        copyButtonV2.disabled = true;
+        copyButtonV3.disabled = true;
+        copyButtonV4.disabled = true;
+        copyButtonV5.disabled = true;
       }
 
       function showToast(message) {
@@ -1004,7 +1355,7 @@
         const timing = getTiming(now);
         timerValue.textContent = `${timing.secondsLeft}s`;
         progressBar.style.transform = `scaleX(${timing.progress})`;
-        nextCodeLine.innerHTML = `${t("nextCode")} (<strong>${formatCode(nextCode)}</strong>) ${currentLanguage === "id" ? "dalam" : "in"} ${timing.secondsLeft}s`;
+        rotationNote.innerHTML = `<strong>v.1 → v.2</strong> ${t("rotationIn")} ${timing.secondsLeft}s`;
         return timing;
       }
 
@@ -1038,7 +1389,7 @@
             updateSecretDetails(normalized);
             updateBrowserUrl(normalized);
 
-            if (normalized === activeSecret && timing.counter === lastCounter && currentCode && nextCode) {
+            if (normalized === activeSecret && timing.counter === lastCounter && currentCode && nextCode && thirdCode && fourthCode && fifthCode) {
               renderTiming(now);
               return;
             }
@@ -1046,16 +1397,30 @@
             const totp = createTotp(normalized);
             const generatedCurrentCode = totp.generate({ timestamp: now });
             const generatedNextCode = totp.generate({ timestamp: now + PERIOD * 1000 });
+            const generatedThirdCode = totp.generate({ timestamp: now + PERIOD * 2000 });
+            const generatedFourthCode = totp.generate({ timestamp: now + PERIOD * 3000 });
+            const generatedFifthCode = totp.generate({ timestamp: now + PERIOD * 4000 });
 
             currentCode = generatedCurrentCode;
             nextCode = generatedNextCode;
+            thirdCode = generatedThirdCode;
+            fourthCode = generatedFourthCode;
+            fifthCode = generatedFifthCode;
             activeSecret = normalized;
             lastCounter = timing.counter;
 
             otpCode.textContent = formatCode(currentCode);
-            otpCode.classList.remove("empty", "refreshing");
+            otpCodeV2.textContent = formatCode(nextCode);
+            otpCodeV3.textContent = formatCode(thirdCode);
+            otpCodeV4.textContent = formatCode(fourthCode);
+            otpCodeV5.textContent = formatCode(fifthCode);
+            [otpCode, otpCodeV2, otpCodeV3, otpCodeV4, otpCodeV5].forEach((output) => output.classList.remove("empty", "refreshing"));
 
             copyButton.disabled = false;
+            copyButtonV2.disabled = false;
+            copyButtonV3.disabled = false;
+            copyButtonV4.disabled = false;
+            copyButtonV5.disabled = false;
             showError("");
             renderTiming(now);
           } catch (error) {
@@ -1128,6 +1493,10 @@
       });
       pasteButton.addEventListener("click", pasteSecret);
       copyButton.addEventListener("click", () => copyText(currentCode, t("codeCopied")));
+      copyButtonV2.addEventListener("click", () => copyText(nextCode, t("codeV2Copied")));
+      copyButtonV3.addEventListener("click", () => copyText(thirdCode, t("codeV3Copied")));
+      copyButtonV4.addEventListener("click", () => copyText(fourthCode, t("codeV4Copied")));
+      copyButtonV5.addEventListener("click", () => copyText(fifthCode, t("codeV5Copied")));
       copySecretButton.addEventListener("click", () => copyText(activeSecret.toLowerCase(), t("secretCopied")));
       copyLinkButton.addEventListener("click", () => copyText(alternativeLink, t("linkCopied")));
       document.querySelectorAll(".action-button").forEach((button) => {
@@ -1135,6 +1504,7 @@
       });
 
       languageSelect.addEventListener("change", (event) => applyLanguage(event.target.value));
+      themeSelect.addEventListener("change", (event) => applyTheme(event.target.value));
 
       // ============================================================
       // PERBAIKAN UTAMA: URUTAN INISIALISASI YANG BENAR
@@ -1146,7 +1516,8 @@
       }
       window.__initialUrlSecretLoaded = true;
 
-      // 2. Baru apply language - updateCode di dalamnya sudah punya secretInput.value
+      // 2. Terapkan tema tersimpan dan bahasa pilihan.
+      applyTheme(currentTheme);
       applyLanguage(currentLanguage);
 
       // 3. Jika dari URL, dispatch event untuk reset state via handler yang konsisten
@@ -1162,6 +1533,5 @@
       window.setInterval(() => updateCode(Date.now()), 250);
     })();
   </script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"1d748233dd8c471da273c224c13723ea","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
