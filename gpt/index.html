@@ -1452,7 +1452,7 @@
           <h2 class="section-title">Pertanyaan yang sering ditanyakan</h2>
         </div>
         <div class="faq reveal">
-          <details open><summary>Apa perbedaan Paket C dan Produk X?</summary><div class="faq-content">Paket C seharga Rp75.000 menggunakan bill Apple Pay dan memiliki garansi 1 hari. Produk X seharga Rp68.000 menggunakan bill Apple Pay , tanpa garansi, dan bantuan hanya sampai berhasil login. Keduanya merupakan akun nonresmi dengan risiko pembatasan atau banned akun.</div></details>
+          <details open><summary>Apa perbedaan Paket C dan Produk X?</summary><div class="faq-content">Paket C seharga Rp80.000 menggunakan bill Apple Pay dan memiliki garansi 1 hari. Produk X seharga Rp68.000 menggunakan bill Apple Pay , tanpa garansi, dan bantuan hanya sampai berhasil login. Keduanya merupakan akun nonresmi dengan risiko pembatasan atau banned akun.</div></details>
           <details><summary>Apa itu Paket Reseller?</summary><div class="faq-content">Paket Reseller seharga Rp120.000 memberikan akses lifetime ke info method/channel, potongan harga, bonus admin, dan arahan reseller. Paket ini maksimal dibeli 1 kali per checkout dan tidak mendapat diskon kuantitas.</div></details>
           <details><summary>Kapan garansi bisa hangus?</summary><div class="faq-content">Garansi bisa hangus jika akun digunakan berlebihan, spam, dipakai banyak perangkat, dibagikan ke orang lain, memakai cookies/token, API/tools pihak ketiga, proxy/router terlarang, atau mengubah profile, password, billing, maupun plan akun.</div></details>
           <details><summary>Apa yang harus dilakukan setelah menerima akun?</summary><div class="faq-content">Segera ganti email / password dari Gmail disposable yang diberikan. Jangan matikan atau mengganti MFA. Verifikasi OTP Codex dilakukan manual dan bisa melalui web Hero-SMS. Kami hanya menjual akun GPT Plus fresh; layanan Codex berada di luar kuasa kami.</div></details>
@@ -1768,8 +1768,8 @@
          soldout  = stok habis, tombol checkout otomatis nonaktif
          ========================================================== */
       const PACKAGE_STATUS = {
-        PLUS_VCC_C_1D: 'ready',
-        PLUS_VCC_C_25D: 'ready',
+        PLUS_VCC_C_1D: 'preorder',
+        PLUS_VCC_C_25D: 'preorder',
         PLUS_X: 'soldout',
         RESELLER: 'ready'
       };
@@ -1790,7 +1790,7 @@
           code: 'C-1D',
           name: 'GPT Plus Trial 1 Month Private — Paket C',
           method: 'Bill Apple Pay · Mastercard / Visa',
-          price: 75000,
+          price: 80000,
           warranty: 'Garansi 1 hari (Pergantian akun maksimal 1 kali)',
           duration: 'Trial 1 bulan',
           desc: 'Paket C dengan garansi 1 hari. Akun GPT Plus fresh menggunakan Gmail disposable; segera ganti email/password, jangan matikan atau ganti MFA.',
