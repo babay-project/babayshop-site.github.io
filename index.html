@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="id">
 <head>
@@ -13,120 +12,65 @@
     :root { color-scheme: dark; --red:#ff1744; --pink:#ff3d81; --violet:#8b5cf6; }
     * { box-sizing:border-box; }
     html { min-height:100%; background:#07060c; }
-    body {
-      margin:0; min-height:100svh; overflow-x:hidden; color:#fff;
-      font-family:"Inter",system-ui,sans-serif;
-      display:grid; place-items:center; padding:32px 18px;
-      background:radial-gradient(circle at 50% 10%,rgba(255,23,68,.13),transparent 42%),#07060c;
-    }
-    body::before {
-      content:""; position:fixed; z-index:-2; inset:-8%; width:116%; height:116%;
-      background-image:linear-gradient(rgba(4,3,9,.84),rgba(4,3,9,.91)),url("https://assets.nflxext.com/ffe/siteui/vlv3/e94073b0-a056-402f-9015-16cb1e7e45c2/web/ID-en-20251110-TRIFECTA-perspective_29287120-1497-47a9-8b0a-49e7ded22f31_large.jpg");
-      background-size:cover; background-position:center; transform:scale(1.1);
-      animation:pan-background 26s ease-in-out infinite alternate;
-    }
-    body::after {
-      content:""; position:fixed; z-index:-1; inset:0; pointer-events:none;
-      background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.035) 42%,transparent 58%);
-      background-size:220% 100%; animation:ambient-shine 12s linear infinite;
-    }
+    body { margin:0; min-height:100svh; overflow-x:hidden; color:#fff; font-family:"Inter",system-ui,sans-serif; display:grid; place-items:center; padding:32px 18px; background:radial-gradient(circle at 50% 10%,rgba(255,23,68,.13),transparent 42%),#07060c; }
+    body::before { content:""; position:fixed; z-index:-2; inset:-8%; width:116%; height:116%; background-image:linear-gradient(rgba(4,3,9,.84),rgba(4,3,9,.91)),url("https://assets.nflxext.com/ffe/siteui/vlv3/e94073b0-a056-402f-9015-16cb1e7e45c2/web/ID-en-20251110-TRIFECTA-perspective_29287120-1497-47a9-8b0a-49e7ded22f31_large.jpg"); background-size:cover; background-position:center; transform:scale(1.1); animation:pan-background 26s ease-in-out infinite alternate; }
+    body::after { content:""; position:fixed; z-index:-1; inset:0; pointer-events:none; background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.035) 42%,transparent 58%); background-size:220% 100%; animation:ambient-shine 12s linear infinite; }
     @keyframes pan-background { from{transform:scale(1.1) translateX(3%)} to{transform:scale(1.1) translateX(-3%)} }
     @keyframes ambient-shine { to{background-position:-220% 0} }
     @keyframes rise { from{opacity:0;transform:translateY(22px) scale(.98)} to{opacity:1;transform:none} }
     @keyframes border-spin { to{transform:rotate(360deg)} }
     @keyframes loading { from{width:0} to{width:100%} }
     @keyframes pulse { 50%{transform:scale(1.06);filter:drop-shadow(0 0 20px rgba(255,23,68,.75))} }
-    @keyframes logo-3d {
-      0%{transform:perspective(700px) rotateY(-18deg) rotateX(3deg)}
-      50%{transform:perspective(700px) rotateY(18deg) rotateX(-3deg)}
-      100%{transform:perspective(700px) rotateY(-18deg) rotateX(3deg)}
-    }
-
-    .panel {
-      width:min(100%,520px); padding:34px; text-align:center; overflow:hidden; position:relative;
-      background:linear-gradient(145deg,rgba(20,18,29,.78),rgba(8,7,13,.7));
-      border:1px solid rgba(255,255,255,.12); border-radius:30px;
-      box-shadow:0 28px 90px rgba(0,0,0,.58),inset 0 1px rgba(255,255,255,.07);
-      backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
-      animation:rise .8s cubic-bezier(.2,.8,.2,1) both;
-    }
+    @keyframes logo-3d { 0%{transform:perspective(700px) rotateY(-18deg) rotateX(3deg)} 50%{transform:perspective(700px) rotateY(18deg) rotateX(-3deg)} 100%{transform:perspective(700px) rotateY(-18deg) rotateX(3deg)} }
+    .panel { width:min(100%,520px); padding:34px; text-align:center; overflow:hidden; position:relative; background:linear-gradient(145deg,rgba(20,18,29,.78),rgba(8,7,13,.7)); border:1px solid rgba(255,255,255,.12); border-radius:30px; box-shadow:0 28px 90px rgba(0,0,0,.58),inset 0 1px rgba(255,255,255,.07); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); animation:rise .8s cubic-bezier(.2,.8,.2,1) both; }
     .panel::before { content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(circle at 50% 0,rgba(255,23,68,.12),transparent 38%); }
     .logo { width:108px; height:108px; object-fit:contain; margin-bottom:16px; transform-style:preserve-3d; filter:drop-shadow(0 10px 12px rgba(0,0,0,.55)) drop-shadow(0 0 20px rgba(255,23,68,.35)); animation:logo-3d 6s ease-in-out infinite; will-change:transform; }
     .eyebrow { margin:0 0 8px; color:#ff7794; text-transform:uppercase; letter-spacing:.24em; font-size:11px; font-weight:800; }
     h1 { margin:0; font-size:clamp(30px,8vw,43px); line-height:1; font-weight:900; letter-spacing:-.055em; }
     .intro { margin:12px 0 27px; color:#aaa7b5; font-size:14px; }
     .services { display:grid; gap:13px; }
-    .service {
-      position:relative; isolation:isolate; display:flex; align-items:center; gap:15px; width:100%;
-      padding:17px 18px; border:1px solid rgba(255,255,255,.11); border-radius:18px;
-      overflow:hidden; text-align:left; color:#fff; cursor:pointer; font:inherit;
-      background:linear-gradient(115deg,rgba(255,255,255,.085),rgba(255,255,255,.025));
-      box-shadow:inset 0 1px rgba(255,255,255,.08),0 8px 25px rgba(0,0,0,.2);
-      transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease,background .28s ease;
-    }
-    .service::before {
-      content:""; position:absolute; z-index:-2; width:60%; aspect-ratio:1; left:-10%; top:-160%;
-      background:conic-gradient(transparent 45%,var(--glow),transparent 66%); opacity:0;
-      animation:border-spin 3.6s linear infinite; transition:opacity .3s ease;
-    }
+    .service { position:relative; isolation:isolate; display:flex; align-items:center; gap:15px; width:100%; padding:17px 18px; border:1px solid rgba(255,255,255,.11); border-radius:18px; overflow:hidden; text-align:left; color:#fff; cursor:pointer; font:inherit; background:linear-gradient(115deg,rgba(255,255,255,.085),rgba(255,255,255,.025)); box-shadow:inset 0 1px rgba(255,255,255,.08),0 8px 25px rgba(0,0,0,.2); transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease,background .28s ease; }
+    .service::before { content:""; position:absolute; z-index:-2; width:60%; aspect-ratio:1; left:-10%; top:-160%; background:conic-gradient(transparent 45%,var(--glow),transparent 66%); opacity:0; animation:border-spin 3.6s linear infinite; transition:opacity .3s ease; }
     .service::after { content:""; position:absolute; z-index:-1; inset:1px; border-radius:17px; background:linear-gradient(115deg,rgba(24,22,32,.96),rgba(10,9,16,.94)); }
     .service:hover,.service:focus-visible { transform:translateY(-3px) scale(1.012); border-color:var(--glow); box-shadow:0 0 0 1px color-mix(in srgb,var(--glow) 40%,transparent),0 12px 35px color-mix(in srgb,var(--glow) 24%,transparent); outline:none; }
     .service:hover::before,.service:focus-visible::before { opacity:1; }
     .service:active { transform:scale(.99); }
-    .copy { min-width:0; flex:1; }
-    .title { display:block; font-size:15px; font-weight:800; line-height:1.3; letter-spacing:-.015em; }
-    .subtitle { display:block; margin-top:5px; color:#aaa7b5; font-size:12px; line-height:1.45; }
-    .arrow { color:#797684; font-size:19px; transition:transform .25s ease,color .25s ease; }
-    .service:hover .arrow { color:var(--glow); transform:translateX(4px); }
-    .footer { margin:22px 0 0; color:#6f6c78; font-size:11px; }
-
-    .loading-screen { position:fixed; inset:0; z-index:99; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; background:rgba(3,3,7,.94); backdrop-filter:blur(18px); opacity:0; visibility:hidden; transition:opacity .25s ease,visibility .25s; }
-    .loading-screen.active { opacity:1; visibility:visible; }
-    .loading-screen .logo { animation:logo-3d 3s ease-in-out infinite,pulse 1.2s ease-in-out infinite; }
-    .loading-title { margin:0 0 18px; font-size:28px; font-weight:900; }
-    .track { width:min(280px,75vw); height:5px; overflow:hidden; border-radius:999px; background:rgba(255,255,255,.1); }
-    .bar { width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--red),var(--pink),var(--violet)); box-shadow:0 0 14px var(--red); }
-    .active .bar { animation:loading 1.15s linear forwards; }
-    @media (max-width:480px) { body{padding:20px 12px}.panel{padding:27px 17px;border-radius:24px}.service{padding:15px 14px}.logo{width:76px;height:76px} }
-    @media (prefers-reduced-motion:reduce) { *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important} }
+    .copy { min-width:0; flex:1; }.title { display:block; font-size:15px; font-weight:800; line-height:1.3; letter-spacing:-.015em; }.subtitle { display:block; margin-top:5px; color:#aaa7b5; font-size:12px; line-height:1.45; }.arrow { color:#797684; font-size:19px; transition:transform .25s ease,color .25s ease; }.service:hover .arrow { color:var(--glow); transform:translateX(4px); }.footer { margin:22px 0 0; color:#6f6c78; font-size:11px; }
+    .loading-screen { position:fixed; inset:0; z-index:99; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; background:rgba(3,3,7,.94); backdrop-filter:blur(18px); opacity:0; visibility:hidden; transition:opacity .25s ease,visibility .25s; }.loading-screen.active { opacity:1; visibility:visible; }.loading-screen .logo { animation:logo-3d 3s ease-in-out infinite,pulse 1.2s ease-in-out infinite; }.loading-title { margin:0 0 18px; font-size:28px; font-weight:900; }.track { width:min(280px,75vw); height:5px; overflow:hidden; border-radius:999px; background:rgba(255,255,255,.1); }.bar { width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--red),var(--pink),var(--violet)); box-shadow:0 0 14px var(--red); }.active .bar { animation:loading 1.15s linear forwards; }
+    @media (max-width:480px) { body{padding:20px 12px}.panel{padding:27px 17px;border-radius:24px}.service{padding:15px 14px}.logo{width:76px;height:76px} } @media (prefers-reduced-motion:reduce) { *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important} }
   </style>
 </head>
 <body>
   <main class="panel">
     <img class="logo" src="https://i.ibb.co.com/bgbPW84g/LOLO-BABAYSHOP-ID.png" alt="Logo Babayshop">
-    <p class="eyebrow">Premium digital store</p>
-    <h1>BABAYSHOP.ID</h1>
-    <p class="intro">Pilih layanan yang kamu butuhkan</p>
-
+    <p class="eyebrow">Premium digital store</p><h1>BABAYSHOP.ID</h1><p class="intro">Pilih layanan yang kamu butuhkan</p>
     <div class="services">
-      <button class="service" style="--glow:#ff3d71" data-url="https://padlet.com/babayshopid/home">
-        <span class="copy"><span class="title">Price List: All Apps Premium</span><span class="subtitle">CapCut Pro, Netflix, Canva, dan lainnya</span></span><span class="arrow" aria-hidden="true">›</span>
-      </button>
-      <button class="service" style="--glow:#27d9ff" data-url="https://padlet.com/babayshopid/sosmed">
-        <span class="copy"><span class="title">Price List: Booster Sosmed</span><span class="subtitle">Followers, Likes, Comments, Views, dan lainnya</span></span><span class="arrow" aria-hidden="true">›</span>
-      </button>
-      <button class="service" style="--glow:#a879ff" data-url="https://babay.web.id/gpt">
-        <span class="copy"><span class="title">Price List: ChatGPT Plus</span><span class="subtitle">Akun premium bergaransi</span></span><span class="arrow" aria-hidden="true">›</span>
-      </button>
-      <button class="service" style="--glow:#48df8b" data-url="https://babay.web.id/google">
-        <span class="copy"><span class="title">Price List: Google AI Pro</span><span class="subtitle">Head 12 bulan, Head 18 bulan, dan Invite</span></span><span class="arrow" aria-hidden="true">›</span>
-      </button>
-    </div>
-    <p class="footer">Layanan digital cepat, aman, dan terpercaya.</p>
+      <button class="service" style="--glow:#ff3d71" data-url="https://padlet.com/babayshopid/home"><span class="copy"><span class="title">Price List: All Apps Premium</span><span class="subtitle">CapCut Pro, Netflix, Canva, dan lainnya</span></span><span class="arrow" aria-hidden="true">›</span></button>
+      <button class="service" style="--glow:#27d9ff" data-url="https://padlet.com/babayshopid/sosmed"><span class="copy"><span class="title">Price List: Booster Sosmed</span><span class="subtitle">Followers, Likes, Comments, Views, dan lainnya</span></span><span class="arrow" aria-hidden="true">›</span></button>
+      <button class="service" style="--glow:#a879ff" data-url="https://babay.web.id/gpt"><span class="copy"><span class="title">Price List: ChatGPT Plus</span><span class="subtitle">Akun premium bergaransi</span></span><span class="arrow" aria-hidden="true">›</span></button>
+      <button class="service" style="--glow:#48df8b" data-url="https://babay.web.id/google"><span class="copy"><span class="title">Price List: Google AI Pro</span><span class="subtitle">Head 12 bulan, Head 18 bulan, dan Invite</span></span><span class="arrow" aria-hidden="true">›</span></button>
+    </div><p class="footer">Layanan digital cepat, aman, dan terpercaya.</p>
   </main>
-
-  <div id="loadingScreen" class="loading-screen" role="status" aria-live="polite" aria-hidden="true">
-    <img class="logo" src="https://i.ibb.co.com/bgbPW84g/LOLO-BABAYSHOP-ID.png" alt="">
-    <p class="loading-title">Membuka layanan...</p><div class="track"><div class="bar"></div></div>
-  </div>
-
+  <div id="loadingScreen" class="loading-screen" role="status" aria-live="polite" aria-hidden="true"><img class="logo" src="https://i.ibb.co.com/bgbPW84g/LOLO-BABAYSHOP-ID.png" alt=""><p class="loading-title">Membuka layanan...</p><div class="track"><div class="bar"></div></div></div>
   <script>
-    const loadingScreen=document.getElementById("loadingScreen");
-    document.querySelectorAll(".service").forEach(button=>button.addEventListener("click",()=>{
-      loadingScreen.classList.add("active"); loadingScreen.setAttribute("aria-hidden","false");
-      window.setTimeout(()=>{ window.location.href=button.dataset.url; },1200);
-    }));
-    window.addEventListener("pageshow",()=>{ loadingScreen.classList.remove("active"); loadingScreen.setAttribute("aria-hidden","true"); });
+    /* =========================
+       STATUS WEBSITE
+       Ubah menjadi "open" untuk menampilkan halaman.
+       Ubah menjadi "close" untuk redirect ke halaman closed.
+       ========================= */
+    const WEBSITE_STATUS = "close";
+    const CLOSED_PAGE_URL = "https://babayshop.id/closed";
+
+    if (WEBSITE_STATUS.toLowerCase() === "close") {
+      window.location.replace(CLOSED_PAGE_URL);
+    } else {
+      const loadingScreen=document.getElementById("loadingScreen");
+      document.querySelectorAll(".service").forEach(button=>button.addEventListener("click",()=>{
+        loadingScreen.classList.add("active"); loadingScreen.setAttribute("aria-hidden","false");
+        window.setTimeout(()=>{ window.location.href=button.dataset.url; },1200);
+      }));
+      window.addEventListener("pageshow",()=>{ loadingScreen.classList.remove("active"); loadingScreen.setAttribute("aria-hidden","true"); });
+    }
   </script>
 </body>
 </html>
