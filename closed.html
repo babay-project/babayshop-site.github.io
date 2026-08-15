@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#080808" />
   <meta name="description" content="Informasi penutupan sementara Babayshop.id" />
-  <title>Babayshop.id</title>
+  <title>Babayshop.id — Tutup Sementara</title>
   <link rel="preconnect" href="https://db.onlinewebfonts.com" />
   <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/5ac3fe7c6abd2f62067f266d89671492?family=HelveticaNowDisplay-Medium" />
   <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/1aa3377e489837a26d019bba501e779d?family=HelveticaNowDisplayW01-Rg" />
@@ -79,17 +79,49 @@
     @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(255,129,110,0); } 100% { box-shadow: 0 0 0 0 rgba(255,129,110,0); } }
 
     @media (max-width: 767px) {
-      .navbar { padding: 16px 20px; }
-      .logo { font-size: 21px; }
-      .asterisk { font-size: 25px; }
-      .status-chip { font-size: 12px; }
-      .hero { justify-content: flex-end; padding: 96px 20px 48px; }
-      .eyebrow { margin-bottom: 16px; }
-      h1 { margin-bottom: 18px; }
-      .message { margin-bottom: 18px; }
-      .note { margin-bottom: 18px; }
+      .background-video { object-position: 62% center; }
+      .navbar {
+        padding: max(14px, env(safe-area-inset-top)) 18px 14px;
+        background: linear-gradient(180deg, rgba(5,5,5,.65), rgba(5,5,5,0));
+      }
+      .brand { gap: 8px; min-width: 0; }
+      .logo { overflow: hidden; max-width: 160px; font-size: 19px; text-overflow: ellipsis; white-space: nowrap; }
+      .asterisk { font-size: 22px; }
+      .status-chip { flex: none; gap: 6px; padding: .48em .72em; font-size: 11px; letter-spacing: .01em; }
+      .status-chip::before { width: 6px; height: 6px; }
+      .hero {
+        min-height: 100dvh; justify-content: flex-end;
+        padding: 96px 18px calc(30px + env(safe-area-inset-bottom));
+      }
+      .content { width: 100%; max-width: 560px; }
+      .eyebrow { max-width: 92%; margin-bottom: 14px; font-size: clamp(16px, 4.6vw, 19px); line-height: 1.34; letter-spacing: -.015em; }
+      h1 { max-width: 94%; margin-bottom: 18px; font-size: clamp(52px, 16.5vw, 76px); line-height: .87; letter-spacing: -.062em; }
+      .message { max-width: 94%; margin-bottom: 16px; font-size: clamp(22px, 6.2vw, 29px); line-height: 1.08; }
+      .note { max-width: 96%; margin-bottom: 18px; font-size: clamp(14px, 4vw, 16px); line-height: 1.48; }
+      .reason { width: 100%; padding: 16px 17px; border-radius: 15px; font-size: clamp(15px, 4.2vw, 17px); line-height: 1.4; }
+      .ambient { width: 90vw; height: 90vw; left: -34vw; bottom: -18vw; filter: blur(72px); }
       .footer { display: none; }
       .veil { background: linear-gradient(0deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.5) 72%, rgba(0,0,0,.25) 100%); }
+    }
+
+    @media (max-width: 380px) {
+      .navbar { padding-inline: 14px; }
+      .logo { max-width: 138px; font-size: 17px; }
+      .hero { padding-inline: 14px; padding-bottom: calc(22px + env(safe-area-inset-bottom)); }
+      .eyebrow { font-size: 15px; }
+      h1 { font-size: clamp(47px, 15.6vw, 60px); }
+      .message { font-size: 21px; }
+      .note { font-size: 13.5px; }
+      .reason { padding: 14px 15px; font-size: 14px; }
+    }
+
+    @media (max-width: 767px) and (max-height: 720px) {
+      .hero { justify-content: flex-start; overflow-y: auto; padding-top: 92px; }
+      .eyebrow { margin-bottom: 10px; }
+      h1 { margin-bottom: 14px; font-size: clamp(46px, 14vw, 62px); }
+      .message { margin-bottom: 12px; font-size: clamp(20px, 5.7vw, 25px); }
+      .note { margin-bottom: 14px; line-height: 1.4; }
+      .reason { padding-block: 13px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -105,12 +137,12 @@
        ============================================================ -->
   <script id="site-content" type="application/json">
   {
-    "brand": "Babayshop.id",
+    "brand": "Babayshop.id®",
     "status": "Tutup sementara",
-    "label": "Mohon maaf kepada seluruh pelanggan Babayshop.id.\nUntuk sementara, layanan kami perlu beristirahat sejenak.",
+    "label": "Mohon maaf kepada seluruh pelanggan Babayshop.id.\nUntuk sementara, layanan kami",
     "title": "Tutup Sementara.",
     "reopen": "Estimasi buka kembali: 17 Agustus 2026.",
-    "reason": "Admin sedang perjalanan keluar kota + ada kontrol di rumah sakit... mohon doanya semua...",
+    "reason": "Admin sedang perjalanan keluar kota & ada kontrol di rumah sakit... mohon doanya semua...",
     "support": "Admin tetap menerima pesan terkait garansi, komplain, dan bantuan lainnya melalui WhatsApp. Respons kemungkinan jauh lebih lambat sampai admin kembali aktif.",
     "footer": "Gerakkan mouse ke kiri / kanan untuk menggeser video"
   }
