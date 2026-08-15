@@ -44,29 +44,14 @@
 
 
   <script>
-    /* ============================================================
-       PENGATURAN STATUS WEBSITE — EDIT CUKUP DI BAGIAN INI
-
-
-       status          : 'open'  = website tampil normal
-                         'close' = hanya pengumuman tutup yang tampil
-       closedFrom      : tanggal mulai tutup (format YYYY-MM-DD)
-       closedUntil     : tanggal terakhir tutup (boleh sama untuk 1 hari)
-       reopenEstimate  : estimasi aktif lagi (format YYYY-MM-DDTHH:mm:ss+07:00)
-       reason          : alasan toko tutup
-       ============================================================ */
+    /* Ubah status menjadi 'open' / 'close' untuk menampilkan halaman ini kembali. */
     window.WEBSITE_STATUS = {
-      status: 'close',
-      closedFrom: '2026-08-16',
-      closedUntil: '2026-08-17',
-      reopenEstimate: '2026-08-17T10:00:00+07:00',
-      reason: 'Admin sedang perjalanan keluar kota + ada Kontrol di Rumah Sakit... mohon doanya :)'
+      status: 'close'
     };
 
-
-    // Mencegah halaman normal terlihat sesaat sebelum JavaScript selesai dimuat.
+    // Saat toko tutup, langsung arahkan ke halaman penutupan.
     if (String(window.WEBSITE_STATUS.status).toLowerCase() === 'close') {
-      document.documentElement.classList.add('website-is-closed');
+      window.location.replace('https://babayshop.id/closed');
     }
   </script>
 
@@ -886,260 +871,9 @@
       .hero-title { font-size: 34px; }
     }
 
-
-    /* HALAMAN KHUSUS SAAT WEBSITE DITUTUP */
-    #storeClosedPage { display: none; }
-    html.website-is-closed body > :not(#storeClosedPage):not(script) { display: none !important; }
-    html.website-is-closed,
-    html.website-is-closed body {
-      min-height: 100%;
-      overflow: auto !important;
-      background: #060812;
-    }
-    html.website-is-closed #storeClosedPage {
-      position: relative;
-      isolation: isolate;
-      min-height: 100vh;
-      display: grid !important;
-      place-items: center;
-      padding: clamp(20px, 5vw, 56px) 18px;
-      overflow: hidden;
-      color: #f8fafc;
-      background:
-        radial-gradient(circle at 8% 8%, rgba(34,211,238,.16), transparent 27%),
-        radial-gradient(circle at 90% 90%, rgba(99,102,241,.18), transparent 31%),
-        linear-gradient(145deg, #030611, #081121 50%, #050714);
-    }
-    #storeClosedPage::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      opacity: .12;
-      background-image:
-        linear-gradient(rgba(255,255,255,.10) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.10) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: linear-gradient(to bottom, #000, transparent 84%);
-    }
-    #storeClosedPage::after {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      width: min(72vw, 760px);
-      aspect-ratio: 1;
-      border: 1px solid rgba(34,211,238,.09);
-      border-radius: 50%;
-      box-shadow:
-        0 0 0 70px rgba(34,211,238,.025),
-        0 0 0 150px rgba(99,102,241,.018);
-      animation: storeClosedFloat 8s ease-in-out infinite;
-    }
-    @keyframes storeClosedFloat {
-      0%, 100% { transform: translate3d(-3%, -2%, 0) scale(.98); }
-      50% { transform: translate3d(3%, 2%, 0) scale(1.02); }
-    }
-    .store-closed-card {
-      position: relative;
-      width: min(760px, 100%);
-      padding: clamp(25px, 5vw, 54px);
-      border: 1px solid rgba(148,163,184,.16);
-      border-radius: 32px;
-      text-align: center;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,.055), transparent 45%),
-        rgba(7,13,27,.88);
-      box-shadow: 0 38px 110px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08);
-      backdrop-filter: blur(24px);
-      overflow: hidden;
-    }
-    .store-closed-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 14%;
-      right: 14%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #22d3ee, transparent);
-      box-shadow: 0 0 28px rgba(34,211,238,.7);
-    }
-    .store-closed-logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 34px;
-      font-family: var(--font-title);
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -.03em;
-    }
-    .store-closed-logo-mark {
-      display: grid;
-      place-items: center;
-      width: 34px;
-      height: 34px;
-      border: 1px solid rgba(34,211,238,.25);
-      border-radius: 11px;
-      color: #67e8f9;
-      background: rgba(34,211,238,.09);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 10px 28px rgba(34,211,238,.08);
-    }
-    .store-closed-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 20px;
-      padding: 8px 13px;
-      border: 1px solid rgba(251,191,36,.28);
-      border-radius: 999px;
-      color: #fde68a;
-      background: rgba(251,191,36,.09);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    .store-closed-badge::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #fbbf24;
-      box-shadow: 0 0 16px #fbbf24;
-    }
-    .store-closed-card h1 {
-      max-width: 620px;
-      margin: 0 auto 16px;
-      font-family: var(--font-title);
-      font-size: clamp(34px, 7vw, 58px);
-      line-height: 1.03;
-      letter-spacing: -.06em;
-      background: linear-gradient(110deg, #fff 20%, #c7f8ff 58%, #c7d2fe);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .store-closed-lead {
-      max-width: 560px;
-      margin: 0 auto 30px;
-      color: #cbd5e1;
-      font-size: clamp(15px, 2.5vw, 18px);
-      line-height: 1.7;
-    }
-    .store-closed-info {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin: 0 0 14px;
-      text-align: left;
-    }
-    .store-closed-row {
-      position: relative;
-      min-height: 112px;
-      padding: 18px 18px 18px 52px;
-      border: 1px solid rgba(148,163,184,.14);
-      border-radius: 18px;
-      background: rgba(255,255,255,.034);
-    }
-    .store-closed-row::before {
-      content: "";
-      position: absolute;
-      top: 19px;
-      left: 18px;
-      width: 21px;
-      height: 21px;
-      border: 2px solid rgba(103,232,249,.72);
-      border-radius: 7px;
-      box-shadow: 0 0 18px rgba(34,211,238,.12);
-    }
-    .store-closed-row:last-child::before {
-      border-radius: 50%;
-      border-color: rgba(165,180,252,.8);
-    }
-    .store-closed-row span {
-      display: block;
-      margin-bottom: 5px;
-      color: #94a3b8;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-    }
-    .store-closed-row strong {
-      color: #f1f5f9;
-      font-size: 14px;
-      line-height: 1.55;
-    }
-    .store-closed-note {
-      position: relative;
-      margin: 0;
-      padding: 17px 18px 17px 48px;
-      border: 1px solid rgba(34,211,238,.12);
-      border-radius: 16px;
-      color: #b7c4d8;
-      background: rgba(34,211,238,.045);
-      font-size: 12.5px;
-      line-height: 1.65;
-      text-align: left;
-    }
-    .store-closed-note::before {
-      content: "i";
-      position: absolute;
-      top: 17px;
-      left: 17px;
-      display: grid;
-      place-items: center;
-      width: 20px;
-      height: 20px;
-      border: 1px solid rgba(103,232,249,.45);
-      border-radius: 50%;
-      color: #67e8f9;
-      font: 800 11px/1 var(--font-title);
-    }
-    .store-closed-foot {
-      margin: 24px 0 0;
-      color: #6f819a;
-      font-size: 11px;
-      letter-spacing: .02em;
-    }
-    @media (max-width: 520px) {
-      html.website-is-closed #storeClosedPage { padding: 16px 12px; }
-      .store-closed-card { border-radius: 24px; }
-      .store-closed-logo { margin-bottom: 26px; }
-      .store-closed-info { grid-template-columns: 1fr; }
-      .store-closed-row { min-height: 0; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      #storeClosedPage::after { animation: none; }
-    }
   </style>
 </head>
 <body class="region-lock">
-  <section id="storeClosedPage" aria-labelledby="storeClosedTitle">
-    <div class="store-closed-card">
-       <div class="store-closed-badge">TUTUP SEMENTARA</div>
-      <h1 id="storeClosedTitle">Babayshop.id <br><b>Tutup Sementara.</b> </h1>
-      <p class="store-closed-lead" id="storeClosedPeriod">BabayShop.id tutup sementara.</p>
-
-
-      <div class="store-closed-info">
-        <div class="store-closed-row">
-          <span>Alasan</span>
-          <strong id="storeClosedReason">Admin sedang tidak aktif untuk sementara.</strong>
-        </div>
-        <div class="store-closed-row">
-          <span>Estimasi mulai berjualan lagi</span>
-          <strong id="storeReopenEstimate">Akan diumumkan kembali</strong>
-        </div>
-      </div>
-
-
-      <p class="store-closed-note">Admin tetap menerima pesan terkait garansi, komplain, dan bantuan lainnya melalui WhatsApp. Mohon maklum, respons kemungkinan jauh lebih lambat sampai admin kembali aktif.</p>
-      <p class="store-closed-foot">Terima kasih atas pengertian dan kesabarannya.</p>
-    </div>
-  </section>
-
-
   <div id="countryPopup" role="dialog" aria-modal="true" aria-label="Region">
     <div class="country-box">
       <div class="country-panel">
@@ -1631,50 +1365,11 @@
       const websiteStatus = window.WEBSITE_STATUS || {};
       const isWebsiteClosed = String(websiteStatus.status || 'open').toLowerCase() === 'close';
 
-
-      function formatStoreDate(value, withTime = false) {
-        if (!value) return '';
-        const normalized = value.includes('T') ? value : `${value}T00:00:00+07:00`;
-        const date = new Date(normalized);
-        if (Number.isNaN(date.getTime())) return value;
-
-
-        return new Intl.DateTimeFormat('id-ID', {
-          timeZone: 'Asia/Jakarta',
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-          ...(withTime ? { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' } : {})
-        }).format(date).replace('.', ':');
-      }
-
-
-      function renderClosedWebsite() {
-        const start = formatStoreDate(websiteStatus.closedFrom);
-        const end = formatStoreDate(websiteStatus.closedUntil);
-        const sameDay = websiteStatus.closedFrom && websiteStatus.closedFrom === websiteStatus.closedUntil;
-        const periodText = sameDay
-          ? `Mohon maaf, BabayShop.id tutup pada tanggal ${start}.`
-          : `Mohon maaf, BabayShop.id tutup dari tanggal ${start} sampai ${end}.`;
-
-
-        document.documentElement.classList.add('website-is-closed');
-        document.body.classList.remove('region-lock', 'rest-lock');
-        document.getElementById('storeClosedPeriod').textContent = periodText;
-        document.getElementById('storeClosedReason').textContent = websiteStatus.reason || 'Admin sedang tidak aktif untuk sementara.';
-        document.getElementById('storeReopenEstimate').textContent = websiteStatus.reopenEstimate
-          ? `${formatStoreDate(websiteStatus.reopenEstimate, true)} WIB`
-          : 'Akan diumumkan kembali';
-      }
-
-
       if (isWebsiteClosed) {
-        renderClosedWebsite();
+        window.location.replace('https://babayshop.id/close');
         return;
       }
 
-
-      document.documentElement.classList.remove('website-is-closed');
       const WHATSAPP_BUSINESS_URL = 'https://wa.me/6281523984574';
       const GLOBAL_URL = 'https://babayshop.id/gpt/global';
       const FACEBOOK_MESSENGER_URL = 'https://www.facebook.com/messages/t/100005545543049';
