@@ -38,7 +38,7 @@
     .ambient {
       position: fixed; z-index: 1; width: 42vw; height: 42vw; min-width: 360px; min-height: 360px;
       left: -12vw; bottom: -20vw; border-radius: 50%; pointer-events: none;
-      background: rgba(128, 82, 255, .22); filter: blur(95px); mix-blend-mode: screen;
+      background: rgba(255,255,255,.08); filter: blur(95px); mix-blend-mode: screen;
       animation: drift 10s ease-in-out infinite alternate;
     }
 
@@ -48,9 +48,8 @@
       padding: 20px 32px;
     }
 
-    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand { display: flex; align-items: center; }
     .logo { color: var(--white); font-family: var(--font-heading); font-size: 26px; letter-spacing: -.04em; text-decoration: none; }
-    .asterisk { font-size: 30px; line-height: 1; letter-spacing: -.02em; user-select: none; }
     .status-chip { display: inline-flex; align-items: center; gap: 8px; padding: .52em .95em; border: 1px solid rgba(255,255,255,.22); border-radius: 999px; font-size: 14px; color: #fff; background: rgba(0,0,0,.22); backdrop-filter: blur(12px); }
     .status-chip::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #ff816e; box-shadow: 0 0 0 0 rgba(255,129,110,.55); animation: pulse 2s ease-out infinite; }
 
@@ -63,18 +62,14 @@
     .content { position: relative; z-index: 3; max-width: 850px; }
     .eyebrow { margin: 0 0 22px; max-width: 650px; color: rgba(255,255,255,.76); font-size: clamp(18px, 2.2vw, 27px); line-height: 1.3; letter-spacing: -.025em; opacity: 0; transform: translateY(16px); animation: reveal .8s .1s cubic-bezier(.2,.7,.2,1) forwards; }
     h1 { margin: 0 0 26px; max-width: 1000px; font-weight: 400; font-size: clamp(58px, 10vw, 148px); line-height: .82; letter-spacing: -.07em; text-wrap: balance; opacity: 0; transform: translateY(18px); animation: reveal .9s .24s cubic-bezier(.2,.7,.2,1) forwards; }
-    h1 strong { font-family: var(--font-heading); font-weight: 500; }
-    h1 strong { color: transparent; background: linear-gradient(105deg, #fff 8%, #c5b7ff 42%, #fff 60%, #ffb4a8 92%); background-size: 220% 100%; background-clip: text; -webkit-background-clip: text; animation: sheen 7s 1s ease-in-out infinite; }
+    h1 strong { color: #fff; font-family: var(--font-heading); font-weight: 700; text-shadow: 0 2px 28px rgba(0,0,0,.28); }
 
     .message { margin: 0 0 24px; max-width: 720px; color: #fff; font-family: var(--font-heading); font-size: clamp(24px, 3.1vw, 43px); line-height: 1.08; letter-spacing: -.035em; opacity: 0; transform: translateY(16px); animation: reveal .8s .42s cubic-bezier(.2,.7,.2,1) forwards; }
 
     .note { margin: 0 0 26px; max-width: 680px; color: var(--muted); font-size: clamp(16px, 1.6vw, 20px); line-height: 1.45; opacity: 0; transform: translateY(14px); animation: reveal .8s .58s cubic-bezier(.2,.7,.2,1) forwards; }
     .reason { max-width: 720px; margin: 0; padding: 22px 24px; border: 1px solid rgba(255,255,255,.16); border-radius: 18px; color: rgba(255,255,255,.9); background: linear-gradient(120deg, rgba(255,255,255,.1), rgba(255,255,255,.035)); box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 18px 60px rgba(0,0,0,.18); backdrop-filter: blur(14px); font-size: clamp(17px, 1.8vw, 23px); line-height: 1.35; font-style: italic; opacity: 0; transform: translateY(14px); animation: reveal .8s .72s cubic-bezier(.2,.7,.2,1) forwards; }
 
-    .footer { position: absolute; z-index: 3; right: 32px; bottom: 24px; font-size: 13px; opacity: .65; }
-
     @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
-    @keyframes sheen { 0%, 22% { background-position: 100% 0; } 55%, 100% { background-position: -100% 0; } }
     @keyframes drift { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(9vw,-7vh,0) scale(1.16); } }
     @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(255,129,110,0); } 100% { box-shadow: 0 0 0 0 rgba(255,129,110,0); } }
 
@@ -84,9 +79,8 @@
         padding: max(14px, env(safe-area-inset-top)) 18px 14px;
         background: linear-gradient(180deg, rgba(5,5,5,.65), rgba(5,5,5,0));
       }
-      .brand { gap: 8px; min-width: 0; }
+      .brand { min-width: 0; }
       .logo { overflow: hidden; max-width: 160px; font-size: 19px; text-overflow: ellipsis; white-space: nowrap; }
-      .asterisk { font-size: 22px; }
       .status-chip { flex: none; gap: 6px; padding: .48em .72em; font-size: 11px; letter-spacing: .01em; }
       .status-chip::before { width: 6px; height: 6px; }
       .hero {
@@ -100,7 +94,6 @@
       .note { max-width: 96%; margin-bottom: 18px; font-size: clamp(14px, 4vw, 16px); line-height: 1.48; }
       .reason { width: 100%; padding: 16px 17px; border-radius: 15px; font-size: clamp(15px, 4.2vw, 17px); line-height: 1.4; }
       .ambient { width: 90vw; height: 90vw; left: -34vw; bottom: -18vw; filter: blur(72px); }
-      .footer { display: none; }
       .veil { background: linear-gradient(0deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.5) 72%, rgba(0,0,0,.25) 100%); }
     }
 
@@ -126,7 +119,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       * { scroll-behavior: auto !important; }
-      .ambient, .status-chip::before, h1 strong { animation: none; }
+      .ambient, .status-chip::before { animation: none; }
       .eyebrow, h1, .message, .note, .reason { animation: none; opacity: 1; transform: none; }
     }
   </style>
@@ -137,14 +130,13 @@
        ============================================================ -->
   <script id="site-content" type="application/json">
   {
-    "brand": "Babayshop.id®",
+    "brand": "Babayshop.id",
     "status": "Tutup sementara",
-    "label": "Mohon maaf kepada seluruh pelanggan Babayshop.id.\nUntuk sementara, layanan kami",
+    "label": "Mohon maaf kepada seluruh pelanggan Babayshop.id.\nUntuk sementara, layanan kami perlu beristirahat sejenak.",
     "title": "Tutup Sementara.",
     "reopen": "Estimasi buka kembali: 17 Agustus 2026.",
-    "reason": "Admin sedang perjalanan keluar kota & ada kontrol di rumah sakit... mohon doanya semua...",
-    "support": "Admin tetap menerima pesan terkait garansi, komplain, dan bantuan lainnya melalui WhatsApp. Respons kemungkinan jauh lebih lambat sampai admin kembali aktif.",
-    "footer": "Gerakkan mouse ke kiri / kanan untuk menggeser video"
+    "reason": "Admin sedang perjalanan keluar kota + ada kontrol di rumah sakit... mohon doanya semua...",
+    "support": "Admin tetap menerima pesan terkait garansi, komplain, dan bantuan lainnya melalui WhatsApp. Respons kemungkinan jauh lebih lambat sampai admin kembali aktif."
   }
   </script>
 
@@ -155,7 +147,7 @@
   <div class="ambient" aria-hidden="true"></div>
 
   <header class="navbar">
-    <div class="brand"><a class="logo" id="brand" href="#"></a><span class="asterisk"></span></div>
+    <div class="brand"><a class="logo" id="brand" href="#"></a></div>
     <span class="status-chip" id="status"></span>
   </header>
 
@@ -167,7 +159,6 @@
       <p class="note" id="support"></p>
       <p class="reason" id="reason"></p>
     </section>
-    <div class="footer" id="footer"></div>
   </main>
 
   <script>
@@ -180,29 +171,41 @@
     byId('reopen').textContent = content.reopen;
     byId('support').textContent = content.support;
     byId('reason').textContent = `“${content.reason}”`;
-    byId('footer').textContent = content.footer;
-
     const video = byId('bgVideo');
-    const sensitivity = 0.8;
-    let previousX = null, targetTime = 0, seeking = false;
-    function applySeek() {
-      if (!Number.isFinite(video.duration) || seeking) return;
-      seeking = true;
-      video.currentTime = Math.max(0, Math.min(video.duration, targetTime));
+    const START_TIME = 1;
+    const END_TIME = 4;
+    const TRAVEL_MS = 4300;
+    const PAUSE_MS = 850;
+    let animationFrame;
+
+    const easeInOut = (value) => value < .5
+      ? 2 * value * value
+      : 1 - Math.pow(-2 * value + 2, 2) / 2;
+
+    function animateVideo(from, to) {
+      const startedAt = performance.now();
+      function frame(now) {
+        const progress = Math.min((now - startedAt) / TRAVEL_MS, 1);
+        video.currentTime = from + (to - from) * easeInOut(progress);
+        if (progress < 1) {
+          animationFrame = requestAnimationFrame(frame);
+        } else {
+          setTimeout(() => animateVideo(to, from), PAUSE_MS);
+        }
+      }
+      animationFrame = requestAnimationFrame(frame);
     }
-    window.addEventListener('mousemove', (event) => {
-      if (previousX === null) { previousX = event.clientX; return; }
-      if (!Number.isFinite(video.duration)) { previousX = event.clientX; return; }
-      const delta = event.clientX - previousX;
-      previousX = event.clientX;
-      targetTime = Math.max(0, Math.min(video.duration, targetTime + (delta / window.innerWidth) * sensitivity * video.duration));
-      applySeek();
-    }, { passive: true });
-    video.addEventListener('loadedmetadata', () => { targetTime = 0; });
-    video.addEventListener('seeked', () => {
-      seeking = false;
-      if (Math.abs(video.currentTime - targetTime) > .03) applySeek();
-    });
+
+    function startVideoLoop() {
+      cancelAnimationFrame(animationFrame);
+      video.pause();
+      const safeEnd = Math.min(END_TIME, Math.max(START_TIME, video.duration - .05));
+      video.currentTime = Math.min(START_TIME, safeEnd);
+      setTimeout(() => animateVideo(video.currentTime, safeEnd), PAUSE_MS);
+    }
+
+    if (video.readyState >= 1) startVideoLoop();
+    else video.addEventListener('loadedmetadata', startVideoLoop, { once: true });
   </script>
 </body>
 </html>
