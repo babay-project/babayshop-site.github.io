@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -19,7 +20,7 @@
   <div class="opening" id="opening"><div class="opening-orbit"><span class="opening-logo">B</span></div><div class="opening-name">Babay<span>Shop</span></div><div class="opening-line"><i></i></div><p>Secure Payment Center</p></div>
   <header class="topbar"><a class="brand" href="#qris"><span class="brand-mark">B</span><span>Babay<b>Shop</b></span></a><span class="official"><i></i>Pembayaran Resmi</span></header>
   <main>
-    <section class="hero"><div class="eyebrow">PAYMENT CENTER <span>•</span> AMAN & CEPAT</div><h1>Pembayaran<br><em>Online.</em></h1><p>Pilih metode pembayaran yang paling nyaman. Proses cepat, praktis, dan aman dalam satu halaman.</p><div class="verified"><span>✓</span><div><small>PEMILIK REKENING</small><strong>BAYU RIZKY SAMPURNA</strong></div></div></section>
+    <section class="hero"><h1>Pembayaran<br><em>Online.</em></h1><p>Pilih metode pembayaran yang paling nyaman. Proses cepat, praktis, dan aman dalam satu halaman.</p><div class="verified"><span>✓</span><div><small>PEMILIK REKENING</small><strong>BAYU RIZKY SAMPURNA</strong></div></div></section>
     <section class="payment-shell"><div class="section-heading"><span>01</span><div><h2>Pilih Metode Pembayaran</h2><p>Pilih salah satu opsi di bawah ini</p></div></div>
       <div class="method-grid" role="tablist">
         <button class="method-card active" data-method="qris"><span class="method-icon">▦</span><span><strong>QRIS</strong><small>Scan & bayar</small></span><i class="radio"></i></button>
@@ -32,7 +33,7 @@
         <div class="payment-view" data-view="bank"><div class="detail-title"><span>▤</span><div><h3>Transfer Bank</h3><p>Pilih salah satu rekening bank aktif</p></div></div><div class="account-list" id="banks"></div></div>
       </div>
     </section>
-    <section class="help-card"><div class="help-icon">WA</div><div><small>BUTUH BANTUAN?</small><h2>Hubungi Admin Kami</h2><p>Admin siap membantu proses pembayaran Anda.</p><span class="admin-number">0815 2398 4574</span></div><a class="glow-button" href="https://wa.me/6281523984574" target="_blank" rel="noopener"><span>Chat via WhatsApp ↗</span></a></section>
+    <section class="help-card"><div><small>BUTUH BANTUAN?</small><h2>Hubungi Admin Kami</h2><p>Admin siap membantu proses pembayaran Anda.</p></div><a class="glow-button" href="https://wa.me/6281523984574" target="_blank" rel="noopener"><span>Chat via WhatsApp ↗</span></a></section>
   </main>
   <footer><div class="brand"><span class="brand-mark">B</span><span>Babay<b>Shop</b></span></div><p>Konfirmasi pembayaran hanya melalui kontak resmi BabayShop.</p><span>© 2026 BabayShop</span></footer><div class="toast" id="toast"></div>
   <script>
@@ -51,5 +52,6 @@
     document.querySelectorAll(".method-card").forEach(x=>x.onclick=()=>activate(x.dataset.method));const hash=location.hash.slice(1);if(["qris","ewallet","bank"].includes(hash))activate(hash);
     document.addEventListener("click",async e=>{const b=e.target.closest(".copy-btn");if(!b)return;try{await navigator.clipboard.writeText(b.dataset.copy);const t=document.querySelector("#toast");t.textContent="✓ Tersalin: "+b.dataset.copy;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}catch{prompt("Salin nomor ini:",b.dataset.copy)}});setTimeout(()=>document.querySelector("#opening").classList.add("done"),2100);
   </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
