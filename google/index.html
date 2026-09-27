@@ -4717,6 +4717,24 @@
 
 
 
+
+    /* Checkout: konfirmasi manual WhatsApp / Facebook */
+    #checkoutModal [hidden] { display: none !important; }
+    #checkoutModal .btn-fb { background: #1877f2; color: white; }
+    #checkoutModal .btn:disabled, #checkoutModal .is-locked { opacity: .45; cursor: not-allowed; }
+    #checkoutModal .is-locked { pointer-events: none; }
+    #checkoutModal .confirm-actions, #checkoutModal .contact-choice-grid { display: grid; gap: 12px; margin: 16px 0; }
+    #checkoutModal .btn { white-space: normal; text-align: center; }
+    #checkoutModal .confirmation-paid { display: flex; align-items: flex-start; gap: 10px; text-align: left; font-size: 13px; }
+    #checkoutModal .confirmation-paid input { margin-top: 5px; flex-shrink: 0; }
+    #checkoutModal .confirmation-hint, #checkoutModal .copy-state-hint, #checkoutModal .facebook-profile-help { display: block; font-size: 12px; color: var(--muted); margin: 10px 0; }
+    #checkoutModal .confirmation-step { border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin: 16px 0; }
+    #checkoutModal .confirmation-step-head { display: flex; gap: 12px; margin-bottom: 14px; }
+    #checkoutModal .confirmation-step-number { background: var(--indigo); border-radius: 50%; width: 28px; height: 28px; flex-shrink: 0; text-align: center; }
+    #checkoutModal .confirmation-step p, #checkoutModal #successText { color: var(--muted); font-size: 13px; }
+    #checkoutModal .confirmation-preview { width: 100%; min-height: 230px; resize: vertical; padding: 12px; margin-bottom: 12px; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 10px; font: 12px/1.6 var(--font-main); }
+    #checkoutModal .wa-icon { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+    #checkoutModal .success-badge { color: var(--green); font-size: 12px; }
   </style>
   <script>
     // Ubah ke 'close' untuk mengalihkan pengunjung ke halaman penutupan edit disini.
@@ -5640,31 +5658,76 @@
               ⚠️ transfer sesuai nominal hingga 3 digit terakhir untuk memudahkan verifikasi oleh Admin.
             </p>
 
-            <button class="btn btn-wa btn-block btn-lg" id="btnSimulatePayment" type="button">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 4px;">
-                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.734-1.458L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.856.002-2.634-1.02-5.11-2.88-6.973C16.596 1.91 14.12 1.88 11.48 1.88c-5.438 0-9.863 4.422-9.867 9.858-.001 1.763.468 3.483 1.359 4.996L1.928 22.1l5.719-1.5c-1.492-.9-2.26-1.45-1.001-.446z"/>
-              </svg>
-              Konfirmasi Pembayaran (Whatsapp)
-            </button>
+            <label class="confirmation-paid"><input id="paymentCompleted" type="checkbox"> <span>Saya sudah menyelesaikan pembayaran sesuai total transfer di atas dan siap melampirkan bukti pembayaran.</span></label>
+            <p id="paymentProofHint" class="confirmation-hint">Centang konfirmasi pembayaran untuk mengaktifkan tombol WhatsApp/Facebook.</p>
+            <div class="confirm-actions">
+              <button class="btn btn-wa btn-block" id="btnSimulatePayment" type="button" disabled>Lanjut Konfirmasi via WhatsApp (Rekomendasi)</button>
+              <button class="btn btn-fb btn-block" id="confirmFb" type="button" disabled>Lanjut Konfirmasi via Facebook</button>
+            </div>
+            <p class="confirmation-hint">Pilih salah satu untuk membuka panduan. Salin rincian pesanan, lalu buka kontak admin dan lampirkan bukti pembayaran.</p>
           </div>
         </div>
 
-        <!-- Step 3: Redirecting / Completed State -->
         <div class="checkout-step-container" id="checkoutStepSuccess">
-          <div class="success-delivery-box" style="text-align: center; padding: 10px 0;">
-            <div class="success-icon-banner" style="background: rgba(99, 102, 241, 0.08); border-color: rgba(99, 102, 241, 0.18); color: #a5b4fc; margin-bottom: 20px;">
-              💬 Mengalihkan ke WhatsApp Admin...
+          <div class="success">
+            <span class="success-badge" id="successBadge">Konfirmasi manual</span>
+            <h3 id="successTitle">Salin rincian, lalu hubungi admin</h3>
+            <p id="successText">Tidak ada pesan atau aplikasi yang dibuka otomatis.</p>
+
+
+            <div class="confirmation-flow" id="waFlowActions" hidden>
+              <div class="confirmation-step">
+                <div class="confirmation-step-head">
+                  <span class="confirmation-step-number">1</span>
+                  <div><h4>Salin pesan rincian pesanan</h4><p>Periksa rincian berikut, lalu salin. Setelah menghubungi admin, lampirkan juga screenshot bukti pembayaran.</p></div>
+                </div>
+                <textarea class="confirmation-preview" id="waConfirmationPreview" readonly aria-label="Rincian pesanan untuk WhatsApp"></textarea>
+                <button class="btn btn-ghost btn-copy-message btn-block" id="copyConfirmationWa" data-default-text="Salin Pesan Rincian" type="button">Salin Pesan Rincian</button>
+              </div>
+              <div class="confirmation-step" id="waAdminStep">
+                <div class="confirmation-step-head">
+                  <span class="confirmation-step-number">2</span>
+                  <div><h4>Buka WhatsApp admin</h4><p>Setelah pesan tersalin, buka WhatsApp resmi babayshop.id di bawah ini.</p></div>
+                </div>
+                <div class="contact-choice-grid wa-single">
+                  <a class="btn btn-wa contact-link is-locked" id="waBusinessLink" data-contact-channel="whatsapp" href="https://wa.me/6281523984574" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1"><svg class="wa-icon" aria-hidden="true" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg><span>babayshop.id<br>0815-2398-4574</span></a>
+                </div>
+                <span class="copy-state-hint" id="waCopyHint">Salin pesan pada langkah 1 agar tombol WhatsApp aktif.</span>
+              </div>
             </div>
-            <h3>Menunggu Konfirmasi Manual</h3>
-            <p style="color: var(--muted); font-size: 13.5px; margin-bottom: 24px; line-height: 1.6;">
-              Kami telah membuka WhatsApp untuk mengirimkan detail pesanan Anda. Silakan kirim pesan tersebut dan lampirkan bukti screenshot transfer agar Admin Babay dapat memproses pesanan Anda secepatnya.
-            </p>
-            <div class="delivery-actions">
-              <a class="btn btn-wa btn-block" id="btnWaFallback" href="#" target="_blank" rel="noopener">
-                💬 Kirim Pesan Ulang ke WhatsApp
-              </a>
-              <button class="btn btn-ghost btn-block" id="btnDeliveryClose" type="button">Tutup Jendela</button>
+
+
+            <div class="fb-flow-actions" id="fbFlowActions" hidden>
+              <div class="confirmation-step">
+                <div class="confirmation-step-head">
+                  <span class="confirmation-step-number">1</span>
+                  <div><h4>Salin pesan rincian pesanan</h4><p>Periksa rincian berikut, lalu salin. Lampirkan screenshot bukti pembayaran saat menghubungi admin.</p></div>
+                </div>
+                <textarea class="confirmation-preview" id="fbConfirmationPreview" readonly aria-label="Rincian pesanan untuk Facebook"></textarea>
+                <button class="btn btn-ghost btn-copy-message btn-block" id="copyConfirmationSuccess" data-default-text="Salin Pesan Rincian" type="button">Salin Pesan Rincian</button>
+              </div>
+              <div class="confirmation-step" id="fbAdminStep">
+                <div class="confirmation-step-head">
+                  <span class="confirmation-step-number">2</span>
+                  <div><h4>Hubungi admin Facebook</h4><p>Pilih salah satu cara berikut setelah pesan tersalin.</p></div>
+                </div>
+                <div class="contact-choice-grid">
+                  <a class="btn btn-fb contact-link is-locked" id="fbFallback" data-contact-channel="facebook" href="https://www.facebook.com/messages/t/100005545543049" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1">Buka Messenger Admin</a>
+                  <a class="btn btn-fb contact-link is-locked" id="fbProfileLink" data-contact-channel="facebook" href="https://www.facebook.com/BayuRizkySampurna" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1">Buka Profil Facebook</a>
+                </div>
+                <span class="facebook-profile-help">Jika membuka profil: tekan tombol titik tiga (⋯), lalu pilih <strong>Kirim pesan</strong>.</span>
+                <span class="copy-state-hint" id="fbCopyHint">Salin pesan pada langkah 1 agar tombol Facebook aktif.</span>
+              </div>
+              <div class="confirmation-step followup-step" id="fbFollowupStep" hidden>
+                <div class="confirmation-step-head">
+                  <span class="confirmation-step-number">3</span>
+                  <div><h4>Tips agar pesan cepat dibaca</h4><p>Pesan Messenger terkadang masuk folder spam. Setelah mengirim chat, buka postingan yang dipin dan cukup komentar: <strong>“cpm dah checkout”</strong>.</p></div>
+                </div>
+                <a class="btn btn-ghost btn-block" id="fbCommentLink" href="https://www.facebook.com/share/p/1BKewQEgyh/" target="_blank" rel="noopener">Buka Postingan yang Dipin</a>
+              </div>
             </div>
+            <button class="btn btn-ghost btn-block" id="changeConfirmChannel" type="button">Ganti WhatsApp / Facebook</button>
+            <button class="btn btn-ghost btn-block" id="btnDeliveryClose" type="button" style="margin-top:10px">Tutup</button>
           </div>
         </div>
 
@@ -6306,6 +6369,11 @@
         checkAgree.checked = true;
         document.querySelectorAll('.form-group').forEach(grp => grp.classList.remove('error'));
 
+        paymentCompleted.checked = false;
+        confirmationMessage = "";
+        confirmationGeneration++;
+        syncConfirmationButtons();
+
         // Show Input Step
         showCheckoutStep(stepInput);
 
@@ -6322,6 +6390,7 @@
 
       // Close Checkout Modal helper
       function closeCheckout() {
+        confirmationGeneration++;
         checkoutModal.classList.remove('active');
         document.body.style.overflow = ''; // Restore scroll
         clearInterval(qrisCountdownInterval);
@@ -6346,6 +6415,7 @@
             step.classList.remove('active');
           }
         });
+        checkoutModal.querySelector(".modal-checkout-body").scrollTop = 0;
       }
 
       // Form Validation and submission (Step 1 -> Step 2)
@@ -6392,6 +6462,10 @@
 
       // Generate QRIS simulated payment
       function generateQrisPayment() {
+        paymentCompleted.checked = false;
+        confirmationMessage = '';
+        confirmationGeneration++;
+        syncConfirmationButtons();
         // Generate mock TX-ID
         const randomId = Math.floor(1000000 + Math.random() * 9000000);
         qrisTxId.textContent = `TX-${randomId}`;
@@ -6432,8 +6506,8 @@
         qrisTimer.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
       }
 
-      // Redirect to WhatsApp Admin Babay on clicking confirmation button (Step 2 -> Step 3 / WA Redirect)
-      btnSimulatePayment.addEventListener('click', () => {
+      function buildConfirmationMessage() {
+        if (!currentPackage) return ''; 
         const account = PAYMENT_ACCOUNTS[selectedPaymentKey] || PAYMENT_ACCOUNTS.QRIS;
         const payMethodVal = account.label;
 
@@ -6495,17 +6569,73 @@ ${paymentDestination}
 
 Berikut saya lampirkan bukti screenshot transfer pembayaran. Mohon dicek dan diproses ya kak Babay, terima kasih.`;
         
-        const waUrl = `https://wa.me/6281523984574?text=${encodeURIComponent(message)}`;
-        
-        // Open WhatsApp in new window
-        window.open(waUrl, '_blank');
+        return message;
+      }
 
-        // Set fallback href in case block popups or window open is blocked
-        document.getElementById('btnWaFallback').href = waUrl;
-
-        // Transition web page UI to success redirect notice
+      const paymentCompleted = document.getElementById('paymentCompleted');
+      const confirmFb = document.getElementById('confirmFb');
+      let confirmationMessage = '';
+      let confirmationChannel = 'whatsapp';
+      let confirmationGeneration = 0;
+      const byId = id => document.getElementById(id);
+      function syncConfirmationButtons() {
+        btnSimulatePayment.disabled = confirmFb.disabled = !paymentCompleted.checked;
+        byId('paymentProofHint').textContent = paymentCompleted.checked
+          ? 'Pilih WhatsApp atau Facebook untuk melanjutkan konfirmasi manual.'
+          : 'Centang konfirmasi pembayaran untuk mengaktifkan tombol WhatsApp/Facebook.';
+      }
+      paymentCompleted.addEventListener('change', syncConfirmationButtons);
+      function lockContacts(channel, locked) {
+        document.querySelectorAll(`[data-contact-channel="${channel}"]`).forEach(link => {
+          link.classList.toggle('is-locked', locked);
+          link.setAttribute('aria-disabled', String(locked));
+          if (locked) link.setAttribute('tabindex', '-1'); else link.removeAttribute('tabindex');
+        });
+      }
+      function showConfirmation(channel) {
+        if (!paymentCompleted.checked || !currentPackage) return;
+        clearInterval(qrisCountdownInterval);
+        confirmationChannel = channel;
+        confirmationGeneration++;
+        if (!confirmationMessage) confirmationMessage = buildConfirmationMessage();
+        const isWa = channel === 'whatsapp';
+        byId('successBadge').textContent = isWa ? 'Konfirmasi WhatsApp Manual' : 'Konfirmasi Facebook Manual';
+        byId('successTitle').textContent = 'Salin rincian, lalu hubungi admin';
+        byId('successText').textContent = 'Pembayaran menunggu verifikasi admin. Salin pesan, buka kontak pilihanmu, lalu kirim pesan dan lampirkan bukti pembayaran.';
+        byId('waFlowActions').hidden = !isWa;
+        byId('fbFlowActions').hidden = isWa;
+        byId('fbFollowupStep').hidden = true;
+        ['whatsapp', 'facebook'].forEach(c => lockContacts(c, true));
+        ['waConfirmationPreview', 'fbConfirmationPreview'].forEach(id => byId(id).value = confirmationMessage);
+        ['copyConfirmationWa', 'copyConfirmationSuccess'].forEach(id => byId(id).textContent = 'Salin Pesan Rincian');
+        byId(isWa ? 'waCopyHint' : 'fbCopyHint').textContent = 'Salin pesan pada langkah 1 agar tombol kontak admin aktif.';
         showCheckoutStep(stepSuccess);
-      });
+      }
+      async function copyConfirmation(channel) {
+        const generation = confirmationGeneration;
+        const preview = byId(channel === 'whatsapp' ? 'waConfirmationPreview' : 'fbConfirmationPreview');
+        const hint = byId(channel === 'whatsapp' ? 'waCopyHint' : 'fbCopyHint');
+        let copied = false;
+        try { await navigator.clipboard.writeText(preview.value); copied = true; }
+        catch (_) { preview.focus(); preview.select(); try { copied = document.execCommand('copy'); } catch (_) {} }
+        if (generation !== confirmationGeneration || !currentPackage) return;
+        if (copied) {
+          lockContacts(channel, false);
+          byId(channel === 'whatsapp' ? 'copyConfirmationWa' : 'copyConfirmationSuccess').textContent = 'Pesan Rincian Tersalin';
+          hint.textContent = 'Pesan tersalin. Buka kontak admin, tempel pesan, dan lampirkan bukti pembayaran.';
+        } else {
+          hint.textContent = 'Penyalinan otomatis gagal. Tekan Ctrl+C atau gunakan menu Salin pada teks yang dipilih, lalu coba tombol salin lagi.';
+        }
+      }
+      btnSimulatePayment.addEventListener('click', () => showConfirmation('whatsapp'));
+      confirmFb.addEventListener('click', () => showConfirmation('facebook'));
+      byId('copyConfirmationWa').addEventListener('click', () => copyConfirmation('whatsapp'));
+      byId('copyConfirmationSuccess').addEventListener('click', () => copyConfirmation('facebook'));
+      byId('changeConfirmChannel').addEventListener('click', () => showConfirmation(confirmationChannel === 'whatsapp' ? 'facebook' : 'whatsapp'));
+      document.querySelectorAll('[data-contact-channel]').forEach(link => link.addEventListener('click', event => {
+        if (link.getAttribute('aria-disabled') === 'true') { event.preventDefault(); return; }
+        if (link.dataset.contactChannel === 'facebook') byId('fbFollowupStep').hidden = false;
+      }));
 
       // Hidden payment fields are updated automatically by payment method buttons
       paymentMethod.addEventListener('change', () => {
