@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -6,7 +8,7 @@
 
   <title>ChatGPT Plus | BabayShop</title>
 
-  <meta name="description" content="Paket ChatGPT Plus Private Paket C Apple Pay dan Produk X Apple Pay by BabayShop. Pilih paket cepat dan checkout via WhatsApp." />
+  <meta name="description" content="Paket GPT Plus, GPT GO, dan Reseller / Membership BabayShop. Semua paket Ready." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://babayshop.id/gpt" />
   <meta name="theme-color" content="#07080f" />
@@ -15,7 +17,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://babayshop.id/gpt" />
   <meta property="og:title" content="ChatGPT Plus Apple Pay  | BabayShop" />
-  <meta property="og:description" content="ChatGPT Plus Private Paket C Apple Pay dan Produk X Apple Pay . Layanan digital BabayShop." />
+  <meta property="og:description" content="GPT Plus, GPT GO, dan Reseller / Membership. Semua paket Ready di BabayShop." />
   <meta property="og:image" content="https://i.ibb.co.com/cXZfH6gk/7fd3098a-5aad-4523-a889-5ca1954c4c18.png" />
   <meta property="og:image:secure_url" content="https://i.ibb.co.com/cXZfH6gk/7fd3098a-5aad-4523-a889-5ca1954c4c18.png" />
   <meta property="og:image:type" content="image/png" />
@@ -47,174 +49,6 @@
   </script>
 
   <style>
-    #countryPopup {
-      position: fixed;
-      inset: 0;
-      z-index: 999999;
-      display: grid;
-      place-items: center;
-      padding: 22px;
-      background:
-        radial-gradient(circle at 18% 15%, rgba(34,211,238,.24), transparent 28%),
-        radial-gradient(circle at 82% 20%, rgba(236,72,153,.18), transparent 30%),
-        rgba(4,6,16,.88);
-      backdrop-filter: blur(22px);
-      transition: opacity .28s ease, visibility .28s ease;
-    }
-    #countryPopup.is-hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    body.region-lock {
-      overflow: hidden;
-    }
-    .country-box {
-      position: relative;
-      width: min(520px, 100%);
-      overflow: hidden;
-      border-radius: 22px;
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(34,211,238,.75), rgba(99,102,241,.45), rgba(236,72,153,.55));
-      box-shadow: 0 22px 70px rgba(0,0,0,.58), 0 0 48px rgba(34,211,238,.10);
-      animation: regionIn .48s cubic-bezier(.2,.9,.2,1) both;
-    }
-    .country-panel {
-      position: relative;
-      padding: 16px;
-      border-radius: 21px;
-      background:
-        linear-gradient(180deg, rgba(17,24,39,.96), rgba(7,9,18,.98)),
-        #090d18;
-    }
-    .country-panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(120deg, rgba(255,255,255,.08), transparent 32%),
-        radial-gradient(circle at top right, rgba(34,211,238,.16), transparent 36%);
-      pointer-events: none;
-    }
-    .country-panel > * {
-      position: relative;
-    }
-    .country-options {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .country-option {
-      position: relative;
-      min-height: 124px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 16px;
-      color: #fff;
-      cursor: pointer;
-      text-align: left;
-      background: rgba(255,255,255,.045);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
-      transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease, background .24s ease;
-    }
-    .country-option::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: linear-gradient(135deg, rgba(255,255,255,.10), transparent 48%);
-      opacity: 0;
-      transition: opacity .24s ease;
-      pointer-events: none;
-    }
-    .country-option:hover,
-    .country-option:focus-visible {
-      transform: translateY(-5px);
-      outline: none;
-      border-color: rgba(34,211,238,.62);
-      background: rgba(34,211,238,.08);
-      box-shadow: 0 20px 48px rgba(34,211,238,.16);
-    }
-    .country-option:hover::after,
-    .country-option:focus-visible::after {
-      opacity: 1;
-    }
-    .country-option.international:hover,
-    .country-option.international:focus-visible {
-      border-color: rgba(236,72,153,.62);
-      background: rgba(236,72,153,.08);
-      box-shadow: 0 20px 48px rgba(236,72,153,.16);
-    }
-    .country-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 14px;
-    }
-    .country-icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 13px;
-      color: #07111f;
-      background: linear-gradient(135deg, #22d3ee, #a5f3fc);
-      box-shadow: 0 14px 30px rgba(34,211,238,.20);
-      font-weight: 900;
-      letter-spacing: -.03em;
-    }
-    .country-option.international .country-icon {
-      color: #fff;
-      background: linear-gradient(135deg, #8b5cf6, #ec4899);
-      box-shadow: 0 14px 30px rgba(236,72,153,.18);
-    }
-    .country-chip {
-      border-radius: 999px;
-      padding: 5px 8px;
-      color: #dbeafe;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.10);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .04em;
-    }
-    .country-name {
-      display: block;
-      font-size: 16px;
-      line-height: 1.15;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-    .country-sub {
-      display: block;
-      color: #aab6cc;
-      font-size: 12px;
-      line-height: 1.4;
-    }
-    .country-action {
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      width: 100%;
-      padding-top: 9px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      color: #a5f3fc;
-      font-size: 11.5px;
-      font-weight: 800;
-    }
-    .country-option.international .country-action {
-      color: #fbcfe8;
-    }
-    @keyframes regionIn {
-      from { opacity: 0; transform: translateY(18px) scale(.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
     /* POP-UP JAM ISTIRAHAT ADMIN (23.00–05.00 WIB) */
     body.rest-lock { overflow: hidden; }
     #adminRestPopup {
@@ -755,7 +589,6 @@
       .confirmation-preview { min-height: 190px; }
     }
     @media (max-width: 700px) {
-      #countryPopup { padding: 10px; align-items: center; overflow-y: auto; }
       .country-box { margin-top: 0; border-radius: 18px; }
       .country-panel { padding: 12px; border-radius: 17px; }
       .country-options { grid-template-columns: 1fr; }
@@ -858,39 +691,7 @@
 
   </style>
 </head>
-<body class="region-lock">
-  <div id="countryPopup" role="dialog" aria-modal="true" aria-label="Region">
-    <div class="country-box">
-      <div class="country-panel">
-        <div class="country-options">
-          <button class="country-option" type="button" data-region="id">
-            <span class="country-top">
-              <span class="country-chip">IDR</span>
-            </span>
-            <span>
-              <span class="country-name">Indonesia</span>
-              <span class="country-sub">Bahasa Indonesia, pembayaran Rupiah/IDR.</span>
-            </span>
-            <span class="country-action">Lanjut di halaman ini <span>&rarr;</span></span>
-          </button>
-
-
-          <button class="country-option international" type="button" data-region="global">
-            <span class="country-top">
-              <span class="country-chip">USD</span>
-            </span>
-            <span>
-              <span class="country-name">International</span>
-              <span class="country-sub">English, Dollar/USD payment.</span>
-            </span>
-            <span class="country-action">Go to global site <span>&rarr;</span></span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
+<body>
   <div id="adminRestPopup" role="dialog" aria-modal="true" aria-labelledby="adminRestTitle">
     <div class="admin-rest-box">
       <div class="admin-rest-icon" aria-hidden="true">☾</div>
@@ -907,7 +708,7 @@
   <div class="bg-grid" aria-hidden="true"></div>
 
 
-  <div class="topbar"><div class="wrap">ChatGPT Plus Private • Apple Pay  • <strong>pilih paket, baca ketentuan, membeli = memahami</strong></div></div>
+  <div class="topbar"><div class="wrap">ChatGPT Plus &amp; GO Private Trial • Applepay / Ewallet • <strong>pilih paket, baca ketentuan, membeli = memahami</strong></div></div>
 
 
   <header class="nav" id="nav">
@@ -915,9 +716,9 @@
       <a class="brand" href="#katalog" aria-label="BabayShop beranda"><span class="brand-mark">B</span><span class="brand-text">Babay<span>Shop</span></span></a>
       <nav class="nav-links" aria-label="Navigasi utama">
         <a href="#katalog">Katalog</a>
-        <a href="#alur">Cara Order</a>
+        
         <a href="#ketentuan">Ketentuan</a>
-        <a href="#faq">FAQ</a>
+        
       </nav>
       <div class="nav-right">
         <a class="btn btn-primary btn-sm btn-pill" href="#katalog">Lihat Paket</a>
@@ -926,10 +727,10 @@
     </div>
     <div class="mobile-drawer" id="mobileDrawer">
       <a href="#katalog">Katalog</a>
-      <a href="#benefit">Info Singkat</a>
-      <a href="#alur">Cara Order</a>
+      
+      
       <a href="#ketentuan">Ketentuan</a>
-      <a href="#faq">FAQ</a>
+      
     </div>
   </header>
 
@@ -940,7 +741,7 @@
         <div class="section-head reveal">
           <span class="section-label">Katalog Paket</span>
           <h2 class="section-title">Pilih paket ChatGPT</h2>
-          <p class="section-sub">Pilih paket yang dibutuhkan. Info benefit lengkap tidak dipanjangkan di sini karena sudah tersedia di halaman resmi ChatGPT.</p>
+          <p class="section-sub">Pilih paket A, B, C, D, atau X sesuai kebutuhan. Semua paket Ready. Klik Tanya Produk untuk bertanya langsung ke admin.</p>
           <div class="filters">
             <button class="filter-chip active" data-stock-filter="ready" type="button">Produk Ready</button>
             <button class="filter-chip soldout-control" data-stock-filter="soldout" type="button">Produk Sold Out</button>
@@ -953,8 +754,10 @@
         <div class="dyor-warning reveal" role="note" aria-label="Peringatan sebelum membeli">
           <div class="dyor-icon" aria-hidden="true">!</div>
           <div class="dyor-content">
-            <h3>Do Your Own Risk</h3>
-            <p><strong>Semua produk hanya untuk pembeli yang memahami dan siap menanggung risiko.</strong> Akun yang ditawarkan bukan akun resmi/legal dari OpenAI dan berpotensi mengalami pembatasan, penangguhan, atau banned sewaktu-waktu. Tidak ada jaminan permanen; perlindungan hanya berlaku sesuai masa garansi paket yang dipilih. Dengan membeli, pembeli dianggap memahami dan menerima seluruh risiko tersebut. Jika tidak siap mengambil risiko, silakan berlangganan langsung melalui layanan resmi.</p>
+            <h3>Informasi sebelum membeli</h3>
+            <p><strong>Semua produk hanya untuk pembeli yang memahami dan siap menanggung risiko.</strong></p>
+            <p style="margin-top:10px">Akun yang ditawarkan bukan akun yang diperoleh melalui prosedur resmi OpenAI (nonresmi) dan berpotensi mengalami pembatasan, penangguhan, atau banned sewaktu-waktu. Tidak ada jaminan akun permanen; perlindungan hanya berlaku sesuai masa garansi paket yang dipilih.</p>
+            <p style="margin-top:10px">Dengan membeli, pembeli dianggap memahami dan menerima seluruh risiko tersebut. Jika tidak siap mengambil risiko, silakan berlangganan langsung melalui layanan resmi <a href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:underline;text-underline-offset:3px">di sini</a>.</p>
             <div class="dyor-points" aria-label="Ringkasan peringatan">
 
               <span class="dyor-chip">Garansi sesuai pilihan</span>
@@ -966,57 +769,63 @@
 
 
         <div class="packages">
-          <article class="pkg pkg-theme theme-ice reveal" data-cat="plus" data-product="PLUS_VCC_C_1D">
-            <div class="pkg-head"><div class="pkg-code">C</div><div><h3>GPT Plus Trial 1 Month Private</h3><span class="pkg-role"> · Mastercard / Visa</span></div></div>
+          <article class="pkg pkg-theme theme-ice reveal" data-cat="plus" data-product="PLUS_VCC_C_25D">
+            <div class="pkg-head"><div class="pkg-code">A</div><div><h3>GPT Plus 1 Bulan (Private Trial)</h3><span class="pkg-role">Method Applepay | Garansi Full 25 Hari</span></div></div>
             <div class="pkg-body">
-              <div class="price"><strong>Rp166.000</strong><span> / paket</span><span class="badge-mini">Garansi</span></div>
-              <p class="tagline">Paket Apple Pay melalui Mastercard atau Visa dengan garansi. Akun diberikan dalam kondisi fresh menggunakan Gmail</p>
+              <div class="price"><s class="old-price" aria-label="Harga asli">Rp355.000</s><strong>Rp280.000</strong><span> / paket</span></div>
+              <p class="tagline">Method Applepay | Garansi Full 25 Hari. Akun GPT Plus fresh menggunakan Gmail disposable. Segera ganti 2FA/MFA.</p>
               <ul class="features">
-                <li><span class="chk">+</span><span>Email menggunakan Gmail disposable; segera ganti email / password.</span></li>
-                <li><span class="chk">+</span><span>Verifikasi OTP Codex dilakukan manual (bisa melalui web Hero-SMS).</span></li>
+                <li><span class="chk">+</span><span>Email menggunakan Gmail disposable; segera ganti 2FA/MFA.</span></li>
+                <li><span class="chk">+</span><span>Untuk verifikasi OTP Codex, pelanggan dapat menggunakan nomor HP sendiri atau menyewa nomor melalui layanan seperti viotp.com. Pilih nomor yang mendukung penerimaan OTP Codex; biaya mengikuti penyedia.</span></li>
                 <li><span class="chk">+</span><span>Kami hanya menjual akun GPT Plus fresh; layanan Codex berada di luar kuasa kami.</span></li>
-                <li><span class="chk">+</span><span>Garansi berupa pergantian akun refund sesuai durasi garansi.</span></li>
+                <li><span class="chk">+</span><span>Garansi Full 25 Hari. Garansi berupa pergantian akun / refund sesuai ketentuan.</span></li>
+                
+              </ul>
+<div class="stock ready" data-stock><span class="stock-dot"></span><span data-stock-label>Ready</span></div>
+              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C_25D" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://wa.me/6281523984574?text=Halo%20Admin%20BabayShop.%20saya%20ingin%20bertanya%20tentang%20Paket%20A%3A%20GPT%20Plus%201%20Bulan%20%28Private%20Trial%29.%0AMethod%20Applepay%20%7C%20Garansi%20Full%2025%20Hari%0AHarga%3A%20Rp280.000.%0ABoleh%20dijelaskan%20detail%20paketnya%3F" target="_blank" rel="noopener">Tanya Produk</a></div>
+            </div>
+          </article>
+<article class="pkg pkg-theme theme-ice reveal" data-cat="plus" data-product="PLUS_VCC_C_1D">
+            <div class="pkg-head"><div class="pkg-code">B</div><div><h3>GPT Plus 1 Bulan (Private Trial)</h3><span class="pkg-role">Method Applepay | Garansi Full 24 Jam</span></div></div>
+            <div class="pkg-body">
+              <div class="price"><s class="old-price" aria-label="Harga asli">Rp355.000</s><strong>Rp166.000</strong><span> / paket</span></div>
+              <p class="tagline">Method Applepay | Garansi Full 24 Jam. Akun GPT Plus fresh menggunakan Gmail disposable. Segera ganti 2FA/MFA.</p>
+              <ul class="features">
+                <li><span class="chk">+</span><span>Email menggunakan Gmail disposable; segera ganti 2FA/MFA.</span></li>
+                <li><span class="chk">+</span><span>Untuk verifikasi OTP Codex, pelanggan dapat menggunakan nomor HP sendiri atau menyewa nomor melalui layanan seperti viotp.com. Pilih nomor yang mendukung penerimaan OTP Codex; biaya mengikuti penyedia.</span></li>
+                <li><span class="chk">+</span><span>Kami hanya menjual akun GPT Plus fresh; layanan Codex berada di luar kuasa kami.</span></li>
+                <li><span class="chk">+</span><span>Garansi Full 24 Jam. Garansi berupa pergantian akun / refund sesuai ketentuan.</span></li>
                 <li><span class="warn">!</span><span>Khusus pembeli yang memahami dan siap menanggung risiko akun nonresmi, termasuk kemungkinan akun terkena banned.</span></li>
               </ul>
-              <div class="warranty-options" aria-label="Pilihan garansi Paket C">
-                <div class="warranty-option">
-                  <div><strong>Garansi 1 Hari</strong><small>Ready</small></div><span class="option-price">Rp166.000</span>
-                  <button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C_1D" data-product-cta="PLUS_VCC_C_1D" type="button">CHECKOUT 1 HARI</button>
-                </div>
-                <div class="warranty-option">
-                  <div><strong>Garansi 25 Hari</strong><small>Garansi Ganti Akun / Reff </small></div><span class="option-price">Rp285.000</span>
-                  <button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C_25D" data-product-cta="PLUS_VCC_C_25D" type="button">CHECKOUT 25 HARI</button>
-                </div>
-              </div>
-              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
-              <div class="pkg-actions"><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
+<div class="stock ready" data-stock><span class="stock-dot"></span><span data-stock-label>Ready</span></div>
+              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_VCC_C_1D" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://wa.me/6281523984574?text=Halo%20Admin%20BabayShop.%20saya%20ingin%20bertanya%20tentang%20Paket%20B%3A%20GPT%20Plus%201%20Bulan%20%28Private%20Trial%29.%0AMethod%20Applepay%20%7C%20Garansi%20Full%2024%20Jam%0AHarga%3A%20Rp166.000.%0ABoleh%20dijelaskan%20detail%20paketnya%3F" target="_blank" rel="noopener">Tanya Produk</a></div>
             </div>
           </article>
 
 
           <article class="pkg pkg-theme theme-fire featured reveal" data-cat="plus" data-product="PLUS_X">
-            <div class="pkg-head"><div class="pkg-code">X</div><div><h3>GPT Plus Private (Trial 1 Month) DYOR</h3><span class="pkg-role">Bill selain Apple Pay (Gopay / Momopay / Googlepay / Upipay / pixpay /dll) </span></div></div>
+            <div class="pkg-head"><div class="pkg-code">C</div><div><h3>GPT Plus 1 Bulan (Private Trial)</h3><span class="pkg-role">Method Ewallet | TANPA GARANSI Do Your Own Risk.</span></div></div>
             <div class="pkg-body">
-              <div class="price"><strong>Rp119.000</strong><span> / paket</span><span class="badge-mini">DYOR</span></div>
-              <p class="tagline">GPT Plus private trial 1 bulan melalui bill selain Apple Pay (Gopay / Momopay / Googlepay / Upipay / pixpay /dll) . DYOR merupakan singkatan dari <strong>Do Your Own Risk</strong>. Produk tanpa garansi; bantuan hanya sampai akun berhasil login.</p>
+              <div class="price"><s class="old-price" aria-label="Harga asli">Rp355.000</s><strong>Rp119.000</strong><span> / paket</span></div>
+              <p class="tagline">Method Ewallet | TANPA GARANSI Do Your Own Risk. Akun GPT Plus fresh menggunakan Gmail disposable. Segera ganti 2FA/MFA.</p>
               <ul class="features">
-                <li><span class="chk">+</span><span>Email menggunakan Gmail disposable; segera ganti email / password.</span></li>
-                <li><span class="chk">+</span><span>Verifikasi OTP Codex dilakukan manual (bisa melalui web Hero-SMS).</span></li>
+                <li><span class="chk">+</span><span>Email menggunakan Gmail disposable; segera ganti 2FA/MFA.</span></li>
+                <li><span class="chk">+</span><span>Untuk verifikasi OTP Codex, pelanggan dapat menggunakan nomor HP sendiri atau menyewa nomor melalui layanan seperti viotp.com. Pilih nomor yang mendukung penerimaan OTP Codex; biaya mengikuti penyedia.</span></li>
                 <li><span class="chk">+</span><span>Kami hanya menjual akun GPT Plus fresh; layanan Codex berada di luar kuasa kami.</span></li>
                 <li><span class="warn">!</span><span>Tidak ada garansi, hanya dibantu sampai berhasil login.</span></li>
                 <li><span class="warn">!</span><span>Khusus pembeli yang memahami dan siap menanggung risiko.</span></li>
               </ul>
-              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
-              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_X" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Info Plus Resmi</a></div>
+              <div class="stock ready" data-stock><span class="stock-dot"></span><span data-stock-label>Ready</span></div>
+              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="PLUS_X" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://wa.me/6281523984574?text=Halo%20Admin%20BabayShop.%20saya%20ingin%20bertanya%20tentang%20Paket%20C%3A%20GPT%20Plus%201%20Bulan%20%28Private%20Trial%29.%0AMethod%20Ewallet%20%7C%20TANPA%20GARANSI%20Do%20Your%20Own%20Risk.%0AHarga%3A%20Rp119.000.%0ABoleh%20dijelaskan%20detail%20paketnya%3F" target="_blank" rel="noopener">Tanya Produk</a></div>
             </div>
           </article>
 
           <!-- NEW PACKAGE: GPT GO 3 MONTHS -->
           <article class="pkg pkg-theme theme-leaf reveal" data-cat="go" data-product="GPT_GO_3M">
-            <div class="pkg-head"><div class="pkg-code">GO</div><div><h3>Chat Gpt GO 3 Bulan</h3><span class="pkg-role">Garansi 25 Hari</span></div></div>
+            <div class="pkg-head"><div class="pkg-code">D</div><div><h3>GPT GO 3 Bulan (Private Trial)</h3><span class="pkg-role">Method Ewallet | Garansi Full 25 Hari</span></div></div>
             <div class="pkg-body">
-              <div class="price"><span class="old-price">Rp225.000</span><strong>Rp125.000</strong><span> / 3 bulan</span><span class="badge-mini">Go</span></div>
-              <p class="tagline">Lebih murah dari harga aslinya (Rp 75.000/bulan). Nikmati fitur lebih banyak dari versi Free.</p>
+              <div class="price"><s class="old-price" aria-label="Harga asli">Rp225.000</s><strong>Rp125.000</strong><span> / paket</span></div>
+              <p class="tagline">Method Ewallet | Garansi Full 25 Hari. Paket GPT GO private trial selama 3 bulan.</p>
               <ul class="features">
                 <li><span class="chk">+</span><span>Semua yang ada di Free.</span></li>
                 <li><span class="chk">+</span><span>Lebih banyak pesan dengan alat.</span></li>
@@ -1025,17 +834,17 @@
                 <li><span class="chk">+</span><span>Lebih banyak obrolan suara.</span></li>
                 <li><span class="chk">+</span><span>Memori lebih panjang.</span></li>
               </ul>
-              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
-              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="GPT_GO_3M" type="button">CHECKOUT!</button></div>
+              <div class="stock ready" data-stock><span class="stock-dot"></span><span data-stock-label>Ready</span></div>
+              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="GPT_GO_3M" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://wa.me/6281523984574?text=Halo%20Admin%20BabayShop.%20saya%20ingin%20bertanya%20tentang%20Paket%20D%3A%20GPT%20GO%203%20Bulan%20%28Private%20Trial%29.%0AMethod%20Ewallet%20%7C%20Garansi%20Full%2025%20Hari%0AHarga%3A%20Rp125.000.%0ABoleh%20dijelaskan%20detail%20paketnya%3F" target="_blank" rel="noopener">Tanya Produk</a></div>
             </div>
           </article>
 
 
           <article class="pkg reveal" data-cat="reseller" id="reseller" data-product="RESELLER">
-            <div class="pkg-head"><div class="pkg-code">E</div><div><h3>PAKET RESELLER</h3><span class="pkg-role">Method Info / Channel GPT</span></div></div>
+            <div class="pkg-head"><div class="pkg-code">X</div><div><h3>PAKET RESELLER / MEMBERSHIP</h3><span class="pkg-role">Method Info / Channel GPT Termurah</span></div></div>
             <div class="pkg-body">
-              <div class="price"><span class="old-price">Rp200.000</span><strong>Rp120.000</strong><span> / lifetime</span><span class="badge-mini">Promo Reseller</span></div>
-              <p class="tagline">Jadi reseller BabayShop dengan akses lifetime: dapat info method/channel, harga akun lebih murah, bonus admin, dan arahan untuk mulai menjual kembali.</p>
+              <div class="price"><s class="old-price" aria-label="Harga asli">Rp950.000</s><strong>Rp120.000</strong><span> / lifetime</span></div>
+              <p class="tagline">Method Info / Channel GPT Termurah. Akses lifetime berisi info method/channel GPT, potongan harga, bonus admin, dan arahan reseller.</p>
               <ul class="features">
                 <li><span class="chk">+</span><span>Info method/channel GPT Plus dan layanan lainnya.</span></li>
                 <li><span class="chk">+</span><span>Dapat potongan harga hingga 80% dari harga normal.</span></li>
@@ -1048,8 +857,8 @@
                 <li><span class="warn">!</span><span>Wajib paham risiko, stok, dan ketentuan channel.</span></li>
 
               </ul>
-              <div class="stock" data-stock><span class="stock-dot"></span><span data-stock-label>Status</span></div>
-              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="RESELLER" type="button">CHECKOUT!</button></div>
+              <div class="stock ready" data-stock><span class="stock-dot"></span><span data-stock-label>Ready</span></div>
+              <div class="pkg-actions"><button class="btn btn-primary btn-block btn-buy" data-id="RESELLER" type="button">CHECKOUT!</button><a class="btn btn-ghost btn-block" href="https://wa.me/6281523984574?text=Halo%20Admin%20BabayShop.%20saya%20ingin%20bertanya%20tentang%20Paket%20X%3A%20PAKET%20RESELLER%20/%20MEMBERSHIP.%0AMethod%20Info%20/%20Channel%20GPT%20Termurah%0AHarga%3A%20Rp120.000.%0ABoleh%20dijelaskan%20detail%20paketnya%3F" target="_blank" rel="noopener">Tanya Produk</a></div>
             </div>
           </article>
         </div>
@@ -1060,7 +869,7 @@
           <ul>
             <li>Paket yang dijual hanya berupa akun GPT Plus dan tidak termasuk layanan verifikasi Codex.</li>
             <li>Verifikasi Codex dapat dilakukan sendiri dengan membeli OTP SMS melalui <a href="https://hero-sms.com" target="_blank" rel="noopener">HeroSMS</a> atau <a href="https://5sim.net" target="_blank" rel="noopener">5SIM</a>. Gunakan nomor dari negara seperti Amerika Serikat, Irlandia, atau negara lain yang mendukung penerimaan SMS Codex.</li>
-            <li>Alternatif lain adalah menggunakan nomor WhatsApp pribadi atau meminjam nomor WhatsApp teman.</li>
+            <li>Untuk nomor verifikasi Codex, pelanggan dapat menggunakan nomor HP sendiri atau menyewa nomor melalui layanan seperti <a href="https://viotp.com" target="_blank" rel="noopener">viotp.com</a>. Pilih nomor yang mendukung penerimaan OTP Codex; biaya mengikuti penyedia.</li>
             <li><strong>BabayShop hanya melayani pembelian akun GPT Plus. Seluruh proses dan kendala verifikasi Codex berada di luar layanan kami.</strong></li>
           </ul>
         </div>
@@ -1072,38 +881,12 @@
             <li>Jika membutuhkan paket Plus jangka panjang, silakan berlangganan langsung melalui OpenAI sekitar Rp349.000/bulan.</li>
           </ul>
         </div>
+    </div>
     </section>
 
 
 
-</div>
-      </div>
-
-
-
-    <section>
-      <div class="wrap">
-        <div class="grid-2">
-          <div class="notice reveal">
-            <h3>Catatan penting sebelum membeli</h3>
-            <ul>
-              <li><strong>Durasi 1 bulan:</strong> dihitung 25–28 days.</li>
-
-              <li><strong>Risiko seluruh produk:</strong> khusus pembeli yang memahami dan siap menanggung risiko akun nonresmi, termasuk kemungkinan pembatasan, penangguhan, atau banned akun.</li>
-              <li><strong>Benefit dan akses:</strong> mengikuti metode, stok, limit akun, channel, region, dan kebijakan OpenAI.</li>
-              <li><strong>Link resmi:</strong> <a href="https://chatgpt.com/id-ID/plans/plus/" target="_blank" rel="noopener">Plus</a>.</li>
-              <li><strong>Garansi Paket C:</strong> tersedia garansi 1 hari dengan pergantian akun maksimal 1 kali, atau garansi 25 hari seharga Rp195.000 dengan Garansi Ganti Akun / Reff .</li>
-              <li><strong>Verifikasi Codex:</strong> pembelian hanya mencakup akun GPT Plus. Verifikasi Codex dilakukan sendiri dan berada di luar layanan BabayShop.</li>
-              <li><strong>Diskon kuantitas:</strong> pembelian minimal 2 akun untuk paket non-reseller mendapat diskon tetap 0,5%. Paket Reseller hanya dapat dibeli 1 kali.</li>
-              <li><strong>Penegasan garansi:</strong> kami tidak bertanggung jawab dan tidak meng-handle akun yang bermasalah di luar atau setelah melewati masa garansi paket.</li>
-              <li><strong>Jenis penawaran:</strong> produk ini merupakan offer GPT trial komersial yang kami bayar secara resmi menggunakan metode pembayaran dari luar Indonesia. Stabilitas akun tetap mengikuti sistem dan kebijakan OpenAI.</li>
-              <li><strong>Pilihan paling aman:</strong> jika ingin berlangganan langsung dan benar-benar resmi atas akun sendiri, silakan membeli ChatGPT Plus langsung melalui OpenAI dengan harga sekitar Rp350.000.</li>
-              <li>BabayShop bukan pihak resmi OpenAI. Halaman ini adalah katalog layanan digital BabayShop. <b> MEMBELI = MEMAMAHAMI KONSEKUENSI</b></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+    
 
 
     <section id="ketentuan">
@@ -1111,7 +894,7 @@
         <div class="section-head reveal">
           <span class="section-label">Wajib Dibaca</span>
           <h2 class="section-title">Cara login, aturan pakai, dan garansi</h2>
-          <p class="section-sub">Bagian ini sengaja diletakkan sebelum FAQ agar pembeli membaca aturan penting terlebih dahulu. Membeli berarti sudah memahami dan menyetujui ketentuan BabayShop.</p>
+          <p class="section-sub">Membeli berarti sudah memahami dan menyetujui ketentuan BabayShop.</p>
         </div>
 
 
@@ -1123,7 +906,7 @@
               <li>Login terlebih dahulu menggunakan email dan password yang sudah diberikan admin.</li>
               <li>Jika saat login diminta kode verifikasi / OTP, ambil kode 2FA melalui link berikut: <a href="https://babay.web.id/2fa/?key=9WE86RBCP9238YBCO23IYCR293" target="_blank" rel="noopener">Buka 2FA Babay</a>.</li>
               <li>Jika link 2FA belum otomatis terbuka dengan Secret Key, masukkan manual Secret Key berikut: <span class="mono-key">9WE86RBCP9238YBCO23IYCR293</span></li>
-              <li>Setelah berhasil masuk, cek bagian pengaturan akun / penagihan untuk memastikan plan sudah aktif sebagai ChatGPT Plus / Pro sesuai paket yang dibeli.</li>
+              <li>Setelah berhasil masuk, cek bagian pengaturan akun / penagihan untuk memastikan plan sudah aktif sebagai ChatGPT Plus / GO sesuai paket yang dibeli.</li>
               <li>Jika plan sudah aktif, akun sudah bisa digunakan seperti biasa.</li>
             </ul>
           </article>
@@ -1165,38 +948,10 @@
     </section>
 
 
-    <section id="alur">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <span class="section-label">Cara Order</span>
-          <h2 class="section-title">Alur pembelian simpel</h2>
-        </div>
-        <div class="steps">
-          <div class="step reveal"><div class="step-num">1</div><h3>Pilih Paket</h3><p>Pilih Paket C Apple Pay, Produk X Apple Pay , atau Paket Reseller sesuai kebutuhan dan kesiapan risiko.</p></div>
-          <div class="step reveal"><div class="step-num">2</div><h3>Checkout Cepat</h3><p>Checkout otomatis tanpa meminta nama, nomor WhatsApp, email, ataupun password.</p></div>
-          <div class="step reveal"><div class="step-num">3</div><h3>Bayar</h3><p>Pilih QRIS, e-wallet, atau transfer bank. Transfer sesuai total tagihan sampai 3 digit kode unik terakhir.</p></div>
-          <div class="step reveal"><div class="step-num">4</div><h3>Konfirmasi</h3><p>Konfirmasi melalui WhatsApp (rekomendasi) atau Facebook, lalu lampirkan bukti transfer agar pesanan segera diproses.</p></div>
-        </div>
+    
 
 
-      </div>
-    </section>
-
-
-    <section id="faq">
-      <div class="wrap">
-        <div class="section-head reveal" style="text-align:center">
-          <span class="section-label">FAQ</span>
-          <h2 class="section-title">Pertanyaan yang sering ditanyakan</h2>
-        </div>
-        <div class="faq reveal">
-          <details open><summary>Apa perbedaan Paket C dan Produk X?</summary><div class="faq-content">Paket C seharga Rp166.000 menggunakan bill Apple Pay dan memiliki garansi 1 hari. Produk X seharga Rp68.000 menggunakan bill Apple Pay , tanpa garansi, dan bantuan hanya sampai berhasil login. Keduanya merupakan akun nonresmi dengan risiko pembatasan atau banned akun.</div></details>
-          <details><summary>Apa itu Paket Reseller?</summary><div class="faq-content">Paket Reseller seharga Rp120.000 memberikan akses lifetime ke info method/channel, potongan harga, bonus admin, dan arahan reseller. Paket ini maksimal dibeli 1 kali per checkout dan tidak mendapat diskon kuantitas.</div></details>
-          <details><summary>Kapan garansi bisa hangus?</summary><div class="faq-content">Garansi bisa hangus jika akun digunakan berlebihan, spam, dipakai banyak perangkat, dibagikan ke orang lain, memakai cookies/token, API/tools pihak ketiga, proxy/router terlarang, atau mengubah profile, password, billing, maupun plan akun.</div></details>
-          <details><summary>Apa yang harus dilakukan setelah menerima akun?</summary><div class="faq-content">Segera ganti email / password dari Gmail disposable yang diberikan. Jangan matikan atau mengganti MFA. Verifikasi OTP Codex dilakukan manual dan bisa melalui web Hero-SMS. Kami hanya menjual akun GPT Plus fresh; layanan Codex berada di luar kuasa kami.</div></details>
-        </div>
-      </div>
-    </section>
+    
 
 
   </main>
@@ -1206,12 +961,12 @@
     <div class="wrap">
       <div class="footer-grid">
         <div>
-          <a class="brand" href="#home"><span class="brand-mark">B</span><span class="brand-text">Babay<span>Shop</span></span></a>
-          <p style="margin-top:14px;max-width:360px">Katalog layanan digital BabayShop untuk Paket C Apple Pay dan Produk X Apple Pay .</p>
+          <a class="brand" href="#katalog"><span class="brand-mark">B</span><span class="brand-text">Babay<span>Shop</span></span></a>
+          <p style="margin-top:14px;max-width:360px">Katalog BabayShop: GPT Plus, GPT GO, dan Paket Reseller / Membership. Semua paket Ready.</p>
         </div>
         <div>
           <b>Navigasi</b>
-          <ul><li><a href="#katalog">Katalog</a></li><li><a href="#benefit">Info Singkat</a></li><li><a href="#alur">Cara Order</a></li><li><a href="#ketentuan">Ketentuan</a></li><li><a href="#faq">FAQ</a></li></ul>
+          <ul><li><a href="#katalog">Katalog</a></li><li><a href="#ketentuan">Ketentuan</a></li></ul>
         </div>
         <div>
           <b>Info Resmi</b>
@@ -1375,11 +1130,9 @@
       }
 
       const WHATSAPP_BUSINESS_URL = 'https://wa.me/6281523984574';
-      const GLOBAL_URL = 'https://babayshop.id/gpt/global';
       const FACEBOOK_MESSENGER_URL = 'https://www.facebook.com/messages/t/100005545543049';
       const FACEBOOK_PROFILE_URL = 'https://www.facebook.com/BayuRizkySampurna';
       const FACEBOOK_POST_URL = 'https://www.facebook.com/share/p/1BKewQEgyh/';
-      const countryPopup = document.getElementById('countryPopup');
       const adminRestPopup = document.getElementById('adminRestPopup');
       const continueAfterRest = document.getElementById('continueAfterRest');
       const ADMIN_TIMEZONE = 'Asia/Jakarta';
@@ -1404,11 +1157,6 @@
       }
 
 
-      function closeCountryPopup() {
-        if (!countryPopup) return;
-        countryPopup.classList.add('is-hidden');
-        document.body.classList.remove('region-lock');
-      }
 
 
       function showAdminRestPopup(nextAction) {
@@ -1432,28 +1180,6 @@
       }
 
 
-      document.body.classList.add('region-lock');
-
-
-      if (countryPopup) {
-        countryPopup.querySelectorAll('[data-region]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const region = btn.dataset.region;
-            const nextAction = () => {
-              if (region === 'global') {
-                window.location.href = GLOBAL_URL;
-                return;
-              }
-            };
-
-
-            closeCountryPopup();
-            nextAction();
-          });
-        });
-      }
-
-
       continueAfterRest?.addEventListener('click', continueAfterRestAction);
 
 
@@ -1467,12 +1193,12 @@
          soldout  = stok habis, tombol checkout otomatis nonaktif
          ========================================================== */
       const PACKAGE_STATUS = {
-        PLUS_VCC_C_1D: 'preorder',
-        PLUS_VCC_C_25D: 'preorder',
-        PLUS_X: 'preorder',
-        GPT_GO_3M: 'ready',
-        RESELLER: 'ready'
-      };
+  "PLUS_VCC_C_25D": "ready",
+  "PLUS_VCC_C_1D": "ready",
+  "PLUS_X": "ready",
+  "GPT_GO_3M": "ready",
+  "RESELLER": "ready"
+};
 
 
       const STATUS_META = {
@@ -1486,63 +1212,63 @@
          EDIT HARGA & DETAIL PAKET DI SINI
          ================================ */
       const PRODUCTS = {
-        PLUS_VCC_C_1D: {
-          code: 'C-1D',
-          name: 'GPT Plus Trial 1 Month Private — Paket C',
-          method: 'Bill Apple Pay · Mastercard / Visa',
-          price: 166000,
-          warranty: 'Garansi 1 hari (Pergantian akun maksimal 1 kali)',
-          duration: 'Trial 1 bulan',
-          desc: 'Paket C dengan garansi 1 hari. Akun GPT Plus fresh menggunakan Gmail disposable; segera ganti email/password, jangan matikan atau ganti MFA.',
-          emailRequired: false,
-          note: 'Pembelian hanya mencakup akun GPT Plus. Verifikasi Codex dilakukan sendiri dan berada di luar layanan BabayShop. Email Gmail disposable: segera ganti email/password. Jangan matikan atau ganti MFA.'
-        },
-        PLUS_VCC_C_25D: {
-          code: 'C-25D',
-          name: 'GPT Plus Trial 1 Month Private — Paket C Garansi 25 Hari',
-          method: 'Bill Apple Pay · Mastercard / Visa',
-          price: 285000,
-          warranty: 'Garansi 25 hari (Garansi Ganti Akun / Reff )',
-          duration: 'Trial 1 bulan',
-          desc: 'Paket C dengan garansi 25 hari dan Garansi Ganti Akun / Reff . Akun GPT Plus fresh menggunakan Gmail disposable; segera ganti email/password, jangan matikan atau ganti MFA.',
-          emailRequired: false,
-          note: 'Pembelian hanya mencakup akun GPT Plus. Verifikasi Codex dilakukan sendiri dan berada di luar layanan BabayShop. Email Gmail disposable: segera ganti email/password. Jangan matikan atau ganti MFA.'
-        },
-        PLUS_X: {
-          code: 'X',
-          name: 'GPT Plus Private (Trial 1 Month) DYOR',
-          method: 'Bill selain Apple Pay (Gopay / Momopay / Googlepay / Upipay / pixpay /dll) ',
-          price: 119000,
-          warranty: 'Tanpa garansi; bantuan hanya sampai berhasil login',
-          duration: 'Trial 1 bulan',
-          desc: 'DYOR berarti Do Your Own Risk. Akun GPT Plus fresh dengan Gmail disposable. Segera ganti email/password dan jangan matikan atau ganti MFA. Verifikasi Codex dilakukan sendiri.',
-          emailRequired: false,
-          note: 'DYOR (Do Your Own Risk). Pembelian hanya mencakup akun GPT Plus. Verifikasi Codex dilakukan sendiri dan berada di luar layanan BabayShop. Email Gmail disposable: segera ganti email/password. Jangan matikan atau ganti MFA.'
-        },
-        GPT_GO_3M: {
-          code: 'GO',
-          name: 'Chat Gpt GO 3 Bulan (Garansi 25hari)',
-          method: 'Bill Apple Pay / Lainnya',
-          price: 125000,
-          warranty: 'Garansi 25 hari',
-          duration: '3 bulan',
-          desc: 'Paket GPT GO 3 Bulan (aslinya Rp 75.000/bulan). Mendapatkan semua fitur Free dengan limit yang lebih banyak.',
-          emailRequired: false,
-          note: 'Verifikasi Codex/OTP di luar layanan BabayShop. Segera ganti email/password dari Gmail disposable.'
-        },
-        RESELLER: {
-          code: 'E',
-          name: 'PAKET RESELLER',
-          method: 'Method Info / Channel GPT',
-          price: 120000,
-          warranty: 'Informasi mengikuti update maker & supplier',
-          duration: 'Lifetime',
-          desc: 'Akses lifetime berisi info method/channel GPT Plus, potongan harga, bonus admin, dan arahan reseller.',
-          emailRequired: false,
-          maxQty: 1,
-          note: 'Maksimal pembelian 1 kali. Wajib memahami risiko, stok, dan ketentuan channel.'
-        }
-      };
+  "PLUS_VCC_C_25D": {
+    "code": "A",
+    "name": "A. GPT Plus 1 Bulan (Private Trial)",
+    "method": "Method Applepay",
+    "price": 280000,
+    "warranty": "Garansi Full 25 Hari",
+    "duration": "Trial 1 bulan",
+    "desc": "Method Applepay | Garansi Full 25 Hari. Akun GPT Plus fresh menggunakan Gmail disposable. Segera ganti 2FA/MFA.",
+    "emailRequired": false,
+    "note": "Pembelian hanya mencakup akun GPT Plus. Verifikasi Codex dilakukan sendiri dan berada di luar layanan BabayShop. Email Gmail disposable: segera ganti 2FA/MFA. Untuk verifikasi OTP Codex, pelanggan dapat menggunakan nomor HP sendiri atau menyewa nomor melalui layanan seperti viotp.com. Pilih nomor yang mendukung penerimaan OTP Codex; biaya mengikuti penyedia."
+  },
+  "PLUS_VCC_C_1D": {
+    "code": "B",
+    "name": "B. GPT Plus 1 Bulan (Private Trial)",
+    "method": "Method Applepay",
+    "price": 166000,
+    "warranty": "Garansi Full 24 Jam",
+    "duration": "Trial 1 bulan",
+    "desc": "Method Applepay | Garansi Full 24 Jam. Akun GPT Plus fresh menggunakan Gmail disposable. Segera ganti 2FA/MFA.",
+    "emailRequired": false,
+    "note": "Pembelian hanya mencakup akun GPT Plus. Verifikasi Codex dilakukan sendiri dan berada di luar layanan BabayShop. Email Gmail disposable: segera ganti 2FA/MFA. Untuk verifikasi OTP Codex, pelanggan dapat menggunakan nomor HP sendiri atau menyewa nomor melalui layanan seperti viotp.com. Pilih nomor yang mendukung penerimaan OTP Codex; biaya mengikuti penyedia."
+  },
+  "PLUS_X": {
+    "code": "C",
+    "name": "C. GPT Plus 1 Bulan (Private Trial)",
+    "method": "Method Ewallet",
+    "price": 119000,
+    "warranty": "TANPA GARANSI Do Your Own Risk.",
+    "duration": "Trial 1 bulan",
+    "desc": "Method Ewallet | TANPA GARANSI Do Your Own Risk. Akun GPT Plus fresh menggunakan Gmail disposable. Segera ganti 2FA/MFA.",
+    "emailRequired": false,
+    "note": "DYOR (Do Your Own Risk). Pembelian hanya mencakup akun GPT Plus. Verifikasi Codex dilakukan sendiri dan berada di luar layanan BabayShop. Email Gmail disposable: segera ganti 2FA/MFA. Untuk verifikasi OTP Codex, pelanggan dapat menggunakan nomor HP sendiri atau menyewa nomor melalui layanan seperti viotp.com. Pilih nomor yang mendukung penerimaan OTP Codex; biaya mengikuti penyedia."
+  },
+  "GPT_GO_3M": {
+    "code": "D",
+    "name": "D. GPT GO 3 Bulan (Private Trial)",
+    "method": "Method Ewallet",
+    "price": 125000,
+    "warranty": "Garansi Full 25 Hari",
+    "duration": "Trial 3 bulan",
+    "desc": "Method Ewallet | Garansi Full 25 Hari. Paket GPT GO private trial selama 3 bulan.",
+    "emailRequired": false,
+    "note": "Verifikasi Codex/OTP di luar layanan BabayShop. Segera ganti 2FA/MFA. Untuk verifikasi OTP Codex, pelanggan dapat menggunakan nomor HP sendiri atau menyewa nomor melalui layanan seperti viotp.com. Pilih nomor yang mendukung penerimaan OTP Codex; biaya mengikuti penyedia."
+  },
+  "RESELLER": {
+    "code": "X",
+    "name": "X. PAKET RESELLER / MEMBERSHIP",
+    "method": "Method Info / Channel GPT Termurah",
+    "price": 120000,
+    "warranty": "Informasi mengikuti update maker & supplier",
+    "duration": "Lifetime",
+    "desc": "Method Info / Channel GPT Termurah. Akses lifetime berisi info method/channel GPT, potongan harga, bonus admin, dan arahan reseller.",
+    "emailRequired": false,
+    "note": "Maksimal pembelian 1 kali. Wajib memahami risiko, stok, dan ketentuan channel.",
+    "maxQty": 1
+  }
+};
 
 
       /* ================================
@@ -2263,5 +1989,6 @@
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"325a7821a5f54e25a776020c55a929c0","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
